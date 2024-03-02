@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Algorithm on from Pero</title>
+    <link>https://frompero.github.io/categories/algorithm/</link>
+    <description>Recent content in Algorithm on from Pero</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>ⓒ 2022. Pero.</copyright>
+    <lastBuildDate>Sat, 19 Nov 2022 01:00:00 +0900</lastBuildDate>
+    <atom:link href="https://frompero.github.io/categories/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Algorithm] 유용한 수학</title>
+      <link>https://frompero.github.io/post/algorithm/algorithm-06/</link>
+      <pubDate>Sat, 19 Nov 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/algorithm/algorithm-06/</guid>
+      <description>1부터 n까지의 합 # $n$이 짝수일 경우 $a+b$가 $n/2$번 반복된다.</description>
+    </item>
+    <item>
+      <title>[Algorithm] 정렬, 탐색 알고리즘</title>
+      <link>https://frompero.github.io/post/algorithm/algorithm-05/</link>
+      <pubDate>Sat, 12 Nov 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/algorithm/algorithm-05/</guid>
+      <description>정렬 알고리즘 # 정렬 알고리즘과 시간 복잡도 정렬 알고리즘 Best Avg Worst 삽입 정렬 $n$ $n^2$ $n^2$ 선택 정렬 $n^2$ $n^2$ $n^2$ 버블 정렬 $n^2$ $n^2$ $n^2$ 셸 정렬 $n$ $n^{1.</description>
+    </item>
+    <item>
+      <title>[Algorithm] 수학적 개념과 알고리즘</title>
+      <link>https://frompero.github.io/post/algorithm/algorithm-04/</link>
+      <pubDate>Sat, 12 Nov 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/algorithm/algorithm-04/</guid>
+      <description>비트 조작 #비트 조작 트릭 # 0s는 모든 비트가 0인 값이며, 1s는 모든 비트가 1인 값이다.</description>
+    </item>
+    <item>
+      <title>[Algorithm] 자료구조 - 그래프</title>
+      <link>https://frompero.github.io/post/algorithm/algorithm-03/</link>
+      <pubDate>Sat, 05 Nov 2022 03:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/algorithm/algorithm-03/</guid>
+      <description>그래프의 종류 # 그래프 노드 간의 네트워크 구조이다.</description>
+    </item>
+    <item>
+      <title>[Algorithm] 자료구조 - 트리</title>
+      <link>https://frompero.github.io/post/algorithm/algorithm-02/</link>
+      <pubDate>Sat, 05 Nov 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/algorithm/algorithm-02/</guid>
+      <description>트리의 종류 # 트리 부모-자식의 계층 구조이다.</description>
+    </item>
+    <item>
+      <title>[Algorithm] 자료구조 - 배열, 문자열, 연결리스트, 스택, 큐</title>
+      <link>https://frompero.github.io/post/algorithm/algorithm-01/</link>
+      <pubDate>Sat, 05 Nov 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/algorithm/algorithm-01/</guid>
+      <description>배열 #해시 테이블 # 키(key) 를 값(value) 에 대응시킨 자료구조로써 매우 빠르게 데이터를 저장, 삭제, 검색할 수 있다.</description>
+    </item>
+  </channel>
+</rss>

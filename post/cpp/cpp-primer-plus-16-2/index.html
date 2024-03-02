@@ -1,0 +1,1611 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="rgb(255,255,255)" />
+  
+  <title>[C&#43;&#43; Primer Plus] Chapter 16. (2) STL - 이터레이터 &middot; from Pero</title>
+    <meta name="title" content="[C&#43;&#43; Primer Plus] Chapter 16. (2) STL - 이터레이터 &middot; from Pero" />
+  
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.022d0ebc3b46a335eb1c7ef79b7f2de143d7cd5156d433638592ef1ce5f8554e.js"
+    integrity="sha256-Ai0OvDtGozXrHH73m38t4UPXzVFW1DNjhZLvHOX4VU4="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.afb4a97d267bd0c2e9391dd7b62a45afcd549fea29cb7747564f0cb36db70f1b.css"
+    integrity="sha256-r7SpfSZ70MLpOR3XtipFr81Un&#43;opy3dHVk8Ms223Dxs="
+  />
+  
+    
+    
+    
+  
+  
+  
+    
+    
+  
+  
+    
+    
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.5b9218820e6c6b9f04b4c5a03dffd0d57bc9189f511ee80ea74222de3a608e2f.js"
+      integrity="sha256-W5IYgg5sa58EtMWgPf/Q1XvJGJ9RHugOp0Ii3jpgji8="
+      data-copy="Copy"
+      data-copied="Copied"
+    ></script>
+  
+  
+  <meta
+    name="description"
+    content="
+      
+        C&#43;&#43; 기초 플러스 책을 읽고 공부한 노트입니다.
+      
+    "
+  />
+  
+  
+  
+  <link rel="canonical" href="https://frompero.github.io/post/cpp/cpp-primer-plus-16-2/" />
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="[C&#43;&#43; Primer Plus] Chapter 16. (2) STL - 이터레이터" />
+<meta property="og:description" content="C&#43;&#43; 기초 플러스 책을 읽고 공부한 노트입니다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://frompero.github.io/post/cpp/cpp-primer-plus-16-2/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-03-23T02:00:00+09:00" />
+<meta property="article:modified_time" content="2022-03-23T02:00:00+09:00" />
+
+
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="[C&#43;&#43; Primer Plus] Chapter 16. (2) STL - 이터레이터"/>
+<meta name="twitter:description" content="C&#43;&#43; 기초 플러스 책을 읽고 공부한 노트입니다."/>
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "[C\u002b\u002b Primer Plus] Chapter 16. (2) STL - 이터레이터",
+    "headline": "[C\u002b\u002b Primer Plus] Chapter 16. (2) STL - 이터레이터",
+    
+    "abstract": "C\u002b\u002b 기초 플러스 책을 읽고 공부한 노트입니다.",
+    "inLanguage": "en",
+    "url" : "https:\/\/frompero.github.io\/post\/cpp\/cpp-primer-plus-16-2\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Pero"
+    },
+    "copyrightYear": "2022",
+    "dateCreated": "2022-03-23T02:00:00\u002b09:00",
+    "datePublished": "2022-03-23T02:00:00\u002b09:00",
+    
+    "dateModified": "2022-03-23T02:00:00\u002b09:00",
+    
+    "keywords": ["C++ Primer Plus"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1908"
+  }
+  </script>
+
+
+  
+  <meta name="author" content="Pero" />
+  
+    
+      <link href="mailto:peropeq@gmail.com" rel="me" />
+    
+  
+  
+  
+
+
+
+
+
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/lib/katex/katex.min.7c7c1a59e6eec00ecd485e5083f69fe14783c7d5ea52962938682e6e8df25aef9bd88411e14790c1b6f8d938bb81502336d56823f23d4c4a187aef689b0702ea.css"
+    integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu&#43;b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g=="
+  />
+  
+  
+  <script
+    defer
+    src="/lib/katex/katex.min.2d037120c479ad7bfba3e6f597cf8dd4464c7e11bb88567d1e19db2644e9e338cdaf95afb2def902a51e143c5e4546bb979bc40f2522022a7ffebf8414b2c2c8.js"
+    integrity="sha512-LQNxIMR5rXv7o&#43;b1l8&#43;N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r&#43;EFLLCyA=="
+  ></script>
+  
+  
+  <script
+    defer
+    src="/lib/katex/auto-render.min.e6511c3458afadbb974a54c917a45e383efdb02303964d83fdb17ff69367d6d871a53a09973ffec8c9d3525c7b8c64602e6c16a64842884ad60989a16d953fd0.js"
+    integrity="sha512-5lEcNFivrbuXSlTJF6ReOD79sCMDlk2D/bF/9pNn1thxpToJlz/&#43;yMnTUlx7jGRgLmwWpkhCiErWCYmhbZU/0A=="
+    onload="renderMathInElement(document.body);"
+  ></script>
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+  
+  
+  
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QBM4YPD699"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-QBM4YPD699', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+  
+  
+</head>
+<body
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 sm:px-14 md:px-24 lg:px-32 dark:bg-neutral-800 dark:text-neutral"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="-translate-y-8 rounded-b-lg bg-primary-200 px-3 py-1 text-sm focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="pe-2 font-bold text-primary-600 dark:text-primary-400">&darr;</span
+        >Skip to main content</a
+      >
+    </div>
+    
+    
+      <header class="py-6 font-semibold text-neutral-900 print:hidden sm:py-10 dark:text-neutral">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="z-40 flex flex-row items-center">
+      
+  <a
+    class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+    rel="me"
+    href="/"
+    >from Pero</a
+  >
+
+    </div>
+    
+      
+      <label id="menu-button" for="menu-controller" class="block sm:hidden">
+        <input type="checkbox" id="menu-controller" class="hidden" />
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="invisible fixed inset-0 z-30 m-auto h-full w-full cursor-default overflow-auto bg-neutral-100/50 opacity-0 backdrop-blur-sm transition-opacity dark:bg-neutral-900/50"
+        >
+          <ul
+            class="mx-auto flex w-full max-w-7xl list-none flex-col overflow-visible px-6 py-6 text-end sm:px-14 sm:py-10 sm:pt-10 md:px-24 lg:px-32"
+          >
+            <li class="mb-1">
+              <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400"
+                ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span></span
+              >
+            </li>
+            
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/post/"
+                      title="Posts"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Posts</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/categories/"
+                      title="Categories"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Categories</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/tags/"
+                      title="Tags"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Tags</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    
+                      <button
+                        id="search-button-1"
+                        title="Search (/)"
+                      >
+                        
+                          <span
+                            class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                          ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </button>
+                    
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    <button
+                      id="appearance-switcher-1"
+                      type="button"
+                      aria-label="appearance switcher"
+                    >
+                      <span
+                        class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                        title="Switch to dark appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                      <span
+                        class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                        title="Switch to light appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                    </button>
+                  
+                </li>
+              
+              
+            
+          </ul>
+        </div>
+      </label>
+      
+      <ul class="hidden list-none flex-row text-end sm:flex">
+        
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/post/"
+                  title="Posts"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Posts</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/categories/"
+                  title="Categories"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Categories</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/tags/"
+                  title="Tags"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Tags</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                
+                  <button
+                    id="search-button-2"
+                    title="Search (/)"
+                  >
+                    
+                      <span
+                        class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                      ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </button>
+                
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                <button
+                  id="appearance-switcher-2"
+                  type="button"
+                  aria-label="appearance switcher"
+                >
+                  <span
+                    class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                    title="Switch to dark appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                  <span
+                    class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                    title="Switch to light appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                </button>
+              
+            </li>
+          
+          
+
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex grow flex-col">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        [C++ Primer Plus] Chapter 16. (2) STL - 이터레이터
+      </h1>
+      
+        <div class="mb-12 mt-8 text-base text-neutral-500 print:hidden dark:text-neutral-400">
+          
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2022-03-23 02:00:00 &#43;0900 KST">23 March 2022</time>
+    
+
+    
+    
+  </div>
+
+  
+  
+
+
+        </div>
+      
+      
+    </header>
+    <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+      
+        <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
+          <div class="toc pe-5 print:hidden lg:sticky lg:top-10">
+            <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
+  <summary
+    class="-ms-5 block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 lg:hidden dark:bg-neutral-700 dark:text-neutral-100"
+  >
+    Table of Contents
+  </summary>
+  <div class="-ms-5 border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#표준-템플릿-라이브러리">표준 템플릿 라이브러리</a></li>
+    <li><a href="#vector-컨테이너-클래스">vector 컨테이너 클래스</a></li>
+    <li><a href="#이터레이터iterator">이터레이터(iterator)</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+          </div>
+        </div>
+      
+      <div class="min-h-0 min-w-0 max-w-prose grow">
+        <div style="text-align: right"> 
+<p>
+<a href="http://www.yes24.com/Product/Goods/58183878" target="_blank" rel="noreferrer">C++ 기초 플러스</a> 책을 읽고 공부한 노트입니다.</p>
+</div>
+<hr>
+<p><br /><br /></p>
+<h2 id="표준-템플릿-라이브러리" class="relative group">표준 템플릿 라이브러리 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%91%9c%ec%a4%80-%ed%85%9c%ed%94%8c%eb%a6%bf-%eb%9d%bc%ec%9d%b4%eb%b8%8c%eb%9f%ac%eb%a6%ac" aria-label="Anchor">#</a></span></h2><ul>
+<li>표준 템플릿 라이브러리(STL; Standard Template Library)
+<ul>
+<li>객체 지향이 아니다. 일반화 프로그래밍(generic programming)이라는 패러다임을 나타낸다.</li>
+<li>1. 컨테이너(container)
+<ul>
+<li>배열 같이, 여러 개의 값을 저장할 수 있는 구성 단위.</li>
+</ul>
+</li>
+<li>2. 알고리즘(algorithm)
+<ul>
+<li>배열을 정렬하거나, 리스트에서 특정 값을 검색하는 것과 같이, 특별한 작업들을 수행하기 위한 방법.</li>
+</ul>
+</li>
+<li>3. 이터레이터(iterator)
+<ul>
+<li>배열 안에서 포인터를 사용해서 위치를 옮기듯이, 컨테이너 안에서 위치를 옮길 수 있도록 도와주는 객체.</li>
+<li>즉, 포인터의 일반화이다.</li>
+</ul>
+</li>
+<li>4. 함수 객체(function object)
+<ul>
+<li>함수와 비슷한 역할을 하는 객체.</li>
+<li>클래스 일수도 있고, 함수 포인터일 수도 있다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="vector-컨테이너-클래스" class="relative group">vector 컨테이너 클래스 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#vector-%ec%bb%a8%ed%85%8c%ec%9d%b4%eb%84%88-%ed%81%b4%eb%9e%98%ec%8a%a4" aria-label="Anchor">#</a></span></h2><ul>
+<li><code>vector</code> 컨테이너 클래스
+<ul>
+<li><code>vector</code> 헤더파일에 정의되어 있다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// 메모리 관리에 사용할 allocator 객체를 선택적으로 지정할 수 있다.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// allocator 클래스는 new와 delete를 표준방식으로 사용한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Allocator</span> <span class="o">=</span> <span class="n">allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">vector</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>
+<p>생성</p>
+<ul>
+<li>동적 메모리 대입을 사용한다.</li>
+<li>원소 개수를 지정하기 위해 초기화 매개변수를 사용할 수 있다.</li>
+</ul>
+</li>
+<li>
+<p>접근</p>
+<ul>
+<li><code>[]</code> 연산자로 개별 원소에 접근할 수 있다.</li>
+</ul>
+</li>
+<li>
+<p>할 수 있는 것</p>
+<ul>
+<li><code>size()</code>
+<ul>
+<li>원소 개수 리턴</li>
+</ul>
+</li>
+<li><code>swap()</code>
+<ul>
+<li>두 컨테이너 내용을 교환</li>
+</ul>
+</li>
+<li><code>begin()</code>
+<ul>
+<li>컨테이너에 있는 첫 번째 원소를 참조하는 이터레이터를 리턴</li>
+</ul>
+</li>
+<li><code>end()</code>
+<ul>
+<li>컨테이너에 있는 마지막 원소 바로 다음(past-the-end)을 참조하는 이터레이터를 리턴</li>
+</ul>
+</li>
+<li><code>push_back()</code>
+<ul>
+<li>벡터의 끝에 원소를 하나 추가</li>
+</ul>
+</li>
+<li><code>erase()</code>
+<ul>
+<li>매개변수로 2개의 이터레이터를 받는다.</li>
+<li>첫 번째 이터레이터가 가리키는 곳부터 두 번째 이터레이터 전까지를 삭제한다. (두 번째 이터레이터 포함 안 함)</li>
+</ul>
+</li>
+<li><code>insert()</code>
+<ul>
+<li>매개변수로 3개의 이터레이터를 받는다.</li>
+<li>첫 번째 이터레이터 앞에 원소들이 삽입된다.</li>
+<li>두 번째 이터레이터가 가리키는 곳부터 세 번째 이터레이터 전까지 추가된다. (세 번째 이터레이터 포함 안 함)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>이터레이터
+<ul>
+<li>단순 포인터를 가지고는 동작시킬 수 없는 클래스를 포함하여, 다양한 컨테이너 클래스들에 일관된 인터페이스를 제공할 수 있다.</li>
+<li>각 컨테이너 클래스는 하나의 적절한 이터레이터를 정의한다. 데이터형 이름은 <code>iterator</code>이며, 클래스 사용범위를 가지는 <code>typedef</code>이다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">scores</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">vi</span><span class="p">;</span> <span class="c1">// vector&lt;int&gt;를 위한 이터레이터
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vi</span> <span class="o">=</span> <span class="n">scores</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>      <span class="c1">// 이터레이터가 첫번째 원소를 가리키게 한다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">va</span> <span class="o">=</span> <span class="n">scores</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="c1">// C++11의 자동 타입 추론을 사용할 수도 있다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span><span class="n">vi</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>                  <span class="c1">// 이터레이터 내용을 참조하여 값을 변경한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">++</span><span class="n">vi</span><span class="p">;</span>                     <span class="c1">// 이터레이터가 다음 원소를 가리키게 한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// end()에 도달하면 그만두는 방식으로 모두 출력할 수 있다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">for</span> <span class="p">(</span><span class="n">vi</span> <span class="o">=</span> <span class="n">scores</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">vi</span> <span class="o">!=</span> <span class="n">scores</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">vi</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">vi</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>할 수 있는 그 밖의 것
+<ul>
+<li>검색하고, 정렬하고, 순서를 무작위화하는 등의 작업을 <code>vector</code> 템플릿 클래스에서 메서드로 가지고 있을까?
+<ul>
+<li>아니다. STL은 좀 더 넓은 시각으로, 이러한 연산들을 멤버가 아닌 함수로 정의한다.</li>
+<li>예를 들면, 모든 컨테이너 클래스에서 사용할 수 있는 멤버가 아닌 하나의 <code>find()</code>함수를 정의하는 것이다.</li>
+</ul>
+</li>
+<li>대표적인 STL 함수인 세 가지를 살펴보자.
+<ul>
+<li><code>for_each()</code></li>
+<li><code>random_shuffle()</code></li>
+<li><code>sort()</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><code>for_each()</code> 함수
+<ul>
+<li>3개의 매개변수를 받는다.
+<ul>
+<li>첫 번째와 두 번째 매개변수는 범위를 정한다.</li>
+<li>세 번째 매개변수는 함수 객체이다.</li>
+</ul>
+</li>
+<li>지시된 함수를 그 범위 안에 있는 각 컨테이너 원소에 적용한다.</li>
+<li>지시된 함수는 컨테이너 원소들의 값을 변경하면 안 된다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Review</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">string</span> <span class="n">title</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">rating</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">ShowReview</span><span class="p">(</span><span class="k">const</span> <span class="n">Review</span><span class="o">&amp;</span> <span class="n">r</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">r</span><span class="p">.</span><span class="n">title</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">r</span><span class="p">.</span><span class="n">rating</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="n">Review</span><span class="o">&gt;</span> <span class="n">books</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="s">&#34;Harry Potter&#34;</span><span class="p">,</span> <span class="mi">10</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="s">&#34;Hole&#34;</span><span class="p">,</span> <span class="mi">9</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// for문을 사용한다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">pr</span> <span class="o">=</span> <span class="n">books</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">pr</span> <span class="o">!=</span> <span class="n">books</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">pr</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ShowReview</span><span class="p">(</span><span class="o">*</span><span class="n">pr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// for_each를 사용해서 이렇게 바꿀 수 있다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">for_each</span><span class="p">(</span><span class="n">books</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">books</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">ShowReview</span><span class="p">);</span> <span class="c1">// 함수는 값을 변경하지 않는다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li><code>random_shuffle()</code>
+<ul>
+<li>2개의 이터레이터 매개변수를 받는다.</li>
+<li>그 이터레이터 범위 안에 있는 원소들을 무작위 순서로 재배치한다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">random_shuffle</span><span class="p">(</span><span class="n">books</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">books</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+</span></span></code></pre></div><br />
+<ul>
+<li><code>sort()</code>
+<ul>
+<li>두 가지 버전이 있다.</li>
+<li>(1) 2개의 이터레이터 매개변수를 받는다.
+<ul>
+<li>컨테이너의 데이터형에 맞게 정의된 <code>&lt;</code>연산자를 사용하여 그 범위를 정렬한다.</li>
+<li>만약 데이터형이 사용자 정의 객체라면 <code>operator&lt;()</code>함수가 있어야한다.</li>
+</ul>
+</li>
+<li>(2) 3번째 매개변수를 받는다.
+<ul>
+<li>값을 비교하기 위한 <code>operator&lt;()</code> 대신에 사용할 함수 객체이다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span> <span class="n">Review</span><span class="o">&amp;</span> <span class="n">r1</span><span class="p">,</span> <span class="k">const</span> <span class="n">Review</span><span class="o">&amp;</span> <span class="n">r2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">r1</span><span class="p">.</span><span class="n">rating</span> <span class="o">&lt;</span> <span class="n">r2</span><span class="p">.</span><span class="n">rating</span><span class="p">;</span> <span class="c1">// 오름차순
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">WorseThan</span><span class="p">(</span><span class="k">const</span> <span class="n">Review</span><span class="o">&amp;</span> <span class="n">r1</span><span class="p">,</span> <span class="k">const</span> <span class="n">Review</span><span class="o">&amp;</span> <span class="n">r2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">r1</span><span class="p">.</span><span class="n">rating</span> <span class="o">&gt;</span> <span class="n">r2</span><span class="p">.</span><span class="n">rating</span><span class="p">;</span> <span class="c1">// 내림차순
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">coolstuff</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sort</span><span class="p">(</span><span class="n">coolstuff</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">coolstuff</span><span class="p">.</span><span class="n">end</span><span class="p">());</span> <span class="c1">// 내장된 &lt; 연산자 사용
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="n">sort</span><span class="p">(</span><span class="n">books</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">books</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>  <span class="c1">// 데이터형에 맞게 정의된 operator&lt;() 사용 (1)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl">    <span class="n">sort</span><span class="p">(</span><span class="n">books</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">books</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">WorseThan</span><span class="p">);</span> <span class="c1">// WorseThan함수 사용 (2)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>Range에 기초한 루프 (C+11)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">for_each</span><span class="p">(</span><span class="n">books</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">books</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">ShowReview</span><span class="p">);</span> <span class="c1">// ShowReivew는 값변경 안 된다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">r</span> <span class="p">:</span> <span class="n">books</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ShowReview</span><span class="p">(</span><span class="n">r</span><span class="p">);</span>     <span class="c1">// 값 변경 할 수 있다. 
+</span></span></span></code></pre></div><p><br /><br /></p>
+<h2 id="이터레이터iterator" class="relative group">이터레이터(iterator) <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%9d%b4%ed%84%b0%eb%a0%88%ec%9d%b4%ed%84%b0iterator" aria-label="Anchor">#</a></span></h2><ul>
+<li>템플릿이 알고리즘을 저장할 데이터형과 무관하게 만드는 것처럼,</li>
+<li>이터레이터는 알고리즘을 사용할 컨테이너형과 무관하게 만든다.
+<ul>
+<li><code>double</code> 배열과 링크드 리스트에서 원하는 값을 찾는 <code>Find()</code>함수를 만들면서 이터레이터에 대해 알아보자.</li>
+<li>특정한 구조에 매여 있지 않으면 좋겠다. 따라서 다음과 같이 만들어보았다.</li>
+<li>여기서 두 <code>Find()</code>함수의 유일한 다른점은 검색을 멈추는 마지막 지점이다.
+<ul>
+<li>past-the-end원소를 링크드 리스트도 갖게 한다면, 두 <code>Find()</code>함수는 똑같아진다.</li>
+<li>따라서 각 클래스를 위한 적절한 이터레이터를 정의하고 클래스들을 일관된 방식으로 설계하면, STL을 사용하여서 동일한 코드를 작성할 수 있다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// 배열의 경우
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 포인터로 정의한다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">typedef</span> <span class="kt">double</span><span class="o">*</span> <span class="n">iterator</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">iterator</span> <span class="nf">FindAr</span><span class="p">(</span><span class="n">iterator</span> <span class="n">begin</span><span class="p">,</span> <span class="n">iterator</span> <span class="n">end</span><span class="p">,</span> <span class="k">const</span> <span class="kt">double</span><span class="o">&amp;</span> <span class="n">target</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 배열의 끝 바로 다음 포인터인 end가 아닐 때까지 진행한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="n">iterator</span> <span class="n">it</span> <span class="o">=</span> <span class="n">begin</span><span class="p">;</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">end</span><span class="p">;</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="n">target</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">it</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">end</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// 링크드 리스트의 경우
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">Node</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">item</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Node</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 객체로 정의한다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">iterator</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Node</span><span class="o">*</span> <span class="n">pt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">iterator</span><span class="p">()</span> <span class="o">:</span> <span class="n">pt</span><span class="p">(</span><span class="k">nullptr</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">iterator</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">pn</span><span class="p">)</span> <span class="o">:</span> <span class="n">pt</span><span class="p">(</span><span class="n">pn</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="k">operator</span><span class="o">*</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">pt</span><span class="o">-&gt;</span><span class="n">item</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// ++iterator
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">iterator</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">++</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pt</span> <span class="o">=</span> <span class="n">pt</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// iterator++ (매개변수 int는 사용되지 않기때문에 이름을 부여할 필요가 없다)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">iterator</span> <span class="k">operator</span><span class="o">++</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">iterator</span> <span class="n">temp</span> <span class="o">=</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pt</span> <span class="o">=</span> <span class="n">pt</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">temp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">iterator</span> <span class="nf">FindLl</span><span class="p">(</span><span class="n">iterator</span> <span class="n">begin</span><span class="p">,</span> <span class="k">const</span> <span class="kt">double</span><span class="o">&amp;</span> <span class="n">target</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 마지막인 널 포인터가 아닐 때까지 진행한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="n">iterator</span> <span class="n">it</span> <span class="o">=</span> <span class="n">begin</span><span class="p">;</span> <span class="n">it</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="n">target</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">it</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>이터레이터의 종류
+<ul>
+<li>1. 입력 이터레이터(input iterator)</li>
+<li>2. 출력 이터레이터(output iterator)</li>
+<li>3. 전방 이터레이터(forward iterator)</li>
+<li>4. 전후방 이터레이터(bidirectional iterator)</li>
+<li>5. 임의 접근 이터레이터(random access iterator)</li>
+</ul>
+</li>
+<li>알고리즘이 다르면 이터레이터의 종류가 다르다. 예를 들어, 검색의 경우 쓰기는 금지하고 읽기 접근만 허용해야 하며, 원소 교환의 경우 임의 접근을 허용해야 한다.</li>
+<li>요구 사항이 가장 적은 이터레이터를 사용하여 알고리즘을 작성함으로써, 가장 넒은 범위의 컨터에너들에 사용할 수 있도록 하기 위해 여러 가지 종류의 이터레이터가 존재한다.</li>
+<li>따라서 <code>find()</code>의 경우, 읽을 수 있는 값이 들어 있는 어떠한 컨테이너들에도 사용할 수 있겠다.</li>
+<li><code>vector&lt;int&gt;</code>클래스는 임의 접근 이터레이터를 사용하며, <code>list&lt;int&gt;</code>클래스는 전후방 이터레이터를 사용한다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// 입력 이터레이터를 요구하는 함수 find()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIerator</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">InputIerator</span> <span class="n">find</span><span class="p">(</span><span class="n">InputIerator</span> <span class="n">first</span><span class="p">,</span> <span class="n">InputIerator</span> <span class="n">last</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 임의 접근 이터레이터를 요구하는 함수 sort()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">RandomAccessIterator</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">sort</span><span class="p">(</span><span class="n">RandomAccessIterator</span> <span class="n">first</span><span class="p">,</span> <span class="n">RandomAccessIterator</span> <span class="n">last</span><span class="p">);</span>
+</span></span></code></pre></div><br />
+<p>1. 입력 이터레이터</p>
+<ul>
+<li>컨테이너로부터 값을 읽는 것을 허용한다. 하지만 변경하는 것은 허용하지 않는다.</li>
+<li>입력 이터레이터가 이미 증가된 후에, 증가되지 전 값을 내용 참조할 수 있다는 보장이 없다. 이렇게 입력 이터레이터에 기초를 둔 알고리즘은 일회성이며, 일방향적이다.</li>
+<li>즉, 증가시킬 수는 있지만 되돌릴 수는 없다.</li>
+</ul>
+<br />
+<p>2. 출력 이터레이터</p>
+<ul>
+<li>값을 변경하는 것을 허용하지만, 읽는 것은 허용하지 않는다.</li>
+<li>이것은 <code>cout</code>을 생각해보면 된다. <code>cout</code>은 디스플레이로 보내지는 문자들의 스트림을 변경할 수 있지만, 화면에 표시된 것을 읽지는 못한다.</li>
+<li>쓰기 전용 일회성 알고리즘에 사용할 수 있다.</li>
+</ul>
+<br />
+<p>3. 전방 이터레이터</p>
+<ul>
+<li>입/출력 이터레이터와 마찬가지로 전방 이터레이터도 컨테이너 속을 훑고 지나가기 위해 <code>++</code>연산자만 사용한다.</li>
+<li>다른 점
+<ul>
+<li>전방 이터레이터는 사용할 때마다 연속된 값들을 반드시 같은 순서로 훑고 지나간다.</li>
+<li>증가된 후에도 (저장해 두었다면) 그 이전 이터레이터 값을 내용 참조하여 항상 같은 값을 얻을 수 있다. 따라서 다중 패스 알고리즘이 가능해진다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<p>4. 전후방 이터레이터</p>
+<ul>
+<li>전방 이터레이터가 가지고 있는 모든 기능에 감소 연산자(전방, 후방)에 대한 기능을 추가한다.</li>
+<li>예를 들어, 뒤집기(reverse) 함수는 첫 번째 원소와 마지막 원소를 맞바꾸고, 첫 번째 원소를 지시하는 포인터는 증가시키고, 마지막 원소를 지시하는 포인터는 감소시킨다.</li>
+</ul>
+<br />
+<p>5. 임의 접근 이터레이터</p>
+<ul>
+<li>
+<p>전후방 이터레이터가 가지고 있는 모든 기능에 임의 접근을 지원하는(포인터 덧셈 등) 연산과, 원소들의 순서를 매기는 데 사용할 관계 연산자들을 추가한다.</p>
+</li>
+<li>
+<p>예를 들어, 이진 탐색(binary search)의 경우 임의 원소로 직접 점프가 가능해야 한다.</p>
+</li>
+<li>
+<p>임의 접근 이터레이터 연산</p>
+<ul>
+<li><code>a</code>, <code>b</code>는 이터레이터이다. <code>n</code>은 정수이며 <code>r</code>는 임의 접근 이터레이터 변수/참조이다.</li>
+<li><code>a + n</code>과 같은 식은 <code>a</code>와 <code>a + n</code>이 둘 다 컨테이너의 범위 안에 있을 때만 유효하다.</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">식</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>a + n</code>, <code>n + a</code></td>
+<td><code>a</code>가 지시하는 원소로부터 <code>n</code>번째 뒤의 원소를 지시한다.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>a - n</code></td>
+<td><code>a</code>가 지시하는 원소로부터 <code>n</code>번째 앞의 원소를 지시한다.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>r += n</code></td>
+<td><code>r = r + n</code>과 같다.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>r -= n</code></td>
+<td><code>r = r - n</code>과 같다.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>a[n]</code></td>
+<td><code>*(a + n)</code>과 같다.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>b - a</code></td>
+<td><code>b = a + n</code>과 같은 경우에 <code>n</code>의 값</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>a &lt; b</code></td>
+<td><code>b - a &gt; 0</code>이면 <code>true</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>a &gt; b</code></td>
+<td><code>b &lt; a</code>이면 <code>true</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>a &gt;= b</code></td>
+<td><code>!(a &lt; b)</code>이면 <code>true</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>a &lt;= b</code></td>
+<td><code>!(a &gt; b)</code>이면 <code>true</code></td>
+</tr>
+</tbody>
+</table>
+<br />
+<ul>
+<li>이터레이터 계층</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>이터레이터 기능</th>
+<th style="text-align:center">입력</th>
+<th style="text-align:center">출력</th>
+<th style="text-align:center">전방</th>
+<th style="text-align:center">전후방</th>
+<th style="text-align:center">임의 접근</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>내용 참조하여 읽기</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+</tr>
+<tr>
+<td>내용 참조하여 쓰기</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+</tr>
+<tr>
+<td>고정 반복 가능한 순서</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+</tr>
+<tr>
+<td><code>++i</code>, <code>i++</code></td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+</tr>
+<tr>
+<td><code>--i</code>, <code>i--</code></td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+</tr>
+<tr>
+<td><code>i[n]</code></td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">O</td>
+</tr>
+<tr>
+<td><code>i + n</code></td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">O</td>
+</tr>
+<tr>
+<td><code>i - n</code></td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">O</td>
+</tr>
+<tr>
+<td><code>i += n</code></td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">O</td>
+</tr>
+<tr>
+<td><code>i -= n</code></td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">O</td>
+</tr>
+</tbody>
+</table>
+<br />
+<ul>
+<li>개념(concept)
+<ul>
+<li>요구 사항의 집합</li>
+</ul>
+</li>
+<li>개량(refinement)
+<ul>
+<li>개념적인 상속</li>
+<li>예를 들어, 전후방 이터레이터는 전방 이터레이터의 기능을 상속한다. 하지만 C++의 일반적인 상속과는 다르다. 이것들은 내장 데이터형이기 때문에 클래스로부터 파생시킬 수가 없다. 따라서 이런 것을 개념적인 상속인 개량이라고 부른다.</li>
+</ul>
+</li>
+<li>모델(model)
+<ul>
+<li>어떤 개념의 특별한 한 구현</li>
+<li>예를 들어, <code>int</code>를 지시하는 단순 포인터는 임의 접근 이터레이터 개념의 한 모델이다. 또한 전방 이터레이터 개념의 모델이기도 하다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>이터레이터 자격의 포인터
+<ul>
+<li>이터레이터는 포인터를 일반화한 것이다.</li>
+<li>따라서 STL알고리즘은 포인터에 기초를 두고 있는 STL이 아닌 컨테이너들에 적용할 수 있다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">SIZE</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">double</span> <span class="n">arr</span><span class="p">[</span><span class="n">SIZE</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">sort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">arr</span> <span class="o">+</span> <span class="n">SIZE</span><span class="p">);</span>  <span class="c1">// (O)
+</span></span></span></code></pre></div><br />
+<ul>
+<li><code>copy()</code>
+<ul>
+<li>하나의 컨테이너에서 다른 컨테이너로 데이터를 복사하는 알고리즘.</li>
+<li>첫 번째와 두 번째 매개변수로 범위를 지정하고,</li>
+<li>세 번째 매개변수로 복사할 위치를 지정한다.</li>
+<li>이것은 목적지의 크기를 자동으로 조절하지 않는다. (뒤에 볼 <code>insert_iterator</code> 등을 사용하면 가능하다. )</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">vec</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>   <span class="c1">// 빈 벡터에는 복사할 수 없다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">copy</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">arr</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">());</span>  <span class="c1">// arr의 인덱스 0~4를 vec의 인덱스 0지점에 복사한다. 
+</span></span></span></code></pre></div><br />
+<ul>
+<li>디스플레이에 복사하려면?
+<ul>
+<li>출력 스트림을 나타내는 이터레이터가 있으면 가능하겠다.</li>
+<li>STL은 <code>ostream_iterator</code>을 제공한다. 이것은 출력 이터레이터 개념의 모델이다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iterator&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ostream_iterator</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;</span> <span class="n">outIterator</span><span class="p">(</span><span class="n">cout</span><span class="p">,</span> <span class="s">&#34; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// int는 출력 스트림으로 보내는 데이터형이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// char는 출력 스트림이 사용하는 데이터형이다.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// cout은 cout이 관리하는 출력 스트림을 사용한다는 뜻이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// &#34; &#34;은 출력 스트림에 보내진 각 항목 뒤에 표시되는 분리자이다.  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span><span class="n">outIterator</span><span class="o">++</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span>  <span class="c1">// cout &lt;&lt; 15 &lt;&lt; &#34; &#34;; 와 같다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">copy</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">vec</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">outIterator</span><span class="p">);</span>  <span class="c1">// 벡터를 출력 스트림에 복사한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 혹은 익명 이터레이터를 만들 수도 있다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">copy</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">vec</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">ostream_iterator</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="n">cout</span><span class="p">,</span> <span class="s">&#34; &#34;</span><span class="p">));</span>
+</span></span></code></pre></div><br />
+<ul>
+<li><code>istream_iterator</code>
+<ul>
+<li>같은 논리로, 입력을 위한 <code>istream_iterator</code>가 입력 이터레이터 개념의 모델이다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">copy</span><span class="p">(</span><span class="n">istream_iterator</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="n">cin</span><span class="p">),</span> <span class="n">istream_iterator</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">(),</span> <span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">())</span>  <span class="c1">// 입력
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// int는 읽을 데이터형이다.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// char는 입력 스트림이 사용하는 데이터형이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// cin은 cin이 관리하는 입력 스트림을 사용한다는 뜻이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 매개변수를 생략하는 것은 입력 실패를 나타낸다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 따라서 파일 끝, 데이터형 불일치 등의 입력 실패가 일어날 때까지 데이터를 읽는다는 뜻이다. 
+</span></span></span></code></pre></div><br />
+<ul>
+<li><code>reverse_iterator</code>
+<ul>
+<li>이것을 증가시키면, 실제 내용은 감소한다.</li>
+<li><code>rbegin()</code>은 past-the-end를 지시하며, <code>rend()</code>는 첫 번째 원소를 지시한다.</li>
+<li>특이한 점은 역방향 포인터들은 먼저 감소시킨 후에 내용 참조를 한다는 점이다.</li>
+<li>따라서 다음 코드와 같이 하면, 벡터를 뒤에서 부터 거꾸로 출력한다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// 암시적 사용
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">copy</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">rbegin</span><span class="p">(),</span> <span class="n">vec</span><span class="p">.</span><span class="n">rend</span><span class="p">(),</span> <span class="n">outIterator</span><span class="p">);</span> <span class="c1">// 마지막 원소 ~ 처음 원소 출력
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 명시적 사용
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">reverse_iterator</span> <span class="n">ri</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="n">ri</span> <span class="o">=</span> <span class="n">vec</span><span class="p">.</span><span class="n">rbegin</span><span class="p">();</span> <span class="n">ri</span> <span class="o">!=</span> <span class="n">vec</span><span class="p">.</span><span class="n">rend</span><span class="p">();</span> <span class="o">++</span><span class="n">ri</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">ri</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>
+<p>추가적인 출력 이터레이터 개념의 모델들&hellip;</p>
+</li>
+<li>
+<p><code>front_insert_iterator</code></p>
+<ul>
+<li>컨테이너 선두에 원소들을 삽입한다.</li>
+<li>선두에 삽입하는데 고정 시간이 걸리는 컨테이너형에만 사용할 수 있다.</li>
+</ul>
+</li>
+<li>
+<p><code>end_insert_iterator</code></p>
+<ul>
+<li>컨테이너 말미에 원소들을 삽입한다.</li>
+<li>멀미에 삽입하는데 고정 시간이 걸리는 컨테이너형에만 사용할 수 있다.</li>
+</ul>
+</li>
+<li>
+<p><code>insert_iterator</code></p>
+<ul>
+<li>매개변수로 지정된 위치 앞에 원소들을 삽입한다.</li>
+<li>시간 제한은 없다. 대신 다른 것들에 비해 좀 느리다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>이와 같은 모델들은 생성자 매개변수로 실제 컨테이너 식별자를 사용한다.
+<ul>
+<li><code>copy()</code>는 컨테이너 크기를 조절하는 권한이 없다.</li>
+<li>하지만 이 모델들은 아래와 같이 컨테이너형을 선언하여서 <code>vector&lt;int&gt;::push_back()</code>에 접근이 가능하며, 따라서 컨테이너 크기를 조절할 수 있다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">back_insert_iterator</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">backIterator</span><span class="p">(</span><span class="n">vec</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">insert_iterator</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">insertIterator</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// vec.begin()은 삽입될 위치이다. 
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">string</span> <span class="n">strs</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#34;A&#34;</span><span class="p">,</span> <span class="s">&#34;B&#34;</span><span class="p">,</span> <span class="s">&#34;C&#34;</span><span class="p">,</span> <span class="s">&#34;D&#34;</span><span class="p">,</span> <span class="s">&#34;E&#34;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">words</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="s">&#34;b&#34;</span><span class="p">,</span> <span class="s">&#34;c&#34;</span><span class="p">,</span> <span class="s">&#34;d&#34;</span><span class="p">,</span> <span class="s">&#34;e&#34;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">copy</span><span class="p">(</span><span class="n">strs</span><span class="p">,</span> <span class="n">strs</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">back_insert_iterator</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">words</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// str의 0 ~ 1인덱스에 있는 &#34;A&#34;, &#34;B&#34;를 words벡터 뒤에 삽입한다.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// a b c d e A B
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">copy</span><span class="p">(</span><span class="n">strs</span><span class="p">,</span> <span class="n">strs</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">insert_iterator</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">words</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="mi">2</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// str의 0 ~ 1인덱스에 있는 &#34;A&#34;, &#34;B&#34;를 words의 인덱스 2 위치 부터 삽입한다.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// a b A B c d e
+</span></span></span></code></pre></div><p><br /><br /></p>
+
+      </div>
+    </section>
+    <footer class="max-w-prose pt-8 print:hidden">
+      
+  <div class="flex">
+    
+    
+    
+      
+      
+        
+        
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+      
+    >
+      
+      
+      
+      
+      <img
+        width="500"
+        height="500"
+        class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+        alt="Pero"
+        loading="lazy" decoding="async"
+        
+          src="/main.jpg"
+        
+      />
+    </picture>
+  
+
+
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          Pero
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">Keep moving forward.</div>
+      
+      <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="mailto:peropeq@gmail.com"
+          target="_blank"
+          aria-label="Email"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+    </div>
+  </div>
+
+
+      
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="/post/cpp/cpp-primer-plus-16-1/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[C++ Primer Plus] Chapter 16. (1) string 클래스, 스마트 포인터 템플릿 클래스</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-03-23 01:00:00 &#43;0900 KST">23 March 2022</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="group flex text-right" href="/post/cpp/cpp-primer-plus-16-3/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[C++ Primer Plus] Chapter 16. (3) STL - 컨테이너</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-03-24 01:00:00 &#43;0900 KST">24 March 2022</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&rarr;</span
+                ><span class="ltr:hidden rtl:inline">&larr;</span></span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+          <div class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12">
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            ⓒ 2022. Pero.
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a>
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+    </div>
+  </div>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm sm:p-6 md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50"
+  data-url="https://frompero.github.io/"
+>
+  <div
+    id="search-modal"
+    class="top-20 mx-auto flex min-h-0 w-full max-w-3xl flex-col rounded-md border border-neutral-200 bg-neutral shadow-lg dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex flex-none items-center justify-between px-2">
+      <form class="flex min-w-0 flex-auto items-center">
+        <div class="flex h-8 w-8 items-center justify-center text-neutral-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="mx-1 flex h-12 flex-auto appearance-none bg-transparent focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex h-8 w-8 items-center justify-center text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto overflow-auto px-2">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+</html>

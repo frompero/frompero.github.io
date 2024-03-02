@@ -1,0 +1,1779 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="rgb(255,255,255)" />
+  
+  <title>[Effective C&#43;&#43;] Chapter 6. 상속, 그리고 객체 지향 설계 &middot; from Pero</title>
+    <meta name="title" content="[Effective C&#43;&#43;] Chapter 6. 상속, 그리고 객체 지향 설계 &middot; from Pero" />
+  
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.022d0ebc3b46a335eb1c7ef79b7f2de143d7cd5156d433638592ef1ce5f8554e.js"
+    integrity="sha256-Ai0OvDtGozXrHH73m38t4UPXzVFW1DNjhZLvHOX4VU4="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.afb4a97d267bd0c2e9391dd7b62a45afcd549fea29cb7747564f0cb36db70f1b.css"
+    integrity="sha256-r7SpfSZ70MLpOR3XtipFr81Un&#43;opy3dHVk8Ms223Dxs="
+  />
+  
+    
+    
+    
+  
+  
+  
+    
+    
+  
+  
+    
+    
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.5b9218820e6c6b9f04b4c5a03dffd0d57bc9189f511ee80ea74222de3a608e2f.js"
+      integrity="sha256-W5IYgg5sa58EtMWgPf/Q1XvJGJ9RHugOp0Ii3jpgji8="
+      data-copy="Copy"
+      data-copied="Copied"
+    ></script>
+  
+  
+  <meta
+    name="description"
+    content="
+      
+        이펙티브 C&#43;&#43; 책을 읽고 공부한 노트입니다.
+      
+    "
+  />
+  
+  
+  
+  <link rel="canonical" href="https://frompero.github.io/post/cpp/effective-cpp-06/" />
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="[Effective C&#43;&#43;] Chapter 6. 상속, 그리고 객체 지향 설계" />
+<meta property="og:description" content="이펙티브 C&#43;&#43; 책을 읽고 공부한 노트입니다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://frompero.github.io/post/cpp/effective-cpp-06/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-01-06T01:00:00+09:00" />
+<meta property="article:modified_time" content="2023-01-06T01:00:00+09:00" />
+
+
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="[Effective C&#43;&#43;] Chapter 6. 상속, 그리고 객체 지향 설계"/>
+<meta name="twitter:description" content="이펙티브 C&#43;&#43; 책을 읽고 공부한 노트입니다."/>
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "[Effective C\u002b\u002b] Chapter 6. 상속, 그리고 객체 지향 설계",
+    "headline": "[Effective C\u002b\u002b] Chapter 6. 상속, 그리고 객체 지향 설계",
+    
+    "abstract": "이펙티브 C\u002b\u002b 책을 읽고 공부한 노트입니다.",
+    "inLanguage": "en",
+    "url" : "https:\/\/frompero.github.io\/post\/cpp\/effective-cpp-06\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Pero"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-01-06T01:00:00\u002b09:00",
+    "datePublished": "2023-01-06T01:00:00\u002b09:00",
+    
+    "dateModified": "2023-01-06T01:00:00\u002b09:00",
+    
+    "keywords": ["Effective C++"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "2320"
+  }
+  </script>
+
+
+  
+  <meta name="author" content="Pero" />
+  
+    
+      <link href="mailto:peropeq@gmail.com" rel="me" />
+    
+  
+  
+  
+
+
+
+
+
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/lib/katex/katex.min.7c7c1a59e6eec00ecd485e5083f69fe14783c7d5ea52962938682e6e8df25aef9bd88411e14790c1b6f8d938bb81502336d56823f23d4c4a187aef689b0702ea.css"
+    integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu&#43;b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g=="
+  />
+  
+  
+  <script
+    defer
+    src="/lib/katex/katex.min.2d037120c479ad7bfba3e6f597cf8dd4464c7e11bb88567d1e19db2644e9e338cdaf95afb2def902a51e143c5e4546bb979bc40f2522022a7ffebf8414b2c2c8.js"
+    integrity="sha512-LQNxIMR5rXv7o&#43;b1l8&#43;N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r&#43;EFLLCyA=="
+  ></script>
+  
+  
+  <script
+    defer
+    src="/lib/katex/auto-render.min.e6511c3458afadbb974a54c917a45e383efdb02303964d83fdb17ff69367d6d871a53a09973ffec8c9d3525c7b8c64602e6c16a64842884ad60989a16d953fd0.js"
+    integrity="sha512-5lEcNFivrbuXSlTJF6ReOD79sCMDlk2D/bF/9pNn1thxpToJlz/&#43;yMnTUlx7jGRgLmwWpkhCiErWCYmhbZU/0A=="
+    onload="renderMathInElement(document.body);"
+  ></script>
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+  
+  
+  
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QBM4YPD699"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-QBM4YPD699', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+  
+  
+</head>
+<body
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 sm:px-14 md:px-24 lg:px-32 dark:bg-neutral-800 dark:text-neutral"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="-translate-y-8 rounded-b-lg bg-primary-200 px-3 py-1 text-sm focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="pe-2 font-bold text-primary-600 dark:text-primary-400">&darr;</span
+        >Skip to main content</a
+      >
+    </div>
+    
+    
+      <header class="py-6 font-semibold text-neutral-900 print:hidden sm:py-10 dark:text-neutral">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="z-40 flex flex-row items-center">
+      
+  <a
+    class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+    rel="me"
+    href="/"
+    >from Pero</a
+  >
+
+    </div>
+    
+      
+      <label id="menu-button" for="menu-controller" class="block sm:hidden">
+        <input type="checkbox" id="menu-controller" class="hidden" />
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="invisible fixed inset-0 z-30 m-auto h-full w-full cursor-default overflow-auto bg-neutral-100/50 opacity-0 backdrop-blur-sm transition-opacity dark:bg-neutral-900/50"
+        >
+          <ul
+            class="mx-auto flex w-full max-w-7xl list-none flex-col overflow-visible px-6 py-6 text-end sm:px-14 sm:py-10 sm:pt-10 md:px-24 lg:px-32"
+          >
+            <li class="mb-1">
+              <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400"
+                ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span></span
+              >
+            </li>
+            
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/post/"
+                      title="Posts"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Posts</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/categories/"
+                      title="Categories"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Categories</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/tags/"
+                      title="Tags"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Tags</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    
+                      <button
+                        id="search-button-1"
+                        title="Search (/)"
+                      >
+                        
+                          <span
+                            class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                          ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </button>
+                    
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    <button
+                      id="appearance-switcher-1"
+                      type="button"
+                      aria-label="appearance switcher"
+                    >
+                      <span
+                        class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                        title="Switch to dark appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                      <span
+                        class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                        title="Switch to light appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                    </button>
+                  
+                </li>
+              
+              
+            
+          </ul>
+        </div>
+      </label>
+      
+      <ul class="hidden list-none flex-row text-end sm:flex">
+        
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/post/"
+                  title="Posts"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Posts</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/categories/"
+                  title="Categories"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Categories</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/tags/"
+                  title="Tags"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Tags</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                
+                  <button
+                    id="search-button-2"
+                    title="Search (/)"
+                  >
+                    
+                      <span
+                        class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                      ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </button>
+                
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                <button
+                  id="appearance-switcher-2"
+                  type="button"
+                  aria-label="appearance switcher"
+                >
+                  <span
+                    class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                    title="Switch to dark appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                  <span
+                    class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                    title="Switch to light appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                </button>
+              
+            </li>
+          
+          
+
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex grow flex-col">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        [Effective C++] Chapter 6. 상속, 그리고 객체 지향 설계
+      </h1>
+      
+        <div class="mb-12 mt-8 text-base text-neutral-500 print:hidden dark:text-neutral-400">
+          
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2023-01-06 01:00:00 &#43;0900 KST">6 January 2023</time>
+    
+
+    
+    
+  </div>
+
+  
+  
+
+
+        </div>
+      
+      
+    </header>
+    <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+      
+        <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
+          <div class="toc pe-5 print:hidden lg:sticky lg:top-10">
+            <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
+  <summary
+    class="-ms-5 block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 lg:hidden dark:bg-neutral-700 dark:text-neutral-100"
+  >
+    Table of Contents
+  </summary>
+  <div class="-ms-5 border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#item-32-public-상속-모형은-반드시-is-a를-따르도록-하자">Item 32: <code>public</code> 상속 모형은 반드시 &ldquo;is-a&quot;를 따르도록 하자</a></li>
+    <li><a href="#item-33-상속된-이름을-숨기는-일은-피하자">Item 33: 상속된 이름을 숨기는 일은 피하자</a>
+      <ul>
+        <li><a href="#파생-클래스의-이름은-기본-클래스의-이름을-가린다">파생 클래스의 이름은 기본 클래스의 이름을 가린다.</a></li>
+        <li><a href="#가려진-이름을-다시-볼-수-있게-하는-방법">가려진 이름을 다시 볼 수 있게 하는 방법</a></li>
+      </ul>
+    </li>
+    <li><a href="#item-34-인터페이스-상속과-구현-상속의-차이를-제대로-파악하고-구별하자">Item 34: 인터페이스 상속과 구현 상속의 차이를 제대로 파악하고 구별하자</a>
+      <ul>
+        <li><a href="#순수-가상-함수">순수 가상 함수</a></li>
+        <li><a href="#비순수-가상-함수">비순수 가상 함수</a></li>
+        <li><a href="#비가상-함수">비가상 함수</a></li>
+      </ul>
+    </li>
+    <li><a href="#item-35-가상-함수-대신-쓸-것들도-생각해-두는-자세를-시시때때로-길러-두자">Item 35: 가상 함수 대신 쓸 것들도 생각해 두는 자세를 시시때때로 길러 두자</a>
+      <ul>
+        <li><a href="#비가상-함수-인터페이스-관용구-사용하기">비가상 함수 인터페이스 관용구 사용하기</a></li>
+        <li><a href="#함수-포인터-사용하기">함수 포인터 사용하기</a></li>
+        <li><a href="#tr1function-사용하기"><code>tr1::function</code> 사용하기</a></li>
+        <li><a href="#다른-클래스의-가상-함수로-만들기">다른 클래스의 가상 함수로 만들기</a></li>
+      </ul>
+    </li>
+    <li><a href="#item-36-상속받은-비가상-함수를-파생-클래스에서-재정의하는-것은-절대-금물">Item 36: 상속받은 비가상 함수를 파생 클래스에서 재정의하는 것은 절대 금물!</a></li>
+    <li><a href="#item-37-어떤-함수에-대해서도-상속받은-기본-매개변수-값은-절대로-재정의하지-말자">Item 37: 어떤 함수에 대해서도 상속받은 기본 매개변수 값은 절대로 재정의하지 말자</a></li>
+    <li><a href="#item-38-has-a-혹은-is-implemented-in-terms-of를-모형화할-때는-객체-합성을-사용하자">Item 38: &ldquo;has-a&rdquo; 혹은 &ldquo;is-implemented-in-terms-of&quot;를 모형화할 때는 객체 합성을 사용하자</a></li>
+    <li><a href="#item-39-private-상속은-삼사숙고해서-구사하자">Item 39: <code>private</code> 상속은 삼사숙고해서 구사하자</a>
+      <ul>
+        <li><a href="#private-상속의-특징"><code>private</code> 상속의 특징</a></li>
+        <li><a href="#public-상속--객체-합성"><code>public</code> 상속 + 객체 합성</a></li>
+        <li><a href="#private-상속은-ebo가-적용된다"><code>private</code> 상속은 EBO가 적용된다</a></li>
+      </ul>
+    </li>
+    <li><a href="#item-40-다중-상속은-심사숙고해서-사용하자">Item 40: 다중 상속은 심사숙고해서 사용하자</a>
+      <ul>
+        <li><a href="#모호한-다중-상속">모호한 다중 상속</a></li>
+        <li><a href="#가상-상속">가상 상속</a></li>
+        <li><a href="#다중-상속을-잘-사용하는-법">다중 상속을 잘 사용하는 법</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+          </div>
+        </div>
+      
+      <div class="min-h-0 min-w-0 max-w-prose grow">
+        <div style="text-align: right"> 
+<p>
+<a href="http://www.yes24.com/Product/Goods/17525589" target="_blank" rel="noreferrer">이펙티브 C++</a> 책을 읽고 공부한 노트입니다.</p>
+</div>
+<hr>
+<p><br /><br /></p>
+<h2 id="item-32-public-상속-모형은-반드시-is-a를-따르도록-하자" class="relative group">Item 32: <code>public</code> 상속 모형은 반드시 &ldquo;is-a&quot;를 따르도록 하자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-32-public-%ec%83%81%ec%86%8d-%eb%aa%a8%ed%98%95%ec%9d%80-%eb%b0%98%eb%93%9c%ec%8b%9c-is-a%eb%a5%bc-%eb%94%b0%eb%a5%b4%eb%8f%84%eb%a1%9d-%ed%95%98%ec%9e%90" aria-label="Anchor">#</a></span></h2><blockquote>
+<p>반드시 기억하자! <code>public</code> 상속은 &ldquo;is-a&quot;를 의미한다!</p>
+</blockquote>
+<ul>
+<li>이것은 기본 클래스는 더 일반적인 개념을 나타내며 파생 클래스는 더 특수한 개념을 나타낸다는 의미이다.</li>
+<li><code>public</code> 상속은 Base 클래스가 가진 <strong>모든 것</strong>들이 파생 클래스 객체에도 그대로 적용된다고 단정하는 상속이다.</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="item-33-상속된-이름을-숨기는-일은-피하자" class="relative group">Item 33: 상속된 이름을 숨기는 일은 피하자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-33-%ec%83%81%ec%86%8d%eb%90%9c-%ec%9d%b4%eb%a6%84%ec%9d%84-%ec%88%a8%ea%b8%b0%eb%8a%94-%ec%9d%bc%ec%9d%80-%ed%94%bc%ed%95%98%ec%9e%90" aria-label="Anchor">#</a></span></h2><ul>
+<li>이름을 숨긴다는 것은 <strong>유효범위(scope)</strong> 와 관계가 있다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="c1">// 전역 변수 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">someFunc</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">double</span> <span class="n">x</span><span class="p">;</span> <span class="c1">// 지역 변수
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// someFunc의 유효범위 안쪽에 있으므로 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// int x를 가린다
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="파생-클래스의-이름은-기본-클래스의-이름을-가린다" class="relative group">파생 클래스의 이름은 기본 클래스의 이름을 가린다. <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%8c%8c%ec%83%9d-%ed%81%b4%eb%9e%98%ec%8a%a4%ec%9d%98-%ec%9d%b4%eb%a6%84%ec%9d%80-%ea%b8%b0%eb%b3%b8-%ed%81%b4%eb%9e%98%ec%8a%a4%ec%9d%98-%ec%9d%b4%eb%a6%84%ec%9d%84-%ea%b0%80%eb%a6%b0%eb%8b%a4" aria-label="Anchor">#</a></span></h3><ul>
+<li>매개변수가 다르거나 말거나 상관이 없다.</li>
+<li>비가상이건 가상이건 상관이 없다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span> 
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">mf1</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">mf1</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">mf2</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">mf3</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">mf3</span><span class="p">(</span><span class="kt">double</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derived</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">mf1</span><span class="p">();</span> <span class="c1">// Base의 mf1을 다 가려버린다
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">mf3</span><span class="p">();</span> <span class="c1">// Base의 mf3을 다 가려버린다
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">mf4</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 클래스 유효범위에 대한 예시
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="n">Derived</span><span class="o">::</span><span class="n">mf4</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">mf2</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 지역 유효범위(mf4)에 mf2를 찾는다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 없다면 Derived 클래스 유효범위에서...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 없다면 Base 클래스 유효범위에서...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 없다면 Base를 둘러싼 네임스페이스를...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Derived</span> <span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">d</span><span class="p">.</span><span class="n">mf1</span><span class="p">();</span>  <span class="c1">// Derived::mf1 호출
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">d</span><span class="p">.</span><span class="n">mf1</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="c1">// 에러! 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  
+</span></span><span class="line"><span class="cl">  <span class="n">d</span><span class="p">.</span><span class="n">mf2</span><span class="p">();</span>  <span class="c1">// Base::mf2 호출
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  
+</span></span><span class="line"><span class="cl">  <span class="n">d</span><span class="p">.</span><span class="n">mf3</span><span class="p">();</span>  <span class="c1">// Derived::mf3 호출
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">d</span><span class="p">.</span><span class="n">mf3</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="c1">// 에러!
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="가려진-이름을-다시-볼-수-있게-하는-방법" class="relative group">가려진 이름을 다시 볼 수 있게 하는 방법 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ea%b0%80%eb%a0%a4%ec%a7%84-%ec%9d%b4%eb%a6%84%ec%9d%84-%eb%8b%a4%ec%8b%9c-%eb%b3%bc-%ec%88%98-%ec%9e%88%ea%b2%8c-%ed%95%98%eb%8a%94-%eb%b0%a9%eb%b2%95" aria-label="Anchor">#</a></span></h3><ul>
+<li>(1) <code>using</code> 선언</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derived</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// using 선언으로 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// Base에 있는 것들 중 mf1, mf3 이름을 가진 것들을 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// Derived에서 볼 수 있도록 (public 멤버로) 만든다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">using</span> <span class="n">Base</span><span class="o">::</span><span class="n">mf1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">using</span> <span class="n">Base</span><span class="o">::</span><span class="n">mf3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">mf1</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">mf3</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">mf4</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Derived</span> <span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// 모두 다 잘 된다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">d</span><span class="p">.</span><span class="n">mf1</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">d</span><span class="p">.</span><span class="n">mf1</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="c1">// Base::mf1 호출
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  
+</span></span><span class="line"><span class="cl">  <span class="n">d</span><span class="p">.</span><span class="n">mf2</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">d</span><span class="p">.</span><span class="n">mf3</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">d</span><span class="p">.</span><span class="n">mf3</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="c1">// Base::mf3 호출
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<ul>
+<li>(2) 전달 함수
+<ul>
+<li><code>private</code> 상속이라면, 그리고 <code>mf1</code>는 매개변수가 없는 버전만 상속하고 싶다면?</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derived</span> <span class="o">:</span> <span class="k">private</span> <span class="n">Base</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 전달 함수
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">mf1</span><span class="p">()</span> <span class="p">{</span> <span class="n">Base</span><span class="o">::</span><span class="n">mf1</span><span class="p">();</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Derived</span> <span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">d</span><span class="p">.</span><span class="n">mf1</span><span class="p">();</span>  <span class="c1">// Derived::mf1 호출
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">d</span><span class="p">.</span><span class="n">mf1</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="c1">// 에러! 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="item-34-인터페이스-상속과-구현-상속의-차이를-제대로-파악하고-구별하자" class="relative group">Item 34: 인터페이스 상속과 구현 상속의 차이를 제대로 파악하고 구별하자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-34-%ec%9d%b8%ed%84%b0%ed%8e%98%ec%9d%b4%ec%8a%a4-%ec%83%81%ec%86%8d%ea%b3%bc-%ea%b5%ac%ed%98%84-%ec%83%81%ec%86%8d%ec%9d%98-%ec%b0%a8%ec%9d%b4%eb%a5%bc-%ec%a0%9c%eb%8c%80%eb%a1%9c-%ed%8c%8c%ec%95%85%ed%95%98%ea%b3%a0-%ea%b5%ac%eb%b3%84%ed%95%98%ec%9e%90" aria-label="Anchor">#</a></span></h2><ul>
+<li>인터페이스 상속과 구현 상속은 다르다. 예시를 통해 살펴보자.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// 추상 클래스 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">Shape</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 순수 가상 함수 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">draw</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 비순수 가상 함수 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">error</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">msg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 비가상 함수 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="nf">objectID</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Rectangle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Shape</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Ellipse</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Shape</span> <span class="p">{};</span>
+</span></span></code></pre></div><br />
+<ul>
+<li><code>public</code> 상속이다.
+<ul>
+<li><strong>인터페이스는 항상 상속</strong>하게 되어 있다.</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h3 id="순수-가상-함수" class="relative group">순수 가상 함수 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%88%9c%ec%88%98-%ea%b0%80%ec%83%81-%ed%95%a8%ec%88%98" aria-label="Anchor">#</a></span></h3><ul>
+<li>물려받은 구체 클래스가 순수 가상 함수를 다시 선언해야 한다.</li>
+<li>전형적으로 추상 클래스 안에서 정의를 갖지 않는다.</li>
+</ul>
+<blockquote>
+<p>함수의 <strong>인터페이스만을 물려준다.</strong></p>
+</blockquote>
+<br />
+<ul>
+<li>순수 가상 함수를 추상 클래스 안에서 정의할 수도 있다.</li>
+<li>단, 호출하려면 반드시 클래스 이름을 <strong>한정자로 붙여 주어야</strong>만 한다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">Shape</span> <span class="o">*</span><span class="n">ps</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Shape</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">Shape</span> <span class="o">*</span><span class="n">ps1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Rectangle</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">Shape</span> <span class="o">*</span><span class="n">ps2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Ellipse</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Shape::draw를 호출한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ps1</span><span class="o">-&gt;</span><span class="n">Shape</span><span class="o">::</span><span class="n">draw</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">ps2</span><span class="o">-&gt;</span><span class="n">Shape</span><span class="o">::</span><span class="n">draw</span><span class="p">();</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="비순수-가상-함수" class="relative group">비순수 가상 함수 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%eb%b9%84%ec%88%9c%ec%88%98-%ea%b0%80%ec%83%81-%ed%95%a8%ec%88%98" aria-label="Anchor">#</a></span></h3><ul>
+<li>&ldquo;이 함수는 여러분이 지원해야 합니다. 하지만 굳이 새로 만들 생각이 없다면 기본 버전을 그냥 써도 무방합니다.&rdquo;</li>
+</ul>
+<blockquote>
+<p>함수의 인터페이스뿐만 아니라 그 함수의 기본 구현도 물려준다.</p>
+</blockquote>
+<br />
+<ul>
+<li>때로는 함수 인터페이스와 기본 구현을 한꺼번에 지정하는 것은 위험할 수도 있다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Airplane</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">fly</span><span class="p">(</span><span class="k">const</span> <span class="n">Airport</span><span class="o">&amp;</span> <span class="n">destination</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">Airplane</span><span class="o">::</span><span class="n">fly</span><span class="p">(</span><span class="k">const</span> <span class="n">Airport</span><span class="o">&amp;</span> <span class="n">destination</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 기본 날기 동작
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ModelA</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Airplane</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ModelB</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Airplane</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ModelC</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Airplane</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// fly와 다른 날기 동작을 해야 하는 ModelC가 추가되었는데,
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 까먹고 fly를 재정의 하지 않았다면?
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Airport</span> <span class="n">PDX</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">Airplane</span> <span class="o">*</span><span class="n">pa</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ModelC</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">pa</span><span class="o">-&gt;</span><span class="n">fly</span><span class="p">(</span><span class="n">PDX</span><span class="p">);</span>  <span class="c1">// Airplane::fly가 호출되고 말았다!
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>해결 방법
+<ul>
+<li>가상 함수의 <strong>인터페이스와 그것의 기본 구현을 분리</strong>한다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Airplane</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">fly</span><span class="p">(</span><span class="k">const</span> <span class="n">Airport</span><span class="o">&amp;</span> <span class="n">destination</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">defaultFly</span><span class="p">(</span><span class="k">const</span> <span class="n">Airport</span> <span class="o">&amp;</span> <span class="n">destination</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 파생 클래스에서 재정의하면 안되므로 비가상 함수이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// protected로 비행기류만 알고 있도록 한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">Airplane</span><span class="o">::</span><span class="n">defaultFly</span><span class="p">(</span><span class="k">const</span> <span class="n">Airport</span> <span class="o">&amp;</span> <span class="n">destination</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 기본 날기 동작 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ModelA</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Airplane</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">fly</span><span class="p">(</span><span class="k">const</span> <span class="n">Airport</span><span class="o">&amp;</span> <span class="n">destination</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">defaultFly</span><span class="p">(</span><span class="n">desination</span><span class="p">);</span> <span class="c1">// 기본 날기 동작
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// ModelB도 동일
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ModelC</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Airplane</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">fly</span><span class="p">(</span><span class="k">const</span> <span class="n">Airport</span><span class="o">&amp;</span> <span class="n">destination</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 새로운 날기 동작 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="비가상-함수" class="relative group">비가상 함수 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%eb%b9%84%ea%b0%80%ec%83%81-%ed%95%a8%ec%88%98" aria-label="Anchor">#</a></span></h3><ul>
+<li>클래스 파생에 상관없이 <strong>변하지 않는 동작</strong>을 지정하는 데 쓰인다.</li>
+</ul>
+<blockquote>
+<p>함수 인터페이스와 더불어 그 함수의 필수적인 구현(mandatory implementation)을 물려받게 한다.</p>
+</blockquote>
+<p><br /><br /></p>
+<h2 id="item-35-가상-함수-대신-쓸-것들도-생각해-두는-자세를-시시때때로-길러-두자" class="relative group">Item 35: 가상 함수 대신 쓸 것들도 생각해 두는 자세를 시시때때로 길러 두자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-35-%ea%b0%80%ec%83%81-%ed%95%a8%ec%88%98-%eb%8c%80%ec%8b%a0-%ec%93%b8-%ea%b2%83%eb%93%a4%eb%8f%84-%ec%83%9d%ea%b0%81%ed%95%b4-%eb%91%90%eb%8a%94-%ec%9e%90%ec%84%b8%eb%a5%bc-%ec%8b%9c%ec%8b%9c%eb%95%8c%eb%95%8c%eb%a1%9c-%ea%b8%b8%eb%9f%ac-%eb%91%90%ec%9e%90" aria-label="Anchor">#</a></span></h2><ul>
+<li>가상 함수 대신 쓸 수 있는 방법들은 없을까?</li>
+</ul>
+<br />
+<h3 id="비가상-함수-인터페이스-관용구-사용하기" class="relative group">비가상 함수 인터페이스 관용구 사용하기 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%eb%b9%84%ea%b0%80%ec%83%81-%ed%95%a8%ec%88%98-%ec%9d%b8%ed%84%b0%ed%8e%98%ec%9d%b4%ec%8a%a4-%ea%b4%80%ec%9a%a9%ea%b5%ac-%ec%82%ac%ec%9a%a9%ed%95%98%ea%b8%b0" aria-label="Anchor">#</a></span></h3><ul>
+<li><strong>비가상 함수 인터페이스(non-virtual interface: NVI) 관용구</strong>
+<ul>
+<li><code>public</code> 비가상 멤버 함수를 만들어서 <code>private</code> 가상 함수를 간접적으로 호출하게 만드는 방법이다.</li>
+<li>템플릿 메서드(Template Method) 패턴이다.</li>
+<li><code>public</code> 비가상 함수를 랩퍼(Wrapper)라고 부른다.</li>
+<li>사전 작업과 사후 작업을 앞 뒤로 삽입할 수 있는 좋은 방법이다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">GameCharacter</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 파생 클래스가 이 가상 함수를 재정의 할 수 있다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">virtual</span> <span class="kt">int</span> <span class="n">doHealthValue</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 비가상 함수 인터페이스 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">healthValue</span><span class="p">()</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ... 사전 작업
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">retVal</span> <span class="o">=</span> <span class="n">doHealthValue</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ... 사후 작업
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">retVal</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="함수-포인터-사용하기" class="relative group">함수 포인터 사용하기 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%95%a8%ec%88%98-%ed%8f%ac%ec%9d%b8%ed%84%b0-%ec%82%ac%ec%9a%a9%ed%95%98%ea%b8%b0" aria-label="Anchor">#</a></span></h3><ul>
+<li>전략(Strategy) 패턴이다.</li>
+<li>실행 도중에 계산 함수를 바꿀 수 있으며, 객체 마다 다른 함수를 실행하도록 할 수 있다.</li>
+<li>계산 함수가 클래스 외부에 있기 때문에 클래스의 <code>public</code> 부분만을 사용해서 계산할 수 있다.
+<ul>
+<li>따라서 <code>public</code>이 아닌 데이터에도 접근해야만 계산할 수 있게 된다면, 프렌드로 하던지 <code>public</code>으로 접근하게 할 수 밖엔 없다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">GameCharacter</span><span class="p">;</span> <span class="c1">// 전방선언
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 계산 함수 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">defaultHealthCalc</span><span class="p">(</span><span class="k">const</span> <span class="n">GameCharacter</span><span class="o">&amp;</span> <span class="n">gc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">GameCharacter</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 계산 함수를 포인터로 가지고 있다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">HealthCalcFunc</span> <span class="n">healthFunc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// HealthCalcFunc은
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 반환타입이 int, 매개변수는 const GameCharacter&amp;형인 함수에 대한 포인터를 나타낸다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">typedef</span> <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">HealthCalcFunc</span><span class="p">)(</span><span class="k">const</span> <span class="n">GameCharacter</span><span class="o">&amp;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">explicit</span> <span class="nf">GameCharacter</span><span class="p">(</span><span class="n">HealthCalcFunc</span> <span class="n">hcf</span> <span class="o">=</span> <span class="n">defaultHealthCalc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">:</span> <span class="n">healthFunc</span><span class="p">(</span><span class="n">hcf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="nf">healthValue</span><span class="p">()</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">healthFunc</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">EvilBadGuy</span> <span class="o">:</span> <span class="k">public</span> <span class="n">GameCharacter</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 다른 계산 함수들 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">loseHealthQuickly</span><span class="p">(</span><span class="k">const</span> <span class="n">GameCharacter</span><span class="o">&amp;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">loseHealthSlowly</span><span class="p">(</span><span class="k">const</span> <span class="n">GameCharacter</span><span class="o">&amp;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 객체 마다 다르게 함수를 지정할 수 있다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 런다임에 함수를 바꿀 수 있다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">EvilBadGuy</span> <span class="n">ebg1</span><span class="p">(</span><span class="n">loseHealthQuickly</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">EvilBadGuy</span> <span class="n">ebg1</span><span class="p">(</span><span class="n">loseHealthSlowly</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="tr1function-사용하기" class="relative group"><code>tr1::function</code> 사용하기 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#tr1function-%ec%82%ac%ec%9a%a9%ed%95%98%ea%b8%b0" aria-label="Anchor">#</a></span></h3><ul>
+<li>함수 포인터 대신 <code>tr1::function</code>을 사용하면
+<ul>
+<li>함수호출성 개체(callable entity: 함수 포인터, 함수 객체, 멤버 함수 포인터)를 모두 다룰 수 있다. 즉, 좀 더 <strong>일반화된 함수 포인터</strong>를 물게 되는 셈이다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">GameCharacter</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// HealthCalcFunc은
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 반환타입이 int, 매개변수는 const GameCharacter&amp;형인 함수에 대한 tr1::function 을 나타낸다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">tr1</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">int</span> <span class="p">(</span><span class="k">const</span> <span class="n">GameCharacter</span><span class="o">&amp;</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">HealthCalcFunc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// (1) 반환타입이 short인 함수이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">short</span> <span class="nf">calcHeatlh</span><span class="p">(</span><span class="k">const</span> <span class="n">GameCharacter</span><span class="o">&amp;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// (2) 함수 객체를 만들기 위한 클래스이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">stuct</span> <span class="n">HealthCalculator</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="nf">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">GameCharacter</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">const</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">GameLevel</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span> 
+</span></span><span class="line"><span class="cl">  <span class="c1">// (3) 반환타입이 float인 멤버 함수이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">float</span> <span class="n">health</span><span class="p">(</span><span class="k">const</span> <span class="n">GameCharacter</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// (1)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">EvilBadGuy</span> <span class="n">ebg1</span><span class="p">(</span><span class="n">calcHealth</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// (2)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">EvilBadGuy</span> <span class="n">ebg2</span><span class="p">(</span><span class="n">HealthCalculator</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// (3)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">GameLevel</span> <span class="n">currentLevel</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">EvilBadGuy</span> <span class="n">ebg3</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">tr1</span><span class="o">::</span><span class="n">bind</span><span class="p">(</span><span class="o">&amp;</span><span class="n">GameLevel</span><span class="o">::</span><span class="n">health</span><span class="p">,</span> <span class="n">currentLevel</span><span class="p">,</span> <span class="n">_1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// GameLevel::health 함수를 사용하는데, 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// GameLevel::health는 암시적으로 GameLevel 객체가 있어야 한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 하지만 GameLevel::health의 매개변수는 GameCharacter 하나 뿐이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 그래서 currentLevel를 계산할 때 함께 사용하도록 묶어주고 있다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// _1은 첫 번째 자리의 매개변수가 자유 매개변수(free parameter)임을 나타내는 것이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="다른-클래스의-가상-함수로-만들기" class="relative group">다른 클래스의 가상 함수로 만들기 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%eb%8b%a4%eb%a5%b8-%ed%81%b4%eb%9e%98%ec%8a%a4%ec%9d%98-%ea%b0%80%ec%83%81-%ed%95%a8%ec%88%98%eb%a1%9c-%eb%a7%8c%eb%93%a4%ea%b8%b0" aria-label="Anchor">#</a></span></h3><ul>
+<li>고전적인 전략 패턴이다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">GameCharacter</span><span class="p">;</span> <span class="c1">// 전방 선언
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 계산하는 함수를 나타내는 클래스를 따로 둔다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">HealthCalcFunc</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span> 
+</span></span><span class="line"><span class="cl">  <span class="c1">// 그 안에 가상 함수로 계산을 한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">virtual</span> <span class="kt">int</span> <span class="n">calc</span><span class="p">(</span><span class="k">const</span> <span class="n">GameCharacter</span><span class="o">&amp;</span> <span class="n">gc</span><span class="p">)</span> <span class="k">const</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">HealthCalcFunc</span> <span class="n">defaultHealthCalc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">GameCharacter</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 계산하는 클래스에 대한 포인터를 가지고 있다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">HealthCalcFunc</span> <span class="o">*</span><span class="n">pHealthCalc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">explicit</span> <span class="n">GameCharcter</span><span class="p">(</span><span class="n">HealthCalcFunc</span> <span class="o">*</span><span class="n">phcf</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">defaultHealthCalc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">:</span> <span class="n">pHealthCalc</span><span class="p">(</span><span class="n">phcf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="nf">healthValue</span><span class="p">()</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">pHealthCalc</span><span class="o">-&gt;</span><span class="n">calc</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="item-36-상속받은-비가상-함수를-파생-클래스에서-재정의하는-것은-절대-금물" class="relative group">Item 36: 상속받은 비가상 함수를 파생 클래스에서 재정의하는 것은 절대 금물! <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-36-%ec%83%81%ec%86%8d%eb%b0%9b%ec%9d%80-%eb%b9%84%ea%b0%80%ec%83%81-%ed%95%a8%ec%88%98%eb%a5%bc-%ed%8c%8c%ec%83%9d-%ed%81%b4%eb%9e%98%ec%8a%a4%ec%97%90%ec%84%9c-%ec%9e%ac%ec%a0%95%ec%9d%98%ed%95%98%eb%8a%94-%ea%b2%83%ec%9d%80-%ec%a0%88%eb%8c%80-%ea%b8%88%eb%ac%bc" aria-label="Anchor">#</a></span></h2><ul>
+<li>상속받은 비가상 함수를 파생 클래스에서 재정의 하면 이상한 일이 발생한다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span> 
+</span></span><span class="line"><span class="cl">  <span class="c1">// 비가상 함수 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="n">mf</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derived</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 기본 클래스의 비가상 함수를 재정의 해버렸다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// Base::mf를 가려버린다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="n">mf</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Derived</span> <span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// 포인터 형만 다를 뿐
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 똑같이 d를 가리킨다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Base</span> <span class="o">*</span><span class="n">pB</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Derived</span> <span class="o">*</span><span class="n">pD</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">pB</span><span class="o">-&gt;</span><span class="n">mf</span><span class="p">();</span> <span class="c1">// Base::mf 호출
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">pD</span><span class="o">-&gt;</span><span class="n">mf</span><span class="p">();</span> <span class="c1">// Derived::mf 호출
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 일관성 없는 이상한 동작이다!
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>이렇게 되는 이유는 비가상 함수는 <strong>정적 바인딩(static binding)</strong> 으로 묶이기 때문이다.
+<ul>
+<li><code>pB</code>는 <code>Base</code>에 대한 포인터 형으로 선언되었기 때문에 <code>pB</code>를 통해 호출되는 비가상 함수는 항상 <code>Base</code> 클래스에 정의되어 있을 것이라고 결정해 버린다.</li>
+</ul>
+</li>
+<li>반면 가상 함수는 <strong>동적 바인딩(dynamically binding)</strong> 으로 묶인다.
+<ul>
+<li><code>pB</code>가 진짜로 가리키는 대상이 <code>Derived</code> 이므로 <code>Derived::mf</code>가 호출된다.</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="item-37-어떤-함수에-대해서도-상속받은-기본-매개변수-값은-절대로-재정의하지-말자" class="relative group">Item 37: 어떤 함수에 대해서도 상속받은 기본 매개변수 값은 절대로 재정의하지 말자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-37-%ec%96%b4%eb%96%a4-%ed%95%a8%ec%88%98%ec%97%90-%eb%8c%80%ed%95%b4%ec%84%9c%eb%8f%84-%ec%83%81%ec%86%8d%eb%b0%9b%ec%9d%80-%ea%b8%b0%eb%b3%b8-%eb%a7%a4%ea%b0%9c%eb%b3%80%ec%88%98-%ea%b0%92%ec%9d%80-%ec%a0%88%eb%8c%80%eb%a1%9c-%ec%9e%ac%ec%a0%95%ec%9d%98%ed%95%98%ec%a7%80-%eb%a7%90%ec%9e%90" aria-label="Anchor">#</a></span></h2><ul>
+<li><strong>가상 함수로부터 상속받은 기본 매개변수는 절대 재정의 하면 안 된다.</strong>
+<ul>
+<li>가상 함수는 동적으로 바인딩되어 있지만</li>
+<li>매개변수는 정적으로 바인딩되기 때문에 아래와 같은 일이 생긴다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Shape</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">enum</span> <span class="nc">ShapeColor</span> <span class="p">{</span> <span class="n">Red</span><span class="p">,</span> <span class="n">Green</span><span class="p">,</span> <span class="n">Blue</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// 기본 클래스의 가상 함수. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 기본 매개변수가 있으며 Red이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">draw</span><span class="p">(</span><span class="n">ShapeColor</span> <span class="n">color</span> <span class="o">=</span> <span class="n">Red</span><span class="p">)</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Rectangle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Shape</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 기본 매개변수가 Green이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">draw</span><span class="p">(</span><span class="n">ShapeColor</span> <span class="n">color</span> <span class="o">=</span> <span class="n">Green</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Shape</span> <span class="o">*</span> <span class="n">pr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Rectangle</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">pr</span><span class="o">-&gt;</span><span class="n">draw</span><span class="p">();</span> <span class="c1">// Rectangle::draw(Shape::Red) 를 호출해 버린다! 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>따라서 <strong>기본 클래스와 파생 클래스의 기본 매개변수는 같아야</strong> 한다.</li>
+<li>그렇다고 기본 매개변수를 똑같이 설정해 버리면?</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Shape</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">draw</span><span class="p">(</span><span class="n">ShapeColor</span> <span class="n">color</span> <span class="o">=</span> <span class="n">Red</span><span class="p">)</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Rectangle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Shape</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">draw</span><span class="p">(</span><span class="n">ShapeColor</span> <span class="n">color</span> <span class="o">=</span> <span class="n">Red</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 코드 중복이다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 게다가 Shape 클래스의 기본 매개변수가 변하면
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 파생 클래스에서 일일히 다 바꿔줘야 한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>이럴 때는 <strong>비가상 인터페이스 관용구(NVI 관용구)</strong> 를 쓰면 된다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Shape</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">doDraw</span><span class="p">(</span><span class="n">ShapeColor</span> <span class="n">color</span><span class="p">)</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span> 
+</span></span><span class="line"><span class="cl">  <span class="c1">// 비가상 함수
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="n">draw</span><span class="p">(</span><span class="n">ShapeColor</span> <span class="n">color</span> <span class="o">=</span> <span class="n">Red</span><span class="p">)</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">doDraw</span><span class="p">(</span><span class="n">color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Rectangle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Shape</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">doDraw</span><span class="p">(</span><span class="n">ShapeColor</span> <span class="n">color</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="item-38-has-a-혹은-is-implemented-in-terms-of를-모형화할-때는-객체-합성을-사용하자" class="relative group">Item 38: &ldquo;has-a&rdquo; 혹은 &ldquo;is-implemented-in-terms-of&quot;를 모형화할 때는 객체 합성을 사용하자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-38-has-a-%ed%98%b9%ec%9d%80-is-implemented-in-terms-of%eb%a5%bc-%eb%aa%a8%ed%98%95%ed%99%94%ed%95%a0-%eb%95%8c%eb%8a%94-%ea%b0%9d%ec%b2%b4-%ed%95%a9%ec%84%b1%ec%9d%84-%ec%82%ac%ec%9a%a9%ed%95%98%ec%9e%90" aria-label="Anchor">#</a></span></h2><ul>
+<li><strong>합성(composition)</strong>
+<ul>
+<li>layering, containment, aggregation, embedding 등으로도 불린다.</li>
+<li>어떤 객체가 그와 다른 타입의 객체들을 포함함으로써 생기는 관계를 일컫는 말이다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>객체 합성의 두 가지 뜻
+<ul>
+<li>(1) <strong>has-a</strong>
+<ul>
+<li>사물을 본 뜬 객체들은 소프트웨어의 응용 영역(application domain)에 속한다.</li>
+<li>객체 합성이 응용 영역의 객체들 사이에서 일어나면 has-a 관계이다.</li>
+</ul>
+</li>
+<li>(2) <strong>is-implemented-in-terms-of</strong>
+<ul>
+<li>응용 영역에 속하지 않는, 순수하게 시스템 구현만을 위한 객체들은 소프트웨어의 구현 영역(implementation domain)에 속한다.</li>
+<li>객체 합성이 구현 영역의 객체들 사이에서 일어나면 is-implemented-in-terms-of 관계이다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>has-a 예제</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Person과 has-a 관계이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Address</span> <span class="n">address</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">PhoneNumber</span> <span class="n">voiceNumber</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">PhoneNumber</span> <span class="n">faxNumber</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>is-implemented-in-terms-of 예제
+<ul>
+<li>표준 C++ 라이브러리에 <code>list</code> 템플릿을 가지고 새로운 <code>Set</code> 템플릿을 만들고 싶다면?</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Set</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Set은 list 객체를 써서 구현된다.(is implemented in terms of) 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">rep</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">bool</span> <span class="n">member</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">item</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">insert</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">item</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">remove</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">item</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="item-39-private-상속은-삼사숙고해서-구사하자" class="relative group">Item 39: <code>private</code> 상속은 삼사숙고해서 구사하자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-39-private-%ec%83%81%ec%86%8d%ec%9d%80-%ec%82%bc%ec%82%ac%ec%88%99%ea%b3%a0%ed%95%b4%ec%84%9c-%ea%b5%ac%ec%82%ac%ed%95%98%ec%9e%90" aria-label="Anchor">#</a></span></h2><h3 id="private-상속의-특징" class="relative group"><code>private</code> 상속의 특징 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#private-%ec%83%81%ec%86%8d%ec%9d%98-%ed%8a%b9%ec%a7%95" aria-label="Anchor">#</a></span></h3><ul>
+<li><strong>is-implemented-in-terms-of 관계</strong>이다.</li>
+<li>컴파일러는 <strong>파생 클래스 객체를 기본 클래스 객체로 변환하지 않는다.</strong></li>
+<li>기본 클래스로부터 물려받은 멤버는 모조리 <strong><code>private</code> 멤버</strong>가 된다.
+<ul>
+<li>즉, 기본 클래스는 단지 구현 세부사항일 뿐이라는 것이다.</li>
+<li>구현만 물려받을 수 있고, 인터페이스는 국물도 없다!</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Student</span> <span class="o">:</span> <span class="k">private</span> <span class="n">Person</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">eat</span><span class="p">(</span><span class="k">const</span> <span class="n">Person</span><span class="o">&amp;</span> <span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Person</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Student</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">  <span class="n">eat</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">eat</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="c1">// 에러! Stduent는 Person이 아니다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>그럼 객체 합성을 해야할까 <code>private</code> 상속을 해야할까?
+<ul>
+<li><code>private</code> 상속은 반드시 필요할 때만 하자.</li>
+<li>(1) <strong>비공개 멤버에 접근</strong>해야 할 때</li>
+<li>(2) <strong>가상 함수를 재정의</strong> 해야할 때</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Timer</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">explicit</span> <span class="n">Timer</span><span class="p">(</span><span class="kt">int</span> <span class="n">tickFrequency</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// 이것을 재정의 해서 Widget 전용 타이머로 사용하고 싶다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">onTick</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Widget</span> <span class="o">:</span> <span class="k">private</span> <span class="n">Timer</span> <span class="c1">// private 상속 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Widget 전용 기능들을 추가해서 재정의한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">onTick</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="public-상속--객체-합성" class="relative group"><code>public</code> 상속 + 객체 합성 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#public-%ec%83%81%ec%86%8d--%ea%b0%9d%ec%b2%b4-%ed%95%a9%ec%84%b1" aria-label="Anchor">#</a></span></h3><ul>
+<li><code>private</code> 상속 대신에 <strong><code>public</code> 상속 + 객체 합성</strong> 조합으로 만들 수도 있다.</li>
+<li>장점
+<ul>
+<li><strong>파생 클래스에서 <code>onTick</code>을 재정의 할 수 없도록</strong> 막을 수 있다.</li>
+<li><strong>컴파일 의존성을 최소화</strong>할 수 있다. <code>Widget</code> 입장에서는 <code>Timer</code>와 관련된 어느 것도 <code>include</code> 할 필요가 없다. (아래 코드에서 <code>WidgetTimer</code> 정의를 밖으로 빼낸다면)</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Widget</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">class</span> <span class="nc">WidgetTimer</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Timer</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">onTick</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">WidgetTimer</span> <span class="n">timer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="private-상속은-ebo가-적용된다" class="relative group"><code>private</code> 상속은 EBO가 적용된다 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#private-%ec%83%81%ec%86%8d%ec%9d%80-ebo%ea%b0%80-%ec%a0%81%ec%9a%a9%eb%90%9c%eb%8b%a4" aria-label="Anchor">#</a></span></h3><ul>
+<li>반면, 객체 합성과 달리 <code>private</code> 상속은 EBO를 활성화 시킬 수 있다.</li>
+<li><strong>공백 기본 클래스 최적화(empty base optimization: EBO)</strong>
+<ul>
+<li>C++은 크기가 0인 독립 구조의 객체가 생기는 것을 금지한다. 그래서 비정적 데이터 멤버가 없더라도 컴파일러가 슬그머니 <code>char</code> 한 개를 끼워넣는다.</li>
+<li>하지만 <code>private</code> 상속을 하면 단일 상속인 경우에만에 한해서 크기가 0이 된다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Empty</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">HoldsAnInt</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Empty</span> <span class="n">e</span><span class="p">;</span> <span class="c1">// 크기가 0이 아니다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">HoldsAnInt</span> <span class="o">:</span> <span class="k">private</span> <span class="n">Empty</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 크기가 0이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="item-40-다중-상속은-심사숙고해서-사용하자" class="relative group">Item 40: 다중 상속은 심사숙고해서 사용하자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-40-%eb%8b%a4%ec%a4%91-%ec%83%81%ec%86%8d%ec%9d%80-%ec%8b%ac%ec%82%ac%ec%88%99%ea%b3%a0%ed%95%b4%ec%84%9c-%ec%82%ac%ec%9a%a9%ed%95%98%ec%9e%90" aria-label="Anchor">#</a></span></h2><h3 id="모호한-다중-상속" class="relative group">모호한 다중 상속 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%eb%aa%a8%ed%98%b8%ed%95%9c-%eb%8b%a4%ec%a4%91-%ec%83%81%ec%86%8d" aria-label="Anchor">#</a></span></h3><ul>
+<li><strong>다중 상속(multiple inheritance: MI)</strong> 은 모호하다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">BorrowableItem</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span> 
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">checkOut</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ElectronicGadget</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span> 
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">checkOut</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MP3Player</span> <span class="o">:</span> <span class="k">public</span> <span class="n">BorrowableItem</span><span class="p">,</span> <span class="k">public</span> <span class="n">ElectronicGadget</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">MP3Player</span> <span class="n">mp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">mp</span><span class="p">.</span><span class="n">checkOut</span><span class="p">();</span> <span class="c1">// 에러!
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// BorrowableItem의 함수인가?
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// ElectronicGadget의 함수인가?
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// ElectronicGadget::checkOut 은 private이므로 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// BorrowableItem::checkOut 이 불릴 것 같지만 아니다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 컴파일러는 최적 일치 함수를 찾은 후에 비로소 함수의 접근 가능성을 점검한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 그래서 이 경우에는 먼저 최적 일치 함수를 결정할 수 없어서 에러가 난다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  
+</span></span><span class="line"><span class="cl">  <span class="c1">// 이 모호성을 피하려면 아래와 같이 함수를 손수 지정해 주어야한다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">mp</span><span class="p">.</span><span class="n">BorrowableItem</span><span class="o">::</span><span class="n">checkOut</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 하지만 private 멤버에 접근하려고 한다는 에러가 나올 뿐이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 근본적으로 막을 수가 없다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li><strong>죽음의 다이아몬드(deadly MI diamond)</strong> 문제</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">File</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">fileName</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">InputFile</span> <span class="o">:</span> <span class="k">public</span> <span class="n">File</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">OutputFile</span> <span class="o">:</span> <span class="k">public</span> <span class="n">File</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">IOFile</span> <span class="o">:</span> <span class="k">public</span> <span class="n">InputFile</span><span class="p">,</span> <span class="k">public</span> <span class="n">OutputFile</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// IOFile 클래스는 fileName이 두 개인가? 하나인가?
+</span></span></span></code></pre></div><p><br /><br /></p>
+<h3 id="가상-상속" class="relative group">가상 상속 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ea%b0%80%ec%83%81-%ec%83%81%ec%86%8d" aria-label="Anchor">#</a></span></h3><ul>
+<li><code>File</code>을 <strong>가상 기본 클래스(virtual base class)</strong> 로 만들면, 중복이 없어진다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">File</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">InputFile</span> <span class="o">:</span> <span class="k">virtual</span> <span class="k">public</span> <span class="n">File</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">OutputFile</span> <span class="o">:</span> <span class="k">virtual</span> <span class="k">public</span> <span class="n">File</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">IOFile</span> <span class="o">:</span> <span class="k">public</span> <span class="n">InputFile</span><span class="p">,</span> <span class="k">public</span> <span class="n">OutputFile</span> <span class="p">{};</span>
+</span></span></code></pre></div><ul>
+<li>하지만 단점이 있다.
+<ul>
+<li>가상 상속 때문에 <strong>객체의 크기</strong>가 커진다.</li>
+<li>그리고 데이터 멤버에 <strong>접근하는 속도</strong>도 느려진다.</li>
+<li>또한 파생 클래스로 하여금 <strong>기본 클래스를 초기화시키도록</strong> 한다.</li>
+</ul>
+</li>
+<li>따라서 가상 클래스는 되도록 사용하지 말고, 혹시라도 꼭 사용해야 한다면 <strong>기본 클래스에는 데이터를 넣지 않는 쪽으로</strong> 하자.
+<ul>
+<li>(자바와 닷넷에는 데이터를 못가지는 <code>Interface</code>라는 개념이 있다. )</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h3 id="다중-상속을-잘-사용하는-법" class="relative group">다중 상속을 잘 사용하는 법 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%eb%8b%a4%ec%a4%91-%ec%83%81%ec%86%8d%ec%9d%84-%ec%9e%98-%ec%82%ac%ec%9a%a9%ed%95%98%eb%8a%94-%eb%b2%95" aria-label="Anchor">#</a></span></h3><ul>
+<li>인터페이스 클래스를 <code>public</code>으로 상속하고, 구현을 돕는 클래스를 <code>private</code> 상속하는 것이다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// 인터페이스를 갖고 있다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">IPerson</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="o">~</span><span class="n">IPerson</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">()</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">birthDate</span><span class="p">()</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 사용하면 유용한 함수들이 있다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">PersonInfo</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">explicit</span> <span class="n">PersonInfo</span><span class="p">(</span><span class="n">DatabaseID</span> <span class="n">pid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="o">~</span><span class="n">PersonInfo</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="nf">theName</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="nf">theBirthDate</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="nf">valueDelimOpen</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="nf">valueDelimClose</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 다중 상속을 한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">CPerson</span> <span class="o">:</span> <span class="k">public</span> <span class="n">IPerson</span><span class="p">,</span> <span class="k">private</span> <span class="n">PersonInfo</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">valueDelimOpen</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="nf">valueDelimClose</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">explicit</span> <span class="n">CPerson</span><span class="p">(</span><span class="n">DatabaseID</span> <span class="n">pid</span><span class="p">)</span> <span class="o">:</span> <span class="n">PersonInfo</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">()</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">PersonInfo</span><span class="o">::</span><span class="n">theName</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">brithDate</span><span class="p">()</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">PersonInfo</span><span class="o">::</span><span class="n">theBirthDate</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><br /><br /></p>
+
+      </div>
+    </section>
+    <footer class="max-w-prose pt-8 print:hidden">
+      
+  <div class="flex">
+    
+    
+    
+      
+      
+        
+        
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+      
+    >
+      
+      
+      
+      
+      <img
+        width="500"
+        height="500"
+        class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+        alt="Pero"
+        loading="lazy" decoding="async"
+        
+          src="/main.jpg"
+        
+      />
+    </picture>
+  
+
+
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          Pero
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">Keep moving forward.</div>
+      
+      <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="mailto:peropeq@gmail.com"
+          target="_blank"
+          aria-label="Email"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+    </div>
+  </div>
+
+
+      
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="/post/cpp/effective-cpp-05/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[Effective C++] Chapter 5. 구현</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-01-05 01:00:00 &#43;0900 KST">5 January 2023</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="group flex text-right" href="/post/cpp/effective-cpp-07/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[Effective C++] Chapter 7. 템플릿과 일반화 프로그래밍</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-01-07 01:00:00 &#43;0900 KST">7 January 2023</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&rarr;</span
+                ><span class="ltr:hidden rtl:inline">&larr;</span></span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+          <div class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12">
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            ⓒ 2022. Pero.
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a>
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+    </div>
+  </div>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm sm:p-6 md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50"
+  data-url="https://frompero.github.io/"
+>
+  <div
+    id="search-modal"
+    class="top-20 mx-auto flex min-h-0 w-full max-w-3xl flex-col rounded-md border border-neutral-200 bg-neutral shadow-lg dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex flex-none items-center justify-between px-2">
+      <form class="flex min-w-0 flex-auto items-center">
+        <div class="flex h-8 w-8 items-center justify-center text-neutral-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="mx-1 flex h-12 flex-auto appearance-none bg-transparent focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex h-8 w-8 items-center justify-center text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto overflow-auto px-2">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+</html>

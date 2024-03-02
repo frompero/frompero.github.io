@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://frompero.github.io/sitemap.xml

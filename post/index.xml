@@ -1,0 +1,937 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on from Pero</title>
+    <link>https://frompero.github.io/post/</link>
+    <description>Recent content in Posts on from Pero</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>ⓒ 2022. Pero.</copyright>
+    <lastBuildDate>Mon, 14 Aug 2023 01:00:00 +0900</lastBuildDate>
+    <atom:link href="https://frompero.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[C&#43;&#43;] 상수</title>
+      <link>https://frompero.github.io/post/cpp/cpp-constant/</link>
+      <pubDate>Mon, 14 Aug 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-constant/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>[C&#43;&#43;] 바이트 정렬과 비트 필드</title>
+      <link>https://frompero.github.io/post/cpp/cpp-bit-field/</link>
+      <pubDate>Sat, 12 Aug 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-bit-field/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>[C&#43;&#43;] 컴파일 과정</title>
+      <link>https://frompero.github.io/post/cpp/cpp-complie/</link>
+      <pubDate>Fri, 11 Aug 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-complie/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>[C&#43;&#43;] 우측값과 이동 시맨틱</title>
+      <link>https://frompero.github.io/post/cpp/cpp-move-semantics/</link>
+      <pubDate>Thu, 10 Aug 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-move-semantics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>[Unreal] 언리얼 행동 트리</title>
+      <link>https://frompero.github.io/post/unreal/unreal-11/</link>
+      <pubDate>Wed, 09 Aug 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/unreal/unreal-11/</guid>
+      <description>행동 트리 # 트리를 기반으로 계층화되어있다.</description>
+    </item>
+    <item>
+      <title>[Unreal] 언리얼 충돌 처리 방법, 월드 트레이싱 함수</title>
+      <link>https://frompero.github.io/post/unreal/unreal-10/</link>
+      <pubDate>Tue, 08 Aug 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/unreal/unreal-10/</guid>
+      <description>충돌체를 만들자!</description>
+    </item>
+    <item>
+      <title>[Unreal] 언리얼 프로퍼티, 함수 지정자</title>
+      <link>https://frompero.github.io/post/unreal/unreal-09/</link>
+      <pubDate>Mon, 07 Aug 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/unreal/unreal-09/</guid>
+      <description>UPROPERTY() 에디터 관련 지정자 # 지정자 Edit Visible DefaultsOnly 블루프린트 프로퍼티 창에서 .</description>
+    </item>
+    <item>
+      <title>[Unreal] 언리얼 메모리 관리, GC, 스마트 포인터</title>
+      <link>https://frompero.github.io/post/unreal/unreal-06/</link>
+      <pubDate>Fri, 04 Aug 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/unreal/unreal-06/</guid>
+      <description>C++ 포인터의 메모리 관리 문제점 # 메모리 누수(Leak) new 를 했지만 delete 를 까먹어서 힙에 메모리가 그대로 남아 있는 문제.</description>
+    </item>
+    <item>
+      <title>[Unreal] 언리얼 컨테이너 라이브러리</title>
+      <link>https://frompero.github.io/post/unreal/unreal-05/</link>
+      <pubDate>Wed, 02 Aug 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/unreal/unreal-05/</guid>
+      <description>언리얼 컨테이너 라이브러리 # Unreal Container Library (UCL) 언리얼이 자체적으로 제작해서 제공하는 라이브러리이다.</description>
+    </item>
+    <item>
+      <title>[Unreal] 언리얼 구조체</title>
+      <link>https://frompero.github.io/post/unreal/unreal-04/</link>
+      <pubDate>Tue, 01 Aug 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/unreal/unreal-04/</guid>
+      <description>언리얼 구조체의 특징 # 언리얼 공식 문서 : 언리얼 구조체 언리얼 구조체는 언리얼 오브젝트와 다르다!</description>
+    </item>
+    <item>
+      <title>[Unreal] 언리얼 문자열 처리 방식</title>
+      <link>https://frompero.github.io/post/unreal/unreal-03/</link>
+      <pubDate>Mon, 31 Jul 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/unreal/unreal-03/</guid>
+      <description>UTF-16에 대해 알아보자 # 문자열 처리방식은 ANSI, ASCII, EUC-KR, CP949, UTF-8 BOM, UTF-8, UTF-16 등 정말 다양하다.</description>
+    </item>
+    <item>
+      <title>[Unreal] 언리얼 오브젝트, 엔진 프레임 워크, 액터의 라이프 사이클</title>
+      <link>https://frompero.github.io/post/unreal/unreal-02/</link>
+      <pubDate>Thu, 30 Mar 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/unreal/unreal-02/</guid>
+      <description>언리얼 오브젝트 # 언리얼은 ‘언리얼 오브젝트’라는 새로운 단위 객체를 만들었다.</description>
+    </item>
+    <item>
+      <title>[Unreal] 언리얼 빌드 시스템</title>
+      <link>https://frompero.github.io/post/unreal/unreal-01/</link>
+      <pubDate>Wed, 29 Mar 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/unreal/unreal-01/</guid>
+      <description>모듈이란?</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 게임 최적화 : 데이터 지역성, 더티 플래그, 오브젝트 풀, 공간 분할</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-27/</link>
+      <pubDate>Thu, 09 Feb 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-27/</guid>
+      <description>게임 프로그래밍 패턴 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 게임 디커플링 : 컴포넌트, 이벤트 큐, 서비스 중개자</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-26/</link>
+      <pubDate>Wed, 08 Feb 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-26/</guid>
+      <description>게임 프로그래밍 패턴 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 게임 행동 : 바이트 코드, 하위 클래스 샌드박스, 타입 객체</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-25/</link>
+      <pubDate>Tue, 07 Feb 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-25/</guid>
+      <description>게임 프로그래밍 패턴 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 게임 순서 : 이중 버퍼, 게임 루프, 업데이트 메서드</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-24/</link>
+      <pubDate>Mon, 06 Feb 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-24/</guid>
+      <description>게임 프로그래밍 패턴 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Game Math] Chapter 17. 캐릭터: 게임에 생기를 불어넣는 기술</title>
+      <link>https://frompero.github.io/post/game_math/game-math-17/</link>
+      <pubDate>Fri, 03 Feb 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/game_math/game-math-17/</guid>
+      <description>이득우의 게임 수학 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Game Math] Chapter 16. 사원수: 4차원 수로 설계한 3차원 회전</title>
+      <link>https://frompero.github.io/post/game_math/game-math-16/</link>
+      <pubDate>Thu, 02 Feb 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/game_math/game-math-16/</guid>
+      <description>이득우의 게임 수학 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Game Math] Chapter 15. 오일러 공식: 허수로 표현하는 회전 변환</title>
+      <link>https://frompero.github.io/post/game_math/game-math-15/</link>
+      <pubDate>Wed, 01 Feb 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/game_math/game-math-15/</guid>
+      <description>이득우의 게임 수학 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Effective C&#43;&#43;] Chapter 9. 그 밖의 이야기들</title>
+      <link>https://frompero.github.io/post/cpp/effective-cpp-09/</link>
+      <pubDate>Mon, 09 Jan 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/effective-cpp-09/</guid>
+      <description>이펙티브 C++ 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Effective C&#43;&#43;] Chapter 8. new와 delete를 내 맘대로</title>
+      <link>https://frompero.github.io/post/cpp/effective-cpp-08/</link>
+      <pubDate>Sun, 08 Jan 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/effective-cpp-08/</guid>
+      <description>이펙티브 C++ 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Effective C&#43;&#43;] Chapter 7. 템플릿과 일반화 프로그래밍</title>
+      <link>https://frompero.github.io/post/cpp/effective-cpp-07/</link>
+      <pubDate>Sat, 07 Jan 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/effective-cpp-07/</guid>
+      <description>이펙티브 C++ 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Effective C&#43;&#43;] Chapter 6. 상속, 그리고 객체 지향 설계</title>
+      <link>https://frompero.github.io/post/cpp/effective-cpp-06/</link>
+      <pubDate>Fri, 06 Jan 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/effective-cpp-06/</guid>
+      <description>이펙티브 C++ 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Effective C&#43;&#43;] Chapter 5. 구현</title>
+      <link>https://frompero.github.io/post/cpp/effective-cpp-05/</link>
+      <pubDate>Thu, 05 Jan 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/effective-cpp-05/</guid>
+      <description>이펙티브 C++ 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Effective C&#43;&#43;] Chapter 4. 설계 및 선언</title>
+      <link>https://frompero.github.io/post/cpp/effective-cpp-04/</link>
+      <pubDate>Wed, 04 Jan 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/effective-cpp-04/</guid>
+      <description>이펙티브 C++ 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Effective C&#43;&#43;] Chapter 3. 자원 관리</title>
+      <link>https://frompero.github.io/post/cpp/effective-cpp-03/</link>
+      <pubDate>Tue, 03 Jan 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/effective-cpp-03/</guid>
+      <description>이펙티브 C++ 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Effective C&#43;&#43;] Chapter 2. 생성자, 소멸자 및 대입 연산자</title>
+      <link>https://frompero.github.io/post/cpp/effective-cpp-02/</link>
+      <pubDate>Mon, 02 Jan 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/effective-cpp-02/</guid>
+      <description>이펙티브 C++ 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Effective C&#43;&#43;] Chapter 1. C&#43;&#43;에 왔으면 C&#43;&#43;의 법을 따릅시다</title>
+      <link>https://frompero.github.io/post/cpp/effective-cpp-01/</link>
+      <pubDate>Sun, 01 Jan 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/effective-cpp-01/</guid>
+      <description>이펙티브 C++ 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Algorithm] 유용한 수학</title>
+      <link>https://frompero.github.io/post/algorithm/algorithm-06/</link>
+      <pubDate>Sat, 19 Nov 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/algorithm/algorithm-06/</guid>
+      <description>1부터 n까지의 합 # $n$이 짝수일 경우 $a+b$가 $n/2$번 반복된다.</description>
+    </item>
+    <item>
+      <title>[Algorithm] 정렬, 탐색 알고리즘</title>
+      <link>https://frompero.github.io/post/algorithm/algorithm-05/</link>
+      <pubDate>Sat, 12 Nov 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/algorithm/algorithm-05/</guid>
+      <description>정렬 알고리즘 # 정렬 알고리즘과 시간 복잡도 정렬 알고리즘 Best Avg Worst 삽입 정렬 $n$ $n^2$ $n^2$ 선택 정렬 $n^2$ $n^2$ $n^2$ 버블 정렬 $n^2$ $n^2$ $n^2$ 셸 정렬 $n$ $n^{1.</description>
+    </item>
+    <item>
+      <title>[Algorithm] 수학적 개념과 알고리즘</title>
+      <link>https://frompero.github.io/post/algorithm/algorithm-04/</link>
+      <pubDate>Sat, 12 Nov 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/algorithm/algorithm-04/</guid>
+      <description>비트 조작 #비트 조작 트릭 # 0s는 모든 비트가 0인 값이며, 1s는 모든 비트가 1인 값이다.</description>
+    </item>
+    <item>
+      <title>[Algorithm] 자료구조 - 그래프</title>
+      <link>https://frompero.github.io/post/algorithm/algorithm-03/</link>
+      <pubDate>Sat, 05 Nov 2022 03:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/algorithm/algorithm-03/</guid>
+      <description>그래프의 종류 # 그래프 노드 간의 네트워크 구조이다.</description>
+    </item>
+    <item>
+      <title>[Algorithm] 자료구조 - 트리</title>
+      <link>https://frompero.github.io/post/algorithm/algorithm-02/</link>
+      <pubDate>Sat, 05 Nov 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/algorithm/algorithm-02/</guid>
+      <description>트리의 종류 # 트리 부모-자식의 계층 구조이다.</description>
+    </item>
+    <item>
+      <title>[Algorithm] 자료구조 - 배열, 문자열, 연결리스트, 스택, 큐</title>
+      <link>https://frompero.github.io/post/algorithm/algorithm-01/</link>
+      <pubDate>Sat, 05 Nov 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/algorithm/algorithm-01/</guid>
+      <description>배열 #해시 테이블 # 키(key) 를 값(value) 에 대응시킨 자료구조로써 매우 빠르게 데이터를 저장, 삭제, 검색할 수 있다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 행동 패턴 10. 인터프리터 (Interpreter)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-23/</link>
+      <pubDate>Tue, 23 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-23/</guid>
+      <description>인터프리터 패턴 # 어떤 언어에 대해 그 언어의 문법에 대한 표현을 정의하면서, 그 표현을 사용하여 해당 언어로 기술된 문장을 해석하는 해석자를 함께 정의한다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 행동 패턴 9. 이터레이터 (Iterator)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-22/</link>
+      <pubDate>Mon, 22 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-22/</guid>
+      <description>이터레이터 (Iterator) # 내부 세부구조를 노출하지 않고, 어떤 집합 객체에 속한 요소들을 순차적으로 접근할 수 있는 방법을 제공한다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 행동 패턴 8. 커맨드 (Command)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-21/</link>
+      <pubDate>Sun, 21 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-21/</guid>
+      <description>커맨드 패턴 # 메서드 호출을 실체화(객체화)한 것이다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 행동 패턴 8. 메멘토 (Memento)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-20/</link>
+      <pubDate>Sat, 20 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-20/</guid>
+      <description>메멘토 (Memento) # 객체의 구현 세부 사항을 공개하지 않으면서(캡슐화), 해당 객체의 이전 상태를 저장하고 복원할 수 있게 해준다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 행동 패턴 7. 비지터 (Visitor)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-19/</link>
+      <pubDate>Fri, 19 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-19/</guid>
+      <description>비지터 (Visitor) # 객체의 구조(Component)와 처리(Visitor)를 분리한다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 행동 패턴 6. 책임 연쇄 (Chain of responsibility)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-18/</link>
+      <pubDate>Thu, 18 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-18/</guid>
+      <description>책임 연쇄 (Chain of responsibility) # 주어진 요청을 처리하기 위해서 객체 사슬을 생성하고, 이 요청은 사슬을 따라 전달되면서 적절한 핸들러에 의해 처리되게 한다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 행동 패턴 5. 템플릿 메서드 (Template Method)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-17/</link>
+      <pubDate>Wed, 17 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-17/</guid>
+      <description>템플릿 메서드 (Template Method) # 부모 클래스에서 알고리즘의 골격을 정의하고, 해당 알고리즘의 구조를 변경하지 않고 자식 클래스들이 알고리즘의 특정 단계들을 오버라이드​(재정의)​ 할 수 있도록 한다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 행동 패턴 4. 상태 (State)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-16/</link>
+      <pubDate>Tue, 16 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-16/</guid>
+      <description>상태 패턴 # 객체 내부의 상태가 바뀌었을 때 객체가 행동을 바꾸도록 한다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 행동 패턴 3. 전략 (Strategy)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-15/</link>
+      <pubDate>Mon, 15 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-15/</guid>
+      <description>전략 (Strategy) # 바꿔 쓸 수 있는 행동을 캡슐화하고, 어떤 행동을 사용할지는 서브클래스에 맡긴다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 행동 패턴 2. 옵저버 (Observer)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-14/</link>
+      <pubDate>Sun, 14 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-14/</guid>
+      <description>옵저버 패턴 # 주체와 관찰자 사이에 1 대 다 의존 관계를 정의해 둔다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 행동 패턴 1. 중재자 (Mediator)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-13/</link>
+      <pubDate>Sat, 13 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-13/</guid>
+      <description>중재자 패턴 # 한 집합에 속해 있는 객체의 상호작용을 캡슐화하는 객체를 정의한다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 구조 패턴 7. 플라이웨이트 (Flyweight)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-12/</link>
+      <pubDate>Fri, 12 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-12/</guid>
+      <description>플라이웨이트 패턴 # 공유를 통해 많은 수의 잘게 쪼개진 객체들을 효과적으로 사용한다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 구조 패턴 6. 컴포지트 (Composite) </title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-11/</link>
+      <pubDate>Thu, 11 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-11/</guid>
+      <description>컴포지트 (Composite) # 부분과 전체를 나타내는 계층구조(트리)를 사용해서, 클라이언트가 개별 객체와 복합 객체를 똑같은 방법으로 다룰 수 있게 한다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 구조 패턴 5. 브리지 (Bridge) </title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-10/</link>
+      <pubDate>Wed, 10 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-10/</guid>
+      <description>브리지 (Bridge) # 구현 부분(플랫폼) 과 추상화 부분(인터페이스) 을 각각 독립적으로 분리 하여서 서로 영향을 주지 않고 내부적으로 확장할 수 있게 한다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 구조 패턴 4. 프록시 (Proxy) </title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-09/</link>
+      <pubDate>Tue, 09 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-09/</guid>
+      <description>프록시 (Proxy) # 다른 객체에 대한 접근을 제어(보호)하기 위한 대리자 역할을 수행한다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 구조 패턴 3. 퍼사드 (Facade)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-08/</link>
+      <pubDate>Mon, 08 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-08/</guid>
+      <description>퍼사드 (Facade) # 서브시스템 내의 인터페이스 집합에 대한 획일화된 하나의 인터페이스를 제공한다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 구조 패턴 2. 어댑터 (Adapter)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-07/</link>
+      <pubDate>Sun, 07 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-07/</guid>
+      <description>어댑터 (Adapter) # 클래스의 인터페이스를 다른 인터페이스로 변환해서 호환시켜준다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 구조 패턴 1. 데코레이터 (Decorator)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-06/</link>
+      <pubDate>Sat, 06 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-06/</guid>
+      <description>데코레이터 (Decorator) # 동적으로 런타임에 객체에 추가적인 책임을 부여한다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 행동 패턴 5. 프로토타입 (Prototype)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-05/</link>
+      <pubDate>Fri, 05 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-05/</guid>
+      <description>프로토타입 (Prototype) # 기존 인스턴스를 복제하여 새로운 인스턴스를 만드는 방법이다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 행동 패턴 4. 빌더 (Builder)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-04/</link>
+      <pubDate>Thu, 04 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-04/</guid>
+      <description>빌더 (Builder) # 객체를 생성하는 클래스와 표현(조립) 하는 클래스를 분리해서, 동일한 절차를 거치더라도 서로 다른 표현(조립된 완성품) 을 생성하는 방법을 제공한다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 행동 패턴 3. 추상 팩토리 (Abstract Factory)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-03/</link>
+      <pubDate>Wed, 03 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-03/</guid>
+      <description>추상 팩토리 (Abstract Factory) # 구체적인 클래스를 몰라도 일련의 객체군을 만들 수 있는 인터페이스를 제공한다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 행동 패턴 2. 팩토리 메서드 (Factory Method)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-02/</link>
+      <pubDate>Tue, 02 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-02/</guid>
+      <description>팩토리 메서드 (Factory Method) # 객체를 만들 수 있는 인터페이스를 제공한다.</description>
+    </item>
+    <item>
+      <title>[Design Pattern] 행동 패턴 1. 싱글톤 (Singleton)</title>
+      <link>https://frompero.github.io/post/design_pattern/design-pattern-01/</link>
+      <pubDate>Mon, 01 Aug 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/design_pattern/design-pattern-01/</guid>
+      <description>싱글톤 패턴 # 객체의 인스턴스를 오직 한 개만 생성하고, 그 한 개의 인스턴스에 대한 전역적인 접근점을 제공한다.</description>
+    </item>
+    <item>
+      <title>[OS] Chapter 12. 디스크 관리</title>
+      <link>https://frompero.github.io/post/os/os-it-principles-12/</link>
+      <pubDate>Wed, 27 Jul 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/os/os-it-principles-12/</guid>
+      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[OS] Chapter 11. 파일 시스템</title>
+      <link>https://frompero.github.io/post/os/os-it-principles-11/</link>
+      <pubDate>Wed, 20 Jul 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/os/os-it-principles-11/</guid>
+      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[OS] Chapter 10. 가상 메모리</title>
+      <link>https://frompero.github.io/post/os/os-it-principles-10/</link>
+      <pubDate>Wed, 13 Jul 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/os/os-it-principles-10/</guid>
+      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[OS] Chapter 9. 메모리 관리</title>
+      <link>https://frompero.github.io/post/os/os-it-principles-09/</link>
+      <pubDate>Wed, 06 Jul 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/os/os-it-principles-09/</guid>
+      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[OS] Chapter 8. 데드락</title>
+      <link>https://frompero.github.io/post/os/os-it-principles-08/</link>
+      <pubDate>Thu, 30 Jun 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/os/os-it-principles-08/</guid>
+      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[OS] Chapter 7. 프로세스 동기화</title>
+      <link>https://frompero.github.io/post/os/os-it-principles-07/</link>
+      <pubDate>Thu, 23 Jun 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/os/os-it-principles-07/</guid>
+      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[OS] Chapter 6. CPU 스케줄링</title>
+      <link>https://frompero.github.io/post/os/os-it-principles-06/</link>
+      <pubDate>Thu, 16 Jun 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/os/os-it-principles-06/</guid>
+      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[OS] Chapter 5. 프로세스 관리</title>
+      <link>https://frompero.github.io/post/os/os-it-principles-05/</link>
+      <pubDate>Thu, 09 Jun 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/os/os-it-principles-05/</guid>
+      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[OS] Chapter 3, 4. 컴퓨터 시스템의 동작 원리</title>
+      <link>https://frompero.github.io/post/os/os-it-principles-03/</link>
+      <pubDate>Thu, 02 Jun 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/os/os-it-principles-03/</guid>
+      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[OS] Chapter 2. 운영체제 개요</title>
+      <link>https://frompero.github.io/post/os/os-it-principles-02/</link>
+      <pubDate>Thu, 02 Jun 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/os/os-it-principles-02/</guid>
+      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Game Math] Chapter 14. 복소수: 2차원 평면의 수</title>
+      <link>https://frompero.github.io/post/game_math/game-math-14/</link>
+      <pubDate>Mon, 02 May 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/game_math/game-math-14/</guid>
+      <description>이득우의 게임 수학 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Game Math] Chapter 13. 절두체: 최적화된 3차원 공간 (2) </title>
+      <link>https://frompero.github.io/post/game_math/game-math-13-2/</link>
+      <pubDate>Sun, 01 May 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/game_math/game-math-13-2/</guid>
+      <description>이득우의 게임 수학 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Game Math] Chapter 13. 절두체: 최적화된 3차원 공간 (1)</title>
+      <link>https://frompero.github.io/post/game_math/game-math-13-1/</link>
+      <pubDate>Sat, 30 Apr 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/game_math/game-math-13-1/</guid>
+      <description>이득우의 게임 수학 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Game Math] Chapter 12. 원근 투영: 화면에 현실감을 부여하는 변환</title>
+      <link>https://frompero.github.io/post/game_math/game-math-12/</link>
+      <pubDate>Fri, 29 Apr 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/game_math/game-math-12/</guid>
+      <description>이득우의 게임 수학 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Game Math] Chapter 11. 외적: 3차원 공간의 분석과 응용</title>
+      <link>https://frompero.github.io/post/game_math/game-math-11/</link>
+      <pubDate>Thu, 28 Apr 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/game_math/game-math-11/</guid>
+      <description>이득우의 게임 수학 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Game Math] Chapter 10. 3차원 공간: 입체 공간의 생성</title>
+      <link>https://frompero.github.io/post/game_math/game-math-10/</link>
+      <pubDate>Wed, 27 Apr 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/game_math/game-math-10/</guid>
+      <description>이득우의 게임 수학 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Game Math] Chapter 9. 게임 엔진: 콘텐츠를 만드는 기술</title>
+      <link>https://frompero.github.io/post/game_math/game-math-09/</link>
+      <pubDate>Tue, 26 Apr 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/game_math/game-math-09/</guid>
+      <description>이득우의 게임 수학 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Game Math] Chapter 8. 삼각형: 물체를 구성하는 가장 작은 단위</title>
+      <link>https://frompero.github.io/post/game_math/game-math-08/</link>
+      <pubDate>Mon, 25 Apr 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/game_math/game-math-08/</guid>
+      <description>이득우의 게임 수학 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Game Math] Chapter 7. 내적: 벡터 공간의 분석과 응용</title>
+      <link>https://frompero.github.io/post/game_math/game-math-07/</link>
+      <pubDate>Sun, 24 Apr 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/game_math/game-math-07/</guid>
+      <description>이득우의 게임 수학 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Game Math] Chapter 6. 아핀 공간: 움직이는 가상 세계의 구축</title>
+      <link>https://frompero.github.io/post/game_math/game-math-06/</link>
+      <pubDate>Sat, 23 Apr 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/game_math/game-math-06/</guid>
+      <description>이득우의 게임 수학 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Game Math] Chapter 5. 행렬: 가상 세계의 변환 도구</title>
+      <link>https://frompero.github.io/post/game_math/game-math-05/</link>
+      <pubDate>Fri, 22 Apr 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/game_math/game-math-05/</guid>
+      <description>이득우의 게임 수학 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Game Math] Chapter 4. 삼각함수: 회전을 위한 수학</title>
+      <link>https://frompero.github.io/post/game_math/game-math-04/</link>
+      <pubDate>Thu, 21 Apr 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/game_math/game-math-04/</guid>
+      <description>이득우의 게임 수학 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Game Math] Chapter 3. 벡터: 가상 공간의 탄생</title>
+      <link>https://frompero.github.io/post/game_math/game-math-03/</link>
+      <pubDate>Wed, 20 Apr 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/game_math/game-math-03/</guid>
+      <description>이득우의 게임 수학 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Game Math] Chapter 2. 수: 가상 세계를 구성하는 가장 작은 단위</title>
+      <link>https://frompero.github.io/post/game_math/game-math-02/</link>
+      <pubDate>Wed, 20 Apr 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/game_math/game-math-02/</guid>
+      <description>이득우의 게임 수학 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C#] 가비지 컬렉션</title>
+      <link>https://frompero.github.io/post/csharp/c-sharp-05/</link>
+      <pubDate>Tue, 19 Apr 2022 05:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/c-sharp-05/</guid>
+      <description>C, C++의 경우 # C, C++에서는 프로그래머가 수동으로 Heap 영역의 해제를 관리해주어야 한다.</description>
+    </item>
+    <item>
+      <title>[C#] 컬렉션</title>
+      <link>https://frompero.github.io/post/csharp/c-sharp-04/</link>
+      <pubDate>Tue, 19 Apr 2022 04:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/c-sharp-04/</guid>
+      <description>컬렉션이란?</description>
+    </item>
+    <item>
+      <title>[C#] virtual 메서드</title>
+      <link>https://frompero.github.io/post/csharp/c-sharp-03/</link>
+      <pubDate>Tue, 19 Apr 2022 03:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/c-sharp-03/</guid>
+      <description>virtual table # Image Source</description>
+    </item>
+    <item>
+      <title>[C#] 객체와 메모리</title>
+      <link>https://frompero.github.io/post/csharp/c-sharp-02/</link>
+      <pubDate>Tue, 19 Apr 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/c-sharp-02/</guid>
+      <description>프로그램을 실행하면 4개의 힙이 생긴다.</description>
+    </item>
+    <item>
+      <title>[C#] 컴파일 과정</title>
+      <link>https://frompero.github.io/post/csharp/c-sharp-01/</link>
+      <pubDate>Tue, 19 Apr 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/c-sharp-01/</guid>
+      <description>C# 컴파일 과정 # Image Source</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 19. 스레드와 태스크</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-19/</link>
+      <pubDate>Mon, 18 Apr 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-19/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 14. 람다식</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-14/</link>
+      <pubDate>Sun, 17 Apr 2022 03:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-14/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 13. 대리자와 이벤트</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-13/</link>
+      <pubDate>Sun, 17 Apr 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-13/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 11. 일반화 프로그래밍</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-11/</link>
+      <pubDate>Sat, 16 Apr 2022 05:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-11/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 10. 배열과 컬렉션 그리고 인덱서</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-10/</link>
+      <pubDate>Sat, 16 Apr 2022 04:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-10/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 9. 프로퍼티</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-09/</link>
+      <pubDate>Sat, 16 Apr 2022 03:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-09/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 8. 인터페이스와 추상 클래스</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-08/</link>
+      <pubDate>Sat, 16 Apr 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-08/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 7. 클래스</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-07/</link>
+      <pubDate>Sat, 16 Apr 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-07/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 6. 메소드로 코드 간추리기</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-06/</link>
+      <pubDate>Fri, 15 Apr 2022 04:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-06/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 5. 코드의 흐름 제어하기</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-05/</link>
+      <pubDate>Fri, 15 Apr 2022 03:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-05/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 4. 데이터를 가공하는 연산자</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-04/</link>
+      <pubDate>Fri, 15 Apr 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-04/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 3. 데이터 보관하기</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-03/</link>
+      <pubDate>Fri, 15 Apr 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-03/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 18. (2) 람다 함수, 래퍼, 가변인자 템플릿</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-18-2/</link>
+      <pubDate>Sun, 27 Mar 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-18-2/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 18. (1) Move Semantics와 rvalue참조, 새로운 클래스 형태</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-18-1/</link>
+      <pubDate>Sun, 27 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-18-1/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 16. (5) STL - 알고리즘, 기타 라이브러리</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-16-5/</link>
+      <pubDate>Fri, 25 Mar 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-16-5/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 16. (4) STL - 함수 객체</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-16-4/</link>
+      <pubDate>Fri, 25 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-16-4/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 16. (3) STL - 컨테이너</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-16-3/</link>
+      <pubDate>Thu, 24 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-16-3/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 16. (2) STL - 이터레이터</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-16-2/</link>
+      <pubDate>Wed, 23 Mar 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-16-2/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 16. (1) string 클래스, 스마트 포인터 템플릿 클래스</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-16-1/</link>
+      <pubDate>Wed, 23 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-16-1/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 15. (3) RTTI</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-15-3/</link>
+      <pubDate>Tue, 22 Mar 2022 03:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-15-3/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 15. (2) 예외</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-15-2/</link>
+      <pubDate>Tue, 22 Mar 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-15-2/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 15. (1) 클래스 프렌드와 프렌드 멤버 함수, 내포 클래스</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-15-1/</link>
+      <pubDate>Tue, 22 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-15-1/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 14. C&#43;&#43; 코드의 재활용 (2) 템플릿</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-14-2/</link>
+      <pubDate>Mon, 21 Mar 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-14-2/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 14. C&#43;&#43; 코드의 재활용 (1) 컨테인먼트와 private, protected 상속</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-14-1/</link>
+      <pubDate>Mon, 21 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-14-1/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 13. 클래스의 상속</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-13/</link>
+      <pubDate>Sun, 20 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-13/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 12. 클래스와 동적 메모리 대입</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-12/</link>
+      <pubDate>Sat, 19 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-12/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 11. 클래스의 활용</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-11/</link>
+      <pubDate>Thu, 17 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-11/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 10. 객체와 클래스</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-10/</link>
+      <pubDate>Wed, 16 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-10/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 9. 메모리 모델과 이름공간</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-09/</link>
+      <pubDate>Thu, 10 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-09/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 8. 함수의 활용</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-08/</link>
+      <pubDate>Wed, 09 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-08/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 7. 함수</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-07/</link>
+      <pubDate>Tue, 08 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-07/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 6. 분기 구문과 논리 연산자</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-06/</link>
+      <pubDate>Mon, 07 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-06/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 5. 루프와 관계표현식</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-05/</link>
+      <pubDate>Sat, 05 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-05/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 4. 복합 데이터형</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-04/</link>
+      <pubDate>Fri, 04 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-04/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 3. 데이터 처리</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-03/</link>
+      <pubDate>Thu, 03 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-03/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 1, 2. 시작하기</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-01/</link>
+      <pubDate>Wed, 02 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-01/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Network] Chapter 9. 무선 랜 이해하기</title>
+      <link>https://frompero.github.io/post/network/network-09/</link>
+      <pubDate>Sat, 26 Feb 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/network/network-09/</guid>
+      <description>모두의 네트워크 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Network] Chapter 8. 네트워크의 전체 흐름 살펴보기</title>
+      <link>https://frompero.github.io/post/network/network-08/</link>
+      <pubDate>Sat, 26 Feb 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/network/network-08/</guid>
+      <description>모두의 네트워크 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Network] Chapter 7. 응용 계층 : 애플리케이션에 데이터 전송하기</title>
+      <link>https://frompero.github.io/post/network/network-07/</link>
+      <pubDate>Fri, 25 Feb 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/network/network-07/</guid>
+      <description>모두의 네트워크 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Network] Chapter 6. 전송 계층 : 신뢰할 수 있는 데이터 전송하기</title>
+      <link>https://frompero.github.io/post/network/network-06/</link>
+      <pubDate>Fri, 25 Feb 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/network/network-06/</guid>
+      <description>모두의 네트워크 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Network] Chapter 5. 네트워크 계층 : 목적지에 데이터 전달하기</title>
+      <link>https://frompero.github.io/post/network/network-05/</link>
+      <pubDate>Thu, 24 Feb 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/network/network-05/</guid>
+      <description>모두의 네트워크 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Network] Chapter 4. 데이터 링크 계층 : LAN에서 데이터 전송하기</title>
+      <link>https://frompero.github.io/post/network/network-04/</link>
+      <pubDate>Thu, 24 Feb 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/network/network-04/</guid>
+      <description>모두의 네트워크 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Network] Chapter 3. 물리 계층 : 데이터를 전기 신호로 변환하기</title>
+      <link>https://frompero.github.io/post/network/network-03/</link>
+      <pubDate>Wed, 23 Feb 2022 03:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/network/network-03/</guid>
+      <description>모두의 네트워크 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Network] Chapter 2. 네트워크의 기본 규칙</title>
+      <link>https://frompero.github.io/post/network/network-02/</link>
+      <pubDate>Wed, 23 Feb 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/network/network-02/</guid>
+      <description>모두의 네트워크 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[Network] Chapter 1. 네트워크 기초 지식</title>
+      <link>https://frompero.github.io/post/network/network-01/</link>
+      <pubDate>Wed, 23 Feb 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/network/network-01/</guid>
+      <description>모두의 네트워크 책을 읽고 공부한 노트입니다.</description>
+    </item>
+  </channel>
+</rss>

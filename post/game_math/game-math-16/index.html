@@ -1,0 +1,1806 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="rgb(255,255,255)" />
+  
+  <title>[Game Math] Chapter 16. 사원수: 4차원 수로 설계한 3차원 회전 &middot; from Pero</title>
+    <meta name="title" content="[Game Math] Chapter 16. 사원수: 4차원 수로 설계한 3차원 회전 &middot; from Pero" />
+  
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.022d0ebc3b46a335eb1c7ef79b7f2de143d7cd5156d433638592ef1ce5f8554e.js"
+    integrity="sha256-Ai0OvDtGozXrHH73m38t4UPXzVFW1DNjhZLvHOX4VU4="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.afb4a97d267bd0c2e9391dd7b62a45afcd549fea29cb7747564f0cb36db70f1b.css"
+    integrity="sha256-r7SpfSZ70MLpOR3XtipFr81Un&#43;opy3dHVk8Ms223Dxs="
+  />
+  
+    
+    
+    
+  
+  
+  
+    
+    
+  
+  
+    
+    
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.5b9218820e6c6b9f04b4c5a03dffd0d57bc9189f511ee80ea74222de3a608e2f.js"
+      integrity="sha256-W5IYgg5sa58EtMWgPf/Q1XvJGJ9RHugOp0Ii3jpgji8="
+      data-copy="Copy"
+      data-copied="Copied"
+    ></script>
+  
+  
+  <meta
+    name="description"
+    content="
+      
+        이득우의 게임 수학 책을 읽고 공부한 노트입니다.
+      
+    "
+  />
+  
+  
+  
+  <link rel="canonical" href="https://frompero.github.io/post/game_math/game-math-16/" />
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="[Game Math] Chapter 16. 사원수: 4차원 수로 설계한 3차원 회전" />
+<meta property="og:description" content="이득우의 게임 수학 책을 읽고 공부한 노트입니다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://frompero.github.io/post/game_math/game-math-16/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-02-02T01:00:00+09:00" />
+<meta property="article:modified_time" content="2023-02-02T01:00:00+09:00" />
+
+
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="[Game Math] Chapter 16. 사원수: 4차원 수로 설계한 3차원 회전"/>
+<meta name="twitter:description" content="이득우의 게임 수학 책을 읽고 공부한 노트입니다."/>
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "[Game Math] Chapter 16. 사원수: 4차원 수로 설계한 3차원 회전",
+    "headline": "[Game Math] Chapter 16. 사원수: 4차원 수로 설계한 3차원 회전",
+    
+    "abstract": "이득우의 게임 수학 책을 읽고 공부한 노트입니다.",
+    "inLanguage": "en",
+    "url" : "https:\/\/frompero.github.io\/post\/game_math\/game-math-16\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Pero"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-02-02T01:00:00\u002b09:00",
+    "datePublished": "2023-02-02T01:00:00\u002b09:00",
+    
+    "dateModified": "2023-02-02T01:00:00\u002b09:00",
+    
+    "keywords": ["Game Math"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "3429"
+  }
+  </script>
+
+
+  
+  <meta name="author" content="Pero" />
+  
+    
+      <link href="mailto:peropeq@gmail.com" rel="me" />
+    
+  
+  
+  
+
+
+
+
+
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/lib/katex/katex.min.7c7c1a59e6eec00ecd485e5083f69fe14783c7d5ea52962938682e6e8df25aef9bd88411e14790c1b6f8d938bb81502336d56823f23d4c4a187aef689b0702ea.css"
+    integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu&#43;b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g=="
+  />
+  
+  
+  <script
+    defer
+    src="/lib/katex/katex.min.2d037120c479ad7bfba3e6f597cf8dd4464c7e11bb88567d1e19db2644e9e338cdaf95afb2def902a51e143c5e4546bb979bc40f2522022a7ffebf8414b2c2c8.js"
+    integrity="sha512-LQNxIMR5rXv7o&#43;b1l8&#43;N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r&#43;EFLLCyA=="
+  ></script>
+  
+  
+  <script
+    defer
+    src="/lib/katex/auto-render.min.e6511c3458afadbb974a54c917a45e383efdb02303964d83fdb17ff69367d6d871a53a09973ffec8c9d3525c7b8c64602e6c16a64842884ad60989a16d953fd0.js"
+    integrity="sha512-5lEcNFivrbuXSlTJF6ReOD79sCMDlk2D/bF/9pNn1thxpToJlz/&#43;yMnTUlx7jGRgLmwWpkhCiErWCYmhbZU/0A=="
+    onload="renderMathInElement(document.body);"
+  ></script>
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+  
+  
+  
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QBM4YPD699"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-QBM4YPD699', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+  
+  
+</head>
+<body
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 sm:px-14 md:px-24 lg:px-32 dark:bg-neutral-800 dark:text-neutral"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="-translate-y-8 rounded-b-lg bg-primary-200 px-3 py-1 text-sm focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="pe-2 font-bold text-primary-600 dark:text-primary-400">&darr;</span
+        >Skip to main content</a
+      >
+    </div>
+    
+    
+      <header class="py-6 font-semibold text-neutral-900 print:hidden sm:py-10 dark:text-neutral">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="z-40 flex flex-row items-center">
+      
+  <a
+    class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+    rel="me"
+    href="/"
+    >from Pero</a
+  >
+
+    </div>
+    
+      
+      <label id="menu-button" for="menu-controller" class="block sm:hidden">
+        <input type="checkbox" id="menu-controller" class="hidden" />
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="invisible fixed inset-0 z-30 m-auto h-full w-full cursor-default overflow-auto bg-neutral-100/50 opacity-0 backdrop-blur-sm transition-opacity dark:bg-neutral-900/50"
+        >
+          <ul
+            class="mx-auto flex w-full max-w-7xl list-none flex-col overflow-visible px-6 py-6 text-end sm:px-14 sm:py-10 sm:pt-10 md:px-24 lg:px-32"
+          >
+            <li class="mb-1">
+              <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400"
+                ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span></span
+              >
+            </li>
+            
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/post/"
+                      title="Posts"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Posts</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/categories/"
+                      title="Categories"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Categories</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/tags/"
+                      title="Tags"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Tags</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    
+                      <button
+                        id="search-button-1"
+                        title="Search (/)"
+                      >
+                        
+                          <span
+                            class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                          ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </button>
+                    
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    <button
+                      id="appearance-switcher-1"
+                      type="button"
+                      aria-label="appearance switcher"
+                    >
+                      <span
+                        class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                        title="Switch to dark appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                      <span
+                        class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                        title="Switch to light appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                    </button>
+                  
+                </li>
+              
+              
+            
+          </ul>
+        </div>
+      </label>
+      
+      <ul class="hidden list-none flex-row text-end sm:flex">
+        
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/post/"
+                  title="Posts"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Posts</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/categories/"
+                  title="Categories"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Categories</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/tags/"
+                  title="Tags"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Tags</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                
+                  <button
+                    id="search-button-2"
+                    title="Search (/)"
+                  >
+                    
+                      <span
+                        class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                      ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </button>
+                
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                <button
+                  id="appearance-switcher-2"
+                  type="button"
+                  aria-label="appearance switcher"
+                >
+                  <span
+                    class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                    title="Switch to dark appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                  <span
+                    class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                    title="Switch to light appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                </button>
+              
+            </li>
+          
+          
+
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex grow flex-col">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        [Game Math] Chapter 16. 사원수: 4차원 수로 설계한 3차원 회전
+      </h1>
+      
+        <div class="mb-12 mt-8 text-base text-neutral-500 print:hidden dark:text-neutral-400">
+          
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2023-02-02 01:00:00 &#43;0900 KST">2 February 2023</time>
+    
+
+    
+    
+  </div>
+
+  
+  
+
+
+        </div>
+      
+      
+    </header>
+    <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+      
+        <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
+          <div class="toc pe-5 print:hidden lg:sticky lg:top-10">
+            <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
+  <summary
+    class="-ms-5 block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 lg:hidden dark:bg-neutral-700 dark:text-neutral-100"
+  >
+    Table of Contents
+  </summary>
+  <div class="-ms-5 border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#사원수-대수">사원수 대수</a>
+      <ul>
+        <li><a href="#사원수를-구성하는-세-허수">사원수를 구성하는 세 허수</a></li>
+        <li><a href="#사원수의-구조">사원수의 구조</a></li>
+        <li><a href="#사원수와-백터">사원수와 백터</a></li>
+      </ul>
+    </li>
+    <li><a href="#사원수-회전">사원수 회전</a>
+      <ul>
+        <li><a href="#사원수와-오일러-공식">사원수와 오일러 공식</a></li>
+        <li><a href="#회전-사원수를-이용한-3차원-공간에서의-회전">회전 사원수를 이용한 3차원 공간에서의 회전</a></li>
+      </ul>
+    </li>
+    <li><a href="#사원수-변환">사원수 변환</a>
+      <ul>
+        <li><a href="#오일러-각에서-사원수로의-변환">오일러 각에서 사원수로의 변환</a></li>
+        <li><a href="#사원수에서-오일러-각으로의-변환">사원수에서 오일러 각으로의 변환</a></li>
+        <li><a href="#사원수에서-회전-변환행렬로의-변환">사원수에서 회전 변환행렬로의 변환</a></li>
+        <li><a href="#회전변환행렬에서-사원수로의-변환">회전변환행렬에서 사원수로의 변환</a></li>
+      </ul>
+    </li>
+    <li><a href="#사원수의-보간">사원수의 보간</a>
+      <ul>
+        <li><a href="#선형-보간lerp">선형 보간(Lerp)</a></li>
+        <li><a href="#구면-선형-보간slerp">구면 선형 보간(Slerp)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+          </div>
+        </div>
+      
+      <div class="min-h-0 min-w-0 max-w-prose grow">
+        <div style="text-align: right"> 
+<p>
+<a href="http://www.yes24.com/Product/Goods/107025224" target="_blank" rel="noreferrer">이득우의 게임 수학</a> 책을 읽고 공부한 노트입니다.</p>
+</div>
+<hr>
+<p><br /><br /></p>
+<h2 id="사원수-대수" class="relative group">사원수 대수 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%82%ac%ec%9b%90%ec%88%98-%eb%8c%80%ec%88%98" aria-label="Anchor">#</a></span></h2><h3 id="사원수를-구성하는-세-허수" class="relative group">사원수를 구성하는 세 허수 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%82%ac%ec%9b%90%ec%88%98%eb%a5%bc-%ea%b5%ac%ec%84%b1%ed%95%98%eb%8a%94-%ec%84%b8-%ed%97%88%ec%88%98" aria-label="Anchor">#</a></span></h3><ul>
+<li>사원수
+<ul>
+<li>집합 기호는 $\mathbb{H}$다.</li>
+<li>하나의 실수부와, 세 개의 허수부로 구성된다.</li>
+<li>복소수의 $a + bi$형태처럼 사원수도 실수부와 허수부를 덧셈으로 묶고 실수를 사용해 허수부의 계수를 지정한다.
+$$ q = a + bi + cj + dk $$</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>세 개의 허수부 $i$, $j$, $k$
+<ul>
+<li>복소수의 허수 단위 $i$와 같은 성질을 가진다.
+$$ i^2 = j^2 = k^2 = -1 $$</li>
+<li>두 허수의 곱은 나머지 하나의 허수에 대응 되는데, Chapter 10에서 본 회전 순환 순서와 유사하게 $i$ → $j$ → $k$ → $i$ 순서로 대응된다.
+$$ ij = k $$
+$$ jk = i $$
+$$ ki = j $$
+$$ ijk = jki = kij = -1 $$</li>
+</ul>
+</li>
+</ul>
+<br />
+<h3 id="사원수의-구조" class="relative group">사원수의 구조 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%82%ac%ec%9b%90%ec%88%98%ec%9d%98-%ea%b5%ac%ec%a1%b0" aria-label="Anchor">#</a></span></h3><ul>
+<li>
+<p>사원수의 <u>덧셈</u></p>
+<ul>
+<li>실수부와 허수부끼리 더한다.
+$$ q_1 + q_2 = (a_1 + a_2) + (b_1 + b_2)i + (c_1 + c_2)j + (d_1 + d_2)k $$</li>
+</ul>
+</li>
+<li>
+<p>사원수 덧셈 연산의 성질</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>연산의 성질</th>
+<th>수식</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>덧셈에 대해 닫혀 있음</td>
+<td>O</td>
+</tr>
+<tr>
+<td>덧셈에 대한 결합법칙이 성립함</td>
+<td>$ q_1 + (q_2 + q_3) = (q_1 + q_2) + q_3 $</td>
+</tr>
+<tr>
+<td>덧셈에 대한 교환법칙이 성립함</td>
+<td>$q_1 + q_2 = q_2 + q_1$</td>
+</tr>
+<tr>
+<td>덧셈에 대한 항등원의 존재함</td>
+<td>$0$</td>
+</tr>
+<tr>
+<td>덧셈에 대한 역원이 존재함</td>
+<td>$-(a + bi + cj + dk)$</td>
+</tr>
+</tbody>
+</table>
+<br />
+<ul>
+<li>
+<p>사원수의 <u>곱셈</u></p>
+<ul>
+<li>해밀턴 곱(Hamiton product)으로 불린다.</li>
+<li>모든 요소를 교차해서 곱한다.
+$$ q_1 \cdot q_2 = (a_1a_2 - b_1b_2 - c_1c_2 - d_1d_2) $$
+$$ + (a_1b_2 + a_2b_1 + c_1d_2 - d_1c_2)i $$
+$$ + (a_1c_2 + a_2c_1 + b_2d_1 - b_1d_2)j $$
+$$ + (a_1d_2 + a_2d_1 + b_1c_2 - c_1b_2)k $$</li>
+</ul>
+</li>
+<li>
+<p>사원수 곱셈 연산의 성질</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>연산의 성질</th>
+<th>수식</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>곱셈에 대해 닫혀 있음</td>
+<td>O</td>
+</tr>
+<tr>
+<td>곱셈에 대한 결합법칙이 성립함</td>
+<td>$ q_1 \cdot (q_2 \cdot q_3) = (q_1 \cdot q_2) \cdot q_3 $</td>
+</tr>
+<tr>
+<td>곱셈에 대한 교환법칙이 성립함</td>
+<td>X<br /><u>곱셈에서 순서가 중요</u>하다.</td>
+</tr>
+<tr>
+<td>곱셈에 대한 항등원의 존재함</td>
+<td>$1$</td>
+</tr>
+<tr>
+<td>곱셈에 대한 역원이 존재함</td>
+<td>켤레를 활용해 계산한다.<br />$$q^{-1} = \frac{1}{q} = \frac{q^*}{qq^*} = \frac{q^*}{|q^2|}$$</td>
+</tr>
+<tr>
+<td>덧셈과 곱셈에 대한 분배법칙이 성립함</td>
+<td>$q_1 \cdot (q_2 + q_3) = q_1 \cdot q_2 + q_1 \cdot q_3 $</td>
+</tr>
+</tbody>
+</table>
+<br />
+<ul>
+<li><strong>유사체(Skew field)</strong>
+<ul>
+<li>사원수 처럼, 체의 구조에서 교환법칙이 성립하지 않는 구조를 말한다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><strong>사원수의 크기</strong>
+$$ |q| = \sqrt{a^2 + b^2 + c^2 + d^2} $$
+<ul>
+<li>복소수와 똑같이, 노름(Norm)이라고 부른다.</li>
+<li>각 계수를 제곱한 값을 더하고 제곱근을 취해 계산한다.</li>
+</ul>
+</li>
+<li><strong>단위 사원수(Unit quaternion)</strong>
+<ul>
+<li>크기가 1인 사원수이다.</li>
+</ul>
+</li>
+<li><strong>켤레 사원수</strong>
+<ul>
+<li>세 허수부의 계수에 음수를 적용한 사원수이다.
+$$ q^* = a - (bi + cj + dk) $$</li>
+<li>켤레 사원수의 곱의 성질은 켤레 복소수와 동일하다.
+$$ (q^*)^* = q $$
+$$ (q_1q_2)^* = q_2^*q_1^* $$
+$$ qq^* = q^*q = a^2 + b^2 + c^2 + d^2 = |q|^2 $$</li>
+</ul>
+</li>
+</ul>
+<h3 id="사원수와-백터" class="relative group">사원수와 백터 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%82%ac%ec%9b%90%ec%88%98%ec%99%80-%eb%b0%b1%ed%84%b0" aria-label="Anchor">#</a></span></h3><ul>
+<li>2개의 요소를 사용하는 복소수는 2개의 수 집합이 직교하는 2차원 복소평면으로 시각화할 수 있었다.</li>
+<li>그렇기에 4개의 요소를 사용하는 사원수는 4개의 수 집합이 직교하는 4차원 공간으로 시각화가 가능하겠다.</li>
+<li>하지만 4차원은 우리의 인지를 넘어서기에, 이를 1차원과 3차원으로 분리해서 생각하는 것이 효과적이겠다.</li>
+<li>따라서 사원수는 허수부를 하나로 묶고, 실수부를 별도로 관리하는 방법을 사용한다.
+<ul>
+<li>세 허수부의 계수를 3차원 벡터로 묶고, 나머지 실수부를 별도로 관리하면 되겠다.
+$$ q = w + xi + yj + zk = (w, \vec{v}) $$</li>
+<li>실수부 $w$를 스칼라부, 허수부 $\vec{v}$를 벡터부라고도 부른다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>벡터의 내적과 외적을 사용하면 사원수의 곱셈이 더 깔끔하게 정리가 된다.
+$$ q_1 \cdot q_2 = (w_1w_2 - (\vec{v_1} \cdot \vec{v_2}), w_1\vec{v_2} + w_2\vec{v_1} + \vec{v_1} \times \vec{v_2}) $$</li>
+</ul>
+<br />
+<ul>
+<li><mark><strong>순허수 사원수(Pure imaginary quaternion)</strong></mark>
+<ul>
+<li><strong>실수부가 $0$이고, 세 허수로만 구성된 수</strong>이다.</li>
+<li>우리가 다루는 <u>3차원 벡터 공간</u>에 대응되는 개념이다.
+$$ xi + yj + zk = (0, \vec{v}) $$</li>
+<li>순허수 사원수의 곱셈은 더 간단하다.
+$$ q_1 \cdot q_2 = (-\vec{v_1} \cdot \vec{v_2}, \vec{v_1} \times \vec{v_2}) $$</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="사원수-회전" class="relative group">사원수 회전 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%82%ac%ec%9b%90%ec%88%98-%ed%9a%8c%ec%a0%84" aria-label="Anchor">#</a></span></h2><h3 id="사원수와-오일러-공식" class="relative group">사원수와 오일러 공식 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%82%ac%ec%9b%90%ec%88%98%ec%99%80-%ec%98%a4%ec%9d%bc%eb%9f%ac-%ea%b3%b5%ec%8b%9d" aria-label="Anchor">#</a></span></h3><ul>
+<li>Chapter 15에서 보았듯, 크기가 $1$이고 제곱한 수가 $-1$이 되는 허수 $i$와 같은 수가 있다면, 그것을 사용해 오일러 공식을 만족하게 할 수 있었다.
+$$ e^{i\theta} = \cos\theta + i \sin\theta = (\cos\theta, \sin\theta)$$
+<ul>
+<li>사원수에서도 이런 수가 있다면 좋겠다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><strong>크기가 $1$인 순허수 사원수</strong>를 고려해보자.<br>
+$$ q = (0, \vec{n}) $$
+<ul>
+<li>크기가 $1$이므로 다음과 같아서,
+$$ \sqrt{0 + |\vec{n}|^2} = 1$$</li>
+<li>$\vec{n}$의 크기도 $1$이 된다.
+$$ |\vec{n}| = \vec{n} \cdot \vec{n} = 1 $$</li>
+<li>크기가 $1$인 순허수 사원수를 제곱해보자.
+$$ q^2 = q \cdot q = (-\vec{n} \cdot \vec{n}, \vec{n} \times \vec{n}) $$</li>
+<li>위에서 보았듯 $\vec{n} \cdot \vec{n}$가 $1$이고, 평행한 벡터의 외적은 영벡터가 되므로 다음과 같아진다.
+$$ q^2 = (1, \vec{0}) $$</li>
+<li>따라서, 크기가 $1$인 순허수 사원수는 크기가 $1$이고, 제곱하면 $-1$이 된다. 이것을 오일러 공식에 $i$대신 넣으면 되겠다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><mark><strong>회전 사원수(Rotation quaternion)</strong></mark>
+$$ e^{\vec{n}\theta} = \cos\theta + \sin\theta \cdot \vec{n} = (\cos\theta, \sin\theta \cdot \vec{n})$$
+<ul>
+<li>4차원 공간에서 회전축 $\vec{n}$을 중심으로 회전 변환을 하는 사원수이다.</li>
+<li>즉, 회전축 $\vec{n}$을 중심으로 $\theta$만큼 회전시키는 사원수라고 볼 수 있다.</li>
+<li>회전 사원수는 언제나 단위 사원수이다.</li>
+</ul>
+</li>
+<li><strong>회전 사원수의 켤레 사원수</strong>
+$$ q^* = (\cos\theta, -\sin\theta \cdot \vec{n}) $$
+<ul>
+<li>이것은 다음 식과 같으므로, <u>반대 방향의 회전</u>을 의미한다.
+$$ q^* = (\cos(-\theta), \sin(-\theta) \cdot \vec{n}) $$</li>
+</ul>
+</li>
+</ul>
+<br />
+<h3 id="회전-사원수를-이용한-3차원-공간에서의-회전" class="relative group">회전 사원수를 이용한 3차원 공간에서의 회전 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%9a%8c%ec%a0%84-%ec%82%ac%ec%9b%90%ec%88%98%eb%a5%bc-%ec%9d%b4%ec%9a%a9%ed%95%9c-3%ec%b0%a8%ec%9b%90-%ea%b3%b5%ea%b0%84%ec%97%90%ec%84%9c%ec%9d%98-%ed%9a%8c%ec%a0%84" aria-label="Anchor">#</a></span></h3><ul>
+<li>사원수를 사용해서 3차원 공간에서 벡터를 회전시키려고 한다.
+<ul>
+<li>그 결과 또한 3차원 공간 상에 있어야 하므로, 결과가 순허수 사원수여야 할 것이다.</li>
+</ul>
+</li>
+<li>하지만 막상 회전 사원수 $q$를 순허수 사원수 $\vec{v}$에 곱해보면, 그 결과가 순허수 사원수가 아니다.<br>
+$$ \vec{v&rsquo;} = q \cdot \vec{v} $$
+$$ = (\cos\theta, \sin\theta \cdot \vec{n}) \cdot (0, \vec{v}) $$
+$$ = (-\sin\theta(\vec{n} \cdot \vec{v}), \cos\theta\vec{v} + \sin\theta(\vec{n} \times \vec{v})) $$
+<ul>
+<li>참고로, 회전 사원수 $q$를 왼쪽에 배치해야 한다. (순서가 중요하다.)</li>
+<li>실수부가 $-\sin\theta(\vec{n} \cdot \vec{v})$ 라서 회전의 결과는 4차원에 존재하겠다.</li>
+<li>사원수 곱의 결과가 항상 순허수 사원수가 되는 특별한 수식을 발견해보자.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>회전 시킬 벡터 $\vec{v}$를 수직과 수평 성분으로 나누자.
+$$\vec{v} = \vec{v_{\parallel}} + \vec{v_{\perp}}$$</li>
+<li>이 벡터를 $\vec{n}$을 기준으로 각 $\theta$만큼 회전시킨 벡터는 어떻게 표현할 수 있을까? <br />
+
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/game_math/images/16-01-rotation.jpg" alt="3차원 공간에서의 회전" class="mx-auto my-0 rounded-md" />
+</figure>
+
+<ul>
+<li>수직인 성분만 회전되고, 수평인 성분은 그대로 두면 된다.
+$$\vec{v&rsquo;} = \vec{v_{\parallel}} + q \cdot \vec{v_{\perp}}$$</li>
+<li>여기에 회전 사원수 $q$를 자연지수함수로 표현하면 다음과 같다.
+$$\vec{v&rsquo;} = \vec{v_{\parallel}} + e^{\vec{n}\theta}  \cdot \vec{v_{\perp}}$$</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><strong>(우변의 두번째 항) 회전 사원수와 직교하는 벡터의 곱의 경우</strong>
+$$e^{\vec{n}\theta}  \cdot \vec{v_{\perp}} = (0, \cos\theta\vec{v_{\perp}} + \sin\theta(\vec{n} \times \vec{v_{\parallel}}))$$
+<ul>
+<li>실수부가 $0$인 순허수 사원수가 되므로 3차원 공간의 벡터에 대응된다.</li>
+<li>여기에 연산순서를 바꾼 후, 회전각에 $-\theta$를 대입하면 똑같은 결과가 나온다.
+$$ \vec{v_{\perp}} \cdot e^{\vec{n}\theta} = (0, \cos\theta\vec{v_{\perp}} - \sin\theta(\vec{n} \times \vec{v_{\parallel}}))$$
+$$ \vec{v_{\perp}} \cdot e^{\vec{n}(-\theta)} = (0, \cos\theta\vec{v_{\perp}} + \sin\theta(\vec{n} \times \vec{v_{\parallel}}))$$</li>
+<li>따라서 직교하는 벡터의 다음과 같은 성질을 도출할 수 있다.
+$$ e^{\vec{n}\theta}  \cdot \vec{v_{\perp}} = \vec{v_{\perp}} \cdot e^{\vec{n}(-\theta)} $$</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><strong>(수식에는 없었지만) 회전 사원수와 평행한 벡터의 곱의 경우</strong><br>
+$$ e^{\vec{n}\theta} \cdot \vec{v_{\parallel}} = (-\sin\theta(\vec{n}\cdot \vec{v_{\parallel}}, \cos\theta\vec{v_{\parallel}})$$
+<ul>
+<li>사원수의 곱에서는 외적 계산 부분이 있었기 때문에 교환법칙이 성립하지 않았다. 그런데 이 경우 외적이 사라져서 교환법칙이 성립하게 된다.
+$$ e^{\vec{n}\theta} \cdot \vec{v_{\parallel}} = \vec{v_{\parallel}} \cdot e^{\vec{n}\theta} $$</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>이러한 평행, 수식 벡터의 성질을 이용해서 이전에 보았던 회전을 전개하면 다음과 같이 풀어진다. (풀이 생략)
+$$\vec{v&rsquo;} = \vec{v_{\parallel}} + e^{\vec{n}\theta}  \cdot \vec{v_{\perp}}$$
+$$ = e^{\vec{n}(\frac{\theta}{2})} \cdot \vec{v} \cdot e^{\vec{n}(- \frac{\theta}{2})}$$
+<ul>
+<li>자연지수함수를 다시 사원수의 형태로 바꿔보자.</li>
+<li>이번에는 <u><strong>회전 사원수 $q$를 $\theta$가 아닌 $\frac{\theta}{2}$만큼 회전하는 것으로 정의</strong></u>하자.
+$$ q = (\cos\frac{\theta}{2}, \sin\frac{\theta}{2}\vec{n}) = e^{\vec{n}(\frac{\theta}{2})}$$</li>
+<li>반대방향으로 회전하는 사원수는 켤레 사원수 이므로, 다음과 같이 <u><strong>최종 정리</strong></u>된다.
+$$ e^{\vec{n}(\frac{\theta}{2})} \cdot \vec{v} \cdot e^{\vec{n}(- \frac{\theta}{2})} = q \cdot \vec{v} \cdot q^*$$</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>$q$를 간단히 다음과 같이 표현하자.
+$$ q = (\cos\frac{\theta}{2}, \sin\frac{\theta}{2}\vec{n}) = (w, \vec{r})$$</li>
+<li>그리고 위의 식을 <u>내적과 외적의 형태로 전개</u>해보자. (풀이 생략)
+$$ \vec{v&rsquo;} = q \cdot \vec{v} \cdot q^* = (w, \vec{r}) \cdot (0, \vec{v}) \cdot (w, \vec{r})$$
+$$ = (-(\vec{r} \cdot \vec{v})w - (w\vec{v} + \vec{r} \times \vec{v}) \cdot (-\vec{r}), $$
+$$  -(\vec{r} \cdot \vec{v}) \cdot -\vec{r} + w(w\vec{v} + \vec{r} \times \vec{v}) + (w\vec{v} + \vec{r} \times \vec{v}) \times -\vec{r}) $$</li>
+<li>실수부를 전개하면 $0$이 나온다. 따라서 <u>항상 3차원 공간의 벡터에 대응된다</u>고 볼 수 있다.
+$$ -(\vec{r} \cdot \vec{v})w - (w\vec{v} + \vec{r} \times \vec{v}) \cdot (-\vec{r}) = 0 $$</li>
+<li>허수부를 전개하면 다음과 같다.
+$$ -(\vec{r} \cdot \vec{v}) \cdot -\vec{r} + w(w\vec{v} + \vec{r} \times \vec{v}) + (w\vec{v} + \vec{r} \times \vec{v}) \times -\vec{r}) $$
+$$ = \vec{v} + 2w(\vec{r} \times \vec{v}) + 2(\vec{r} \times (\vec{r} \times \vec{v})) $$
+<ul>
+<li>여기서 <u><strong>$2(\vec{r} \times \vec{v})$를 $\vec{t}$로 치환하면 다음과 같이 간단하게 정리</strong></u>된다.
+$$ \vec{v&rsquo;} = \vec{v} + w\vec{t} + \vec{r} \times \vec{t} $$</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>만약 <strong>연속해서 다른 각도로 두 번 회전 하면</strong> 어떻게 될까?</li>
+<li>첫 번째 각의 크기를 $2\alpha$, 두 번째 각의 크기를 $2\beta$로 하면, 연속으로 회전 변환하는 식은 다음과 같을 것이다.
+$$ \vec{v&rsquo;} = q_{\alpha} \cdot \vec{v} \cdot q_{\alpha}^* $$
+$$ \vec{v&rsquo;&rsquo;} = q_{\beta} \cdot \vec{v&rsquo;} \cdot q_{\beta}^* $$</li>
+<li>두 번째 식에 첫 번째 식을 대입하면 다음과 같이 전개된다. (풀이 생략)
+$$ \vec{v&rsquo;&rsquo;} = q_{\beta} \cdot (q_{\alpha} \cdot \vec{v} \cdot q_{\alpha}^* ) \cdot q_{\beta}^*  $$
+$$ = q_{(\alpha + \beta)} \cdot \vec{v} \cdot q_{(\alpha + \beta)}^* $$
+<ul>
+<li>따라서 <u>두 차례 회전 사원수를 곱한 값</u>은 <u>두 각을 합한 회전 사원수의 값</u>과 동일함을 알 수 있다.</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="사원수-변환" class="relative group">사원수 변환 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%82%ac%ec%9b%90%ec%88%98-%eb%b3%80%ed%99%98" aria-label="Anchor">#</a></span></h2><ul>
+<li>사원수를 구성하는 요소 값은 직관적이지 않다. 이것을 오일러 각이나 회전 변환행렬 방식으로 변경할 수 있다면 유용하겠다.</li>
+</ul>
+<br />
+<h3 id="오일러-각에서-사원수로의-변환" class="relative group">오일러 각에서 사원수로의 변환 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%98%a4%ec%9d%bc%eb%9f%ac-%ea%b0%81%ec%97%90%ec%84%9c-%ec%82%ac%ec%9b%90%ec%88%98%eb%a1%9c%ec%9d%98-%eb%b3%80%ed%99%98" aria-label="Anchor">#</a></span></h3><ul>
+<li>오일러 각에서 회전은 기저 축인 $x$, $y$, $z$가 회전축의 역할을 수행한다</li>
+<li>예를 들어, 3차원 공간에서 $x$축을 중심으로 각 $\theta$만큼 회전시키는 데 사용하는 회전 사원수 $q$는 다음과 같을 것이다.
+$$ q = (\cos\frac{\theta}{2}, \sin\frac{\theta}{2}\vec{x}) = \cos\frac{\theta}{2} + \sin\frac{\theta}{2}i $$</li>
+<li>그러므로, 오일러 각을 구성하는 롤, 피치, 요 회전에 대응하는 각 사원수는 다음과 같이 표기할 수 있겠다.
+$$ q_{roll} = \cos\frac{\theta_{roll}}{2} + \sin\frac{\theta_{roll}}{2}k $$
+$$ q_{pitch} = \cos\frac{\theta_{pitch}}{2} + \sin\frac{\theta_{pitch}}{2}i $$
+$$ q_{yaw} = \cos\frac{\theta_{yaw}}{2} + \sin\frac{\theta_{yaw}}{2}j $$</li>
+<li>Chapter 10에서는 오일러 각의 회전 순서를 롤 → 피치 → 요 순으로 적용했었다.</li>
+<li>동일한 순서에 맞춰서 위 사원수들을 곱하면, 오일러 각에 대응하는 사원수가 만들어지겠다.
+$$ q_{yaw} \cdot q_{pitch} \cdot q_{roll} $$
+$$ = \cos\frac{\theta_{roll}}{2}\cos\frac{\theta_{pitch}}{2}\cos\frac{\theta_{yaw}}{2} + \sin\frac{\theta_{roll}}{2}\sin\frac{\theta_{pitch}}{2}\sin\frac{\theta_{yaw}}{2} + $$
+$$ (\cos\frac{\theta_{roll}}{2}\sin\frac{\theta_{pitch}}{2}\cos\frac{\theta_{yaw}}{2} + \sin\frac{\theta_{roll}}{2}\cos\frac{\theta_{pitch}}{2}\sin\frac{\theta_{yaw}}{2})i +  $$
+$$ (\cos\frac{\theta_{roll}}{2}\cos\frac{\theta_{pitch}}{2}\sin\frac{\theta_{yaw}}{2} - \sin\frac{\theta_{roll}}{2}\sin\frac{\theta_{pitch}}{2}\cos\frac{\theta_{yaw}}{2})j +  $$
+$$ (\sin\frac{\theta_{roll}}{2}\cos\frac{\theta_{pitch}}{2}\cos\frac{\theta_{yaw}}{2} + \cos\frac{\theta_{roll}}{2}\sin\frac{\theta_{pitch}}{2}\sin\frac{\theta_{yaw}}{2})k +  $$</li>
+</ul>
+<br />
+<ul>
+<li>구현 코드</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">FORCEINLINE</span> <span class="k">constexpr</span> <span class="kt">void</span> <span class="n">Quaternion</span><span class="o">::</span><span class="n">FromRotator</span><span class="p">(</span><span class="k">const</span> <span class="n">Rotator</span><span class="o">&amp;</span> <span class="n">InRotator</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">float</span> <span class="n">sr</span> <span class="o">=</span> <span class="mf">0.f</span><span class="p">,</span> <span class="n">sp</span> <span class="o">=</span> <span class="mf">0.f</span><span class="p">,</span> <span class="n">sy</span> <span class="o">=</span> <span class="mf">0.f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">float</span> <span class="n">cr</span> <span class="o">=</span> <span class="mf">0.f</span><span class="p">,</span> <span class="n">cp</span> <span class="o">=</span> <span class="mf">0.f</span><span class="p">,</span> <span class="n">cy</span> <span class="o">=</span> <span class="mf">0.f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 오일러 각을 절반으로 줄이고 롤, 피치, 요의 sin, cos 값을 구한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Math</span><span class="o">::</span><span class="n">GetSinCos</span><span class="p">(</span><span class="n">sr</span><span class="p">,</span> <span class="n">cr</span><span class="p">,</span> <span class="n">InRotator</span><span class="p">.</span><span class="n">Roll</span> <span class="o">*</span> <span class="mf">0.5f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Math</span><span class="o">::</span><span class="n">GetSinCos</span><span class="p">(</span><span class="n">sp</span><span class="p">,</span> <span class="n">cp</span><span class="p">,</span> <span class="n">InRotator</span><span class="p">.</span><span class="n">Pitch</span> <span class="o">*</span> <span class="mf">0.5f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Math</span><span class="o">::</span><span class="n">GetSinCos</span><span class="p">(</span><span class="n">sy</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">InRotator</span><span class="p">.</span><span class="n">Yaw</span> <span class="o">*</span> <span class="mf">0.5f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 위에서 살펴본 식에 따라서 W, X, Y, Z를 구한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">W</span> <span class="o">=</span> <span class="n">cr</span> <span class="o">*</span> <span class="n">cp</span> <span class="o">*</span> <span class="n">cy</span> <span class="o">+</span> <span class="n">sr</span> <span class="o">*</span> <span class="n">sp</span> <span class="o">*</span> <span class="n">sy</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">X</span> <span class="o">=</span> <span class="n">cr</span> <span class="o">*</span> <span class="n">sp</span> <span class="o">*</span> <span class="n">cy</span> <span class="o">+</span> <span class="n">sr</span> <span class="o">*</span> <span class="n">cp</span> <span class="o">*</span> <span class="n">sy</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Y</span> <span class="o">=</span> <span class="n">cr</span> <span class="o">*</span> <span class="n">cp</span> <span class="o">*</span> <span class="n">sy</span> <span class="o">-</span> <span class="n">sr</span> <span class="o">*</span> <span class="n">sp</span> <span class="o">*</span> <span class="n">cy</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Z</span> <span class="o">=</span> <span class="n">sr</span> <span class="o">*</span> <span class="n">cp</span> <span class="o">*</span> <span class="n">cy</span> <span class="o">-</span> <span class="n">cr</span> <span class="o">*</span> <span class="n">sp</span> <span class="o">*</span> <span class="n">sy</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<h3 id="사원수에서-오일러-각으로의-변환" class="relative group">사원수에서 오일러 각으로의 변환 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%82%ac%ec%9b%90%ec%88%98%ec%97%90%ec%84%9c-%ec%98%a4%ec%9d%bc%eb%9f%ac-%ea%b0%81%ec%9c%bc%eb%a1%9c%ec%9d%98-%eb%b3%80%ed%99%98" aria-label="Anchor">#</a></span></h3><ul>
+<li>반대로 사원수를 오일러 각으로 변환해보자.</li>
+<li>위의 식에서 실수부를 $w$, 허수부의 값을 $x$, $y$, $z$로 치환한다. 요, 롤, 피치의 절반각은 $y$, $r$, $p$로 표기하고, 이들의 $\sin$값을 $sy$, $sr$, $sp$로 지정하고, $\cos$값을 $cy$, $cr$, $cp$로 지정하자.
+$$ w = cr \cdot cp \cdot cy + sr \cdot sp \cdot sy $$
+$$ x = cr \cdot sp \cdot cy + sr \cdot cp \cdot sy $$
+$$ y = cr \cdot cp \cdot sy - sr \cdot sp \cdot cy $$
+$$ z = sr \cdot cp \cdot cy - cr \cdot sp \cdot sy $$</li>
+</ul>
+<br />
+<ul>
+<li><strong>롤 회전 값</strong>을 구해보자.</li>
+<li>$2(wz + xy)$라는 값을 구해보면 다음과 같은 결과가 나온다. (풀이 생략)
+$$ 2(wz + xy) = \sin\theta_{roll} \cdot \cos\theta_{pitch} $$</li>
+<li>이번에는 $1 - 2(z^2 + x^2)$를 구해보면 다음과 같은 결과가 나온다.
+$$ 1 - 2(z^2 + x^2) = \cos\theta_{roll} \cdot \cos\theta_{pitch} $$</li>
+<li>여기서 $\sin\theta_{roll} \cdot \cos\theta_{pitch}$을 $\cos\theta_{roll} \cdot \cos\theta_{pitch}$로 나누면 $\tan\theta_{roll}$을 구할 수 있다.
+$$ \frac{\sin\theta_{roll} \cdot \cos\theta_{pitch}}{\cos\theta_{roll} \cdot \cos\theta_{pitch}} = \tan\theta_{roll} = \frac{2(wz + xy)}{(1 - 2(z^2 + x^2)}$$</li>
+<li>이제 $\arctan$ 함수로 롤 회전 값을 구할 수 있겠다.
+$$ \theta_{roll} = atan2(2(wz + xy), 1 - 2(z^2 + x^2)) $$</li>
+</ul>
+<br />
+<ul>
+<li><strong>피치 회전 값</strong>을 구해보자.</li>
+<li>$wx - yx$라는 값을 구해보면 다음과 같은 결과가 나온다.
+$$ wx - yx = \sin\frac{\theta_{pitch}}{2} \cdot \cos\frac{\theta_{pitch}}{2} $$
+$$ = \frac{1}{2}\sin\theta_{pitch} $$</li>
+<li>이제 $\arcsin$ 함수로 피치 회전 값을 구할 수 있겠다.
+$$ \theta_{pitch} = asin(2(wx - yz)) $$</li>
+<li>주의할 점은, Chapter 4에서 보았듯이 $\arcsin$ 함수는 정의역이 $[-1, 1]$ 범위로 제한되어 있으므로 <strong>$wx - yz$의 값이 $[-0.5, 0.5]$ 범위를 벗어나지 않는지 확인</strong>하는 것이 필요하다.
+<ul>
+<li>만약 <strong>벗어난다면, 범위 내 가장 가까운 값으로 설정</strong>해야 한다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><strong>요 회전 값</strong>을 구해보자.</li>
+<li>롤 회전처럼, 요 회전의 $\tan$ 함수 값을 구한 후 $\arctan$ 함수를 사용해서 구한다.
+$$ \theta_{yaw} = atan2(2(wy + xz), 1 - 2(x^2 + y^2)) $$</li>
+</ul>
+<br />
+<ul>
+<li>구현 코드</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">FORCEINLINE</span> <span class="n">Rotator</span> <span class="n">Quaternion</span><span class="o">::</span><span class="n">ToRotator</span><span class="p">()</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Rotator</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// (1) 2(wz + xy)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">float</span> <span class="n">sinrCosp</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">W</span> <span class="o">*</span> <span class="n">Z</span> <span class="o">+</span> <span class="n">X</span> <span class="o">*</span> <span class="n">Y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// (2) 1 - 2(z^2 + x^2)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">float</span> <span class="n">cosrCosp</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">Z</span> <span class="o">*</span> <span class="n">Z</span> <span class="o">+</span> <span class="n">X</span> <span class="o">*</span> <span class="n">X</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// roll = atan2((1), (2))
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">result</span><span class="p">.</span><span class="n">Roll</span> <span class="o">=</span> <span class="n">Math</span><span class="o">::</span><span class="n">Rad2Deg</span><span class="p">(</span><span class="n">atan2f</span><span class="p">(</span><span class="n">sinrCosp</span><span class="p">,</span> <span class="n">cosrCosp</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// (3) wx - yz
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">float</span> <span class="n">pitchTest</span> <span class="o">=</span> <span class="n">W</span> <span class="o">*</span> <span class="n">X</span> <span class="o">-</span> <span class="n">Y</span> <span class="o">*</span> <span class="n">Z</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// wx - yz은 [-0.5, 0.5]를 벗어나면 안 된다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">float</span> <span class="n">asinThreshold</span> <span class="o">=</span> <span class="mf">0.4999995f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 벗어나는 경우 범위 내 가장 가까운 값으로 설정한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">pitchTest</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">asinThreshold</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span><span class="p">.</span><span class="n">Pitch</span> <span class="o">=</span> <span class="o">-</span><span class="mf">90.f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">pitchTest</span> <span class="o">&gt;</span> <span class="n">asinThreshold</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span><span class="p">.</span><span class="n">Pitch</span> <span class="o">=</span> <span class="mf">90.f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 벗어나지 않는 경우 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// pitch = asin(2 * (3))
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">result</span><span class="p">.</span><span class="n">Pitch</span> <span class="o">=</span> <span class="n">Math</span><span class="o">::</span><span class="n">Rad2Deg</span><span class="p">(</span><span class="n">asinf</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">pitchTest</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// (4) 2(wy + xz)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">float</span> <span class="n">sinyCosp</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">W</span> <span class="o">*</span> <span class="n">Y</span> <span class="o">+</span> <span class="n">X</span> <span class="o">*</span> <span class="n">Z</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// (5) 1 - 2(x^2 + y^2)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">float</span> <span class="n">cosyCosp</span> <span class="o">=</span> <span class="mf">1.f</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">Y</span> <span class="o">*</span> <span class="n">Y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// yaw = atan2((4), (5))
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">result</span><span class="p">.</span><span class="n">Yaw</span> <span class="o">=</span> <span class="n">Math</span><span class="o">::</span><span class="n">Rad2Deg</span><span class="p">(</span><span class="n">atan2f</span><span class="p">(</span><span class="n">sinyCosp</span><span class="p">,</span> <span class="n">cosyCosp</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<h3 id="사원수에서-회전-변환행렬로의-변환" class="relative group">사원수에서 회전 변환행렬로의 변환 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%82%ac%ec%9b%90%ec%88%98%ec%97%90%ec%84%9c-%ed%9a%8c%ec%a0%84-%eb%b3%80%ed%99%98%ed%96%89%eb%a0%ac%eb%a1%9c%ec%9d%98-%eb%b3%80%ed%99%98" aria-label="Anchor">#</a></span></h3><ul>
+<li>회전 변환행렬은 로컬 축으로 구성되어 있다. 따라서 사원수를 사용해서 회전되는 세 로컬 축을 구하면 되겠다.</li>
+<li>이전에 보았던 사원수의 회전 공식은 다음과 같다.
+$$ \vec{v} + 2w(\vec{r} \times \vec{v}) + 2(\vec{r} \times (\vec{r} \times \vec{v})) $$
+<ul>
+<li>여기서 $\vec{r}$은 $(x, y, z)$가 될 것이다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><strong>$x$축 기저벡터 $(1, 0, 0)$</strong> 을 사원수로 회전시켜보자.
+$$ x_{local} = (1, 0, 0) + w(0, 2z, -2y) + (x, y, z) \times (0, 2z, -2y)) $$
+$$ = (1 - 2(y^2 +z^2), 2(xy + zw), 2(xz - yw)) $$</li>
+<li><strong>$y$축 기저벡터 $(0, 1, 0)$</strong> 을 사원수로 회전시켜보자.
+$$ y_{local} = (2(xy - zw), 1 - 2(x^2 + z^2), 2(yz + xw)) $$</li>
+<li><strong>$z$축 기저벡터 $(0, 0, 1)$</strong> 을 사원수로 회전시켜보자.
+$$ x_{local} = (2(zw + yw), w(yz - xw), 1 - w(x^2 + y^2)) $$</li>
+</ul>
+<br />
+<ul>
+<li>이제 구한 로컬 축을 꽂아 넣으면 회전 변환행렬을 만들 수 있다.</li>
+</ul>
+<p>$$ \begin{bmatrix} 1 - 2(y^2 +z^2) &amp; 2(xy - zw) &amp; 2(zw + yw) \\ 2(xy + zw) &amp; 1 - 2(x^2 + z^2) &amp;  w(yz - xw) \\ 2(xz - yw) &amp; 2(yz + xw) &amp; 1 - w(x^2 + y^2) \end{bmatrix}$$</p>
+<br />
+<h3 id="회전변환행렬에서-사원수로의-변환" class="relative group">회전변환행렬에서 사원수로의 변환 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%9a%8c%ec%a0%84%eb%b3%80%ed%99%98%ed%96%89%eb%a0%ac%ec%97%90%ec%84%9c-%ec%82%ac%ec%9b%90%ec%88%98%eb%a1%9c%ec%9d%98-%eb%b3%80%ed%99%98" aria-label="Anchor">#</a></span></h3><ul>
+<li><strong>트레이스(Trace)</strong>
+<ul>
+<li>정방행렬의 대각 성분을 모두 더한 값을 말한다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>위 행렬에서 트레이스 $t$를 구해서 <strong>$w$값</strong>을 알아내보자. <br />
+
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/game_math/images/16-02-trace.jpg" alt="트레이스" class="mx-auto my-0 rounded-md" />
+</figure>
+
+$$ t = 3 - 4(x^2 + y^2 + z^2) $$</li>
+<li>여기에 1을 더하면 제곱근을 씌울 수가 있겠다.
+$$ t + 1 = 4 - 4(x^2 + y^2 + z^2)$$</li>
+<li>회전 사원수는 크기가 $1$이므로, $x^2 + y^2 + z^2$의 값은 $1 - w^2$가 된다.
+$$ t + 1 = 4 - 4(1 - w^2) = 4w^2$$</li>
+<li>이제 제곱근을 씌우자.
+$$ \sqrt{t + 1} = 2w $$</li>
+<li>따라서 사원수의 $w$값은 다음과 같이 구할 수가 있다.
+$$ w = \frac{\sqrt{t + 1}}{2} $$</li>
+</ul>
+<br />
+<ul>
+<li>이제 $w$값을 이용해서 나머지 $x$, $y$, $z$값을 구해보자.</li>
+<li>회전 변환행렬을 살펴보면, <strong>대각 방향으로 대칭된 요소를 서로 빼면 두 사원수 요소의 곱으로 정리</strong>된다. 이것을 이용하자.<br />
+
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/game_math/images/16-03-xw-yw-zw.jpg" alt="xw값 구하기" class="mx-auto my-0 rounded-md" />
+</figure>
+
+$$ 2yz + 2xw - 2yz + 2xw = 4xw $$
+$$ 2xy + 2zw - 2xy + 2zw = 4zw $$
+$$ 2xy + 2zw - 2xy + 2zw = 4zw $$</li>
+</ul>
+<br />
+<ul>
+<li>예외 사항
+<ul>
+<li><strong>트레이스 값이 $t \leq -1$이면</strong> 제곱근을 구하는 값이 $0$보다 작거나 같아져서 $\sqrt{t + 1}$의 해가 존재하지 않게 된다.</li>
+<li>이런 경우에는 켄 슈메이크(Ken Shoemake)의 알고리즘을 이용한다.</li>
+</ul>
+</li>
+<li>먼저 $w$를 제외하고, $x$, $y$, $z$ 중에서 <strong>가장 큰 요소를 파악</strong>하고 그 값을 구한다.
+<ul>
+<li>첫 번째 대각 요소, 두 번째 대각 요소, 세 번째 대각 요소를 서로 비교하면, 어느 것이 큰지 알 수 있다.</li>
+<li>각 요소를 구하는 방법은 다음과 같다. <br />
+
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/game_math/images/16-04-x-y-z.jpg" alt="x, y, z를 구하기 위한 대각 성분들" class="mx-auto my-0 rounded-md" />
+</figure>
+</li>
+</ul>
+</li>
+<li>그다음 <strong>$xy$, $yz$, $xz$를 통해서 $x$, $y$, $z$의 값</strong>을 모두 구한다. <br />
+
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/game_math/images/16-05-xy-yz-xz.jpg" alt="xy, yz, xz를 구하기 위한 대각 성분들" class="mx-auto my-0 rounded-md" />
+</figure>
+</li>
+<li>마지막으로 <strong>$w$값</strong>은 위에서 살펴봤던 $xw$, $yw$, $zw$를 통해서 구한다. <br />
+
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/game_math/images/16-03-xw-yw-zw.jpg" alt="xw값 구하기" class="mx-auto my-0 rounded-md" />
+</figure>
+</li>
+</ul>
+<br />
+<ul>
+<li>다음은 켄 슈메이크 알고리즘을 구현한 로직이다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">FORCEINLINE</span> <span class="kt">void</span> <span class="n">Quaternion</span><span class="o">::</span><span class="n">FromMatrix</span><span class="p">(</span><span class="k">const</span> <span class="n">Matrix3x3</span><span class="o">&amp;</span> <span class="n">InMatrix</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">float</span> <span class="n">root</span> <span class="o">=</span> <span class="mf">0.f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">float</span> <span class="n">trace</span> <span class="o">=</span> <span class="n">InMatrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">InMatrix</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">InMatrix</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">trace</span> <span class="o">&gt;</span> <span class="mf">0.f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// W를 구한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">root</span> <span class="o">=</span> <span class="n">sqrtf</span><span class="p">(</span><span class="n">trace</span> <span class="o">+</span> <span class="mf">1.f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">W</span> <span class="o">=</span> <span class="mf">0.5f</span> <span class="o">*</span> <span class="n">root</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">// 나머지 X,Y,Z를 계산할 때 4W를 나눠주어야 한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">root</span> <span class="o">=</span> <span class="mf">0.5f</span> <span class="o">/</span> <span class="n">root</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// X, Y, Z를 구한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">X</span> <span class="o">=</span> <span class="p">(</span><span class="n">InMatrix</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">InMatrix</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">root</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Y</span> <span class="o">=</span> <span class="p">(</span><span class="n">InMatrix</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">InMatrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">root</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Z</span> <span class="o">=</span> <span class="p">(</span><span class="n">InMatrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">InMatrix</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">root</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BYTE</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// X,Y,Z 중에서 가장 큰 요소를 파악해서 행렬상의 위치를 i에 담는다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="n">InMatrix</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">InMatrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="p">{</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">InMatrix</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">InMatrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// i, j, k 의 순서를 지정한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// x, y, z를 구할 때 필요한 행렬상의 위치가 된다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">static</span> <span class="k">const</span> <span class="n">BYTE</span> <span class="n">next</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BYTE</span> <span class="n">j</span> <span class="o">=</span> <span class="n">next</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BYTE</span> <span class="n">k</span> <span class="o">=</span> <span class="n">next</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 가장 큰 요소의 값을 i, j, k 를 이용해서 구한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">root</span> <span class="o">=</span> <span class="n">sqrtf</span><span class="p">(</span><span class="n">InMatrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">InMatrix</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">InMatrix</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">float</span><span class="o">*</span> <span class="n">qt</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="o">&amp;</span><span class="n">X</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Y</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Z</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 가장 큰 요소를 저장한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">*</span><span class="n">qt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5f</span> <span class="o">*</span> <span class="n">root</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">root</span> <span class="o">=</span> <span class="mf">0.5f</span> <span class="o">/</span> <span class="n">root</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 나머지 두 요소의 값을 구해서 저장한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">*</span><span class="n">qt</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">InMatrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">InMatrix</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">root</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">*</span><span class="n">qt</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">InMatrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">InMatrix</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">root</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 마지막으로 W 값을 구한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">W</span> <span class="o">=</span> <span class="p">(</span><span class="n">InMatrix</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">InMatrix</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">*</span> <span class="n">root</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="사원수의-보간" class="relative group">사원수의 보간 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%82%ac%ec%9b%90%ec%88%98%ec%9d%98-%eb%b3%b4%ea%b0%84" aria-label="Anchor">#</a></span></h2><ul>
+<li>3차원 회전 표현의 장단점 비교</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>오일러 각</th>
+<th>행렬</th>
+<th>사원수</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>저장 공간</td>
+<td>가장 작다.<br />저장 공간의 수는 3</td>
+<td>크다.<br />저장 공간의 수는 9</td>
+<td>작다.<br />저장 공간의 수는 4</td>
+</tr>
+<tr>
+<td>짐벌락 현상</td>
+<td>발생 O</td>
+<td>발생 X</td>
+<td>발생 X</td>
+</tr>
+<tr>
+<td>회전 보간</td>
+<td>한 기저 축에 대해서만 가능</td>
+<td>불가능</td>
+<td>임의의 축에 대해 가능</td>
+</tr>
+<tr>
+<td>직관성</td>
+<td>직관적이다.</td>
+<td>직관적이지 않다.</td>
+<td>직관적이지 않다.</td>
+</tr>
+</tbody>
+</table>
+<br />
+<ul>
+<li>다른 회전 방식에 비해 사원수가 가지는 장점은 <strong>회전 보간</strong>이 가능하다는 것이다.</li>
+</ul>
+<h3 id="선형-보간lerp" class="relative group">선형 보간(Lerp) <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%84%a0%ed%98%95-%eb%b3%b4%ea%b0%84lerp" aria-label="Anchor">#</a></span></h3><ul>
+<li>예를 들어, 두 사원수가 만든 평면에서 $\frac{1}{3}$만큼 보간된 사원수는 다음과 같겠다. <br />
+
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/game_math/images/16-06-lerp.jpg" alt="1/3만큼 보간된 사원수의 위치" class="mx-auto my-0 rounded-md" />
+</figure>
+</li>
+<li>따라서 주어진 비율 $t$에 대응하는 중간 사원수를 구하는 식은 다음과 같다.
+$$ q(t) = (1 - t) \cdot q_1 + t \cdot q_2 $$</li>
+<li>하지만 선형 보간으로 얻어지는 사원수는 크기가 $1$인 단위 사원수가 아니기 때문에 정규화 과정이 필요하다.
+$$ q&rsquo; = \frac{q(t)}{|q(t)|} $$</li>
+</ul>
+<br />
+<h3 id="구면-선형-보간slerp" class="relative group">구면 선형 보간(Slerp) <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ea%b5%ac%eb%a9%b4-%ec%84%a0%ed%98%95-%eb%b3%b4%ea%b0%84slerp" aria-label="Anchor">#</a></span></h3><ul>
+<li>선형 보간은 빠르고 간편하나, 원의 궤적을 따라 발생하는 회전을 정확히 반영하지는 못한다.</li>
+</ul>
+<br />
+<ul>
+<li>두 사원수가 이루는 각을 $\theta$라고 할 때, 주어진 비율 $t$에 따라 각각 $t\theta$, $(1-t)\theta$로 나눠서 구할 수 있겠다. <br />
+
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/game_math/images/16-07-slerp.jpg" alt="구면으로 보간된 사원수" class="mx-auto my-0 rounded-md" />
+</figure>
+</li>
+<li>이것을 만족시키는 두 계수 $\alpha$와 $\beta$를 찾아야 한다.
+$$ q&rsquo; = \alpha \cdot q_1 + \beta \cdot q_2 $$</li>
+</ul>
+<br />
+<ul>
+<li>우리가 구하려는 벡터를 $\vec{v}$는 서로 직교하는 두 기저벡터 $\vec{x}$와 $\vec{y}$의 조합으로 다음과 같이 계산할 수 있다. <br />
+
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/game_math/images/16-08-v.jpg" alt="직교하는 두 기저벡터를 사용한 중간 벡터의 계산" class="mx-auto my-0 rounded-md" />
+</figure>
+
+$$ \vec{v} = \cos(t\theta)\vec{x} + \sin(t\theta)\vec{y} $$</li>
+<li>여기서 우리가 모르는 $\vec{y}$를 구해야 하겠다. <br />
+
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/game_math/images/16-09-y.jpg" alt="두 번째 사원수로부터 직교하는 벡터 y 구하기" class="mx-auto my-0 rounded-md" />
+</figure>
+</li>
+<li>위 그림을 보면, $\vec{u} - \cos\theta\vec{x}$와 $\sin\theta\vec{y}$의 값은 같다. 따라서 다음과 같이 $\vec{y}$를 구할 수 있겠다.
+$$ \vec{y} = \frac{\vec{u} - \cos\theta\vec{x}}{\sin\theta} $$</li>
+<li>이것을 $\vec{v}$ 식에 대입하면 다음과 같이 전개 된다.
+$$ \vec{v} = \cos(t\theta)\vec{x} + \sin(t\theta)(\frac{\vec{u} - \cos\theta\vec{x}}{\sin\theta}) $$
+$$ = \frac{\sin((1 - t)\theta)}{\sin\theta}\vec{x} + \frac{\sin(t\theta)}{\sin\theta}\vec{y} $$</li>
+<li>따라서 이렇게 구한 두 계수 $\alpha$와 $\beta$를 $ q&rsquo; = \alpha \cdot q_1 + \beta \cdot q_2 $ 식에 대입하면 <u><strong>최종 식</strong></u>이 만들어진다.
+$$ q&rsquo; = \frac{\sin((1 - t)\theta)}{\sin\theta} \cdot q_1 + \frac{\sin(t\theta)}{\sin\theta} \cdot q_2 $$</li>
+</ul>
+<br />
+<ul>
+<li>고려할 점 (1)
+<ul>
+<li>두 벡터가 만들어내는 회전 경로는 <strong>언제나 짧은 경로와 긴 경로 두 가지가 존재</strong>한다.</li>
+</ul>
+</li>
+<li>만약에 언제나 짧은 경로를 사용하고 싶다면?
+<ul>
+<li>두 벡터의 사잇각이 $180\degree$보다 작은지 확인해야 할 것이다.</li>
+<li>하지만 우리는 사원수를 사용하고 있고, 사원수는 각도의 절반을 저장하고 있다. 그렇기 때문에 예를 들어, 저장된 값이 $120\degree$ 라면 회전 값은 그 두 배인 $240\degree$가 된다.</li>
+<li>따라서 <strong>짧은 경로인지 판단하는 값은 $90\degree$가 되어야</strong> 하겠다.</li>
+<li>두 사원수의. <u>내적값이 음수</u>라면 사잇각이 $90\degree$보다 크다는 의미이므로, 이 때 <u>짧은 경로의 사원수로 바꿔주면</u> 된다.</li>
+<li>짧은 경로의 사원수는 <u>사원수를 반전시키는 것</u>으로 간단히 구할 수 있다. <br />
+
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/game_math/images/16-10-reverse.jpg" alt="사원수를 반전시켜 짧은 거리의 사원수 구하기" class="mx-auto my-0 rounded-md" />
+</figure>
+</li>
+<li>예를 들어, 사잇각이 $120\degree$인 경우에 실제 회전은 $240\degree$가 된다. 이 회전과 똑같아지는 짧은 경로의 회전은 $-120\degree$ 회전이다. 그리고 $-120\degree$에 대응하는 사원수는 그 절반인 $-60\degree$을 가진 사원수가 된다. 이것은 해당 사원수를 반전 시켜서 얻을 수 있다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>고려할 점 (2)
+<ul>
+<li>두 사원수의 방향이 <strong>평행하면</strong> 분모의 $\sin\theta$의 값이 $0$이 되어서 계산이 불가능해진다.</li>
+<li>따라서 이 경우에는 <u>선형 보간</u>을 하도록하자.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>구현 코드</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">FORCEINLINE</span> <span class="n">Quaternion</span> <span class="n">Quaternion</span><span class="o">::</span><span class="n">Slerp</span><span class="p">(</span><span class="k">const</span> <span class="n">Quaternion</span> <span class="o">&amp;</span> <span class="n">InQuaternion1</span><span class="p">,</span> <span class="k">const</span> <span class="n">Quaternion</span> <span class="o">&amp;</span> <span class="n">InQuaternion2</span><span class="p">,</span> <span class="kt">float</span> <span class="n">InRatio</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 입력된 두 개의 사원수 q1, q2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Quaternion</span> <span class="n">q1</span> <span class="o">=</span> <span class="n">InQuaternion1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">InQuaternion2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 두 사원수의 내적을 구한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">float</span> <span class="n">dot</span> <span class="o">=</span> <span class="n">q1</span><span class="p">.</span><span class="n">X</span> <span class="o">*</span> <span class="n">q2</span><span class="p">.</span><span class="n">X</span> <span class="o">+</span> <span class="n">q1</span><span class="p">.</span><span class="n">Y</span> <span class="o">*</span> <span class="n">q2</span><span class="p">.</span><span class="n">Y</span> <span class="o">+</span> <span class="n">q1</span><span class="p">.</span><span class="n">Z</span> <span class="o">*</span> <span class="n">q2</span><span class="p">.</span><span class="n">Z</span> <span class="o">+</span> <span class="n">q1</span><span class="p">.</span><span class="n">W</span> <span class="o">*</span> <span class="n">q2</span><span class="p">.</span><span class="n">W</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 내적 값이 0보다 작으면 짧은 거리를 사용하도록 방향을 전환한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">dot</span> <span class="o">&lt;</span> <span class="mf">0.0f</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">q1</span> <span class="o">=</span> <span class="o">-</span><span class="n">q1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dot</span> <span class="o">=</span> <span class="o">-</span><span class="n">dot</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">float</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.f</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mf">0.f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// 두 사원수의 사잇각이 작으면 선형 보간으로 수행한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">dot</span> <span class="o">&gt;</span> <span class="mf">0.9995f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0f</span> <span class="o">-</span> <span class="n">InRatio</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">beta</span> <span class="o">=</span> <span class="n">InRatio</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 내적값의 아크코사인으로 theta를 구한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">const</span> <span class="kt">float</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">acosf</span><span class="p">(</span><span class="n">dot</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 분모를 계산한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">const</span> <span class="kt">float</span> <span class="n">invSin</span> <span class="o">=</span> <span class="mf">1.f</span> <span class="o">/</span> <span class="n">sinf</span><span class="p">(</span><span class="n">theta</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// alpha, beta를 구한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">alpha</span> <span class="o">=</span> <span class="n">sinf</span><span class="p">((</span><span class="mf">1.f</span> <span class="o">-</span> <span class="n">InRatio</span><span class="p">)</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">invSin</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">beta</span> <span class="o">=</span> <span class="n">sinf</span><span class="p">(</span><span class="n">InRatio</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">invSin</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 최종 사원수를 구한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Quaternion</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span><span class="p">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">q1</span><span class="p">.</span><span class="n">X</span> <span class="o">+</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">q2</span><span class="p">.</span><span class="n">X</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span><span class="p">.</span><span class="n">Y</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">q1</span><span class="p">.</span><span class="n">Y</span> <span class="o">+</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">q2</span><span class="p">.</span><span class="n">Y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span><span class="p">.</span><span class="n">Z</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">q1</span><span class="p">.</span><span class="n">Z</span> <span class="o">+</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">q2</span><span class="p">.</span><span class="n">Z</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span><span class="p">.</span><span class="n">W</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">q1</span><span class="p">.</span><span class="n">W</span> <span class="o">+</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">q2</span><span class="p">.</span><span class="n">W</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+
+      </div>
+    </section>
+    <footer class="max-w-prose pt-8 print:hidden">
+      
+  <div class="flex">
+    
+    
+    
+      
+      
+        
+        
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+      
+    >
+      
+      
+      
+      
+      <img
+        width="500"
+        height="500"
+        class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+        alt="Pero"
+        loading="lazy" decoding="async"
+        
+          src="/main.jpg"
+        
+      />
+    </picture>
+  
+
+
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          Pero
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">Keep moving forward.</div>
+      
+      <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="mailto:peropeq@gmail.com"
+          target="_blank"
+          aria-label="Email"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+    </div>
+  </div>
+
+
+      
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="/post/game_math/game-math-15/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[Game Math] Chapter 15. 오일러 공식: 허수로 표현하는 회전 변환</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-02-01 01:00:00 &#43;0900 KST">1 February 2023</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="group flex text-right" href="/post/game_math/game-math-17/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[Game Math] Chapter 17. 캐릭터: 게임에 생기를 불어넣는 기술</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-02-03 01:00:00 &#43;0900 KST">3 February 2023</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&rarr;</span
+                ><span class="ltr:hidden rtl:inline">&larr;</span></span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+          <div class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12">
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            ⓒ 2022. Pero.
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a>
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+    </div>
+  </div>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm sm:p-6 md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50"
+  data-url="https://frompero.github.io/"
+>
+  <div
+    id="search-modal"
+    class="top-20 mx-auto flex min-h-0 w-full max-w-3xl flex-col rounded-md border border-neutral-200 bg-neutral shadow-lg dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex flex-none items-center justify-between px-2">
+      <form class="flex min-w-0 flex-auto items-center">
+        <div class="flex h-8 w-8 items-center justify-center text-neutral-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="mx-1 flex h-12 flex-auto appearance-none bg-transparent focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex h-8 w-8 items-center justify-center text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto overflow-auto px-2">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+</html>
