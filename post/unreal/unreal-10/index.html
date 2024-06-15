@@ -1,0 +1,1278 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="rgb(255,255,255)" />
+  
+  <title>[Unreal] 언리얼 충돌 처리 방법, 월드 트레이싱 함수 &middot; from Pero</title>
+    <meta name="title" content="[Unreal] 언리얼 충돌 처리 방법, 월드 트레이싱 함수 &middot; from Pero" />
+  
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.022d0ebc3b46a335eb1c7ef79b7f2de143d7cd5156d433638592ef1ce5f8554e.js"
+    integrity="sha256-Ai0OvDtGozXrHH73m38t4UPXzVFW1DNjhZLvHOX4VU4="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.afb4a97d267bd0c2e9391dd7b62a45afcd549fea29cb7747564f0cb36db70f1b.css"
+    integrity="sha256-r7SpfSZ70MLpOR3XtipFr81Un&#43;opy3dHVk8Ms223Dxs="
+  />
+  
+    
+    
+    
+  
+  
+  
+    
+    
+  
+  
+    
+    
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.5b9218820e6c6b9f04b4c5a03dffd0d57bc9189f511ee80ea74222de3a608e2f.js"
+      integrity="sha256-W5IYgg5sa58EtMWgPf/Q1XvJGJ9RHugOp0Ii3jpgji8="
+      data-copy="Copy"
+      data-copied="Copied"
+    ></script>
+  
+  
+  <meta
+    name="description"
+    content="
+      
+        충돌체를 만들자!
+      
+    "
+  />
+  
+  
+  
+  <link rel="canonical" href="https://frompero.github.io/post/unreal/unreal-10/" />
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="[Unreal] 언리얼 충돌 처리 방법, 월드 트레이싱 함수" />
+<meta property="og:description" content="충돌체를 만들자!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://frompero.github.io/post/unreal/unreal-10/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-08-08T01:00:00+09:00" />
+<meta property="article:modified_time" content="2023-08-08T01:00:00+09:00" />
+
+
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="[Unreal] 언리얼 충돌 처리 방법, 월드 트레이싱 함수"/>
+<meta name="twitter:description" content="충돌체를 만들자!"/>
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "[Unreal] 언리얼 충돌 처리 방법, 월드 트레이싱 함수",
+    "headline": "[Unreal] 언리얼 충돌 처리 방법, 월드 트레이싱 함수",
+    
+    "abstract": "충돌체를 만들자!",
+    "inLanguage": "en",
+    "url" : "https:\/\/frompero.github.io\/post\/unreal\/unreal-10\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Pero"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-08-08T01:00:00\u002b09:00",
+    "datePublished": "2023-08-08T01:00:00\u002b09:00",
+    
+    "dateModified": "2023-08-08T01:00:00\u002b09:00",
+    
+    "keywords": ["Unreal"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "742"
+  }
+  </script>
+
+
+  
+  <meta name="author" content="Pero" />
+  
+    
+      <link href="mailto:peropeq@gmail.com" rel="me" />
+    
+  
+  
+  
+
+
+
+
+
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/lib/katex/katex.min.7c7c1a59e6eec00ecd485e5083f69fe14783c7d5ea52962938682e6e8df25aef9bd88411e14790c1b6f8d938bb81502336d56823f23d4c4a187aef689b0702ea.css"
+    integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu&#43;b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g=="
+  />
+  
+  
+  <script
+    defer
+    src="/lib/katex/katex.min.2d037120c479ad7bfba3e6f597cf8dd4464c7e11bb88567d1e19db2644e9e338cdaf95afb2def902a51e143c5e4546bb979bc40f2522022a7ffebf8414b2c2c8.js"
+    integrity="sha512-LQNxIMR5rXv7o&#43;b1l8&#43;N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r&#43;EFLLCyA=="
+  ></script>
+  
+  
+  <script
+    defer
+    src="/lib/katex/auto-render.min.e6511c3458afadbb974a54c917a45e383efdb02303964d83fdb17ff69367d6d871a53a09973ffec8c9d3525c7b8c64602e6c16a64842884ad60989a16d953fd0.js"
+    integrity="sha512-5lEcNFivrbuXSlTJF6ReOD79sCMDlk2D/bF/9pNn1thxpToJlz/&#43;yMnTUlx7jGRgLmwWpkhCiErWCYmhbZU/0A=="
+    onload="renderMathInElement(document.body);"
+  ></script>
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+  
+  
+  
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QBM4YPD699"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-QBM4YPD699', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+  
+  
+</head>
+<body
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 sm:px-14 md:px-24 lg:px-32 dark:bg-neutral-800 dark:text-neutral"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="-translate-y-8 rounded-b-lg bg-primary-200 px-3 py-1 text-sm focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="pe-2 font-bold text-primary-600 dark:text-primary-400">&darr;</span
+        >Skip to main content</a
+      >
+    </div>
+    
+    
+      <header class="py-6 font-semibold text-neutral-900 print:hidden sm:py-10 dark:text-neutral">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="z-40 flex flex-row items-center">
+      
+  <a
+    class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+    rel="me"
+    href="/"
+    >from Pero</a
+  >
+
+    </div>
+    
+      
+      <label id="menu-button" for="menu-controller" class="block sm:hidden">
+        <input type="checkbox" id="menu-controller" class="hidden" />
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="invisible fixed inset-0 z-30 m-auto h-full w-full cursor-default overflow-auto bg-neutral-100/50 opacity-0 backdrop-blur-sm transition-opacity dark:bg-neutral-900/50"
+        >
+          <ul
+            class="mx-auto flex w-full max-w-7xl list-none flex-col overflow-visible px-6 py-6 text-end sm:px-14 sm:py-10 sm:pt-10 md:px-24 lg:px-32"
+          >
+            <li class="mb-1">
+              <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400"
+                ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span></span
+              >
+            </li>
+            
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/post/"
+                      title="Posts"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Posts</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/categories/"
+                      title="Categories"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Categories</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/tags/"
+                      title="Tags"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Tags</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    
+                      <button
+                        id="search-button-1"
+                        title="Search (/)"
+                      >
+                        
+                          <span
+                            class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                          ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </button>
+                    
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    <button
+                      id="appearance-switcher-1"
+                      type="button"
+                      aria-label="appearance switcher"
+                    >
+                      <span
+                        class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                        title="Switch to dark appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                      <span
+                        class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                        title="Switch to light appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                    </button>
+                  
+                </li>
+              
+              
+            
+          </ul>
+        </div>
+      </label>
+      
+      <ul class="hidden list-none flex-row text-end sm:flex">
+        
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/post/"
+                  title="Posts"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Posts</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/categories/"
+                  title="Categories"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Categories</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/tags/"
+                  title="Tags"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Tags</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                
+                  <button
+                    id="search-button-2"
+                    title="Search (/)"
+                  >
+                    
+                      <span
+                        class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                      ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </button>
+                
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                <button
+                  id="appearance-switcher-2"
+                  type="button"
+                  aria-label="appearance switcher"
+                >
+                  <span
+                    class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                    title="Switch to dark appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                  <span
+                    class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                    title="Switch to light appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                </button>
+              
+            </li>
+          
+          
+
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex grow flex-col">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        [Unreal] 언리얼 충돌 처리 방법, 월드 트레이싱 함수
+      </h1>
+      
+        <div class="mb-12 mt-8 text-base text-neutral-500 print:hidden dark:text-neutral-400">
+          
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2023-08-08 01:00:00 &#43;0900 KST">8 August 2023</time>
+    
+
+    
+    
+  </div>
+
+  
+  
+
+
+        </div>
+      
+      
+    </header>
+    <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+      
+        <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
+          <div class="toc pe-5 print:hidden lg:sticky lg:top-10">
+            <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
+  <summary
+    class="-ms-5 block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 lg:hidden dark:bg-neutral-700 dark:text-neutral-100"
+  >
+    Table of Contents
+  </summary>
+  <div class="-ms-5 border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#충돌체를-만들자">충돌체를 만들자!</a></li>
+    <li><a href="#콜리전-채널을-만들자">콜리전 채널을 만들자!</a></li>
+    <li><a href="#프로필을-만들자">프로필을 만들자!</a>
+      <ul>
+        <li><a href="#collisionenabled-설정">CollisionEnabled 설정</a></li>
+        <li><a href="#collision-responses-설정">Collision Responses 설정</a></li>
+      </ul>
+    </li>
+    <li><a href="#예시-공격-판정을-위한-충돌체-설정">[예시] 공격 판정을 위한 충돌체 설정</a></li>
+    <li><a href="#월드-트레이싱-함수로-충돌을-체크하자">월드 트레이싱 함수로 충돌을 체크하자!</a>
+      <ul>
+        <li><a href="#처리방법">처리방법</a></li>
+        <li><a href="#대상">대상</a></li>
+        <li><a href="#처리설정">처리설정</a></li>
+      </ul>
+    </li>
+    <li><a href="#예시-sweepsinglebychannel-사용해서-공격-판정하기">[예시] SweepSingleByChannel 사용해서 공격 판정하기</a>
+      <ul>
+        <li><a href="#채널-값-가져오기">채널 값 가져오기</a></li>
+        <li><a href="#함수-사용하기">함수 사용하기</a></li>
+      </ul>
+    </li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+          </div>
+        </div>
+      
+      <div class="min-h-0 min-w-0 max-w-prose grow">
+        <hr>
+<p><br /><br /></p>
+<h2 id="충돌체를-만들자" class="relative group">충돌체를 만들자! <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%b6%a9%eb%8f%8c%ec%b2%b4%eb%a5%bc-%eb%a7%8c%eb%93%a4%ec%9e%90" aria-label="Anchor">#</a></span></h2><ul>
+<li>충돌체는 다음과 같은 방법 중 하나로 만들 수 있다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>충돌체 제작 방법</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>StaticMesh Asset</td>
+<td>StaticMesh 에셋에 콜리전 영역을 심는다. <br />StaticMesh 컴포넌트에서 비주얼과 충돌, 두 가지 기능을 설정할 수 있게 된다.</td>
+</tr>
+<tr>
+<td>기본 도형(Primitive) 컴포넌트</td>
+<td>구체, 박스, 캡슐의 기본 도형을 사용해서 충돌 영역을 지정하는 방법이다. <br />StaticMesh와 별도의 충돌 영역을 제작한다. <br />스켈레탈 메시를 움직일 때 주로 사용한다.</td>
+</tr>
+<tr>
+<td>Physics Asset</td>
+<td>특정 상황에서 캐릭터의 각 관절이 흐느적거리는 헝겊 인형(Rag Doll)효과를 구현할 때 사용한다. <br />캐릭터의 각 부위에 기본 도형으로 충돌 영역을 설정하고 이를 연결해 캐릭터의 물리를 설정한다. <br />스켈레탈 메시에서만 사용할 수 있다.</td>
+</tr>
+</tbody>
+</table>
+<p><br /><br /></p>
+<h2 id="콜리전-채널을-만들자" class="relative group">콜리전 채널을 만들자! <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%bd%9c%eb%a6%ac%ec%a0%84-%ec%b1%84%eb%84%90%ec%9d%84-%eb%a7%8c%eb%93%a4%ec%9e%90" aria-label="Anchor">#</a></span></h2><ul>
+<li>제작된 충돌체는 반드시 하나의 콜리전 채널을 설정해야 한다.</li>
+<li>콜리전 채널의 종류는 크게 두 가지로 나뉜다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>콜리전 채널 종류</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Object Channel</td>
+<td>콜리전 영역에 지정하는 채널이다. <br />WorldStatic, WorldDynamic, Pawn, PhysicsBody, Vehicle, Destructible가 기본 제공된다.</td>
+</tr>
+<tr>
+<td>Trace Channel</td>
+<td>어떤 행동에 설정하는 채널이다. <br />Visibility, Camera가 기본 제공된다.</td>
+</tr>
+</tbody>
+</table>
+<p><br /><br /></p>
+<h2 id="프로필을-만들자" class="relative group">프로필을 만들자! <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%94%84%eb%a1%9c%ed%95%84%ec%9d%84-%eb%a7%8c%eb%93%a4%ec%9e%90" aria-label="Anchor">#</a></span></h2><ul>
+<li>콜리전 채널 별로 여러가지 프로필(Preset)을 만들 수 있다.</li>
+<li>기본적으로 제공되는 프로필들은 다음과 같다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>기본 제공 Preset 종류</th>
+<th>속한 채널</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OverlapAll</td>
+<td>WorldStatic</td>
+<td>모든 액터와 겹친다.</td>
+</tr>
+<tr>
+<td>OverlapAllDynamic</td>
+<td>WorldDynamic</td>
+<td>모든 액터와 겹친다.</td>
+</tr>
+<tr>
+<td>IgnoreOnlyPawn</td>
+<td>WorldDynamic</td>
+<td>Pawn과의 충돌만 무시한다.</td>
+</tr>
+<tr>
+<td>OverlapOnlyPawn</td>
+<td>WorldDynamic</td>
+<td>Pawn에만 Overlap 이벤트가 발생한다.</td>
+</tr>
+<tr>
+<td>Spectator</td>
+<td>Pawn</td>
+<td>외부 관중과의 충돌을 설정한다.</td>
+</tr>
+<tr>
+<td>CharacterMesh</td>
+<td>Pawn</td>
+<td>캐릭터 메시에 사용한다.</td>
+</tr>
+<tr>
+<td>RagDoll</td>
+<td>Physics Body</td>
+<td>스켈레탈메시의 피직스 에셋 물리를 가동하기 위한 오브젝트에 사용한다. <br />보통 흐느적 거리는 랙돌 구현을 위해 사용된다.</td>
+</tr>
+<tr>
+<td>Trigger</td>
+<td>WorldDynamic</td>
+<td>지정한 영역에 물체가 들어오면 이벤트를 발생시킨다.</td>
+</tr>
+<tr>
+<td>UI</td>
+<td>WorldDynamic</td>
+<td>UI요소에 사용한다.</td>
+</tr>
+</tbody>
+</table>
+<br />
+<ul>
+<li>프로필을 만들 때는 아래와 같은 요소를 추가로 설정해주어야 한다.</li>
+<li>이제 충돌체에 프로필을 할당하면, 다른 충돌체와의 충돌 관계가 생긴다!</li>
+</ul>
+<br />
+<h3 id="collisionenabled-설정" class="relative group">CollisionEnabled 설정 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#collisionenabled-%ec%84%a4%ec%a0%95" aria-label="Anchor">#</a></span></h3><ul>
+<li>콜리전에 켜질 항목을 설정한다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>설정값 이름</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Query Only</td>
+<td>두 물체의 충돌 영역이 서로 겹치는지(Overlap) 체크한다.<br />겹치면 관련 컴포넌트에 <code>BeginOverlap</code> 이벤트가 발생한다. (Generates Overlap Events 옵션을 켜야한다)<br />레이캐스트(Raycast)나 스윕(Sweep) 기능도 여기에 속한다.</td>
+</tr>
+<tr>
+<td>Physics</td>
+<td>물리적인 시뮬레이션을 사용한다.</td>
+</tr>
+<tr>
+<td>Query and Physics</td>
+<td>위의 두 기능을 모두 사용한다. <br />계산량이 많아지겠다.</td>
+</tr>
+</tbody>
+</table>
+<br />
+<h3 id="collision-responses-설정" class="relative group">Collision Responses 설정 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#collision-responses-%ec%84%a4%ec%a0%95" aria-label="Anchor">#</a></span></h3><ul>
+<li>다른 채널과의 상호작용을 설정한다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>설정값 이름</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>무시(Ignore)</td>
+<td>콜리전이 있어도 아무일도 일어나지 않는다.</td>
+</tr>
+<tr>
+<td>겹침(Overlap)</td>
+<td>무시와 동일하게 물체가 뚫고 지나가만, <code>BeginOverlap</code> 이벤트를 발생시킨다.</td>
+</tr>
+<tr>
+<td>블록(Block)</td>
+<td>물체가 뚫고 지나가지 못하며, <code>Hit</code> 이벤트를 발생시킨다. <br />Generates Overlap Events 옵션이 양쪽 다 켜져 있다면 <code>BeginOverlap</code> 이벤트도 발생시킨다.</td>
+</tr>
+</tbody>
+</table>
+<p><br /><br /></p>
+<h2 id="예시-공격-판정을-위한-충돌체-설정" class="relative group">[예시] 공격 판정을 위한 충돌체 설정 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%98%88%ec%8b%9c-%ea%b3%b5%ea%b2%a9-%ed%8c%90%ec%a0%95%ec%9d%84-%ec%9c%84%ed%95%9c-%ec%b6%a9%eb%8f%8c%ec%b2%b4-%ec%84%a4%ec%a0%95" aria-label="Anchor">#</a></span></h2><ul>
+<li>공격 판정을 위한 트레이스 채널을 하나 만들어보자!</li>
+<li>이름은 <code>ABAction</code> 으로 하고, 기본 반응은 Ignore로 한다.</li>
+</ul>
+<p>
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/unreal/images/10-01-abaction.png" alt="새로운 트레이스 채널 생성" class="mx-auto my-0 rounded-md" />
+</figure>
+</p>
+<br />
+<ul>
+<li>캐릭터의 캡슐 컴포넌트에 할당할 프로필도 만들어보자!</li>
+<li>이름은 <code>ABCapsule</code> 으로 하고, 속한 채널은 Pawn이다.</li>
+<li><code>ABAction</code>과의 반응은 Block이다.</li>
+</ul>
+<p>
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/unreal/images/10-02-preset.png" alt="새로운 프로필 생성" class="mx-auto my-0 rounded-md" />
+</figure>
+</p>
+<p><br /><br /></p>
+<h2 id="월드-트레이싱-함수로-충돌을-체크하자" class="relative group">월드 트레이싱 함수로 충돌을 체크하자! <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%9b%94%eb%93%9c-%ed%8a%b8%eb%a0%88%ec%9d%b4%ec%8b%b1-%ed%95%a8%ec%88%98%eb%a1%9c-%ec%b6%a9%eb%8f%8c%ec%9d%84-%ec%b2%b4%ed%81%ac%ed%95%98%ec%9e%90" aria-label="Anchor">#</a></span></h2><ul>
+<li>월드가 제공하는 충돌 판정 서비스이다.</li>
+<li>다음과 같은 세 가지 카테고리를 통해서 원하는 함수를 사용할 수 있다.</li>
+</ul>
+<pre tabindex="0"><code>{처리방법}{대상}{처리설정}
+</code></pre><br />
+<h3 id="처리방법" class="relative group">처리방법 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%b2%98%eb%a6%ac%eb%b0%a9%eb%b2%95" aria-label="Anchor">#</a></span></h3><table>
+<thead>
+<tr>
+<th>종류</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LineTrace</td>
+<td>선을 쏜다. <br /><code>Hit</code> 이벤트이므로, 반응은 Block이어야 한다.</td>
+</tr>
+<tr>
+<td>Sweep</td>
+<td>도형을 쏜다. <br /><code>Hit</code> 이벤트이므로, 반응은 Block이어야 한다.</td>
+</tr>
+<tr>
+<td>Overlap</td>
+<td>범위를 설정한다. <br /><code>Overlap</code> 이벤트이며, ImpactPoint 같은 값을 얻어올 수는 없다.</td>
+</tr>
+</tbody>
+</table>
+<br />
+<h3 id="대상" class="relative group">대상 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%eb%8c%80%ec%83%81" aria-label="Anchor">#</a></span></h3><table>
+<thead>
+<tr>
+<th>종류</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Test</td>
+<td>무언가 감지되었는지 아닌지 여부를 테스트한다.</td>
+</tr>
+<tr>
+<td>Single / AnyTest</td>
+<td>감지된 단일 물체 정보를 반환한다.</td>
+</tr>
+<tr>
+<td>Multi</td>
+<td>감지된 모든 물체 정보를 배열로 반환한다.</td>
+</tr>
+</tbody>
+</table>
+<br />
+<h3 id="처리설정" class="relative group">처리설정 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%b2%98%eb%a6%ac%ec%84%a4%ec%a0%95" aria-label="Anchor">#</a></span></h3><table>
+<thead>
+<tr>
+<th>종류</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ByChannel</td>
+<td>채널 정보를 사용해서 감지한다.</td>
+</tr>
+<tr>
+<td>ByObjectType</td>
+<td>물체에 지정된 물리 타입 정보를 사용해서 감지한다.</td>
+</tr>
+<tr>
+<td>ByProfile</td>
+<td>프로필 정보를 사용해서 감지한다.</td>
+</tr>
+</tbody>
+</table>
+<p><br /><br /></p>
+<h2 id="예시-sweepsinglebychannel-사용해서-공격-판정하기" class="relative group">[예시] SweepSingleByChannel 사용해서 공격 판정하기 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%98%88%ec%8b%9c-sweepsinglebychannel-%ec%82%ac%ec%9a%a9%ed%95%b4%ec%84%9c-%ea%b3%b5%ea%b2%a9-%ed%8c%90%ec%a0%95%ed%95%98%ea%b8%b0" aria-label="Anchor">#</a></span></h2><ul>
+<li>Sweep → 구체를 특정 거리만큼 투사해서 감지할 것이다.</li>
+<li>Single → 하나의 물체만 감지할 것이다.</li>
+<li>ByChannel → 트레이스 채널을 사용할 것이다.</li>
+</ul>
+<br />
+<h3 id="채널-값-가져오기" class="relative group">채널 값 가져오기 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%b1%84%eb%84%90-%ea%b0%92-%ea%b0%80%ec%a0%b8%ec%98%a4%ea%b8%b0" aria-label="Anchor">#</a></span></h3><ul>
+<li>이전 예시에서 만든 <code>ABAction</code> 채널의 값은 언리얼 엔진에서 정의한 <code>ECollisionChannel</code> 열거형에서 가져올 수 있다.</li>
+<li>언리얼 엔진은 총 32개의 콜리전 채널을 제공하는 데, 그 중에 8개는 언리얼 엔진이 기본으로 사용하고, 6개는 엔진에서 다른 용도로 사용하도록 예약되어 있다. 따라서 우리가 만드는 게임 프로젝트에서는 나머지 18개만 사용할 수 있다.</li>
+<li>우리가 만든 Attack 채널이 <code>ECollisionChannel::ECC_GameTraceChannel1</code> ~ <code>ECollisionChannel::ECC_GameTraceChannel18</code> 중에 어떤 값을 배정받았는지 알아야 한다.</li>
+<li>프로젝트 Config 폴더의 DefaultEngine.ini에서 확인할 수 있다.</li>
+</ul>
+<br />
+<ul>
+<li><code>ABAction</code> 채널의 값은 <code>ECC_GameTraceChannel1</code> 이다.</li>
+</ul>
+<pre tabindex="0"><code>+DefaultChannelResponses=(Channel=ECC_GameTraceChannel1,DefaultResponse=ECR_Ignore,bTraceType=True,bStaticObject=False,Name=&#34;ABAction&#34;)
+</code></pre><br />
+<h3 id="함수-사용하기" class="relative group">함수 사용하기 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%95%a8%ec%88%98-%ec%82%ac%ec%9a%a9%ed%95%98%ea%b8%b0" aria-label="Anchor">#</a></span></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">AABCharacterBase</span><span class="o">::</span><span class="n">AttackHitCheck</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 충돌 결과가 담기는 구조체
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">FHitResult</span> <span class="n">OutHitResult</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// 탐색 방법에 대한 설정 값을 모아둔 구조체
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">FCollisionQueryParams</span> <span class="nf">Params</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">SCENE_QUERY_STAT</span><span class="p">(</span><span class="n">Attack</span><span class="p">),</span> <span class="c1">// 충돌을 분석할 때 구분할 식별자 정보 (태그)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nb">false</span><span class="p">,</span>                    <span class="c1">// 복잡한 형태의 충돌체도 감지할 것인가?
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">this</span>                      <span class="c1">// 무시할 액터. 자기 자신을 무시하도록 한다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">float</span> <span class="n">AttackRange</span> <span class="o">=</span> <span class="mf">40.0f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">float</span> <span class="n">AttackRadius</span> <span class="o">=</span> <span class="mf">50.0f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">float</span> <span class="n">AttackDamage</span> <span class="o">=</span> <span class="mf">30.0f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 정면에 있는 캡슐 끝지점에서 시작한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">const</span> <span class="n">FVector</span> <span class="n">Start</span> <span class="o">=</span> <span class="n">GetActorLocation</span><span class="p">()</span> <span class="o">+</span> <span class="n">GetActorForwardVector</span><span class="p">()</span> <span class="o">*</span> <span class="n">GetCapsuleComponent</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScaledCapsuleRadius</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 40cm 앞에서 끝난다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">const</span> <span class="n">FVector</span> <span class="n">End</span> <span class="o">=</span> <span class="n">Start</span> <span class="o">+</span> <span class="n">GetActorForwardVector</span><span class="p">()</span> <span class="o">*</span> <span class="n">AttackRange</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">HitDetected</span> <span class="o">=</span> <span class="n">GetWorld</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SweepSingleByChannel</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">OutHitResult</span><span class="p">,</span>          <span class="c1">// 충돌 결과가 담긴다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Start</span><span class="p">,</span>                 <span class="c1">// 투사 시작 지점
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">End</span><span class="p">,</span>                   <span class="c1">// 투사 끝 지점
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">FQuat</span><span class="o">::</span><span class="n">Identity</span><span class="p">,</span>       <span class="c1">// 구체의 회전 값
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">ECC_GameTraceChannel1</span><span class="p">,</span> <span class="c1">// 우리가 만든 Trace Channel의 이름 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">FCollisionShape</span><span class="o">::</span><span class="n">MakeSphere</span><span class="p">(</span><span class="n">AttackRadius</span><span class="p">),</span> <span class="c1">// 탐색에 사용할 기본 도형(구체, 캡슐, 박스) 정보. 반지름이 50cm인 구체를 생성한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Params</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nb">true</span> <span class="o">==</span> <span class="n">HitDetected</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// TO DO 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="references" class="relative group">References <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#references" aria-label="Anchor">#</a></span></h2><ul>
+<li>
+<a href="https://www.yes24.com/Product/Goods/65418549" target="_blank" rel="noreferrer">책 : 이득우의 언리얼 C++ 게임 개발의 정석</a></li>
+<li>
+<a href="https://www.inflearn.com/course/%EC%9D%B4%EB%93%9D%EC%9A%B0-%EC%96%B8%EB%A6%AC%EC%96%BC-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-part-2" target="_blank" rel="noreferrer">강의 : 이득우의 언리얼 프로그래밍 Part2 - 언리얼 게임 프레임웍의 이해 </a></li>
+</ul>
+<p><br /><br /></p>
+
+      </div>
+    </section>
+    <footer class="max-w-prose pt-8 print:hidden">
+      
+  <div class="flex">
+    
+    
+    
+      
+      
+        
+        
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+      
+    >
+      
+      
+      
+      
+      <img
+        width="500"
+        height="500"
+        class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+        alt="Pero"
+        loading="lazy" decoding="async"
+        
+          src="/main.jpg"
+        
+      />
+    </picture>
+  
+
+
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          Pero
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">Keep moving forward.</div>
+      
+      <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="mailto:peropeq@gmail.com"
+          target="_blank"
+          aria-label="Email"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+    </div>
+  </div>
+
+
+      
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="/post/unreal/unreal-09/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[Unreal] 언리얼 프로퍼티, 함수 지정자</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-08-07 01:00:00 &#43;0900 KST">7 August 2023</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="group flex text-right" href="/post/unreal/unreal-11/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[Unreal] 언리얼 행동 트리</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-08-09 01:00:00 &#43;0900 KST">9 August 2023</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&rarr;</span
+                ><span class="ltr:hidden rtl:inline">&larr;</span></span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+          <div class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12">
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            ⓒ 2022. Pero.
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a>
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+    </div>
+  </div>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm sm:p-6 md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50"
+  data-url="https://frompero.github.io/"
+>
+  <div
+    id="search-modal"
+    class="top-20 mx-auto flex min-h-0 w-full max-w-3xl flex-col rounded-md border border-neutral-200 bg-neutral shadow-lg dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex flex-none items-center justify-between px-2">
+      <form class="flex min-w-0 flex-auto items-center">
+        <div class="flex h-8 w-8 items-center justify-center text-neutral-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="mx-1 flex h-12 flex-auto appearance-none bg-transparent focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex h-8 w-8 items-center justify-center text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto overflow-auto px-2">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+</html>

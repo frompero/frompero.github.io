@@ -1,0 +1,1296 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="rgb(255,255,255)" />
+  
+  <title>[Unreal] 언리얼 오브젝트, 엔진 프레임 워크, 액터의 라이프 사이클 &middot; from Pero</title>
+    <meta name="title" content="[Unreal] 언리얼 오브젝트, 엔진 프레임 워크, 액터의 라이프 사이클 &middot; from Pero" />
+  
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.022d0ebc3b46a335eb1c7ef79b7f2de143d7cd5156d433638592ef1ce5f8554e.js"
+    integrity="sha256-Ai0OvDtGozXrHH73m38t4UPXzVFW1DNjhZLvHOX4VU4="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.afb4a97d267bd0c2e9391dd7b62a45afcd549fea29cb7747564f0cb36db70f1b.css"
+    integrity="sha256-r7SpfSZ70MLpOR3XtipFr81Un&#43;opy3dHVk8Ms223Dxs="
+  />
+  
+    
+    
+    
+  
+  
+  
+    
+    
+  
+  
+    
+    
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.5b9218820e6c6b9f04b4c5a03dffd0d57bc9189f511ee80ea74222de3a608e2f.js"
+      integrity="sha256-W5IYgg5sa58EtMWgPf/Q1XvJGJ9RHugOp0Ii3jpgji8="
+      data-copy="Copy"
+      data-copied="Copied"
+    ></script>
+  
+  
+  <meta
+    name="description"
+    content="
+      
+        언리얼 오브젝트 # 언리얼은 ‘언리얼 오브젝트’라는 새로운 단위 객체를 만들었다.
+      
+    "
+  />
+  
+  
+  
+  <link rel="canonical" href="https://frompero.github.io/post/unreal/unreal-02/" />
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="[Unreal] 언리얼 오브젝트, 엔진 프레임 워크, 액터의 라이프 사이클" />
+<meta property="og:description" content="언리얼 오브젝트 # 언리얼은 ‘언리얼 오브젝트’라는 새로운 단위 객체를 만들었다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://frompero.github.io/post/unreal/unreal-02/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-03-30T01:00:00+09:00" />
+<meta property="article:modified_time" content="2023-03-30T01:00:00+09:00" />
+
+
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="[Unreal] 언리얼 오브젝트, 엔진 프레임 워크, 액터의 라이프 사이클"/>
+<meta name="twitter:description" content="언리얼 오브젝트 # 언리얼은 ‘언리얼 오브젝트’라는 새로운 단위 객체를 만들었다."/>
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "[Unreal] 언리얼 오브젝트, 엔진 프레임 워크, 액터의 라이프 사이클",
+    "headline": "[Unreal] 언리얼 오브젝트, 엔진 프레임 워크, 액터의 라이프 사이클",
+    
+    "abstract": "언리얼 오브젝트 # 언리얼은 ‘언리얼 오브젝트’라는 새로운 단위 객체를 만들었다.",
+    "inLanguage": "en",
+    "url" : "https:\/\/frompero.github.io\/post\/unreal\/unreal-02\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Pero"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-03-30T01:00:00\u002b09:00",
+    "datePublished": "2023-03-30T01:00:00\u002b09:00",
+    
+    "dateModified": "2023-03-30T01:00:00\u002b09:00",
+    
+    "keywords": ["Unreal"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "695"
+  }
+  </script>
+
+
+  
+  <meta name="author" content="Pero" />
+  
+    
+      <link href="mailto:peropeq@gmail.com" rel="me" />
+    
+  
+  
+  
+
+
+
+
+
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/lib/katex/katex.min.7c7c1a59e6eec00ecd485e5083f69fe14783c7d5ea52962938682e6e8df25aef9bd88411e14790c1b6f8d938bb81502336d56823f23d4c4a187aef689b0702ea.css"
+    integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu&#43;b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g=="
+  />
+  
+  
+  <script
+    defer
+    src="/lib/katex/katex.min.2d037120c479ad7bfba3e6f597cf8dd4464c7e11bb88567d1e19db2644e9e338cdaf95afb2def902a51e143c5e4546bb979bc40f2522022a7ffebf8414b2c2c8.js"
+    integrity="sha512-LQNxIMR5rXv7o&#43;b1l8&#43;N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r&#43;EFLLCyA=="
+  ></script>
+  
+  
+  <script
+    defer
+    src="/lib/katex/auto-render.min.e6511c3458afadbb974a54c917a45e383efdb02303964d83fdb17ff69367d6d871a53a09973ffec8c9d3525c7b8c64602e6c16a64842884ad60989a16d953fd0.js"
+    integrity="sha512-5lEcNFivrbuXSlTJF6ReOD79sCMDlk2D/bF/9pNn1thxpToJlz/&#43;yMnTUlx7jGRgLmwWpkhCiErWCYmhbZU/0A=="
+    onload="renderMathInElement(document.body);"
+  ></script>
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+  
+  
+  
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QBM4YPD699"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-QBM4YPD699', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+  
+  
+</head>
+<body
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 sm:px-14 md:px-24 lg:px-32 dark:bg-neutral-800 dark:text-neutral"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="-translate-y-8 rounded-b-lg bg-primary-200 px-3 py-1 text-sm focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="pe-2 font-bold text-primary-600 dark:text-primary-400">&darr;</span
+        >Skip to main content</a
+      >
+    </div>
+    
+    
+      <header class="py-6 font-semibold text-neutral-900 print:hidden sm:py-10 dark:text-neutral">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="z-40 flex flex-row items-center">
+      
+  <a
+    class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+    rel="me"
+    href="/"
+    >from Pero</a
+  >
+
+    </div>
+    
+      
+      <label id="menu-button" for="menu-controller" class="block sm:hidden">
+        <input type="checkbox" id="menu-controller" class="hidden" />
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="invisible fixed inset-0 z-30 m-auto h-full w-full cursor-default overflow-auto bg-neutral-100/50 opacity-0 backdrop-blur-sm transition-opacity dark:bg-neutral-900/50"
+        >
+          <ul
+            class="mx-auto flex w-full max-w-7xl list-none flex-col overflow-visible px-6 py-6 text-end sm:px-14 sm:py-10 sm:pt-10 md:px-24 lg:px-32"
+          >
+            <li class="mb-1">
+              <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400"
+                ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span></span
+              >
+            </li>
+            
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/post/"
+                      title="Posts"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Posts</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/categories/"
+                      title="Categories"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Categories</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/tags/"
+                      title="Tags"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Tags</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    
+                      <button
+                        id="search-button-1"
+                        title="Search (/)"
+                      >
+                        
+                          <span
+                            class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                          ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </button>
+                    
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    <button
+                      id="appearance-switcher-1"
+                      type="button"
+                      aria-label="appearance switcher"
+                    >
+                      <span
+                        class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                        title="Switch to dark appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                      <span
+                        class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                        title="Switch to light appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                    </button>
+                  
+                </li>
+              
+              
+            
+          </ul>
+        </div>
+      </label>
+      
+      <ul class="hidden list-none flex-row text-end sm:flex">
+        
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/post/"
+                  title="Posts"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Posts</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/categories/"
+                  title="Categories"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Categories</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/tags/"
+                  title="Tags"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Tags</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                
+                  <button
+                    id="search-button-2"
+                    title="Search (/)"
+                  >
+                    
+                      <span
+                        class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                      ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </button>
+                
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                <button
+                  id="appearance-switcher-2"
+                  type="button"
+                  aria-label="appearance switcher"
+                >
+                  <span
+                    class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                    title="Switch to dark appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                  <span
+                    class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                    title="Switch to light appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                </button>
+              
+            </li>
+          
+          
+
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex grow flex-col">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        [Unreal] 언리얼 오브젝트, 엔진 프레임 워크, 액터의 라이프 사이클
+      </h1>
+      
+        <div class="mb-12 mt-8 text-base text-neutral-500 print:hidden dark:text-neutral-400">
+          
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2023-03-30 01:00:00 &#43;0900 KST">30 March 2023</time>
+    
+
+    
+    
+  </div>
+
+  
+  
+
+
+        </div>
+      
+      
+    </header>
+    <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+      
+        <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
+          <div class="toc pe-5 print:hidden lg:sticky lg:top-10">
+            <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
+  <summary
+    class="-ms-5 block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 lg:hidden dark:bg-neutral-700 dark:text-neutral-100"
+  >
+    Table of Contents
+  </summary>
+  <div class="-ms-5 border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#언리얼-오브젝트">언리얼 오브젝트</a></li>
+    <li><a href="#uobject">UObject</a>
+      <ul>
+        <li><a href="#aactor">AActor</a></li>
+        <li><a href="#uactorcomponent">UActorComponent</a></li>
+        <li><a href="#uscenecomponent">USceneComponent</a></li>
+      </ul>
+    </li>
+    <li><a href="#게임">게임</a>
+      <ul>
+        <li><a href="#agamemode">AGameMode</a></li>
+        <li><a href="#agamestate">AGameState</a></li>
+      </ul>
+    </li>
+    <li><a href="#플레이어">플레이어</a>
+      <ul>
+        <li><a href="#aplayerstate">APlayerState</a></li>
+        <li><a href="#aplayercontroller">APlayerController</a></li>
+        <li><a href="#ahud">AHUD</a></li>
+      </ul>
+    </li>
+    <li><a href="#apawn">APawn</a>
+      <ul>
+        <li><a href="#acharacter">ACharacter</a></li>
+      </ul>
+    </li>
+    <li><a href="#멀티-플레이를-위한-개념">멀티 플레이를 위한 개념</a></li>
+    <li><a href="#언리얼-엔진-플로우-차트">언리얼 엔진 플로우 차트</a></li>
+    <li><a href="#액터의-라이프-사이클">액터의 라이프 사이클</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+          </div>
+        </div>
+      
+      <div class="min-h-0 min-w-0 max-w-prose grow">
+        <hr>
+<p><br /><br /></p>
+<h2 id="언리얼-오브젝트" class="relative group">언리얼 오브젝트 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%96%b8%eb%a6%ac%ec%96%bc-%ec%98%a4%eb%b8%8c%ec%a0%9d%ed%8a%b8" aria-label="Anchor">#</a></span></h2><ul>
+<li>언리얼은 ‘언리얼 오브젝트’라는 새로운 단위 객체를 만들었다.
+<ul>
+<li>기존 C++ 오브젝트에 모던 객체 지향 설계를 위한 다양한 기능을 추가한 것이다.</li>
+</ul>
+</li>
+</ul>
+<br />  
+<ul>
+<li>언리얼에서는 기존 C++ 오브젝트와 언리얼 오브젝트의 두 객체를 모두 사용할 수 있다.
+<table>
+<thead>
+<tr>
+<th>오브젝트</th>
+<th>용도</th>
+<th>접두사</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C++ 오브젝트</td>
+<td>저수준의 빠른 처리를 위한 기능 구현</td>
+<td><code>F</code></td>
+</tr>
+<tr>
+<td>언리얼 오브젝트</td>
+<td>콘텐츠 제작에 관련된 복잡한 설계 구현</td>
+<td><code>U</code></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<br /> 
+<ul>
+<li>언리얼 오브젝트의 헤더 파일 포멧</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#pragma once
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;CoreMinimal.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;UObject/NoExportTypes.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;MyObject.generated.h&#34;</span><span class="cp"> 
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">UCLASS</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UNREALOBJECT_API</span> <span class="nl">UMyObject</span> <span class="p">:</span> <span class="k">public</span> <span class="n">UObject</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">GENERATED_BODY</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">};</span> 
+</span></span></code></pre></div><br />
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>UCLASS()</code></td>
+<td>이 매크로를 사용하면 언리얼 오브젝트가 UClass, CDO를 가지게 된다. <br />이 데이터를 사용해서 언리얼 엔진이 언리얼 오브젝트를 런타임에 조사할 수 있다. (<strong>리플렉션: Reflection</strong>)<br /><strong>UClass</strong> : 클래스 정보(리플렉션 데이터). 클래스를 정의하는 프로퍼티와 함수 정보가 들어있다. <br /><strong>CDO</strong> : 클래스 기본 오브젝트. 언리얼 오브젝트가 가진 기본값을 보관하는 템플릿 객체이다.</td>
+</tr>
+<tr>
+<td><code>GENERATED_BODY()</code></td>
+<td>UHT(언리얼 헤더 툴)이 리플렉션 데이터들을 수집해서 <code>MyObject.generated.h</code> 파일을 만들어낸다.</td>
+</tr>
+<tr>
+<td><code>#include &quot;MyObject.generated.h&quot;</code></td>
+<td>각종 리플렉션 부가 기능들을 쓸 수 있게 헤더파일을 포함한다.</td>
+</tr>
+<tr>
+<td><code>UNREALOBJECT_API</code></td>
+<td><code>UMyObject</code> 클래스를 다른 모듈에 노출시키고자 한다면 이 키워드가 필요하다.</td>
+</tr>
+</tbody>
+</table>
+<br />
+<ul>
+<li>
+<a href="https://www.unrealengine.com/ko/blog/unreal-property-system-reflection" target="_blank" rel="noreferrer">언리얼 공식 문서 : 리플렉션</a></li>
+<li>
+<a href="https://docs.unrealengine.com/5.1/ko/unreal-object-handling-in-unreal-engine/" target="_blank" rel="noreferrer">언리얼 공식 문서 : 리플렉션의 기능들</a></li>
+</ul>
+<br />
+<ul>
+<li>리플렉션 데이터가 만들어지는 과정
+<ul>
+<li>UBT(언리얼 빌드 툴)이 헤더를 쭉 살펴보면서 리플렉션 데이터가 포함된 헤더가 있는 모듈을 기억한다. 그 모듈 중에 헤더가 지난번 컴파일과 달리 변경된 부분이 있다면, UHT를 실행한다.</li>
+<li>이제 UHT이 리플렉션 데이터를 수집해서 별개의 파일(<code>.generated</code>)로 저장한 다음, 기존 코드에 <code>.generated</code> 코드를 추가해서 컴파일한다.</li>
+<li>그렇게 빌드를 마치면 <code>.dll</code> 파일이 만들어진다.</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="uobject" class="relative group">UObject <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#uobject" aria-label="Anchor">#</a></span></h2><ul>
+<li>모든 오브젝트의 베이스 클래스이다.</li>
+</ul>
+<p>
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/unreal/images/02-01-object.png" alt="언리얼 엔진 오브젝트 상속 구조" class="mx-auto my-0 rounded-md" />
+</figure>
+
+
+<a href="https://www.youtube.com/watch?v=IaU2Hue-ApI" target="_blank" rel="noreferrer">Image Source</a></p>
+<br /> 
+<h3 id="aactor" class="relative group">AActor <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#aactor" aria-label="Anchor">#</a></span></h3><ul>
+<li>레벨에 배치할 수 있는 오브젝트이다.</li>
+<li>트랜스폼을 가지며, 월드로부터 틱과 시간 서비스를 제공받는다.</li>
+<li>다수의 Component를 가질 수 있다.
+<ul>
+<li>다수의 컴포넌트를 대표하는 컴포넌트를 루트 컴포넌트(Root Component)라고 한다.</li>
+</ul>
+</li>
+<li>플레이 도중 네트워크를 통한 프로퍼티 및 함수 호출의 리플리케이션이 가능하다.</li>
+</ul>
+<br /> 
+<h3 id="uactorcomponent" class="relative group">UActorComponent <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#uactorcomponent" aria-label="Anchor">#</a></span></h3><ul>
+<li>모든 컴포넌트의 베이스 클래스이다.</li>
+<li>컴포넌트(Component)란?
+<ul>
+<li>Actor 가 자기 자신에 서브 오브젝트로 부착할 수 있는 특수한 타입의 오브젝트이다.</li>
+</ul>
+</li>
+<li>트랜스폼이 없이 기능만 제공한다.</li>
+</ul>
+<br /> 
+<h3 id="uscenecomponent" class="relative group">USceneComponent <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#uscenecomponent" aria-label="Anchor">#</a></span></h3><ul>
+<li>트랜스폼이 있는 컴포넌트이다.</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="게임" class="relative group">게임 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ea%b2%8c%ec%9e%84" aria-label="Anchor">#</a></span></h2><h3 id="agamemode" class="relative group">AGameMode <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#agamemode" aria-label="Anchor">#</a></span></h3><ul>
+<li>하나의 게임에는 반드시 하나의 게임 모드만 존재한다.</li>
+<li>게임 규칙을 지정하고 게임을 판정하는 최고 관리자 액터이다. 형태가 없다.
+<ul>
+<li>입장할 사용자의 규격 지정</li>
+<li>존재하는 플레이어와 관람자의 수, 허용된 플레이어와 관람자 최대 수</li>
+<li>플레이어가 게임에 들어오는 방식, 스폰 위치 선택 규칙, 스폰/리스폰 동작</li>
+<li>게임 일시정지 가능 여부, 게임 일시정지 처리 방식</li>
+<li>레벨간의 전환, 게임의 시네마틱 모드 시작 여부</li>
+</ul>
+</li>
+</ul>
+<br />
+<h3 id="agamestate" class="relative group">AGameState <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#agamestate" aria-label="Anchor">#</a></span></h3><ul>
+<li>(플레이어 개개인이 아닌) 접속된 모든 클라이언트가 알아야 하는 정보를 공유할 필요가 있을 때 여기에 상태를 저장하고 관리한다.
+<ul>
+<li>게임 실행 기간 (로컬 플레이어 참가 전 실행 시간 포함)</li>
+<li>각 플레이어의 게임 참가 기간, 그 플레이어의 현재 상태</li>
+<li>현재 게임 모드의 베이스 클래스</li>
+<li>게임 시작 여부</li>
+</ul>
+</li>
+<li>서버와 모든 클라이언트에 존재하며, 최신 상태 유지를 위해 자유롭게 리플리케이트(서버와 클라이언트 사이에서 데이터와 명령을 주고받는 프로세스) 가능하다.</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="플레이어" class="relative group">플레이어 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%94%8c%eb%a0%88%ec%9d%b4%ec%96%b4" aria-label="Anchor">#</a></span></h2><h3 id="aplayerstate" class="relative group">APlayerState <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#aplayerstate" aria-label="Anchor">#</a></span></h3><ul>
+<li>서버에 있는 모든 플레이어에게 생성된다. (standalone 게임에서도)</li>
+<li>모든 클라이언트에게 리플리케이트된다.</li>
+<li>플레이어 이름, 스코어 등 네트워크 게임 관련 정보를 가지고 있다.</li>
+</ul>
+<br />
+<h3 id="aplayercontroller" class="relative group">APlayerController <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#aplayercontroller" aria-label="Anchor">#</a></span></h3><ul>
+<li>Pawn에서 파생된 클래스를 빙의(possess)하여 그 동작을 제어할 수 있는, 눈에 보이지는 않는 액터이다.</li>
+<li>플레이어가 입장할 때 배정되며, 배정된 플레이어 컨트롤러는 변경할 수 없다.</li>
+<li>플레이어가 죽어도 유지된다.</li>
+</ul>
+<br />
+<h3 id="ahud" class="relative group">AHUD <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#ahud" aria-label="Anchor">#</a></span></h3><ul>
+<li>Heads-up Display</li>
+<li>게임플레이 도중 화면 위에 겹쳐놓이는 계기판이나 정보이다.</li>
+<li>플레이어는 자체적인 HUD 클래스를 가지고 있어, 독자적인 뷰포트를 그린다.</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="apawn" class="relative group">APawn <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#apawn" aria-label="Anchor">#</a></span></h2><ul>
+<li>플레이어 컨트롤러에 의해 조종당하는 액터다.</li>
+<li>플레이어는 현재 조종하는 폰을 버리고, 다른 폰으로 옮겨가서 조종할 수도 있다.</li>
+<li>죽거나 리스폰이 가능하다.</li>
+<li>구성
+<ul>
+<li>충돌 컴포넌트 (루트 컴포넌트)</li>
+<li>메시 컴포넌트</li>
+<li>무브먼트 컴포넌트</li>
+</ul>
+</li>
+<li>역할
+<ul>
+<li>빙의(Possess)를 통해 플레이어와 연결</li>
+<li>사용자 입력의 실제 처리</li>
+<li>사용자 화면에 대응되는 카메라 설정</li>
+<li>기믹과의 상호작용</li>
+<li>현재 상태에 적합한 애니메이션 재생</li>
+</ul>
+</li>
+</ul>
+<br />
+<h3 id="acharacter" class="relative group">ACharacter <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#acharacter" aria-label="Anchor">#</a></span></h3><ul>
+<li>Pawn 중에서 인간형 Pawn을 별도로 캐릭터(Character)라고 지칭한다.</li>
+<li>구성
+<ul>
+<li>캡슐 컴포넌트 (루트 컴포넌트)</li>
+<li>스켈레탈 메시 컴포넌트</li>
+<li>캐릭터 무브먼트 컴포넌트</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="멀티-플레이를-위한-개념" class="relative group">멀티 플레이를 위한 개념 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%eb%a9%80%ed%8b%b0-%ed%94%8c%eb%a0%88%ec%9d%b4%eb%a5%bc-%ec%9c%84%ed%95%9c-%ea%b0%9c%eb%85%90" aria-label="Anchor">#</a></span></h2><p>
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/unreal/images/02-02-diagram.png" alt="멀티 플레이를 위한 개념" class="mx-auto my-0 rounded-md" />
+</figure>
+
+
+<a href="https://www.youtube.com/watch?v=a8ukx6nPub0" target="_blank" rel="noreferrer">Image Source</a></p>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th style="text-align:center">owned client</th>
+<th style="text-align:center">remote client</th>
+<th style="text-align:center">dedicated server</th>
+<th>특이사항</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AGameMode</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">O</td>
+<td>dedicated server에만 존재한다.</td>
+</tr>
+<tr>
+<td>AGameState</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+<td>모든 client가 공유할 상태를 관리한다.</td>
+</tr>
+<tr>
+<td>APlayerController</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">O</td>
+<td>한 client마다 하나씩만 존재한다.</td>
+</tr>
+<tr>
+<td>APlayerState</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+<td>다른 client에게 알려주고 싶은 정보를 관리한다.</td>
+</tr>
+</tbody>
+</table>
+<p><br /><br /></p>
+<h2 id="언리얼-엔진-플로우-차트" class="relative group">언리얼 엔진 플로우 차트 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%96%b8%eb%a6%ac%ec%96%bc-%ec%97%94%ec%a7%84-%ed%94%8c%eb%a1%9c%ec%9a%b0-%ec%b0%a8%ed%8a%b8" aria-label="Anchor">#</a></span></h2><p>
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/unreal/images/02-03-gameFlowChart.png" alt="언리얼 엔진 플로우 차트" class="mx-auto my-0 rounded-md" />
+</figure>
+</p>
+<ul>
+<li>
+<a href="https://docs.unrealengine.com/4.27/ko/InteractiveExperiences/Framework/GameFlow/" target="_blank" rel="noreferrer">언리얼 공식 문서 : 게임 흐름 </a></li>
+</ul>
+<p><br /><br /></p>
+<h2 id="액터의-라이프-사이클" class="relative group">액터의 라이프 사이클 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%95%a1%ed%84%b0%ec%9d%98-%eb%9d%bc%ec%9d%b4%ed%94%84-%ec%82%ac%ec%9d%b4%ed%81%b4" aria-label="Anchor">#</a></span></h2><p>
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/unreal/images/02-04-lifecycle.png" alt="액터의 라이프 사이클" class="mx-auto my-0 rounded-md" />
+</figure>
+</p>
+<ul>
+<li>
+<a href="https://docs.unrealengine.com/5.1/ko/unreal-engine-actor-lifecycle/" target="_blank" rel="noreferrer">언리얼 공식 문서 : 액터의 수명 주기 </a></li>
+</ul>
+<br />
+<table>
+<thead>
+<tr>
+<th>호출 함수명</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>On Construction</td>
+<td>액터의 생성 지점으로, 블루프린트 액터가 컴포넌트를 만들고 블루프린트 변수를 초기화시킨다.</td>
+</tr>
+<tr>
+<td>Pre Initialize Components</td>
+<td></td>
+</tr>
+<tr>
+<td>Initialize Components</td>
+<td>컴포넌트의 Initialize Component를 호출한다.</td>
+</tr>
+<tr>
+<td>Post Initialize Components</td>
+<td></td>
+</tr>
+<tr>
+<td>Begin Play</td>
+<td>컴포넌트의 Begin Play를 호출한다.</td>
+</tr>
+<tr>
+<td>Tick</td>
+<td></td>
+</tr>
+<tr>
+<td>End Play</td>
+<td>RF_PendingKill이 마킹된다. <br />게임 플레이 도중에 처리해야 할 것들은 여기서 마지막으로 처리한다. <br />컴포넌트의 End Play를 호출한다.</td>
+</tr>
+<tr>
+<td>Begin Destroy</td>
+<td>오브젝트의 소멸 시작.</td>
+</tr>
+<tr>
+<td>Finish Destroy</td>
+<td>오브젝트의 메모리 해제 이전의 마지막 호출이다. <br />내부 데이터 구조체를 해제시킬 마지막 기회이다.</td>
+</tr>
+</tbody>
+</table>
+<p><br /><br /></p>
+
+      </div>
+    </section>
+    <footer class="max-w-prose pt-8 print:hidden">
+      
+  <div class="flex">
+    
+    
+    
+      
+      
+        
+        
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+      
+    >
+      
+      
+      
+      
+      <img
+        width="500"
+        height="500"
+        class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+        alt="Pero"
+        loading="lazy" decoding="async"
+        
+          src="/main.jpg"
+        
+      />
+    </picture>
+  
+
+
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          Pero
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">Keep moving forward.</div>
+      
+      <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="mailto:peropeq@gmail.com"
+          target="_blank"
+          aria-label="Email"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+    </div>
+  </div>
+
+
+      
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="/post/unreal/unreal-01/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[Unreal] 언리얼 빌드 시스템</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-03-29 01:00:00 &#43;0900 KST">29 March 2023</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="group flex text-right" href="/post/unreal/unreal-03/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[Unreal] 언리얼 문자열 처리 방식</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-07-31 01:00:00 &#43;0900 KST">31 July 2023</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&rarr;</span
+                ><span class="ltr:hidden rtl:inline">&larr;</span></span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+          <div class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12">
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            ⓒ 2022. Pero.
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a>
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+    </div>
+  </div>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm sm:p-6 md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50"
+  data-url="https://frompero.github.io/"
+>
+  <div
+    id="search-modal"
+    class="top-20 mx-auto flex min-h-0 w-full max-w-3xl flex-col rounded-md border border-neutral-200 bg-neutral shadow-lg dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex flex-none items-center justify-between px-2">
+      <form class="flex min-w-0 flex-auto items-center">
+        <div class="flex h-8 w-8 items-center justify-center text-neutral-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="mx-1 flex h-12 flex-auto appearance-none bg-transparent focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex h-8 w-8 items-center justify-center text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto overflow-auto px-2">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+</html>

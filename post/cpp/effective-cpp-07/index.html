@@ -1,0 +1,1728 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="rgb(255,255,255)" />
+  
+  <title>[Effective C&#43;&#43;] Chapter 7. 템플릿과 일반화 프로그래밍 &middot; from Pero</title>
+    <meta name="title" content="[Effective C&#43;&#43;] Chapter 7. 템플릿과 일반화 프로그래밍 &middot; from Pero" />
+  
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.022d0ebc3b46a335eb1c7ef79b7f2de143d7cd5156d433638592ef1ce5f8554e.js"
+    integrity="sha256-Ai0OvDtGozXrHH73m38t4UPXzVFW1DNjhZLvHOX4VU4="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.afb4a97d267bd0c2e9391dd7b62a45afcd549fea29cb7747564f0cb36db70f1b.css"
+    integrity="sha256-r7SpfSZ70MLpOR3XtipFr81Un&#43;opy3dHVk8Ms223Dxs="
+  />
+  
+    
+    
+    
+  
+  
+  
+    
+    
+  
+  
+    
+    
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.5b9218820e6c6b9f04b4c5a03dffd0d57bc9189f511ee80ea74222de3a608e2f.js"
+      integrity="sha256-W5IYgg5sa58EtMWgPf/Q1XvJGJ9RHugOp0Ii3jpgji8="
+      data-copy="Copy"
+      data-copied="Copied"
+    ></script>
+  
+  
+  <meta
+    name="description"
+    content="
+      
+        이펙티브 C&#43;&#43; 책을 읽고 공부한 노트입니다.
+      
+    "
+  />
+  
+  
+  
+  <link rel="canonical" href="https://frompero.github.io/post/cpp/effective-cpp-07/" />
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="[Effective C&#43;&#43;] Chapter 7. 템플릿과 일반화 프로그래밍" />
+<meta property="og:description" content="이펙티브 C&#43;&#43; 책을 읽고 공부한 노트입니다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://frompero.github.io/post/cpp/effective-cpp-07/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-01-07T01:00:00+09:00" />
+<meta property="article:modified_time" content="2023-01-07T01:00:00+09:00" />
+
+
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="[Effective C&#43;&#43;] Chapter 7. 템플릿과 일반화 프로그래밍"/>
+<meta name="twitter:description" content="이펙티브 C&#43;&#43; 책을 읽고 공부한 노트입니다."/>
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "[Effective C\u002b\u002b] Chapter 7. 템플릿과 일반화 프로그래밍",
+    "headline": "[Effective C\u002b\u002b] Chapter 7. 템플릿과 일반화 프로그래밍",
+    
+    "abstract": "이펙티브 C\u002b\u002b 책을 읽고 공부한 노트입니다.",
+    "inLanguage": "en",
+    "url" : "https:\/\/frompero.github.io\/post\/cpp\/effective-cpp-07\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Pero"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-01-07T01:00:00\u002b09:00",
+    "datePublished": "2023-01-07T01:00:00\u002b09:00",
+    
+    "dateModified": "2023-01-07T01:00:00\u002b09:00",
+    
+    "keywords": ["Effective C++"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "2544"
+  }
+  </script>
+
+
+  
+  <meta name="author" content="Pero" />
+  
+    
+      <link href="mailto:peropeq@gmail.com" rel="me" />
+    
+  
+  
+  
+
+
+
+
+
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/lib/katex/katex.min.7c7c1a59e6eec00ecd485e5083f69fe14783c7d5ea52962938682e6e8df25aef9bd88411e14790c1b6f8d938bb81502336d56823f23d4c4a187aef689b0702ea.css"
+    integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu&#43;b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g=="
+  />
+  
+  
+  <script
+    defer
+    src="/lib/katex/katex.min.2d037120c479ad7bfba3e6f597cf8dd4464c7e11bb88567d1e19db2644e9e338cdaf95afb2def902a51e143c5e4546bb979bc40f2522022a7ffebf8414b2c2c8.js"
+    integrity="sha512-LQNxIMR5rXv7o&#43;b1l8&#43;N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r&#43;EFLLCyA=="
+  ></script>
+  
+  
+  <script
+    defer
+    src="/lib/katex/auto-render.min.e6511c3458afadbb974a54c917a45e383efdb02303964d83fdb17ff69367d6d871a53a09973ffec8c9d3525c7b8c64602e6c16a64842884ad60989a16d953fd0.js"
+    integrity="sha512-5lEcNFivrbuXSlTJF6ReOD79sCMDlk2D/bF/9pNn1thxpToJlz/&#43;yMnTUlx7jGRgLmwWpkhCiErWCYmhbZU/0A=="
+    onload="renderMathInElement(document.body);"
+  ></script>
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+  
+  
+  
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QBM4YPD699"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-QBM4YPD699', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+  
+  
+</head>
+<body
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 sm:px-14 md:px-24 lg:px-32 dark:bg-neutral-800 dark:text-neutral"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="-translate-y-8 rounded-b-lg bg-primary-200 px-3 py-1 text-sm focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="pe-2 font-bold text-primary-600 dark:text-primary-400">&darr;</span
+        >Skip to main content</a
+      >
+    </div>
+    
+    
+      <header class="py-6 font-semibold text-neutral-900 print:hidden sm:py-10 dark:text-neutral">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="z-40 flex flex-row items-center">
+      
+  <a
+    class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+    rel="me"
+    href="/"
+    >from Pero</a
+  >
+
+    </div>
+    
+      
+      <label id="menu-button" for="menu-controller" class="block sm:hidden">
+        <input type="checkbox" id="menu-controller" class="hidden" />
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="invisible fixed inset-0 z-30 m-auto h-full w-full cursor-default overflow-auto bg-neutral-100/50 opacity-0 backdrop-blur-sm transition-opacity dark:bg-neutral-900/50"
+        >
+          <ul
+            class="mx-auto flex w-full max-w-7xl list-none flex-col overflow-visible px-6 py-6 text-end sm:px-14 sm:py-10 sm:pt-10 md:px-24 lg:px-32"
+          >
+            <li class="mb-1">
+              <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400"
+                ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span></span
+              >
+            </li>
+            
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/post/"
+                      title="Posts"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Posts</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/categories/"
+                      title="Categories"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Categories</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/tags/"
+                      title="Tags"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Tags</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    
+                      <button
+                        id="search-button-1"
+                        title="Search (/)"
+                      >
+                        
+                          <span
+                            class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                          ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </button>
+                    
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    <button
+                      id="appearance-switcher-1"
+                      type="button"
+                      aria-label="appearance switcher"
+                    >
+                      <span
+                        class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                        title="Switch to dark appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                      <span
+                        class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                        title="Switch to light appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                    </button>
+                  
+                </li>
+              
+              
+            
+          </ul>
+        </div>
+      </label>
+      
+      <ul class="hidden list-none flex-row text-end sm:flex">
+        
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/post/"
+                  title="Posts"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Posts</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/categories/"
+                  title="Categories"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Categories</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/tags/"
+                  title="Tags"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Tags</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                
+                  <button
+                    id="search-button-2"
+                    title="Search (/)"
+                  >
+                    
+                      <span
+                        class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                      ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </button>
+                
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                <button
+                  id="appearance-switcher-2"
+                  type="button"
+                  aria-label="appearance switcher"
+                >
+                  <span
+                    class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                    title="Switch to dark appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                  <span
+                    class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                    title="Switch to light appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                </button>
+              
+            </li>
+          
+          
+
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex grow flex-col">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        [Effective C++] Chapter 7. 템플릿과 일반화 프로그래밍
+      </h1>
+      
+        <div class="mb-12 mt-8 text-base text-neutral-500 print:hidden dark:text-neutral-400">
+          
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2023-01-07 01:00:00 &#43;0900 KST">7 January 2023</time>
+    
+
+    
+    
+  </div>
+
+  
+  
+
+
+        </div>
+      
+      
+    </header>
+    <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+      
+        <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
+          <div class="toc pe-5 print:hidden lg:sticky lg:top-10">
+            <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
+  <summary
+    class="-ms-5 block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 lg:hidden dark:bg-neutral-700 dark:text-neutral-100"
+  >
+    Table of Contents
+  </summary>
+  <div class="-ms-5 border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#item-41-템플릿-프로그래밍의-천릿길도-암시적-인터페이스와-컴파일-타임-다형성부터">Item 41: 템플릿 프로그래밍의 천릿길도 암시적 인터페이스와 컴파일 타임 다형성부터</a>
+      <ul>
+        <li><a href="#클래스의-인터페이스와-다형성">클래스의 인터페이스와 다형성</a></li>
+        <li><a href="#템플릿의-인터페이스와-다형성">템플릿의 인터페이스와 다형성</a></li>
+      </ul>
+    </li>
+    <li><a href="#item-42-typename의-두-가지-의미를-제대로-파악하자">Item 42: <code>typename</code>의 두 가지 의미를 제대로 파악하자</a>
+      <ul>
+        <li><a href="#템플릿-매개변수를-선언할-때">템플릿 매개변수를 선언할 때</a></li>
+        <li><a href="#중첩-의존-타입-이름을-식별할-때">중첩 의존 타입 이름을 식별할 때</a></li>
+      </ul>
+    </li>
+    <li><a href="#item-43-템플릿으로-만들어진-기본-클래스-안의-이름에-접근하는-방법을-알아-두자">Item 43: 템플릿으로 만들어진 기본 클래스 안의 이름에 접근하는 방법을 알아 두자</a>
+      <ul>
+        <li><a href="#템플릿화된-기본-클래스의-함수를-호출하는-법">템플릿화된 기본 클래스의 함수를 호출하는 법</a></li>
+      </ul>
+    </li>
+    <li><a href="#item-44-매개변수에-독립적인-코드는-템플릿으로부터-분리시키자">Item 44: 매개변수에 독립적인 코드는 템플릿으로부터 분리시키자</a>
+      <ul>
+        <li><a href="#비타입-템플릿-매개변수로-생기는-코드-비대화의-경우">비타입 템플릿 매개변수로 생기는 코드 비대화의 경우</a></li>
+        <li><a href="#타입-매개변수로-생기는-코드-비대화의-경우">타입 매개변수로 생기는 코드 비대화의 경우</a></li>
+      </ul>
+    </li>
+    <li><a href="#item-45-호환되는-모든-타입을-받아들이는-데는-멤버-함수-템플릿이-직방">Item 45: &ldquo;호환되는 모든 타입&quot;을 받아들이는 데는 멤버 함수 템플릿이 직방!</a></li>
+    <li><a href="#item-46-타입-변환이-바람직할-경우-비멤버-함수를-클래스-템플릿-안에-정의해-두자">Item 46: 타입 변환이 바람직할 경우 비멤버 함수를 클래스 템플릿 안에 정의해 두자</a></li>
+    <li><a href="#item-47-타입에-대한-정보가-필요하다면-특성정보-클래스를-사용하자">Item 47: 타입에 대한 정보가 필요하다면 특성정보 클래스를 사용하자</a></li>
+    <li><a href="#item-48-템플릿-메타프로그래밍-하지-않겠는가">Item 48: 템플릿 메타프로그래밍, 하지 않겠는가?</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+          </div>
+        </div>
+      
+      <div class="min-h-0 min-w-0 max-w-prose grow">
+        <div style="text-align: right"> 
+<p>
+<a href="http://www.yes24.com/Product/Goods/17525589" target="_blank" rel="noreferrer">이펙티브 C++</a> 책을 읽고 공부한 노트입니다.</p>
+</div>
+<hr>
+<p><br /><br /></p>
+<h2 id="item-41-템플릿-프로그래밍의-천릿길도-암시적-인터페이스와-컴파일-타임-다형성부터" class="relative group">Item 41: 템플릿 프로그래밍의 천릿길도 암시적 인터페이스와 컴파일 타임 다형성부터 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-41-%ed%85%9c%ed%94%8c%eb%a6%bf-%ed%94%84%eb%a1%9c%ea%b7%b8%eb%9e%98%eb%b0%8d%ec%9d%98-%ec%b2%9c%eb%a6%bf%ea%b8%b8%eb%8f%84-%ec%95%94%ec%8b%9c%ec%a0%81-%ec%9d%b8%ed%84%b0%ed%8e%98%ec%9d%b4%ec%8a%a4%ec%99%80-%ec%bb%b4%ed%8c%8c%ec%9d%bc-%ed%83%80%ec%9e%84-%eb%8b%a4%ed%98%95%ec%84%b1%eb%b6%80%ed%84%b0" aria-label="Anchor">#</a></span></h2><ul>
+<li>클래스와 템플릿은 모두 인터페이스와 다형성을 제공한다. 하지만 세부적인 차이점이 있다.</li>
+</ul>
+<br />
+<h3 id="클래스의-인터페이스와-다형성" class="relative group">클래스의 인터페이스와 다형성 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%81%b4%eb%9e%98%ec%8a%a4%ec%9d%98-%ec%9d%b8%ed%84%b0%ed%8e%98%ec%9d%b4%ec%8a%a4%ec%99%80-%eb%8b%a4%ed%98%95%ec%84%b1" aria-label="Anchor">#</a></span></h3><ul>
+<li>클래스의 경우, <strong>인터페이스가 명시적(explicit interface)</strong> 이어서 함수의 시그니처(함수 이름, 매개변수 타입, 반환 타입 등)를 중심으로 구성되어 있다.</li>
+<li>그리고 <strong>다형성은 런타임(runtime polimorphism)</strong> 에 가상 함수를 통해 나타난다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Widget</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Widget</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="o">~</span><span class="n">Widget</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">normalize</span><span class="p">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="n">Widget</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">doProcessing</span><span class="p">(</span><span class="n">Widget</span><span class="o">&amp;</span> <span class="n">w</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// w는 Widget 타입이므로 Widget 인터페이스를 지원해야 한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 그리고 이 인터페이스는 Widget 소스 코드를 보면 알 수 있다. (명시적 인터페이스)
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Widget 타입 인터페이스를 지원하지 않으면 컴파일이 안된다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">w</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="o">&amp;&amp;</span> <span class="n">w</span> <span class="o">!=</span> <span class="n">someNastyWidget</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Widget</span> <span class="n">temp</span><span class="p">(</span><span class="n">w</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">temp</span><span class="p">.</span><span class="n">normalize</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Widget의 멤버 함수 중 몇 개는 가상 함수이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 그래서 런타임에 w의 동적 타입을 기반으로 해서 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 특정 함수 호출이 이루어진다. (런타임 다형성)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl">    <span class="n">temp</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">w</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="템플릿의-인터페이스와-다형성" class="relative group">템플릿의 인터페이스와 다형성 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%85%9c%ed%94%8c%eb%a6%bf%ec%9d%98-%ec%9d%b8%ed%84%b0%ed%8e%98%ec%9d%b4%ec%8a%a4%ec%99%80-%eb%8b%a4%ed%98%95%ec%84%b1" aria-label="Anchor">#</a></span></h3><ul>
+<li>반면 템플릿의 경우, <strong>인터페이스가 암시적(implicit interface)</strong> 이어서 유효 표현식(expression)에 기반을 두어 구성된다.</li>
+<li>그리고 <strong>다형성은 컴파일(complie-time polymorphism)</strong> 중에 템플릿 인스턴스화와 함수 오버로딩 모호성 해결을 통해 나타난다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">doProcessing</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">w</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// w는 T 타입이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 아래 if문의 결과를 bool로 낼 수 있어야 하며,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// normalize, swap 멤버 함수를 지원해야 하는 타입이다. (암시적 인터페이스)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 이것들을 T 타입이 지원하지 않으면 컴파일이 안된다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="n">w</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="o">&amp;&amp;</span> <span class="n">w</span> <span class="o">!=</span> <span class="n">someNastyWidget</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 또한 컴파일 도중에 템플릿이 인스턴스화된다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 호출되는 함수는 인스턴스화된 함수 템플릿에 어떤 템플릿 매개변수가 들어가느냐에 따라 달라진다. (컴파일 타임 다형성)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span> <span class="nf">temp</span><span class="p">(</span><span class="n">w</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">temp</span><span class="p">.</span><span class="n">normalize</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">temp</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">w</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="item-42-typename의-두-가지-의미를-제대로-파악하자" class="relative group">Item 42: <code>typename</code>의 두 가지 의미를 제대로 파악하자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-42-typename%ec%9d%98-%eb%91%90-%ea%b0%80%ec%a7%80-%ec%9d%98%eb%af%b8%eb%a5%bc-%ec%a0%9c%eb%8c%80%eb%a1%9c-%ed%8c%8c%ec%95%85%ed%95%98%ec%9e%90" aria-label="Anchor">#</a></span></h2><h3 id="템플릿-매개변수를-선언할-때" class="relative group">템플릿 매개변수를 선언할 때 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%85%9c%ed%94%8c%eb%a6%bf-%eb%a7%a4%ea%b0%9c%eb%b3%80%ec%88%98%eb%a5%bc-%ec%84%a0%ec%96%b8%ed%95%a0-%eb%95%8c" aria-label="Anchor">#</a></span></h3><ul>
+<li>템플릿 매개변수를 선언할 때 <code>class</code>와 <code>typename</code>은 완전히 똑같은 의미를 가진다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Widget</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Widget</span><span class="p">;</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="중첩-의존-타입-이름을-식별할-때" class="relative group">중첩 의존 타입 이름을 식별할 때 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%a4%91%ec%b2%a9-%ec%9d%98%ec%a1%b4-%ed%83%80%ec%9e%85-%ec%9d%b4%eb%a6%84%ec%9d%84-%ec%8b%9d%eb%b3%84%ed%95%a0-%eb%95%8c" aria-label="Anchor">#</a></span></h3><ul>
+<li><strong>의존 이름(dependent name)</strong>
+<ul>
+<li>템플릿 매개변수에 종속된 템플릿 내의 이름이다.</li>
+</ul>
+</li>
+<li><strong>중첩 의존 이름(nested dependent name)</strong>
+<ul>
+<li>의존 이름이 어떤 클래스 안에 중첩되어 있는 경우이다.</li>
+</ul>
+</li>
+<li><strong>중첩 의존 타입 이름(nested dependent type name)</strong>
+<ul>
+<li>중첩 의존 이름인데 타입을 참조한다는 뜻이다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><strong>비의존 이름(non-dependent name)</strong>
+<ul>
+<li>템플릿 매개변수와 상관 없는 이름이다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">C</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">print2nd</span><span class="p">(</span><span class="k">const</span> <span class="n">C</span><span class="o">&amp;</span> <span class="n">container</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">container</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// iter는 C::const_iterator 타입이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 따라서 템플릿 매개변수인 C에 따라서 iter의 타입이 달라진다. (의존 이름)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">C</span><span class="o">::</span><span class="n">const_iterator</span> <span class="n">iter</span><span class="p">(</span><span class="n">container</span><span class="p">.</span><span class="n">begin</span><span class="p">());</span>  
+</span></span><span class="line"><span class="cl">    <span class="c1">// 에러!
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl">    <span class="o">++</span><span class="n">iter</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// value는 템플릿 매개변수 C와 상관없이 int인 타입이다. (비의존 이름)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="o">*</span><span class="n">iter</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>중첩 의존 이름은 <strong>기본적으로 타입이 아닌 것으로 해석</strong>된다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">C</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">print2nd</span><span class="p">(</span><span class="k">const</span> <span class="n">C</span><span class="o">&amp;</span> <span class="n">container</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">C</span><span class="o">::</span><span class="n">const_iterator</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// C::const_iterator가 타입이 아니면 어떻게 될까?
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 예를 들면 const_iterator라는 이름을 가진 정적 데이터 멤버가 C에 들어있을 수도 있다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 그러면 위 식은 곱셈이 될 수도 있다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 그래서 C++은 이 모호성을 해결하기 위해 중접 의존 이름은 기본적으로 타입이 아닌 것으로 본다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li><code>typename</code>을 붙여서 중첩 의존 이름이 타입이라고 알려줄 수 있다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">C</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">print2nd</span><span class="p">(</span><span class="k">const</span> <span class="n">C</span><span class="o">&amp;</span> <span class="n">container</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">container</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// typename을 붙인다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">typename</span> <span class="n">C</span><span class="o">::</span><span class="n">const_iterator</span> <span class="n">iter</span><span class="p">(</span><span class="n">container</span><span class="p">.</span><span class="n">begin</span><span class="p">());</span>  
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="o">++</span><span class="n">iter</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="o">*</span><span class="n">iter</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>예외
+<ul>
+<li><strong>기본 클래스 리스트, 멤버 초기화 리스트 내의 기본 클래스 식별자</strong>에서는 <code>typename</code>을 붙여주면 안 된다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derived</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">Nested</span> <span class="c1">// 기본 클래스 리스트 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">explicit</span> <span class="n">Derived</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="o">:</span> <span class="n">Base</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">Nested</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1">// 멤버 초기화 리스트 내의 기본 클래스 식별자 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">typename</span> <span class="n">Base</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">Nested</span> <span class="n">temp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>긴 타입 이름을 간편하게 사용하기 위해 <code>typedef</code>를 사용할 수 있다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">IterT</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">workWithIterator</span><span class="p">(</span><span class="n">IterT</span> <span class="n">iter</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">typedef</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">IterT</span><span class="o">&gt;::</span><span class="n">value_type</span> <span class="n">value_type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// (특성 정보 클래스에 속한 value_type 등의 멤버 이름은 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 그 멤버 이름과 똑같이 typedef 이름을 짓는게 관례이다.)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="item-43-템플릿으로-만들어진-기본-클래스-안의-이름에-접근하는-방법을-알아-두자" class="relative group">Item 43: 템플릿으로 만들어진 기본 클래스 안의 이름에 접근하는 방법을 알아 두자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-43-%ed%85%9c%ed%94%8c%eb%a6%bf%ec%9c%bc%eb%a1%9c-%eb%a7%8c%eb%93%a4%ec%96%b4%ec%a7%84-%ea%b8%b0%eb%b3%b8-%ed%81%b4%eb%9e%98%ec%8a%a4-%ec%95%88%ec%9d%98-%ec%9d%b4%eb%a6%84%ec%97%90-%ec%a0%91%ea%b7%bc%ed%95%98%eb%8a%94-%eb%b0%a9%eb%b2%95%ec%9d%84-%ec%95%8c%ec%95%84-%eb%91%90%ec%9e%90" aria-label="Anchor">#</a></span></h2><ul>
+<li>어떤 템플릿으로부터 파생 클래스가 인스턴스화 될 때, 컴파일러는 <strong>기본 클래스에 대해 아무것도 모르는 것</strong>으로 가정한다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">CompanyA</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">sendClearText</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">sendEncrypted</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">C</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MsgSender</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">sendClear</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">C</span> <span class="n">c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">c</span><span class="p">.</span><span class="n">sendClearText</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">sendSecret</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">C</span> <span class="n">c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">c</span><span class="p">.</span><span class="n">sendEncrypted</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">C</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">LoggingMsgSender</span> <span class="o">:</span> <span class="k">public</span> <span class="n">MsgSender</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span> 
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">sendClearMsg</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sendClear</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 컴파일 에러! 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// LoggingMsgSender는 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// MsgSender의 어떤 인스턴스에서 파생되었는지를 모른다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 즉, C가 무엇인지 모르므로
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// MsgSender&lt;C&gt;가 어떤 형태인지 알 방법이 없다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">CompanyB</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">sendEncrypted</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// CompanyB가 LoggingMsgSender의 템플릿 매개변수 C가 되면 어떻게 되겠는가?
+</span></span></span><span class="line"><span class="cl"><span class="c1">// sendClear에서는 CompanyB의 sendClearText를 부를텐데
+</span></span></span><span class="line"><span class="cl"><span class="c1">// CompanyB는 sendClearText 함수가 없다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 따라서 컴파일 에러가 옳은 판단을 한 것이라 볼 수 있겠다. 
+</span></span></span></code></pre></div><br />
+<ul>
+<li><strong>완전 템플릿 특수화(total template specialization)</strong></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MsgSender</span><span class="o">&lt;</span><span class="n">CompanyB</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// MsgSender 템플릿이 CompanyB 타입에 대해 특수화되었고, 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 이 템플릿의 매개변수들이 하나도 빠짐없이 구체적인 타입으로 정해진다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">sendSecret</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="템플릿화된-기본-클래스의-함수를-호출하는-법" class="relative group">템플릿화된 기본 클래스의 함수를 호출하는 법 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%85%9c%ed%94%8c%eb%a6%bf%ed%99%94%eb%90%9c-%ea%b8%b0%eb%b3%b8-%ed%81%b4%eb%9e%98%ec%8a%a4%ec%9d%98-%ed%95%a8%ec%88%98%eb%a5%bc-%ed%98%b8%ec%b6%9c%ed%95%98%eb%8a%94-%eb%b2%95" aria-label="Anchor">#</a></span></h3><ul>
+<li>(1) <code>this-&gt;</code>를 붙인다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">C</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">LoggingMsgSender</span> <span class="o">:</span> <span class="k">public</span> <span class="n">MsgSender</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span> 
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">sendClearMsg</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">sendClear</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// sendClear 함수가 상속되는 것으로 가정한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>(2) <code>using</code> 선언을 사용한다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">C</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">LoggingMsgSender</span> <span class="o">:</span> <span class="k">public</span> <span class="n">MsgSender</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">using</span> <span class="n">MegSender</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;::</span><span class="n">sendClear</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 컴파일러에게 sendClear 함수가 기본 클래스에 있다고
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 가정하라고 알려준다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">sendClearMsg</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sendClear</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>(3) 기본 클래스의 함수라는 점을 명시적으로 지정한다.
+<ul>
+<li>하지만 이런식으로 명시적 한정을 하면, 가상 함수 바인딩이 무시될 수 있다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">C</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">LoggingMsgSender</span> <span class="o">:</span> <span class="k">public</span> <span class="n">MsgSender</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span> 
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">sendClearMsg</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MsgSender</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;::</span><span class="n">sendClear</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// sendClear 함수가 상속되는 것으로 가정한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="item-44-매개변수에-독립적인-코드는-템플릿으로부터-분리시키자" class="relative group">Item 44: 매개변수에 독립적인 코드는 템플릿으로부터 분리시키자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-44-%eb%a7%a4%ea%b0%9c%eb%b3%80%ec%88%98%ec%97%90-%eb%8f%85%eb%a6%bd%ec%a0%81%ec%9d%b8-%ec%bd%94%eb%93%9c%eb%8a%94-%ed%85%9c%ed%94%8c%eb%a6%bf%ec%9c%bc%eb%a1%9c%eb%b6%80%ed%84%b0-%eb%b6%84%eb%a6%ac%ec%8b%9c%ed%82%a4%ec%9e%90" aria-label="Anchor">#</a></span></h2><ul>
+<li>템플릿을 사용하면 비슷비슷한 클래스와 함수가 여러 벌 만들어지고, 템플릿 매개변수에 종속되지 않은 템플릿 코드는 <strong>코드 비대화(code bloat)</strong> 의 원인이 된다.</li>
+</ul>
+<br />
+<h3 id="비타입-템플릿-매개변수로-생기는-코드-비대화의-경우" class="relative group">비타입 템플릿 매개변수로 생기는 코드 비대화의 경우 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%eb%b9%84%ed%83%80%ec%9e%85-%ed%85%9c%ed%94%8c%eb%a6%bf-%eb%a7%a4%ea%b0%9c%eb%b3%80%ec%88%98%eb%a1%9c-%ec%83%9d%ea%b8%b0%eb%8a%94-%ec%bd%94%eb%93%9c-%eb%b9%84%eb%8c%80%ed%99%94%ec%9d%98-%ea%b2%bd%ec%9a%b0" aria-label="Anchor">#</a></span></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 비타입 템플릿 매개변수인 n이 있다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">SquareMatrix</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">invert</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">SquareMatrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="mi">5</span><span class="o">&gt;</span> <span class="n">sm1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// n이 5인 SquareMatrix 인스턴스가 만들어진다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">sm1</span><span class="p">.</span><span class="n">invert</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">SquareMatrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="mi">10</span><span class="o">&gt;</span> <span class="n">sm2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// n이 10인 SquareMatrix 인스턴스가 만들어진다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">sm2</span><span class="p">.</span><span class="n">invert</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>해결 방법
+<ul>
+<li>공통적인 부분을 기본 클래스로 만들고, 그것을 호출한다.</li>
+<li>데이터는 클래스의 멤버로 만들어서 관리하면 되겠다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// 독립적인 기본 클래스를 만들어 둔다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SquareMatrixBase</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">T</span> <span class="o">*</span> <span class="n">pData</span><span class="p">;</span>  <span class="c1">// 데이터를 포인터로 가리킨다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">SquareMatrixBase</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="n">T</span> <span class="o">*</span> <span class="n">pMem</span><span class="p">)</span> <span class="o">:</span> <span class="n">size</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">pData</span><span class="p">(</span><span class="n">pMem</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">setDataPtr</span><span class="p">(</span><span class="n">T</span> <span class="o">*</span> <span class="n">ptr</span><span class="p">)</span> <span class="p">{</span> <span class="n">pData</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">invert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">matrixsize</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SquareMatrix</span><span class="o">:</span> <span class="k">private</span> <span class="n">SquareMatrixBase</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">using</span> <span class="n">SquareMatrixBase</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">invert</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">T</span> <span class="n">data</span><span class="p">[</span><span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">];</span> <span class="c1">// 실제 데이터 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">SquareMatrix</span> <span class="p">:</span> <span class="n">SquareMatrixBase</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="p">{}</span> <span class="c1">// 기본 클래스에 데이터에 대한 포인터를 보낸다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">invert</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">invert</span><span class="p">(</span><span class="n">n</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 기본 클래스를 호출한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 이렇게 하면 n이 달라도 오직 한 가지의 SquareMatrixBase 클래스를 공유하게 된다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="타입-매개변수로-생기는-코드-비대화의-경우" class="relative group">타입 매개변수로 생기는 코드 비대화의 경우 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%83%80%ec%9e%85-%eb%a7%a4%ea%b0%9c%eb%b3%80%ec%88%98%eb%a1%9c-%ec%83%9d%ea%b8%b0%eb%8a%94-%ec%bd%94%eb%93%9c-%eb%b9%84%eb%8c%80%ed%99%94%ec%9d%98-%ea%b2%bd%ec%9a%b0" aria-label="Anchor">#</a></span></h3><ul>
+<li>
+<p>예를 들어, <code>vector&lt;int&gt;</code>와 <code>vector&lt;long&gt;</code>의 경우</p>
+<ul>
+<li>대부분의 플랫폼에서 <code>int</code>, <code>long</code>의 이진 표현구조가 동일하므로, 두 멤버 함수는 똑같게 나올 것이다.</li>
+</ul>
+</li>
+<li>
+<p>해결 방법</p>
+<ul>
+<li>동일한 이진 표현구조를 가지고 인스턴스화되는 타입들은 <strong>한 가지 함수 구현을 공유하게 만듦으로써</strong> 비대화를 감소시킬 수 있다.</li>
+<li>예를 들어, 포인터 타입의 경우 타입미정(untyped) 포인터(<code>void</code> 포인터)로 동작하는 버전을 호출하는 식으로 만들 수 있겠다.</li>
+<li><code>vector</code>, <code>deque</code>, <code>list</code> 등이 이렇게 구현되어 있다.</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="item-45-호환되는-모든-타입을-받아들이는-데는-멤버-함수-템플릿이-직방" class="relative group">Item 45: &ldquo;호환되는 모든 타입&quot;을 받아들이는 데는 멤버 함수 템플릿이 직방! <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-45-%ed%98%b8%ed%99%98%eb%90%98%eb%8a%94-%eb%aa%a8%eb%93%a0-%ed%83%80%ec%9e%85%ec%9d%84-%eb%b0%9b%ec%95%84%eb%93%a4%ec%9d%b4%eb%8a%94-%eb%8d%b0%eb%8a%94-%eb%a9%a4%eb%b2%84-%ed%95%a8%ec%88%98-%ed%85%9c%ed%94%8c%eb%a6%bf%ec%9d%b4-%ec%a7%81%eb%b0%a9" aria-label="Anchor">#</a></span></h2><ul>
+<li>포인터는 암시적 변환(implicit conversion)을 지원한다.</li>
+<li>이런 식의 타입 변환을 사용자 정의 스마트 포인터로 흉내 내려면 어떻게 해야할까?</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Top</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Middle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Top</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Bottom</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Middle</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 이렇게 호환되는 모든 타입끼지 변환되도록 하고 싶다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Top</span> <span class="o">*</span> <span class="n">pt1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Middle</span><span class="p">;</span> <span class="c1">// Middle* -&gt; Top*
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Top</span> <span class="o">*</span> <span class="n">pt2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bottom</span><span class="p">;</span> <span class="c1">// Bottom* -&gt; Top*
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">const</span> <span class="n">Top</span> <span class="o">*</span> <span class="n">pct</span> <span class="o">=</span> <span class="n">pt1</span><span class="p">;</span>  <span class="c1">// Top* -&gt; const Top*
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>변환 가능한 모든 타입의 개수만큼 생성자를 만들기에는 무리다. 무제한으로 늘어날 것이다.</li>
+<li>그렇다면 템플릿을 써서 <strong>일반화 복사 생성자(generalized copy constructor)</strong> 를 만들어보자.</li>
+<li>하지만 어떤 타입이든 다 변환이 되면 안 되고 호환되는 타입들끼리만 변환이 되야 할 것이다.</li>
+<li>따라서 <code>shared_ptr</code>에서 쓰는 방법을 따라서 <code>get</code> 멤버 함수를 가지고 포인터를 반환하게 만든 후, 생성자에서 이것을 이용해 변환에 제약을 줘볼 수 있겠다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SmartPtr</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">T</span> <span class="o">*</span> <span class="n">heldPtr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span> 
+</span></span><span class="line"><span class="cl">  <span class="c1">// 이렇게 같은 템플릿을 써서 인스턴스화되지만
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 타입이 다른 객체로부터 원하는 객체를 만들어주는 생성자를
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// (SmartPtr&lt;U&gt;로 부터 SmartPtr&lt;T&gt;를 만들어내는)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 일반화 복사 생성자라고 한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">U</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">SmartPtr</span><span class="p">(</span><span class="k">const</span> <span class="n">SmartPtr</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="o">:</span> <span class="n">heldPtr</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">get</span><span class="p">())</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// other의 포인터로 이 포인터를 초기화한다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 따라서 U*에서 T*로 암시적 변환이 가능할 때만 컴파일 에러가 나지 않는다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  
+</span></span><span class="line"><span class="cl">  <span class="n">T</span> <span class="o">*</span> <span class="nf">get</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">heldPtr</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">SmartPtr</span><span class="o">&lt;</span><span class="n">Top</span><span class="o">&gt;</span> <span class="n">pt1</span> <span class="o">=</span> <span class="n">SmartPtr</span><span class="o">&lt;</span><span class="n">Middle</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span> <span class="n">Middle</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">SmartPtr</span><span class="o">&lt;</span><span class="n">Top</span><span class="o">&gt;</span> <span class="n">pt2</span> <span class="o">=</span> <span class="n">SmartPtr</span><span class="o">&lt;</span><span class="n">Bottom</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span> <span class="n">Bottom</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">SmartPtr</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Top</span><span class="o">&gt;</span> <span class="n">pct</span> <span class="o">=</span> <span class="n">pt1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<ul>
+<li><code>shared_ptr</code>은 어떻게 복사 생성 연산과 대입 연산을 하고 있을까?</li>
+<li>주의할 점은 일반화 복사 생성자와 일반화 복사 대입 연산자는 보통의 복사 생성자와 보통의 복사 대입 연산자가 아니므로,
+<ul>
+<li><strong>보통의 복사 생성자와 보통의 복사 대입 연산자도 선언해 줘야 한다</strong>는 점이다.</li>
+<li>안 그러면 <code>shared_ptr</code>으로부터 <code>shared_ptr</code>로 생성될 때 컴파일러는 자동으로 보통의 복사 생성자를 하나 만들어버린다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">shared_ptr</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 보통의 복사 생성자
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">shared_ptr</span><span class="p">(</span><span class="n">shared_ptr</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// shared_ptr로부터 shared_ptr 생성자 호출이 가능하다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Y</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">shared_ptr</span><span class="p">(</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Y</span><span class="o">&gt;</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 모든 기본 제공 포인터로부터 shared_ptr 생성자 호출이 가능하다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Y</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">explicit</span> <span class="n">shared_ptr</span><span class="p">(</span><span class="n">Y</span> <span class="o">*</span> <span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 암시적 변환을 허용하지 않기 위해 explicit이 붙었다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  
+</span></span><span class="line"><span class="cl">  <span class="c1">// weak_ptr로부터 shared_ptr 생성자 호출이 가능하다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Y</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">explicit</span> <span class="n">shared_ptr</span><span class="p">(</span><span class="n">weak_ptr</span><span class="o">&lt;</span><span class="n">Y</span><span class="o">&gt;</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// auto_ptr로부터 shared_ptr 생성자 호출이 가능하다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Y</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">explicit</span> <span class="n">shared_ptr</span><span class="p">(</span><span class="n">auto_ptr</span><span class="o">&lt;</span><span class="n">Y</span><span class="o">&gt;&amp;</span> <span class="n">r</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// auto_ptr은 const가 없다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 왜냐하면 복사연산으로 객체가 수정되면 복사된 쪽 하나만 유효해야 되기 때문이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// 보통의 복사 대입 연산자 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">shared_ptr</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">shared_ptr</span> <span class="n">cosnt</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// shared_ptr에서 shared_ptr로 대입이 가능하다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Y</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">shared_ptr</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Y</span><span class="o">&gt;</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// auto_ptr에서 shared_ptr로 대입이 가능하다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Y</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">shared_ptr</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">auto_ptr</span><span class="o">&lt;</span><span class="n">Y</span><span class="o">&gt;&amp;</span> <span class="n">r</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="item-46-타입-변환이-바람직할-경우-비멤버-함수를-클래스-템플릿-안에-정의해-두자" class="relative group">Item 46: 타입 변환이 바람직할 경우 비멤버 함수를 클래스 템플릿 안에 정의해 두자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-46-%ed%83%80%ec%9e%85-%eb%b3%80%ed%99%98%ec%9d%b4-%eb%b0%94%eb%9e%8c%ec%a7%81%ed%95%a0-%ea%b2%bd%ec%9a%b0-%eb%b9%84%eb%a9%a4%eb%b2%84-%ed%95%a8%ec%88%98%eb%a5%bc-%ed%81%b4%eb%9e%98%ec%8a%a4-%ed%85%9c%ed%94%8c%eb%a6%bf-%ec%95%88%ec%97%90-%ec%a0%95%ec%9d%98%ed%95%b4-%eb%91%90%ec%9e%90" aria-label="Anchor">#</a></span></h2><ul>
+<li>모든 매개변수에 대해 암시적으로 타입 변환이 되도록 하기 위해서는?
+<ul>
+<li>비멤버 함수를 사용해야 했다 (Item 24)</li>
+<li>하지만 템플릿인 경우에는 어떻게 될까?</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Rational</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Rational</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="n">numerator</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="n">denominator</span> <span class="o">=</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="n">T</span> <span class="nf">numerator</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="n">T</span> <span class="nf">denominator</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="n">Rational</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="k">const</span> <span class="n">Rational</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="k">const</span> <span class="n">Rational</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Rational</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">oneHalf</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">Rational</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">oneHalf</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// 컴파일 에러!
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 컴파일러는 2의 T가 무엇인지 알 방도가 없다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 왜냐하면 템플릿 인자 추론과정에서는 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 암시적 타입 변환이 고려되지 않기 때문이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>해결 방법
+<ul>
+<li><strong>프렌드 함수</strong>를 이용해서 <strong>템플릿으로의 성격을 주지 않고 함수를 만들 수</strong> 있겠다.</li>
+<li><code>Rational&lt;T&gt;</code>가 인스턴스화 될 때 <code>T</code>의 정확한 정보를 알 수 있으므로 프렌드 선언이 가능하다.</li>
+<li>프렌드 함수는 일반 함수이므로, 컴파일러는 암시적 변환 함수를 적용시킬 수 있게 된다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Rational</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 프렌드 함수
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">friend</span> <span class="k">const</span> <span class="n">Rational</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="k">const</span> <span class="n">Rational</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="k">const</span> <span class="n">Rational</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">Rational</span><span class="p">(</span><span class="n">lhs</span><span class="p">.</span><span class="n">numerator</span><span class="p">()</span> <span class="o">*</span> <span class="n">rhs</span><span class="p">.</span><span class="n">numerator</span><span class="p">(),</span> <span class="n">lhs</span><span class="p">.</span><span class="n">denominator</span><span class="p">()</span> <span class="o">*</span> <span class="n">rhs</span><span class="p">.</span><span class="n">denominator</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 클래스 안에서 정의가 되었으므로 암시적으로 인라인 함수가 된다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>참고로 클래스 템플릿 내부에서는 템플릿의 이름을 그 템플릿 및 매개변수의 줄임말로 쓸 수 있다.
+<ul>
+<li>즉, <code>Rational&lt;T&gt;</code> 안에서는 <code>Rational</code>이라고만 써도 <code>Rational&lt;T&gt;</code>로 먹힌다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Rational</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 위 코드와 같은 코드이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">friend</span> <span class="k">const</span> <span class="n">Rational</span> <span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="k">const</span> <span class="n">Rational</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="k">const</span> <span class="n">Rational</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">Rational</span><span class="p">(</span><span class="n">lhs</span><span class="p">.</span><span class="n">numerator</span><span class="p">()</span> <span class="o">*</span> <span class="n">rhs</span><span class="p">.</span><span class="n">numerator</span><span class="p">(),</span> <span class="n">lhs</span><span class="p">.</span><span class="n">denominator</span><span class="p">()</span> <span class="o">*</span> <span class="n">rhs</span><span class="p">.</span><span class="n">denominator</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>인라인 함수에 의한 영향력을 최소화하려면, <strong>클래스 바깥에서 정의된 도우미 함수만 호출</strong>하는 식으로 바꿀 수도 있겠다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Rational</span><span class="p">;</span> <span class="c1">// 전방 선언 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 도우미 함수 템플릿 선언 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="n">Rational</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">doMultiply</span><span class="p">(</span><span class="k">const</span> <span class="n">Rational</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="k">const</span> <span class="n">Rational</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">rhs</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Rational</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">friend</span> <span class="k">const</span> <span class="n">Rational</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="k">const</span> <span class="n">Rational</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="k">const</span> <span class="n">Rational</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">doMultiply</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 도우미 함수만 호출한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 도우미 함수 템플릿 정의 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="n">Rational</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">doMultiply</span><span class="p">(</span><span class="k">const</span> <span class="n">Rational</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="k">const</span> <span class="n">Rational</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">Rational</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">lhs</span><span class="p">.</span><span class="n">numerator</span><span class="p">()</span> <span class="o">*</span> <span class="n">rhs</span><span class="p">.</span><span class="n">numerator</span><span class="p">(),</span> <span class="n">lhs</span><span class="p">.</span><span class="n">denominator</span><span class="p">()</span> <span class="o">*</span> <span class="n">rhs</span><span class="p">.</span><span class="n">denominator</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="item-47-타입에-대한-정보가-필요하다면-특성정보-클래스를-사용하자" class="relative group">Item 47: 타입에 대한 정보가 필요하다면 특성정보 클래스를 사용하자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-47-%ed%83%80%ec%9e%85%ec%97%90-%eb%8c%80%ed%95%9c-%ec%a0%95%eb%b3%b4%ea%b0%80-%ed%95%84%ec%9a%94%ed%95%98%eb%8b%a4%eb%a9%b4-%ed%8a%b9%ec%84%b1%ec%a0%95%eb%b3%b4-%ed%81%b4%eb%9e%98%ec%8a%a4%eb%a5%bc-%ec%82%ac%ec%9a%a9%ed%95%98%ec%9e%90" aria-label="Anchor">#</a></span></h2><ul>
+<li>반복자의 종류</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>종류</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>입력 반복자<br />(input iterator)</td>
+<td>전진만 가능, 딱 한 번 읽기만 가능</td>
+</tr>
+<tr>
+<td>출력 반복자<br />(output iterator)</td>
+<td>전진만 가능, 딱 한 번 쓰기만 가능</td>
+</tr>
+<tr>
+<td>순방향 반복자<br />(forward iterator)</td>
+<td>전진만 가능, 여러번 읽기 쓰기 가능</td>
+</tr>
+<tr>
+<td>양방향 반복자<br />(bidirectional iterator)</td>
+<td>순방향 반복자 + 뒤로 가기 가능</td>
+</tr>
+<tr>
+<td>임의 접근 반복자<br />(random access iterator)</td>
+<td>양방향 반복자 + 임의의 거리만큼 앞뒤로 이동을 상수 시간 안에 가능</td>
+</tr>
+</tbody>
+</table>
+<br />
+<ul>
+<li>C++ 표준 라이브러리에는 이 다섯 개의 반복자 범주를 식별하는 데 쓰이는 태그(tag) 구조체가 정의되어 있다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nf">input_iterator_tag</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nf">output_iterator_tag</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nf">forward_iterator_tag</span><span class="p">()</span> <span class="o">:</span> <span class="k">public</span> <span class="n">input_iterator_tag</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nf">bidirectional_iterator_tag</span><span class="p">()</span> <span class="o">:</span> <span class="k">public</span> <span class="n">forward_iterator_tag</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nf">random_access_iterator_tag</span><span class="p">()</span> <span class="o">:</span> <span class="k">public</span> <span class="n">bidirectional_iterator_tag</span><span class="p">;</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>STL은 컨테이너(container), 반복자(iterator), 알고리즘(algorithm) 외에 유틸리티(utility)라고 불리는 템플릿도 몇 개 들어있다.
+<ul>
+<li>유틸리티 안에 있는 템플릿 중 하나가 <code>advance</code> 라는 것인데, 이것은 지정된 반복자를 지정된 거리만큼 이동시킨다.</li>
+<li>반복자의 종류에 따라 구현할 수 있는 방법이 다르겠다.</li>
+<li>왜냐하면 임의 접근 반복자는 상수 시간 안에 지정된 거리로 바로 이동 가능하지만, 나머지 반복자는 한 칸씩 이동해서 선형 시간 안에 지정된 거리로 이동이 가능하기에.</li>
+<li>그렇다면 반복자 타입을 어떻게 판별해서 분기할 수 있을까?</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><strong>특성정보(traits)</strong>
+<ul>
+<li><strong>컴파일 도중</strong>에 어떤 주어진 <strong>타입의 정보</strong>를 얻을 수 있게 하는 객체를 지칭하는 개념이다.</li>
+<li>특성정보가 되기 위해서는 기본제공 타입과 사용자 정의 타입에서 모두 돌아가야 한다.</li>
+<li>기본제공 타입에 대해서 쓸 수 있어야 한다는 말은, 그 안에 정보를 넣을 수 없으므로, 즉 특성정보는 <strong>그 타입 외부에 존재</strong>해야 한다는 결론이 나온다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>표준적인 방법은 <strong>템플릿</strong>과 <strong>템플릿의 특수화버전</strong>에 특성정보를 넣어서 제공하는 것이다.
+<ul>
+<li>관례적으로 <code>struct</code>로 구현한다. 그리고 <strong>특성정보 클래스</strong>라고 부른다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span> <span class="p">...</span> <span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">deque</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span> 
+</span></span><span class="line"><span class="cl">  <span class="c1">// deque의 이터레이터는 임의 접근 반복자이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">class</span> <span class="nc">iterator</span> 
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// (1) 사용하는 반복자 타입을 iterator_category라는 이름의 typedef로 한다.  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">typedef</span> <span class="n">random_access_iterator_tag</span> <span class="n">iterator_category</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 특성정보 클래스 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">IterT</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">iterator_traits</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// (1) 그리고 똑같이 재생한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">typedef</span> <span class="k">typename</span> <span class="n">IterT</span><span class="o">::</span><span class="n">iterator_category</span> <span class="n">iterator_category</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// (2)포인터 타입을 따로 처리하기위해
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 부분 템플릿 특수화 버전을 제공한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">IterT</span><span class="o">*&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">iterator_traits</span><span class="o">&lt;</span><span class="n">IterT</span><span class="o">*&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">typedef</span> <span class="n">random_access_iterator_tag</span> <span class="n">iterator_category</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>그렇다면 <code>advance</code>의 코드는 어떻게 구현하면 될까?
+<ul>
+<li>그 안에서 런타임에 <code>typeid</code>를 사용해서 타입을 비교하는 건 컴파일 에러가 발생한다. (Item 48)</li>
+<li>그리고 애초에 컴파일 타임에 알 수 있는 타입 정보를 굳이 런타임에 비교해야 할까?</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><strong>오버로딩</strong>을 사용해서 타입에 대한 평가를 컴파일 도중에 실시하고 조건 처리를 할 수 있겠다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// 임의 접근 반복자의 경우 사용하는 doAdvance 구현 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">IterT</span><span class="p">,</span> <span class="k">typename</span> <span class="n">DistT</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">doAdvance</span><span class="p">(</span><span class="n">IterT</span><span class="o">&amp;</span> <span class="n">iter</span><span class="p">,</span> <span class="n">DistT</span> <span class="n">d</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">random_access_iterator_tag</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">iter</span> <span class="o">+=</span> <span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 양방향 반복자의 경우 사용하는 doAdvance 구현 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">IterT</span><span class="p">,</span> <span class="k">typename</span> <span class="n">DistT</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">doAdvance</span><span class="p">(</span><span class="n">IterT</span><span class="o">&amp;</span> <span class="n">iter</span><span class="p">,</span> <span class="n">DistT</span> <span class="n">d</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">bidirectional_iterator_tag</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">d</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="k">while</span><span class="p">(</span><span class="n">d</span><span class="o">--</span><span class="p">)</span> <span class="o">++</span><span class="n">iter</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>        <span class="p">{</span> <span class="k">while</span><span class="p">(</span><span class="n">d</span><span class="o">++</span><span class="p">)</span> <span class="o">--</span><span class="n">iter</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 입력 반복자의 경우 사용하는 doAdvance 구현 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">IterT</span><span class="p">,</span> <span class="k">typename</span> <span class="n">DistT</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">doAdvance</span><span class="p">(</span><span class="n">IterT</span><span class="o">&amp;</span> <span class="n">iter</span><span class="p">,</span> <span class="n">DistT</span> <span class="n">d</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">input_iterator_tag</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">d</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">out_of_range</span><span class="p">(</span><span class="s">&#34;Negative distance&#34;</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span><span class="p">(</span><span class="n">d</span><span class="o">--</span><span class="p">)</span> <span class="o">++</span><span class="n">iter</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 그러면 advance는 위의 오버로딩 함수들을 사용하면 된다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">IterT</span><span class="p">,</span> <span class="k">typename</span> <span class="n">DistT</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">IterT</span><span class="o">&amp;</span> <span class="n">iter</span><span class="p">,</span> <span class="n">DistT</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">doAdvance</span><span class="p">(</span><span class="n">iter</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">IterT</span><span class="o">&gt;::</span><span class="n">iterator_category</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// iter의 반복자 범위에 적합한 doAdvance의 오버로딩 버전을 호출한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="item-48-템플릿-메타프로그래밍-하지-않겠는가" class="relative group">Item 48: 템플릿 메타프로그래밍, 하지 않겠는가? <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-48-%ed%85%9c%ed%94%8c%eb%a6%bf-%eb%a9%94%ed%83%80%ed%94%84%eb%a1%9c%ea%b7%b8%eb%9e%98%eb%b0%8d-%ed%95%98%ec%a7%80-%ec%95%8a%ea%b2%a0%eb%8a%94%ea%b0%80" aria-label="Anchor">#</a></span></h2><ul>
+<li><strong>템플릿 메타프로그래밍(template metaprogramming: TMP)</strong>
+<ul>
+<li><strong>템플릿</strong>에 기반한 프로그래밍을 함으로써 <strong>컴파일 타임에 작업을 하는 것</strong>이다.</li>
+<li>런타임이 아니라 컴파일 타임에 이루어지므로, <strong>선행 에러 탐지</strong>와 <strong>높은 런타임 효율</strong>을 거머쥘 수 있다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>Item 47의 <code>advance</code>에서
+<ul>
+<li><code>typeid</code>를 사용해서 타입을 런타임에 비교할 경우 컴파일 에러가 났다.</li>
+<li>특성정보를 활용해서 TMP를 사용하면 훨씬 효율적으로 구현할 수 있었다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">IterT</span><span class="p">,</span> <span class="k">typename</span> <span class="n">DistT</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">IterT</span><span class="o">&amp;</span> <span class="n">iter</span><span class="p">,</span> <span class="n">DistT</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">IterT</span><span class="o">&gt;::</span><span class="n">iterator_category</span><span class="p">)</span> <span class="o">==</span> 
+</span></span><span class="line"><span class="cl">      <span class="k">typeid</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">random_access_iteratortag</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">iter</span> <span class="o">+=</span> <span class="n">d</span><span class="p">;</span> <span class="c1">// 컴파일 에러!
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// iter가 std::list&lt;int&gt;::iterator 이라면
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// list는 std::bidirectional_iterator_tag이므로
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 애초에 +=를 지원하지 않아서 컴파일 자체가 안 된다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">d</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="k">while</span><span class="p">(</span><span class="n">d</span><span class="o">--</span><span class="p">)</span> <span class="o">++</span><span class="n">iter</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>        <span class="p">{</span> <span class="k">while</span><span class="p">(</span><span class="n">d</span><span class="o">++</span><span class="p">)</span> <span class="o">--</span><span class="n">iter</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">iter</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">advance</span><span class="p">(</span><span class="n">iter</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>또한 TMP을 사용한 루프는 <strong>재귀식 템플릿 인스턴스화(recursive template instantiation)</strong> 를 사용한다.
+<ul>
+<li>꼬리에 꼬리를 물고 만들어지는 템플릿 인스턴스화 버전마다 자체적으로 <code>value</code>의 사본을 갖게 되고, 각각의 <code>value</code>에는 값이 담긴다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="n">n</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Factorial</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">enum</span> <span class="p">{</span> <span class="n">value</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">Factorial</span><span class="o">&lt;</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;::</span><span class="n">value</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Factorial</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">enum</span> <span class="p">{</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Factorial</span><span class="o">&lt;</span><span class="mi">5</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 120을 런타임 계산 없이 출력 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>TMP가 C++ 프로그래밍에서 실력 발휘하는 예</li>
+<li><strong>(1) 치수 단위(dimensional unit)의 정확성 확인</strong>
+<ul>
+<li>과학 기술 분야의 응용프로그램을 만들 때, 컴파일 도중에 치수 단위(예를 들면 질량, 거리, 시간 등)가 똑바로 쓰였는지 알 수 있다.</li>
+</ul>
+</li>
+<li><strong>(2) 행렬 연산의 최적화</strong>
+<ul>
+<li>행렬 연산의 경우 예를 들어, 네 개의 행렬을 곱하면 네 개의 임시행렬과 네 번의 루프가 순차적으로 이루어진다. TMP을 사용하면 컴파일 시간에 계산이 가능하겠다.</li>
+</ul>
+</li>
+<li><strong>(3) 맞춤식 디자인 패턴 구현의 생성</strong>
+<ul>
+<li>따로따로 정책(policy)들을 나타내는 템플릿을 만들어 놓고, 임의대로 조합해서 사용자 취향에 맞는 동작을 하는 패턴으로 구현할 수 있다.</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+
+      </div>
+    </section>
+    <footer class="max-w-prose pt-8 print:hidden">
+      
+  <div class="flex">
+    
+    
+    
+      
+      
+        
+        
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+      
+    >
+      
+      
+      
+      
+      <img
+        width="500"
+        height="500"
+        class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+        alt="Pero"
+        loading="lazy" decoding="async"
+        
+          src="/main.jpg"
+        
+      />
+    </picture>
+  
+
+
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          Pero
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">Keep moving forward.</div>
+      
+      <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="mailto:peropeq@gmail.com"
+          target="_blank"
+          aria-label="Email"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+    </div>
+  </div>
+
+
+      
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="/post/cpp/effective-cpp-06/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[Effective C++] Chapter 6. 상속, 그리고 객체 지향 설계</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-01-06 01:00:00 &#43;0900 KST">6 January 2023</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="group flex text-right" href="/post/cpp/effective-cpp-08/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[Effective C++] Chapter 8. new와 delete를 내 맘대로</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-01-08 01:00:00 &#43;0900 KST">8 January 2023</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&rarr;</span
+                ><span class="ltr:hidden rtl:inline">&larr;</span></span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+          <div class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12">
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            ⓒ 2022. Pero.
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a>
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+    </div>
+  </div>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm sm:p-6 md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50"
+  data-url="https://frompero.github.io/"
+>
+  <div
+    id="search-modal"
+    class="top-20 mx-auto flex min-h-0 w-full max-w-3xl flex-col rounded-md border border-neutral-200 bg-neutral shadow-lg dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex flex-none items-center justify-between px-2">
+      <form class="flex min-w-0 flex-auto items-center">
+        <div class="flex h-8 w-8 items-center justify-center text-neutral-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="mx-1 flex h-12 flex-auto appearance-none bg-transparent focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex h-8 w-8 items-center justify-center text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto overflow-auto px-2">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+</html>

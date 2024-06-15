@@ -1,0 +1,1275 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="rgb(255,255,255)" />
+  
+  <title>[Effective C&#43;&#43;] Chapter 8. new와 delete를 내 맘대로 &middot; from Pero</title>
+    <meta name="title" content="[Effective C&#43;&#43;] Chapter 8. new와 delete를 내 맘대로 &middot; from Pero" />
+  
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.022d0ebc3b46a335eb1c7ef79b7f2de143d7cd5156d433638592ef1ce5f8554e.js"
+    integrity="sha256-Ai0OvDtGozXrHH73m38t4UPXzVFW1DNjhZLvHOX4VU4="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.afb4a97d267bd0c2e9391dd7b62a45afcd549fea29cb7747564f0cb36db70f1b.css"
+    integrity="sha256-r7SpfSZ70MLpOR3XtipFr81Un&#43;opy3dHVk8Ms223Dxs="
+  />
+  
+    
+    
+    
+  
+  
+  
+    
+    
+  
+  
+    
+    
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.5b9218820e6c6b9f04b4c5a03dffd0d57bc9189f511ee80ea74222de3a608e2f.js"
+      integrity="sha256-W5IYgg5sa58EtMWgPf/Q1XvJGJ9RHugOp0Ii3jpgji8="
+      data-copy="Copy"
+      data-copied="Copied"
+    ></script>
+  
+  
+  <meta
+    name="description"
+    content="
+      
+        이펙티브 C&#43;&#43; 책을 읽고 공부한 노트입니다.
+      
+    "
+  />
+  
+  
+  
+  <link rel="canonical" href="https://frompero.github.io/post/cpp/effective-cpp-08/" />
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="[Effective C&#43;&#43;] Chapter 8. new와 delete를 내 맘대로" />
+<meta property="og:description" content="이펙티브 C&#43;&#43; 책을 읽고 공부한 노트입니다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://frompero.github.io/post/cpp/effective-cpp-08/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-01-08T01:00:00+09:00" />
+<meta property="article:modified_time" content="2023-01-08T01:00:00+09:00" />
+
+
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="[Effective C&#43;&#43;] Chapter 8. new와 delete를 내 맘대로"/>
+<meta name="twitter:description" content="이펙티브 C&#43;&#43; 책을 읽고 공부한 노트입니다."/>
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "[Effective C\u002b\u002b] Chapter 8. new와 delete를 내 맘대로",
+    "headline": "[Effective C\u002b\u002b] Chapter 8. new와 delete를 내 맘대로",
+    
+    "abstract": "이펙티브 C\u002b\u002b 책을 읽고 공부한 노트입니다.",
+    "inLanguage": "en",
+    "url" : "https:\/\/frompero.github.io\/post\/cpp\/effective-cpp-08\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Pero"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-01-08T01:00:00\u002b09:00",
+    "datePublished": "2023-01-08T01:00:00\u002b09:00",
+    
+    "dateModified": "2023-01-08T01:00:00\u002b09:00",
+    
+    "keywords": ["Effective C++"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1376"
+  }
+  </script>
+
+
+  
+  <meta name="author" content="Pero" />
+  
+    
+      <link href="mailto:peropeq@gmail.com" rel="me" />
+    
+  
+  
+  
+
+
+
+
+
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/lib/katex/katex.min.7c7c1a59e6eec00ecd485e5083f69fe14783c7d5ea52962938682e6e8df25aef9bd88411e14790c1b6f8d938bb81502336d56823f23d4c4a187aef689b0702ea.css"
+    integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu&#43;b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g=="
+  />
+  
+  
+  <script
+    defer
+    src="/lib/katex/katex.min.2d037120c479ad7bfba3e6f597cf8dd4464c7e11bb88567d1e19db2644e9e338cdaf95afb2def902a51e143c5e4546bb979bc40f2522022a7ffebf8414b2c2c8.js"
+    integrity="sha512-LQNxIMR5rXv7o&#43;b1l8&#43;N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r&#43;EFLLCyA=="
+  ></script>
+  
+  
+  <script
+    defer
+    src="/lib/katex/auto-render.min.e6511c3458afadbb974a54c917a45e383efdb02303964d83fdb17ff69367d6d871a53a09973ffec8c9d3525c7b8c64602e6c16a64842884ad60989a16d953fd0.js"
+    integrity="sha512-5lEcNFivrbuXSlTJF6ReOD79sCMDlk2D/bF/9pNn1thxpToJlz/&#43;yMnTUlx7jGRgLmwWpkhCiErWCYmhbZU/0A=="
+    onload="renderMathInElement(document.body);"
+  ></script>
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+  
+  
+  
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QBM4YPD699"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-QBM4YPD699', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+  
+  
+</head>
+<body
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 sm:px-14 md:px-24 lg:px-32 dark:bg-neutral-800 dark:text-neutral"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="-translate-y-8 rounded-b-lg bg-primary-200 px-3 py-1 text-sm focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="pe-2 font-bold text-primary-600 dark:text-primary-400">&darr;</span
+        >Skip to main content</a
+      >
+    </div>
+    
+    
+      <header class="py-6 font-semibold text-neutral-900 print:hidden sm:py-10 dark:text-neutral">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="z-40 flex flex-row items-center">
+      
+  <a
+    class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+    rel="me"
+    href="/"
+    >from Pero</a
+  >
+
+    </div>
+    
+      
+      <label id="menu-button" for="menu-controller" class="block sm:hidden">
+        <input type="checkbox" id="menu-controller" class="hidden" />
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="invisible fixed inset-0 z-30 m-auto h-full w-full cursor-default overflow-auto bg-neutral-100/50 opacity-0 backdrop-blur-sm transition-opacity dark:bg-neutral-900/50"
+        >
+          <ul
+            class="mx-auto flex w-full max-w-7xl list-none flex-col overflow-visible px-6 py-6 text-end sm:px-14 sm:py-10 sm:pt-10 md:px-24 lg:px-32"
+          >
+            <li class="mb-1">
+              <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400"
+                ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span></span
+              >
+            </li>
+            
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/post/"
+                      title="Posts"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Posts</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/categories/"
+                      title="Categories"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Categories</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/tags/"
+                      title="Tags"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Tags</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    
+                      <button
+                        id="search-button-1"
+                        title="Search (/)"
+                      >
+                        
+                          <span
+                            class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                          ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </button>
+                    
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    <button
+                      id="appearance-switcher-1"
+                      type="button"
+                      aria-label="appearance switcher"
+                    >
+                      <span
+                        class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                        title="Switch to dark appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                      <span
+                        class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                        title="Switch to light appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                    </button>
+                  
+                </li>
+              
+              
+            
+          </ul>
+        </div>
+      </label>
+      
+      <ul class="hidden list-none flex-row text-end sm:flex">
+        
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/post/"
+                  title="Posts"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Posts</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/categories/"
+                  title="Categories"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Categories</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/tags/"
+                  title="Tags"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Tags</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                
+                  <button
+                    id="search-button-2"
+                    title="Search (/)"
+                  >
+                    
+                      <span
+                        class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                      ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </button>
+                
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                <button
+                  id="appearance-switcher-2"
+                  type="button"
+                  aria-label="appearance switcher"
+                >
+                  <span
+                    class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                    title="Switch to dark appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                  <span
+                    class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                    title="Switch to light appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                </button>
+              
+            </li>
+          
+          
+
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex grow flex-col">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        [Effective C++] Chapter 8. new와 delete를 내 맘대로
+      </h1>
+      
+        <div class="mb-12 mt-8 text-base text-neutral-500 print:hidden dark:text-neutral-400">
+          
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2023-01-08 01:00:00 &#43;0900 KST">8 January 2023</time>
+    
+
+    
+    
+  </div>
+
+  
+  
+
+
+        </div>
+      
+      
+    </header>
+    <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+      
+        <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
+          <div class="toc pe-5 print:hidden lg:sticky lg:top-10">
+            <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
+  <summary
+    class="-ms-5 block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 lg:hidden dark:bg-neutral-700 dark:text-neutral-100"
+  >
+    Table of Contents
+  </summary>
+  <div class="-ms-5 border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#item-49-new-처리자의-동작-원리를-제대로-이해하자">Item 49: <code>new</code> 처리자의 동작 원리를 제대로 이해하자</a>
+      <ul>
+        <li><a href="#new-처리자new-handler"><code>new</code> 처리자(<code>new</code> handler)</a></li>
+        <li><a href="#new-처리자를-클래스-타입에-따라-다르게-만들기"><code>new</code> 처리자를 클래스 타입에 따라 다르게 만들기</a></li>
+        <li><a href="#예외불가nothrow-new">예외불가(nothrow) <code>new</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#item-50-new-및-delete를-언제-바꿔야-좋은-소리를-들을지를-파악해-두자">Item 50: <code>new</code> 및 <code>delete</code>를 언제 바꿔야 좋은 소리를 들을지를 파악해 두자</a></li>
+    <li><a href="#item-51-new-및-delete를-작성할-때-따라야-할-기존의-관례를-잘-알아-두자">Item 51: <code>new</code> 및 <code>delete</code>를 작성할 때 따라야 할 기존의 관례를 잘 알아 두자</a>
+      <ul>
+        <li><a href="#operator-new를-구현할-때-지켜야할-요구사항들"><code>operator new</code>를 구현할 때 지켜야할 요구사항들</a></li>
+        <li><a href="#operator-delete를-구현할-때-지켜야할-요구사항들"><code>operator delete</code>를 구현할 때 지켜야할 요구사항들</a></li>
+      </ul>
+    </li>
+    <li><a href="#item-52-위치지정-new를-작성한다면-위치지정-delete도-같이-준비하자">Item 52: 위치지정 <code>new</code>를 작성한다면 위치지정 <code>delete</code>도 같이 준비하자</a>
+      <ul>
+        <li><a href="#c가-전역-유효범위에서-제공하는-operator-new의-세-가지-표준-형태">C++가 전역 유효범위에서 제공하는 <code>operator new</code>의 세 가지 표준 형태</a></li>
+        <li><a href="#위치지정placement-new">위치지정(placement) <code>new</code></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+          </div>
+        </div>
+      
+      <div class="min-h-0 min-w-0 max-w-prose grow">
+        <div style="text-align: right"> 
+<p>
+<a href="http://www.yes24.com/Product/Goods/17525589" target="_blank" rel="noreferrer">이펙티브 C++</a> 책을 읽고 공부한 노트입니다.</p>
+</div>
+<hr>
+<p><br /><br /></p>
+<h2 id="item-49-new-처리자의-동작-원리를-제대로-이해하자" class="relative group">Item 49: <code>new</code> 처리자의 동작 원리를 제대로 이해하자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-49-new-%ec%b2%98%eb%a6%ac%ec%9e%90%ec%9d%98-%eb%8f%99%ec%9e%91-%ec%9b%90%eb%a6%ac%eb%a5%bc-%ec%a0%9c%eb%8c%80%eb%a1%9c-%ec%9d%b4%ed%95%b4%ed%95%98%ec%9e%90" aria-label="Anchor">#</a></span></h2><h3 id="new-처리자new-handler" class="relative group"><code>new</code> 처리자(<code>new</code> handler) <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#new-%ec%b2%98%eb%a6%ac%ec%9e%90new-handler" aria-label="Anchor">#</a></span></h3><ul>
+<li><code>new</code>로 <strong>메모리 할당이 제대로 되지 못하면 호출되는 에러 처리 함수</strong>이다.</li>
+<li>사용자가 직접 지정할 수 있으며, 표준 라이브러리에 있는 <code>set_new_handler</code> 함수를 이용하면 된다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// &lt;new&gt;에 선언되어 있는 함수들
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">std</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">typedef</span> <span class="nf">void</span> <span class="p">(</span><span class="o">*</span><span class="n">new_handler</span><span class="p">)();</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 매개변수와 반환값이 없는 함수에 대한 포인터이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  
+</span></span><span class="line"><span class="cl">  <span class="n">new_handler</span> <span class="nf">set_new_handler</span><span class="p">(</span><span class="n">new_handler</span> <span class="n">p</span><span class="p">)</span> <span class="k">throw</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 매개변수 : 새롭게 설치할 new 처리자 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 반환값 : 새롭게 설치하기 전까지 사용하던 new 처리자 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// throw() : 이 함수는 어떤 예외도 던지지 않을 것이라는 뜻이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li><code>new</code> 처리자는 이것들 중 하나는 꼭 처리해야 한다.
+<ul>
+<li>사용할 수 있는 메모리를 더 많이 확보한다.</li>
+<li>다른 <code>new</code> 처리자를 설치한다.</li>
+<li><code>new</code> 처리자의 설치를 제거한다.</li>
+<li><code>bad_alloc</code> 혹은 그것에서 파생된 타입의 예외를 던진다.</li>
+<li>복귀하지 않는다. (대개 <code>abort</code> 혹은 <code>exit</code>을 호출한다.)</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h3 id="new-처리자를-클래스-타입에-따라-다르게-만들기" class="relative group"><code>new</code> 처리자를 클래스 타입에 따라 다르게 만들기 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#new-%ec%b2%98%eb%a6%ac%ec%9e%90%eb%a5%bc-%ed%81%b4%eb%9e%98%ec%8a%a4-%ed%83%80%ec%9e%85%ec%97%90-%eb%94%b0%eb%9d%bc-%eb%8b%a4%eb%a5%b4%ea%b2%8c-%eb%a7%8c%eb%93%a4%ea%b8%b0" aria-label="Anchor">#</a></span></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// 자원 관리 객체를 통해 할당에러를 처리한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">NewHandlerHolder</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">new_handler</span> <span class="n">handler</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// 복사를 막기 위함 (Item 14)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">NewHandlerHolder</span><span class="p">(</span><span class="k">const</span> <span class="n">NewHandlerHolder</span><span class="o">&amp;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">NewHandlerHolder</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">NewHandlerHolder</span><span class="o">&amp;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 매개변수로 들어온 처리자를 들고 있다가  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">explicit</span> <span class="n">NewHandlerHolder</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">new_handler</span> <span class="n">nh</span><span class="p">)</span> <span class="o">:</span> <span class="n">handler</span><span class="p">(</span><span class="n">nh</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// 객체가 소멸될 때 그 처리자를 설치한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="o">~</span><span class="n">NewHandlerHolder</span><span class="p">()</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">set_new_handler</span><span class="p">(</span><span class="n">handler</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Widget</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">new_handler</span> <span class="n">currentHandler</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">new_handler</span> <span class="n">set_new_handler</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">new_handler</span> <span class="n">p</span><span class="p">)</span> <span class="k">throw</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">static</span> <span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="k">throw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">new_handler</span> <span class="n">Widget</span><span class="o">::</span><span class="n">currentHandler</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 널로 초기화
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">new_handler</span> <span class="n">Widget</span><span class="o">::</span><span class="n">set_new_handler</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">new_handler</span> <span class="n">p</span><span class="p">)</span> <span class="k">throw</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 매개변수로 들어온 처리자를 들고 있게 한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">std</span><span class="o">::</span><span class="n">new_handler</span> <span class="n">oldHandler</span> <span class="o">=</span> <span class="n">currentHandler</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">currentHandler</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">oldHandler</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="o">*</span> <span class="n">Widget</span><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="k">throw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 가지고 있는 현재 처리자를 설치하고, 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 이전 처리자는 NewHandlerHolder가 가지고 있다가
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 이 함수를 빠져나가면 이전 처리자(전역 처리자)로 재설치한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">NewHandlerHolder</span> <span class="nf">h</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">set_new_handler</span><span class="p">(</span><span class="n">currentHandler</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// 메모리를 할당하고, 실패하면 예외를 던진다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">size</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">outOfMem</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 새로운 처리자 설치 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Widget</span><span class="o">::</span><span class="n">set_new_handler</span><span class="p">(</span><span class="n">outOfMem</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// 여기서 new 실패시 outOfMem이 불린다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Widget</span> <span class="o">*</span> <span class="n">pw1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Widget</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// 여기서 new 실패시 전역 new 처리자가 불린다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">*</span> <span class="n">ps</span> <span class="o">=</span> <span class="k">new</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// null로 설정 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Widget</span><span class="o">::</span><span class="n">set_new_handler</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// 여기서 new 실패시 예외를 바로 던진다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Widget</span> <span class="o">*</span> <span class="n">pw2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Widget</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<ul>
+<li><code>NewHandlerHolder</code>를 템플릿으로 바꿔서 다른 클래스에서도 재사용 할 수 있게 해보자.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">NewHandlerSupport</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">new_handler</span> <span class="n">currentHandler</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">new_handler</span> <span class="n">set_new_handler</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">new_hanlder</span> <span class="n">p</span><span class="p">)</span> <span class="k">throw</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">static</span> <span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="k">throw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">new_handler</span> <span class="n">NewHandlerSupport</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">set_new_handler</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">new_hanlder</span> <span class="n">p</span><span class="p">)</span> <span class="k">throw</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">new_handler</span> <span class="n">oldHandler</span> <span class="o">=</span> <span class="n">currentHandler</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">currentHandler</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">oldHandler</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="o">*</span> <span class="n">newHandlerSupport</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="k">throw</span><span class="p">(</span><span class="n">bad_alloc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">NewHandlerSupport</span> <span class="nf">h</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">set_new_handler</span><span class="p">(</span><span class="n">currentHandler</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">new_handler</span> <span class="n">NewHandlerSupport</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">currentHandler</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// 신기하게 반복되는 템플릿 패턴(curiously recurring template pattern: CRTP)
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Widget이 필요한건, NewHandlerSupport에 대한 사본이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// NewHandlerSupport은 마치, 인스턴스화될 때 전달되는 T를 위한 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// NewHandlerSupport의 사본을 찍어내는 공장과 같다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">Widget</span> <span class="o">:</span> <span class="k">public</span> <span class="n">NewHandlerSupport</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="예외불가nothrow-new" class="relative group">예외불가(nothrow) <code>new</code> <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%98%88%ec%99%b8%eb%b6%88%ea%b0%80nothrow-new" aria-label="Anchor">#</a></span></h3><ul>
+<li>현재는 <code>new</code> 실패 시 <code>bad_alloc</code> 예외를 던지도록 되어 있다.</li>
+<li>예외불가 <code>new</code>는 예전의 방식대로, 실패 시 <code>null</code>을 반환하는 것이다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">Widget</span> <span class="o">*</span> <span class="n">pw1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Widget</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Widget을 할당하다가 실패하면 bad_alloc 예외를 던진다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">pw1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 이것은 늘 false일 것이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">Widget</span> <span class="o">*</span> <span class="n">pw2</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">nothrow</span><span class="p">)</span> <span class="n">Widget</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Widget을 할당하다가 실패하면 0(널)을 반환한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">pw2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 실패하면 널을 반환하므로 점검해보는 것이 가능하다. 
+</span></span></span></code></pre></div><br />
+<ul>
+<li>참고로 예외불가 <code>new</code>는 <code>operator new</code>에서만 예외가 발생하지 않도록 보장하는 것일 뿐, <code>Widget</code>의 생성자에서 예외가 나오지 않게 막아 준다는 것은 아니다.</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="item-50-new-및-delete를-언제-바꿔야-좋은-소리를-들을지를-파악해-두자" class="relative group">Item 50: <code>new</code> 및 <code>delete</code>를 언제 바꿔야 좋은 소리를 들을지를 파악해 두자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-50-new-%eb%b0%8f-delete%eb%a5%bc-%ec%96%b8%ec%a0%9c-%eb%b0%94%ea%bf%94%ec%95%bc-%ec%a2%8b%ec%9d%80-%ec%86%8c%eb%a6%ac%eb%a5%bc-%eb%93%a4%ec%9d%84%ec%a7%80%eb%a5%bc-%ed%8c%8c%ec%95%85%ed%95%b4-%eb%91%90%ec%9e%90" aria-label="Anchor">#</a></span></h2><ul>
+<li>사용자 정의 <code>new</code>와 <code>delete</code>를 작성해야 하는 때란?
+<ul>
+<li>잘못된 힙 사용을 탐지하기 위해</li>
+<li>효율을 향상시키기 위해</li>
+<li>동적 할당 메모리의 실제 사용에 관한 통계 정보를 수집하기 위해</li>
+<li>할당 및 해제 속력을 높이기 위해</li>
+<li>기본 메모리 관리자의 공간 오버헤드를 줄이기 위해</li>
+<li>적당히 타협한 기본 할당자의 바이트 정렬 동작을 보장하기 위해</li>
+<li>임의의 관계를 맺고 있는 객체들을 한 군데에 나란히 모아 놓기 위해</li>
+<li>그때그때 원하는 동작을 수행하도록 하기 위해</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><strong>바이트 정렬(byte alignment)</strong> 문제
+<ul>
+<li>컴퓨터는 아키텍처 적으로 특정 타입의 데이터가 특정 종류의 메모리 주소를 시작 주소로 하여 저장될 것을 요구사항으로 두고 있다.</li>
+<li>예를 들면, 포인터는 4바이트 단위로 정렬되어야 한다거나 <code>double</code>은 8바이트 단위로 정렬되어야 한다는 것이다.</li>
+<li>모든 <code>operator new</code> 함수는 어떤 데이터 타입에도 <strong>바이트 정렬을 적절히 만족하는 포인터를 반환해야</strong> 한다.</li>
+<li>이런 바이트 정렬을 어떻게 다루느냐에 따라 사용자 정의 버전을 제공하는 메모리 관리자의 품질이 달라질 것이다.</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="item-51-new-및-delete를-작성할-때-따라야-할-기존의-관례를-잘-알아-두자" class="relative group">Item 51: <code>new</code> 및 <code>delete</code>를 작성할 때 따라야 할 기존의 관례를 잘 알아 두자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-51-new-%eb%b0%8f-delete%eb%a5%bc-%ec%9e%91%ec%84%b1%ed%95%a0-%eb%95%8c-%eb%94%b0%eb%9d%bc%ec%95%bc-%ed%95%a0-%ea%b8%b0%ec%a1%b4%ec%9d%98-%ea%b4%80%eb%a1%80%eb%a5%bc-%ec%9e%98-%ec%95%8c%ec%95%84-%eb%91%90%ec%9e%90" aria-label="Anchor">#</a></span></h2><h3 id="operator-new를-구현할-때-지켜야할-요구사항들" class="relative group"><code>operator new</code>를 구현할 때 지켜야할 요구사항들 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#operator-new%eb%a5%bc-%ea%b5%ac%ed%98%84%ed%95%a0-%eb%95%8c-%ec%a7%80%ec%bc%9c%ec%95%bc%ed%95%a0-%ec%9a%94%ea%b5%ac%ec%82%ac%ed%95%ad%eb%93%a4" aria-label="Anchor">#</a></span></h3><ul>
+<li>(1) 메모리 할당을 반복해서 시도하는 무한 루프를 가져야 한다.</li>
+<li>(2) 할당 실패 시 <code>new</code> 처리자 함수를 호출해야 한다.</li>
+<li>(3) 크기가 없는(0바이트) 메모리 요청에 대한 대비책을 마련해야 한다.</li>
+<li>(4) 기본 형태의 <code>new</code>가 가려지지 않도록 해야한다.</li>
+</ul>
+<br />
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="k">throw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// (3) 0바이트 메모리 요청이 들어오면 1바이트 요구로 간주한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// (1) opreator new 함수에는 무한 루프가 있다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 그래서 메모리 할당에 성공하든지, 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 아니면 Item 49에서 나왔던 것들 중 하나는 꼭 처리해야 한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">size바이트를</span> <span class="err">할당해</span> <span class="err">본다</span><span class="p">.</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="err">할당</span> <span class="err">성공</span><span class="p">)</span> <span class="k">return</span> <span class="err">할당한</span> <span class="err">메모리의</span> <span class="err">포인터</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// 현재 설정되어 있는 new 처리자를 얻는다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">new_handler</span> <span class="n">globalHandler</span> <span class="o">=</span> <span class="n">set_new_handler</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set_new_hanlder</span><span class="p">(</span><span class="n">globalHandler</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// (2) new 처리자를 호출한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">globalHanlder</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="n">globalHandler</span><span class="p">)();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>               <span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li><strong>클래스 전용 버전</strong>은 자신이 할당하기로 <strong>예정된 크기보다 더 큰(다른) 메모리 블록에 대한 요구</strong>도 처리해야 한다.
+<ul>
+<li>클래스 <code>X</code>를 위한 <code>operator new</code>는 <code>sizeof(X)</code>인 크기의 객체에 맞추어져 있다.</li>
+<li>그래서 <code>Base</code> 클래스에서 선언된 <code>operator new</code>을 <code>Derived</code>가 호출하면 매개변수로 넘어오는 <code>size</code>가 달라지게 된다. (<code>Base</code>와 <code>Derived</code>의 크기는 다르다. )</li>
+<li>따라서 다음과 같은 처리가 필요할 것이다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="o">*</span> <span class="n">Base</span><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="k">throw</span><span class="p">(</span><span class="n">bad_alloc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">!=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Base</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// size가 Base와 다르면 표준 operator new 쪽에서 처리하도록 넘긴다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="operator-delete를-구현할-때-지켜야할-요구사항들" class="relative group"><code>operator delete</code>를 구현할 때 지켜야할 요구사항들 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#operator-delete%eb%a5%bc-%ea%b5%ac%ed%98%84%ed%95%a0-%eb%95%8c-%ec%a7%80%ec%bc%9c%ec%95%bc%ed%95%a0-%ec%9a%94%ea%b5%ac%ec%82%ac%ed%95%ad%eb%93%a4" aria-label="Anchor">#</a></span></h3><ul>
+<li>널 포인터에 대한 <code>delete</code> 적용이 항상 안전하도록 보장해야 한다.</li>
+<li>클래스 전용 버전의 경우에는 <code>new</code>와 똑같이 크기를 점검하는 코드를 넣어준다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">Base</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span> <span class="n">rawMemory</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="k">throw</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 널 포인터의 경우 아무것도 하지 않는다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="n">rawMemory</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 클래스 전용 버전인 경우 size를 점검한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">!=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Base</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="n">rawMemory</span><span class="p">);</span> <span class="c1">// 표준 operator delete가 처리하도록 한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// ... rawMemory가 가리키는 메모리를 해제한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>추가적으로, 가상 소멸자가 없는 기본 클래스로부터 파생된 클래스의 객체를 삭제하려고 할 경우에는, C++이 <code>operator delete</code>로 넘기는 <code>size_t</code> 값이 엉터리일 수 있다.
+<ul>
+<li>따라서 기본 클래스는 반드시 가상 소멸자를 두어야 하겠다.</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="item-52-위치지정-new를-작성한다면-위치지정-delete도-같이-준비하자" class="relative group">Item 52: 위치지정 <code>new</code>를 작성한다면 위치지정 <code>delete</code>도 같이 준비하자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-52-%ec%9c%84%ec%b9%98%ec%a7%80%ec%a0%95-new%eb%a5%bc-%ec%9e%91%ec%84%b1%ed%95%9c%eb%8b%a4%eb%a9%b4-%ec%9c%84%ec%b9%98%ec%a7%80%ec%a0%95-delete%eb%8f%84-%ea%b0%99%ec%9d%b4-%ec%a4%80%eb%b9%84%ed%95%98%ec%9e%90" aria-label="Anchor">#</a></span></h2><h3 id="c가-전역-유효범위에서-제공하는-operator-new의-세-가지-표준-형태" class="relative group">C++가 전역 유효범위에서 제공하는 <code>operator new</code>의 세 가지 표준 형태 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#c%ea%b0%80-%ec%a0%84%ec%97%ad-%ec%9c%a0%ed%9a%a8%eb%b2%94%ec%9c%84%ec%97%90%ec%84%9c-%ec%a0%9c%ea%b3%b5%ed%95%98%eb%8a%94-operator-new%ec%9d%98-%ec%84%b8-%ea%b0%80%ec%a7%80-%ed%91%9c%ec%a4%80-%ed%98%95%ed%83%9c" aria-label="Anchor">#</a></span></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// 기본형 new
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">)</span> <span class="k">throw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 위치지정 new
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="p">)</span> <span class="k">throw</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 예외불가 new (Item 49)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">nothrow_t</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">throw</span><span class="p">();</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="위치지정placement-new" class="relative group">위치지정(placement) <code>new</code> <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%9c%84%ec%b9%98%ec%a7%80%ec%a0%95placement-new" aria-label="Anchor">#</a></span></h3><ul>
+<li>추가적인 매개변수를 받는 <code>operator new</code>이다.</li>
+<li>이름이 위치지정인 이유는 원조격인 위치지정 <code>new</code>가 추가적인 매개변수로, 할당할 메모리의 위치를 받아서 할당 위치를 정해주었기 때문이다.</li>
+</ul>
+<br />
+<ul>
+<li>런타임 시스템은 <code>operator new</code>가 받아들이는 매개변수의 개수 및 타입이 똑같은 버전의 <code>operator delete</code>를 찾고, 그 녀석을 호출한다.
+<ul>
+<li>따라서 위치지정 <code>new</code>를 만들었다면, 그와 똑같은 매개변수를 받아들이는 위치지정 <code>delete</code>를 만들어야 한다.</li>
+<li>위치지정 <code>delete</code>가 호출되는 때는, 위치지정 <code>new</code>와 함께 호출된 생성자에서 예외가 발생했을 때뿐이다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Widget</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 새로운 매개변수 ostream을 받는 operator new (비표준 형태)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">static</span> <span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">logStream</span><span class="p">)</span> <span class="k">throw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// 클래스 전용 operator delete (표준 형태)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">static</span> <span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span> <span class="n">rawMemory</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="k">throw</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Widget</span> <span class="o">*</span> <span class="n">pw</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="p">)</span> <span class="n">Widget</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 여기서 Widget생성자에서 오류가 난다면?
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 그럼 delete가 제대로 되겠는가?
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 새로운 매개변수 ostream을 받는 new와 짝이 맞는 delete가 없어서
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 결국 아무것도 불리지 않고 메모리는 누수가 된다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 따라서 새로운 매개변수 ostream을 받는 delete도 있어야 하겠다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>함수는 이름만 같아도 가려지게 되어있다(Item 33). 따라서 새로 정의한 위치지정 <code>new</code>와 <code>delete</code> 때문에 표준버전들이 가리지 않도록 주의해야한다.
+<ul>
+<li>좋은 방법은, 기본 클래스 하나를 만들고, 이 안에 <code>new</code>와 <code>delete</code>의 기본 형태를 전부 넣어두는 것이다.</li>
+<li>그 다음 상속과 <code>using</code> 선언을 사용해서 표준 형태를 파생 클래스로 끌어오고, 원하는 사용자 정의 형태를 선언하는 것이다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">StandardNewDeleteForms</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 기본형 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">static</span> <span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="k">throw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">size</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">static</span> <span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span> <span class="n">pMemory</span><span class="p">)</span> <span class="k">throw</span><span class="p">()</span> <span class="p">{</span> <span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="n">pMemory</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// 위치지정 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">static</span> <span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">)</span> <span class="k">throw</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">ptr</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">static</span> <span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span> <span class="n">pMemory</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span> <span class="n">ptr</span><span class="p">)</span> <span class="k">throw</span><span class="p">()</span> <span class="p">{</span> <span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="n">pMemory</span><span class="p">,</span> <span class="n">ptr</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// 예외불가 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">static</span> <span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">nothrow_t</span><span class="o">&amp;</span> <span class="n">nt</span><span class="p">)</span> <span class="k">throw</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">nt</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">static</span> <span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span> <span class="n">pMemory</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">nothrow_t</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">throw</span><span class="p">()</span> <span class="p">{</span> <span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="n">pMemory</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Widget</span> <span class="o">:</span> <span class="k">public</span> <span class="n">StandardNewDeleteForms</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// StandardNewDeleteForms의 표준 형태가 Widget 내부에서 보이도록 만든다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">using</span> <span class="n">StandardNewDeleteForms</span><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">using</span> <span class="n">StandardNewDeleteForms</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">  <span class="c1">// 새롭게 정의한 위치지정 new와 그와 짝이 맞는 위치지정 delete
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">static</span> <span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">logStream</span><span class="p">)</span> <span class="k">throw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">static</span> <span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">pMemory</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">logStream</span><span class="p">)</span> <span class="k">throw</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><br /><br /></p>
+
+      </div>
+    </section>
+    <footer class="max-w-prose pt-8 print:hidden">
+      
+  <div class="flex">
+    
+    
+    
+      
+      
+        
+        
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+      
+    >
+      
+      
+      
+      
+      <img
+        width="500"
+        height="500"
+        class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+        alt="Pero"
+        loading="lazy" decoding="async"
+        
+          src="/main.jpg"
+        
+      />
+    </picture>
+  
+
+
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          Pero
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">Keep moving forward.</div>
+      
+      <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="mailto:peropeq@gmail.com"
+          target="_blank"
+          aria-label="Email"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+    </div>
+  </div>
+
+
+      
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="/post/cpp/effective-cpp-07/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[Effective C++] Chapter 7. 템플릿과 일반화 프로그래밍</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-01-07 01:00:00 &#43;0900 KST">7 January 2023</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="group flex text-right" href="/post/cpp/effective-cpp-09/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[Effective C++] Chapter 9. 그 밖의 이야기들</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-01-09 01:00:00 &#43;0900 KST">9 January 2023</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&rarr;</span
+                ><span class="ltr:hidden rtl:inline">&larr;</span></span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+          <div class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12">
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            ⓒ 2022. Pero.
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a>
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+    </div>
+  </div>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm sm:p-6 md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50"
+  data-url="https://frompero.github.io/"
+>
+  <div
+    id="search-modal"
+    class="top-20 mx-auto flex min-h-0 w-full max-w-3xl flex-col rounded-md border border-neutral-200 bg-neutral shadow-lg dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex flex-none items-center justify-between px-2">
+      <form class="flex min-w-0 flex-auto items-center">
+        <div class="flex h-8 w-8 items-center justify-center text-neutral-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="mx-1 flex h-12 flex-auto appearance-none bg-transparent focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex h-8 w-8 items-center justify-center text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto overflow-auto px-2">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+</html>

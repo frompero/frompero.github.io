@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C&#43;&#43; Primer Plus on from Pero</title>
+    <link>https://frompero.github.io/tags/c&#43;&#43;-primer-plus/</link>
+    <description>Recent content in C&#43;&#43; Primer Plus on from Pero</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>ⓒ 2022. Pero.</copyright>
+    <lastBuildDate>Sun, 27 Mar 2022 02:00:00 +0900</lastBuildDate>
+    <atom:link href="https://frompero.github.io/tags/c++-primer-plus/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 18. (2) 람다 함수, 래퍼, 가변인자 템플릿</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-18-2/</link>
+      <pubDate>Sun, 27 Mar 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-18-2/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 18. (1) Move Semantics와 rvalue참조, 새로운 클래스 형태</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-18-1/</link>
+      <pubDate>Sun, 27 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-18-1/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 16. (5) STL - 알고리즘, 기타 라이브러리</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-16-5/</link>
+      <pubDate>Fri, 25 Mar 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-16-5/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 16. (4) STL - 함수 객체</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-16-4/</link>
+      <pubDate>Fri, 25 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-16-4/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 16. (3) STL - 컨테이너</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-16-3/</link>
+      <pubDate>Thu, 24 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-16-3/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 16. (2) STL - 이터레이터</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-16-2/</link>
+      <pubDate>Wed, 23 Mar 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-16-2/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 16. (1) string 클래스, 스마트 포인터 템플릿 클래스</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-16-1/</link>
+      <pubDate>Wed, 23 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-16-1/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 15. (3) RTTI</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-15-3/</link>
+      <pubDate>Tue, 22 Mar 2022 03:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-15-3/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 15. (2) 예외</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-15-2/</link>
+      <pubDate>Tue, 22 Mar 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-15-2/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 15. (1) 클래스 프렌드와 프렌드 멤버 함수, 내포 클래스</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-15-1/</link>
+      <pubDate>Tue, 22 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-15-1/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 14. C&#43;&#43; 코드의 재활용 (2) 템플릿</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-14-2/</link>
+      <pubDate>Mon, 21 Mar 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-14-2/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 14. C&#43;&#43; 코드의 재활용 (1) 컨테인먼트와 private, protected 상속</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-14-1/</link>
+      <pubDate>Mon, 21 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-14-1/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 13. 클래스의 상속</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-13/</link>
+      <pubDate>Sun, 20 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-13/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 12. 클래스와 동적 메모리 대입</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-12/</link>
+      <pubDate>Sat, 19 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-12/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 11. 클래스의 활용</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-11/</link>
+      <pubDate>Thu, 17 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-11/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 10. 객체와 클래스</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-10/</link>
+      <pubDate>Wed, 16 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-10/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 9. 메모리 모델과 이름공간</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-09/</link>
+      <pubDate>Thu, 10 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-09/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 8. 함수의 활용</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-08/</link>
+      <pubDate>Wed, 09 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-08/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 7. 함수</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-07/</link>
+      <pubDate>Tue, 08 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-07/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 6. 분기 구문과 논리 연산자</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-06/</link>
+      <pubDate>Mon, 07 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-06/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 5. 루프와 관계표현식</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-05/</link>
+      <pubDate>Sat, 05 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-05/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 4. 복합 데이터형</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-04/</link>
+      <pubDate>Fri, 04 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-04/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 3. 데이터 처리</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-03/</link>
+      <pubDate>Thu, 03 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-03/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[C&#43;&#43; Primer Plus] Chapter 1, 2. 시작하기</title>
+      <link>https://frompero.github.io/post/cpp/cpp-primer-plus-01/</link>
+      <pubDate>Wed, 02 Mar 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-primer-plus-01/</guid>
+      <description>C++ 기초 플러스 책을 읽고 공부한 노트입니다.</description>
+    </item>
+  </channel>
+</rss>

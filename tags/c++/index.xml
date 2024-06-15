@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C&#43;&#43; on from Pero</title>
+    <link>https://frompero.github.io/tags/c&#43;&#43;/</link>
+    <description>Recent content in C&#43;&#43; on from Pero</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>ⓒ 2022. Pero.</copyright>
+    <lastBuildDate>Mon, 14 Aug 2023 01:00:00 +0900</lastBuildDate>
+    <atom:link href="https://frompero.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[C&#43;&#43;] 상수</title>
+      <link>https://frompero.github.io/post/cpp/cpp-constant/</link>
+      <pubDate>Mon, 14 Aug 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-constant/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>[C&#43;&#43;] 바이트 정렬과 비트 필드</title>
+      <link>https://frompero.github.io/post/cpp/cpp-bit-field/</link>
+      <pubDate>Sat, 12 Aug 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-bit-field/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>[C&#43;&#43;] 컴파일 과정</title>
+      <link>https://frompero.github.io/post/cpp/cpp-complie/</link>
+      <pubDate>Fri, 11 Aug 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-complie/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>[C&#43;&#43;] 우측값과 이동 시맨틱</title>
+      <link>https://frompero.github.io/post/cpp/cpp-move-semantics/</link>
+      <pubDate>Thu, 10 Aug 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/cpp/cpp-move-semantics/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

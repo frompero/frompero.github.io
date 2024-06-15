@@ -1,0 +1,1471 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="rgb(255,255,255)" />
+  
+  <title>[Algorithm] 수학적 개념과 알고리즘 &middot; from Pero</title>
+    <meta name="title" content="[Algorithm] 수학적 개념과 알고리즘 &middot; from Pero" />
+  
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.022d0ebc3b46a335eb1c7ef79b7f2de143d7cd5156d433638592ef1ce5f8554e.js"
+    integrity="sha256-Ai0OvDtGozXrHH73m38t4UPXzVFW1DNjhZLvHOX4VU4="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.afb4a97d267bd0c2e9391dd7b62a45afcd549fea29cb7747564f0cb36db70f1b.css"
+    integrity="sha256-r7SpfSZ70MLpOR3XtipFr81Un&#43;opy3dHVk8Ms223Dxs="
+  />
+  
+    
+    
+    
+  
+  
+  
+    
+    
+  
+  
+    
+    
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.5b9218820e6c6b9f04b4c5a03dffd0d57bc9189f511ee80ea74222de3a608e2f.js"
+      integrity="sha256-W5IYgg5sa58EtMWgPf/Q1XvJGJ9RHugOp0Ii3jpgji8="
+      data-copy="Copy"
+      data-copied="Copied"
+    ></script>
+  
+  
+  <meta
+    name="description"
+    content="
+      
+        비트 조작 #비트 조작 트릭 # 0s는 모든 비트가 0인 값이며, 1s는 모든 비트가 1인 값이다.
+      
+    "
+  />
+  
+  
+  
+  <link rel="canonical" href="https://frompero.github.io/post/algorithm/algorithm-04/" />
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="[Algorithm] 수학적 개념과 알고리즘" />
+<meta property="og:description" content="비트 조작 #비트 조작 트릭 # 0s는 모든 비트가 0인 값이며, 1s는 모든 비트가 1인 값이다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://frompero.github.io/post/algorithm/algorithm-04/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-11-12T01:00:00+09:00" />
+<meta property="article:modified_time" content="2022-11-12T01:00:00+09:00" />
+
+
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="[Algorithm] 수학적 개념과 알고리즘"/>
+<meta name="twitter:description" content="비트 조작 #비트 조작 트릭 # 0s는 모든 비트가 0인 값이며, 1s는 모든 비트가 1인 값이다."/>
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "[Algorithm] 수학적 개념과 알고리즘",
+    "headline": "[Algorithm] 수학적 개념과 알고리즘",
+    
+    "abstract": "비트 조작 #비트 조작 트릭 # 0s는 모든 비트가 0인 값이며, 1s는 모든 비트가 1인 값이다.",
+    "inLanguage": "en",
+    "url" : "https:\/\/frompero.github.io\/post\/algorithm\/algorithm-04\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Pero"
+    },
+    "copyrightYear": "2022",
+    "dateCreated": "2022-11-12T01:00:00\u002b09:00",
+    "datePublished": "2022-11-12T01:00:00\u002b09:00",
+    
+    "dateModified": "2022-11-12T01:00:00\u002b09:00",
+    
+    "keywords": ["Algorithm"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1741"
+  }
+  </script>
+
+
+  
+  <meta name="author" content="Pero" />
+  
+    
+      <link href="mailto:peropeq@gmail.com" rel="me" />
+    
+  
+  
+  
+
+
+
+
+
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/lib/katex/katex.min.7c7c1a59e6eec00ecd485e5083f69fe14783c7d5ea52962938682e6e8df25aef9bd88411e14790c1b6f8d938bb81502336d56823f23d4c4a187aef689b0702ea.css"
+    integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu&#43;b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g=="
+  />
+  
+  
+  <script
+    defer
+    src="/lib/katex/katex.min.2d037120c479ad7bfba3e6f597cf8dd4464c7e11bb88567d1e19db2644e9e338cdaf95afb2def902a51e143c5e4546bb979bc40f2522022a7ffebf8414b2c2c8.js"
+    integrity="sha512-LQNxIMR5rXv7o&#43;b1l8&#43;N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r&#43;EFLLCyA=="
+  ></script>
+  
+  
+  <script
+    defer
+    src="/lib/katex/auto-render.min.e6511c3458afadbb974a54c917a45e383efdb02303964d83fdb17ff69367d6d871a53a09973ffec8c9d3525c7b8c64602e6c16a64842884ad60989a16d953fd0.js"
+    integrity="sha512-5lEcNFivrbuXSlTJF6ReOD79sCMDlk2D/bF/9pNn1thxpToJlz/&#43;yMnTUlx7jGRgLmwWpkhCiErWCYmhbZU/0A=="
+    onload="renderMathInElement(document.body);"
+  ></script>
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+  
+  
+  
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QBM4YPD699"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-QBM4YPD699', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+  
+  
+</head>
+<body
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 sm:px-14 md:px-24 lg:px-32 dark:bg-neutral-800 dark:text-neutral"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="-translate-y-8 rounded-b-lg bg-primary-200 px-3 py-1 text-sm focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="pe-2 font-bold text-primary-600 dark:text-primary-400">&darr;</span
+        >Skip to main content</a
+      >
+    </div>
+    
+    
+      <header class="py-6 font-semibold text-neutral-900 print:hidden sm:py-10 dark:text-neutral">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="z-40 flex flex-row items-center">
+      
+  <a
+    class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+    rel="me"
+    href="/"
+    >from Pero</a
+  >
+
+    </div>
+    
+      
+      <label id="menu-button" for="menu-controller" class="block sm:hidden">
+        <input type="checkbox" id="menu-controller" class="hidden" />
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="invisible fixed inset-0 z-30 m-auto h-full w-full cursor-default overflow-auto bg-neutral-100/50 opacity-0 backdrop-blur-sm transition-opacity dark:bg-neutral-900/50"
+        >
+          <ul
+            class="mx-auto flex w-full max-w-7xl list-none flex-col overflow-visible px-6 py-6 text-end sm:px-14 sm:py-10 sm:pt-10 md:px-24 lg:px-32"
+          >
+            <li class="mb-1">
+              <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400"
+                ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span></span
+              >
+            </li>
+            
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/post/"
+                      title="Posts"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Posts</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/categories/"
+                      title="Categories"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Categories</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/tags/"
+                      title="Tags"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Tags</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    
+                      <button
+                        id="search-button-1"
+                        title="Search (/)"
+                      >
+                        
+                          <span
+                            class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                          ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </button>
+                    
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    <button
+                      id="appearance-switcher-1"
+                      type="button"
+                      aria-label="appearance switcher"
+                    >
+                      <span
+                        class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                        title="Switch to dark appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                      <span
+                        class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                        title="Switch to light appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                    </button>
+                  
+                </li>
+              
+              
+            
+          </ul>
+        </div>
+      </label>
+      
+      <ul class="hidden list-none flex-row text-end sm:flex">
+        
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/post/"
+                  title="Posts"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Posts</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/categories/"
+                  title="Categories"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Categories</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/tags/"
+                  title="Tags"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Tags</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                
+                  <button
+                    id="search-button-2"
+                    title="Search (/)"
+                  >
+                    
+                      <span
+                        class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                      ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </button>
+                
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                <button
+                  id="appearance-switcher-2"
+                  type="button"
+                  aria-label="appearance switcher"
+                >
+                  <span
+                    class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                    title="Switch to dark appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                  <span
+                    class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                    title="Switch to light appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                </button>
+              
+            </li>
+          
+          
+
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex grow flex-col">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        [Algorithm] 수학적 개념과 알고리즘
+      </h1>
+      
+        <div class="mb-12 mt-8 text-base text-neutral-500 print:hidden dark:text-neutral-400">
+          
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2022-11-12 01:00:00 &#43;0900 KST">12 November 2022</time>
+    
+
+    
+    
+  </div>
+
+  
+  
+
+
+        </div>
+      
+      
+    </header>
+    <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+      
+        <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
+          <div class="toc pe-5 print:hidden lg:sticky lg:top-10">
+            <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
+  <summary
+    class="-ms-5 block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 lg:hidden dark:bg-neutral-700 dark:text-neutral-100"
+  >
+    Table of Contents
+  </summary>
+  <div class="-ms-5 border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#비트-조작">비트 조작</a>
+      <ul>
+        <li><a href="#비트-조작-트릭">비트 조작 트릭</a></li>
+        <li><a href="#음수를-나타내기-위한-2의-보수법">음수를 나타내기 위한 2의 보수법</a></li>
+        <li><a href="#논리-우측-시프트와-산술-우측-시프트">논리 우측 시프트와 산술 우측 시프트</a></li>
+        <li><a href="#기본-비트-조작-예시">기본 비트 조작 예시</a></li>
+      </ul>
+    </li>
+    <li><a href="#수학-및-논리-퍼즐">수학 및 논리 퍼즐</a>
+      <ul>
+        <li><a href="#소수">소수</a></li>
+        <li><a href="#확률">확률</a></li>
+      </ul>
+    </li>
+    <li><a href="#재귀와-동적-프로그래밍">재귀와 동적 프로그래밍</a>
+      <ul>
+        <li><a href="#재귀적-해법">재귀적 해법</a></li>
+        <li><a href="#동적-프로그래밍">동적 프로그래밍</a></li>
+      </ul>
+    </li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+          </div>
+        </div>
+      
+      <div class="min-h-0 min-w-0 max-w-prose grow">
+        <hr>
+<p><br /><br /></p>
+<h2 id="비트-조작" class="relative group">비트 조작 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%eb%b9%84%ed%8a%b8-%ec%a1%b0%ec%9e%91" aria-label="Anchor">#</a></span></h2><h3 id="비트-조작-트릭" class="relative group">비트 조작 트릭 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%eb%b9%84%ed%8a%b8-%ec%a1%b0%ec%9e%91-%ed%8a%b8%eb%a6%ad" aria-label="Anchor">#</a></span></h3><ul>
+<li><code>0s</code>는 모든 비트가 <code>0</code>인 값이며, <code>1s</code>는 모든 비트가 <code>1</code>인 값이다.</li>
+</ul>
+<pre tabindex="0"><code>x ^ 0s = x    x &amp; 0s = 0    x | 0s = x
+x ^ 1s = ~x   x &amp; 1s = x    x | 1s = 1s
+x ^ x  = 0    x &amp; x  = x    x | x  = x
+</code></pre><p><br /><br /></p>
+<h3 id="음수를-나타내기-위한-2의-보수법" class="relative group">음수를 나타내기 위한 2의 보수법 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%9d%8c%ec%88%98%eb%a5%bc-%eb%82%98%ed%83%80%eb%82%b4%ea%b8%b0-%ec%9c%84%ed%95%9c-2%ec%9d%98-%eb%b3%b4%ec%88%98%eb%b2%95" aria-label="Anchor">#</a></span></h3><ul>
+<li>
+<p><strong>보수(Complementary Number)</strong> 란?</p>
+<ul>
+<li>보충을 해주는 수이다.</li>
+</ul>
+</li>
+<li>
+<p><strong>$R$진수에서, $N$에 대한 $R-1$의 보수</strong>란?</p>
+<ul>
+<li>$N$이 $R$진수에서 <strong>해당 자릿수의 최대값</strong>이 되기 위해 얼마를 보충해 주어야 하는 가이다.</li>
+</ul>
+</li>
+<li>
+<p><strong>$R$진수에서, $N$에 대한 $R$의 보수</strong>란?</p>
+<ul>
+<li>$N$이 $R$진수에서 <strong>자릿수를 한 자리 높이기 위헤</strong> 얼마를 보충해 주어야 하는 가이다.</li>
+<li>이것은 <strong>$R-1$의 보수 $+ 1$</strong> 과 같다.</li>
+</ul>
+</li>
+<li>
+<p>예시</p>
+<ul>
+<li>$10$진수에서, $33$에 대한 $9$의 보수는?
+<ul>
+<li>$99 - 33 = 66$이다.</li>
+</ul>
+</li>
+<li>$10$진수에서, $33$에 대한 $10$의 보수는?
+<ul>
+<li>$100 - 33 = 67$이다.</li>
+</ul>
+</li>
+<li>$2$진수에서, <code>1010</code>에 대한 $1$의 보수는?
+<ul>
+<li><code>1111 - 1010 = 0101</code>이다.</li>
+<li>이것은 <code>0</code>과 <code>1</code>의 반전이다.</li>
+</ul>
+</li>
+<li>$2$진수에서, <code>1010</code>에 대한 $2$의 보수는?
+<ul>
+<li><code>10000 - 1010 = 0110</code>이다.</li>
+<li>이것은 $1$의 보수 $+ 1$이다.</li>
+<li>즉, <code>0</code>과 <code>1</code>을 반전 시키고 $1$을 더하면 된다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>
+<p>컴퓨터에서 음수 양수를 구별 하기위해 <strong>최상위 비트(MSB; Most significant bit)</strong> 를 부호비트로 사용한다.</p>
+<ul>
+<li>$1$은 <code>0001</code>이므로 $-1$는 <code>1001</code>가 되겠다.</li>
+<li>그 둘을 빼면?
+<ul>
+<li>$0$이어야 하는데 <code>1010</code>이 나오는 문제가 있다.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>그러면 $1$의 보수법을 사용해서 음수를 표현하면 어떨까?</p>
+<ul>
+<li><code>0</code>과 <code>1</code>를 반전시켜서 음수를 표현하면 되겠다.</li>
+<li>$1$인 <code>0001</code>과 $-1$인 <code>1110</code>을 더하면?
+<ul>
+<li><code>1111</code>이 나온다.</li>
+<li>$1$의 보수는 $+0$인 <code>0000</code>과 $-0$인 <code>1111</code>의 두 가지 $0$이 존재한다는 문제점이 있다.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>그래서 $2$의 보수법을 사용해서 음수를 표현한다.</p>
+<ul>
+<li><code>0</code>과 <code>1</code>을 바꾼다음 $1$을 더해서 음수를 표현하면 되겠다.</li>
+<li>$1$인 <code>0001</code>과 $-1$인 <code>1111</code>을 더하면?
+<ul>
+<li><code>10000</code>이 나온다.</li>
+</ul>
+</li>
+<li>여기서 MSB가 <code>1</code>이지만, 범위를 벗어났기 때문에 결과적으로 $0$인 <code>0000</code>이 된다.</li>
+</ul>
+</li>
+<li>
+<p>결과적으로, 음수를 나타내려면, <code>0</code>과 <code>1</code>을 반전시켜서 $1$을 더한 수에다가 MSB에 <code>1</code>을 붙이면 되겠다.</p>
+</li>
+</ul>
+<p>
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/algorithm/images/04-01-twoComplement.jpeg" alt="1의 보수와 2의 보수" class="mx-auto my-0 rounded-md" />
+</figure>
+
+
+<a href="http://m.blog.naver.com/rlawldud335/221585357817" target="_blank" rel="noreferrer">Image Source</a></p>
+<p><br /><br /></p>
+<h3 id="논리-우측-시프트와-산술-우측-시프트" class="relative group">논리 우측 시프트와 산술 우측 시프트 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%eb%85%bc%eb%a6%ac-%ec%9a%b0%ec%b8%a1-%ec%8b%9c%ed%94%84%ed%8a%b8%ec%99%80-%ec%82%b0%ec%88%a0-%ec%9a%b0%ec%b8%a1-%ec%8b%9c%ed%94%84%ed%8a%b8" aria-label="Anchor">#</a></span></h3><p>
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/algorithm/images/04-02-rightShift.png" alt="우측 시프트의 종류" class="mx-auto my-0 rounded-md" />
+</figure>
+
+
+<a href="https://chortle.ccsu.edu/assemblytutorial/Chapter-14/ass14_13.html" target="_blank" rel="noreferrer">Image Source</a></p>
+<ul>
+<li>
+<p><strong>논리 우측 시프트(Logical right shift)</strong></p>
+<ul>
+<li>비트를 오른쪽으로 옮긴 후, MSB에 <code>0</code>을 넣는다.</li>
+<li><code>&gt;&gt;&gt;</code> 연산과 같다.</li>
+</ul>
+</li>
+<li>
+<p><strong>산술 우측 시프트(Arithmetic right shift)</strong></p>
+<ul>
+<li>비트를 오른쪽으로 옮기지만, MSB 비트는 변하지 않는다.</li>
+<li><code>&gt;&gt;</code> 연산과 같다.</li>
+<li>이것은 대략 값을 $2$로 나눈 것과 같은 결과이다.</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h3 id="기본-비트-조작-예시" class="relative group">기본 비트 조작 예시 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ea%b8%b0%eb%b3%b8-%eb%b9%84%ed%8a%b8-%ec%a1%b0%ec%9e%91-%ec%98%88%ec%8b%9c" aria-label="Anchor">#</a></span></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;bitset&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">bitSize</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Printer</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="kt">int</span> <span class="n">mask</span><span class="p">,</span> <span class="kt">int</span> <span class="n">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\t</span><span class="s">원래 숫자 : </span><span class="se">\t</span><span class="s">&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">bitset</span><span class="o">&lt;</span><span class="n">bitSize</span><span class="o">&gt;</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\t</span><span class="s">마스크    : </span><span class="se">\t</span><span class="s">&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">bitset</span><span class="o">&lt;</span><span class="n">bitSize</span><span class="o">&gt;</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\t</span><span class="s">결과 숫자 : </span><span class="se">\t</span><span class="s">&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">bitset</span><span class="o">&lt;</span><span class="n">bitSize</span><span class="o">&gt;</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">IsBitOne</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; 번째 자리 수가 1인가? : &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Printer</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">num</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span><span class="n">num</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">SetBitOne</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; 번째 자리 수를 1로 만들기 : &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Printer</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">num</span> <span class="o">|</span> <span class="n">mask</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">num</span> <span class="o">|</span> <span class="n">mask</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">SetBitZero</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">mask</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; 번째 자리 수를 0으로 만들기 : &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Printer</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">num</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">num</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">SetBitZeroAfterIndex</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; 번째 자리 이후(i 자리 제외)를 모두 0으로 만들기 : &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Printer</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">num</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">num</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">SetBitZeroBeforeIndex</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">mask</span> <span class="o">=</span> <span class="o">~</span><span class="p">((</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; 번째 자리 이전(i 자리 제외)을 모두 0으로 만들기 : &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Printer</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">num</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">num</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">UpdateBit</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">setOne</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="p">((</span><span class="n">setOne</span><span class="p">)</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">mask</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">remove</span> <span class="o">=</span> <span class="n">num</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; 번째 자리 비트를 &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">setOne</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;으로 만들기 : &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Printer</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">remove</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\t</span><span class="s">숫자 입력 : </span><span class="se">\t</span><span class="s">&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">bitset</span><span class="o">&lt;</span><span class="n">bitSize</span><span class="o">&gt;</span><span class="p">(</span><span class="n">remove</span> <span class="o">|</span> <span class="n">value</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">remove</span> <span class="o">|</span> <span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span> <span class="c1">// 숫자       : 1 1 1 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>   <span class="c1">// 몇 번째 자리 : 2 1 0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  
+</span></span><span class="line"><span class="cl">  <span class="n">IsBitOne</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">SetBitOne</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">SetBitZero</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">SetBitZeroAfterIndex</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">SetBitZeroBeforeIndex</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">UpdateBit</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">UpdateBit</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><pre tabindex="0"><code>1 번째 자리 수가 1인가? : 
+    원래 숫자 :     0111
+    마스크    :     0010
+    결과 숫자 :     0010
+1 번째 자리 수를 1로 만들기 : 
+    원래 숫자 :     0111
+    마스크    :     0010
+    결과 숫자 :     0111
+1 번째 자리 수를 0으로 만들기 : 
+    원래 숫자 :     0111
+    마스크    :     1101
+    결과 숫자 :     0101
+1 번째 자리 이후(i 자리 제외)를 모두 0으로 만들기 : 
+    원래 숫자 :     0111
+    마스크    :     0011
+    결과 숫자 :     0011
+1 번째 자리 이전(i 자리 제외)을 모두 0으로 만들기 : 
+    원래 숫자 :     0111
+    마스크    :     1110
+    결과 숫자 :     0110
+1 번째 자리 비트를 0으로 만들기 : 
+    원래 숫자 :     0111
+    마스크    :     1101
+    결과 숫자 :     0101
+    숫자 입력 :     0101
+1 번째 자리 비트를 1으로 만들기 : 
+    원래 숫자 :     0111
+    마스크    :     1101
+    결과 숫자 :     0101
+    숫자 입력 :     0111
+</code></pre><p><br /><br /></p>
+<h2 id="수학-및-논리-퍼즐" class="relative group">수학 및 논리 퍼즐 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%88%98%ed%95%99-%eb%b0%8f-%eb%85%bc%eb%a6%ac-%ed%8d%bc%ec%a6%90" aria-label="Anchor">#</a></span></h2><h3 id="소수" class="relative group">소수 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%86%8c%ec%88%98" aria-label="Anchor">#</a></span></h3><ul>
+<li><strong>모든 자연수는 소수의 곱으로 나타낼 수 있다</strong>는 법칙이 있다.
+<ul>
+<li>따라서 $x/y$로 나눌 수 있으려면,</li>
+<li>$x$에 대한 소수의 곱 $\supset$ $y$에 대한 소수의 곱이 되어야 한다.</li>
+<li>$x = 2^{a_0} \times 3^{a_1} \times 5^{a_2} \times 7^{a_3} &hellip;$</li>
+<li>$y = 2^{b_0} \times 3^{b_1} \times 5^{b_2} \times 7^{b_3}&hellip;$</li>
+<li>$a_i \geq b_i$</li>
+</ul>
+</li>
+<li>그렇다면 $x$와 $y$의 <strong>최대공약수(Greatest common divisor)</strong> 는?
+<ul>
+<li>$gcd(x, y) = 2^{min(a_0, b_0)} \times 3^{min(a_1, b_1)} \times 5^{min(a_2, b_2)}$</li>
+</ul>
+</li>
+<li>그렇다면 $x$와 $y$의 <strong>최소공배수(Least Common multiple)</strong> 는?
+<ul>
+<li>$lcm(x, y) = 2^{max(a_0, b_0)} \times 3^{max(a_1, b_1)} \times 5^{max(a_2, b_2)}$</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><strong>어떤 수가 소수인지 판별하는 법</strong>
+<ul>
+<li>어떤 수가 소수이려면, $1$과 자기자신 말고는 약수가 없어야 한다.</li>
+<li>소수가 아닌 경우, 가운데 위치한 약수를 중심으로 대칭적으로 약수가 형성된다.</li>
+<li>예를 들어, $16$의 경우 약수가 $1$, $2$, $4$, $8$, $16$ 이므로 $4$를 중심으로 대칭적으로 약수가 형성됨을 알 수 있다.</li>
+<li>따라서 <strong>어떤 수의 제곱근까지만 약수인지 판별</strong>하면 된다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">IsPrimeNumber</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">num</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="c1">// num의 제곱근까지만 검사한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">num</span> <span class="o">%</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span> <span class="c1">// 나누어 떨어지면 소수가 아니다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li><strong>$1$부터 $N$까지의 모든 소수를 찾는 법 : 에라토스테네스의 체(Sieve of Eratosthenes)</strong></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">GetPrimeNumbers</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">isPrime</span><span class="p">(</span><span class="n">num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">num</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="c1">// num의 제곱근까지만 검사한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">isPrime</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="nb">false</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span> <span class="c1">// 아직 처리하지 않은 가장 작은 수를 선택한다
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">mul</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">mul</span> <span class="o">&lt;=</span> <span class="n">num</span><span class="p">)</span> <span class="c1">// 그 수의 배수를 모두 제거한다 (그 수는 제거하면 안 됨)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">isPrime</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">mul</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mul</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">isPrime</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="확률" class="relative group">확률 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%99%95%eb%a5%a0" aria-label="Anchor">#</a></span></h3><p>
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/algorithm/images/04-03-conditional.jpeg" alt="조건부 확률" class="mx-auto my-0 rounded-md" />
+</figure>
+
+
+<a href="https://slidesplayer.org/slide/14441840/" target="_blank" rel="noreferrer">Image Source</a></p>
+<ul>
+<li><strong>조건부 확률</strong>
+<ul>
+<li>$P(A | B)$는 $B$ 사건이 발생했을 때, $A$가 일어날 확률이다.</li>
+<li>즉, $B$를 사건 전체로 보고 $B$ 중에서 $A$인 부분이다.</li>
+<li>이것을 사건 $B$에 대한 $A$의 조건부 확률이라고 한다.</li>
+<li>$$ P(A | B) = \frac{ P(A \cap B) }{ P(B) } $$</li>
+<li>$$ P(A \cap B) = P(A | B) P(B) $$</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><strong>교집합의 확률</strong>
+<ul>
+<li>$1$부터 $10$까지의 수 중에서 하나를 뽑을 때, 짝수<strong>이면서</strong> $5$ 이하의 수를 뽑을 확률은 어떻게 될까?</li>
+<li>$$ P(짝수 \cap 5이하) = P(짝수 | 5이하) P(5이하) $$</li>
+<li>$$ P(짝수 \cap 5이하) = \frac{2}{5} * \frac{1}{2} = \frac{1}{5}$$</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><strong>베이즈 정리(Bayes&rsquo; Theorem)</strong>
+<ul>
+<li>조건부 확률을 다음과 같이 정리할 수 있겠다.</li>
+<li>$$ P(A \cap B) = P(A | B) P(B) = P(B | A) P(A) $$</li>
+<li>$$ P(A | B) = \frac{ P(B \cap A)P(A) }{ P(B) } $$</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<ul>
+<li><strong>합집합의 확률</strong>
+<ul>
+<li>$A$ 사건 혹은 $B$ 사건이 벌어질 확률은?</li>
+<li>$$ P(A \cup B) = P(A) + P(B) - P(A \cap B) $$</li>
+<li>$1$부터 $10$까지의 수 중에서 하나를 뽑을 때, 짝수<strong>이거나</strong> $5$ 이하의 수를 뽑을 확률은 어떻게 될까?</li>
+<li>$$ P(짝수 \cup 5이하) = P(짝수) + P(5이하) - P(짝수 \cap 5이하)$$</li>
+<li>$$ P(짝수 \cup 5이하) = \frac{1}{2} + \frac{1}{2} - \frac{1}{5} = \frac{4}{5}$$</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<ul>
+<li><strong>독립 사건(independent event)</strong>
+<ul>
+<li>$A$와 $B$가 서로 아무런 영향을 미치지 않는 사건을 말한다.</li>
+<li>$ P(A \cap B) = 0 $, $ A \cup B = U $</li>
+<li>예를 들면, $A$ 라는 사람이 공부를 하는 것과 $B$ 라는 사람이 음식을 먹는 것은 독립적인 사건이다. 서로에게 아무런 영향이 없다.</li>
+<li>따라서 다음과 같은 공식이 성립한다.</li>
+<li>$$ P(A | B) = P(A | B^c) = P(A) $$</li>
+<li>이것을 조건부 확률 공식에 대입하면 다음과 같다.</li>
+<li>$$ P(A \cap B) = P(A) P(B) $$</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><strong>상호 배타적 사건(mutually exclusive event)</strong>
+<ul>
+<li>어떤 한 사건이 일어나면 다른 사건은 일어날 수 없는 경우이다.</li>
+<li>$ P(A \cap B) = 0 $, $ (A, B) \subset C $</li>
+<li>$A$와 $B$는 $C$라는 집단 안에 소속되어 있지만 서로 공통적인 부분은 없다는 뜻이다.</li>
+<li>예를 들면, 남성과 여성은 상호배타적이다. 남성과 여성은 둘 다 &lsquo;인간&rsquo;이라는 카테고리에 포함되지만 서로 다르기 때문이다.</li>
+<li>$P(A \cap B) = 0$이므로 다음과 같다.</li>
+<li>$$ P(A \cup B) = P(A) + P(B) $$</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>독립 사건과 상호 배타적 사건은 <strong>서로 다른 개념</strong>이며, 독립 사건이면서 상호 배타적 사건인 경우는 존재하지 않는다.</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="재귀와-동적-프로그래밍" class="relative group">재귀와 동적 프로그래밍 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%9e%ac%ea%b7%80%ec%99%80-%eb%8f%99%ec%a0%81-%ed%94%84%eb%a1%9c%ea%b7%b8%eb%9e%98%eb%b0%8d" aria-label="Anchor">#</a></span></h2><h3 id="재귀적-해법" class="relative group">재귀적 해법 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%9e%ac%ea%b7%80%ec%a0%81-%ed%95%b4%eb%b2%95" aria-label="Anchor">#</a></span></h3><ul>
+<li>해당 문제가 재귀 문제인지 아는 방법?
+<ul>
+<li>해당 문제를 작은 크기의 <strong>부분문제(Subproblem)</strong> 로 만들 수 있는지 본다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><strong>(1) 하향식 접근법(Top-down approach)</strong>
+<ul>
+<li>문제를 어떻게 하면 부분문제로 나눌 수 있는지 생각해본다. 부분문제끼리 겹치지 않아야 한다.</li>
+</ul>
+</li>
+<li><strong>(2) 상향식 접근법(Bottom-up approach)</strong>
+<ul>
+<li>간단한 것부터 풀이를 시작해서, 이전에 풀었던 사례를 확장하여 다음 풀이를 찾는다.</li>
+<li>예를 들면, 원소 하나를 갖는 리스트에서 시작하여, 두 개, 세 개 늘려가며 풀이법을 찾는다.</li>
+</ul>
+</li>
+<li><strong>(3) 반반 접근법(Half-and-half approach)</strong>
+<ul>
+<li>데이터를 절반으로 나누는 방법이다.</li>
+<li>예를 들면, 이진 탐색이나 병합 정렬이 있겠다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><strong>재귀적 해법 vs. 순환적 해법</strong>
+<ul>
+<li>재귀 호출이 한 번 발생할 때마다 스택에 새로운 층(layer)을 추가해야 하므로, <strong>공간 효율성이 나빠질 수 있다.</strong></li>
+<li>모든 <strong>재귀적(recursive)</strong> 알고리즘은 <strong>순환적(iterative)</strong> 으로 구현이 가능하다.</li>
+<li>하지만 때로 순환적 알고리즘은 코드가 복잡해지므로, 잘 절충해서 선택해야겠다.</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h3 id="동적-프로그래밍" class="relative group">동적 프로그래밍 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%eb%8f%99%ec%a0%81-%ed%94%84%eb%a1%9c%ea%b7%b8%eb%9e%98%eb%b0%8d" aria-label="Anchor">#</a></span></h3><ul>
+<li>동적 프로그래밍이란?
+<ul>
+<li><strong>부분문제</strong>를 찾아서, <strong>재귀나 반복문</strong>을 사용해서 푸는데, <strong>현재 결과를 캐시에 저장</strong>해서 연산 속도를 비약적으로 높인다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<p>
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/algorithm/images/04-04-fibo.png" alt="피보나치 수의 재귀 트리" class="mx-auto my-0 rounded-md" />
+</figure>
+
+
+<a href="https://thewiki.kr/w/%EB%A9%94%EB%AA%A8%EC%9D%B4%EC%A0%9C%EC%9D%B4%EC%85%98" target="_blank" rel="noreferrer">Image Source</a></p>
+<ul>
+<li>예를 들면, 바로 앞 두 항의 합을 구하는 <strong>피보나치 수(Fibonacci number)</strong> 가 있다.
+<ul>
+<li>간단하게 구현한 아래 코드의 경우 재귀 트리를 참고하면, 계속 2개의 자식으로 분기되므로 $O(2^n)$의 시간복잡도가 걸린다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">GetFibonacci</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">GetFibonacci</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">GetFibonacci</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li><strong>(1) 하향식 동적 프로그래밍(메모이제이션)</strong>
+<ul>
+<li>재귀 트리를 살펴보면, 중복되는 노드들이 있다.</li>
+<li>이 값들을 저장했다가 사용하면 시간복잡도를 $O(n)$으로 만들 수 있겠다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">GetFibonacci</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="n">d</span><span class="p">[</span><span class="n">x</span><span class="p">];</span> <span class="c1">// 이미 계산한 적 있는 문제라면 그대로 반환
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="n">d</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">GetFibonacci</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">GetFibonacci</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">2</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">d</span><span class="p">[</span><span class="n">x</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li><strong>(2) 상향식 동적 프로그래밍</strong>
+<ul>
+<li>초기 사례인 <code>fib(0)</code>과 <code>fib(1)</code>을 구하고 이것을 이용해 <code>fib(2)</code>를 계산하며 점점 올라가는 방식이다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">GetFibonacci</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">d</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">d</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">d</span><span class="p">[</span><span class="n">x</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="references" class="relative group">References <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#references" aria-label="Anchor">#</a></span></h2><ul>
+<li>
+<a href="http://www.yes24.com/Product/Goods/44305533" target="_blank" rel="noreferrer">코딩 인터뷰 완전 분석</a></li>
+</ul>
+<p><br /><br /></p>
+
+      </div>
+    </section>
+    <footer class="max-w-prose pt-8 print:hidden">
+      
+  <div class="flex">
+    
+    
+    
+      
+      
+        
+        
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+      
+    >
+      
+      
+      
+      
+      <img
+        width="500"
+        height="500"
+        class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+        alt="Pero"
+        loading="lazy" decoding="async"
+        
+          src="/main.jpg"
+        
+      />
+    </picture>
+  
+
+
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          Pero
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">Keep moving forward.</div>
+      
+      <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="mailto:peropeq@gmail.com"
+          target="_blank"
+          aria-label="Email"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+    </div>
+  </div>
+
+
+      
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="/post/algorithm/algorithm-03/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[Algorithm] 자료구조 - 그래프</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-11-05 03:00:00 &#43;0900 KST">5 November 2022</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="group flex text-right" href="/post/algorithm/algorithm-05/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[Algorithm] 정렬, 탐색 알고리즘</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-11-12 02:00:00 &#43;0900 KST">12 November 2022</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&rarr;</span
+                ><span class="ltr:hidden rtl:inline">&larr;</span></span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+          <div class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12">
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            ⓒ 2022. Pero.
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a>
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+    </div>
+  </div>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm sm:p-6 md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50"
+  data-url="https://frompero.github.io/"
+>
+  <div
+    id="search-modal"
+    class="top-20 mx-auto flex min-h-0 w-full max-w-3xl flex-col rounded-md border border-neutral-200 bg-neutral shadow-lg dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex flex-none items-center justify-between px-2">
+      <form class="flex min-w-0 flex-auto items-center">
+        <div class="flex h-8 w-8 items-center justify-center text-neutral-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="mx-1 flex h-12 flex-auto appearance-none bg-transparent focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex h-8 w-8 items-center justify-center text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto overflow-auto px-2">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+</html>

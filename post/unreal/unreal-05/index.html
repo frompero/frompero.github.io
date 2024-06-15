@@ -1,0 +1,1323 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="rgb(255,255,255)" />
+  
+  <title>[Unreal] 언리얼 컨테이너 라이브러리 &middot; from Pero</title>
+    <meta name="title" content="[Unreal] 언리얼 컨테이너 라이브러리 &middot; from Pero" />
+  
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.022d0ebc3b46a335eb1c7ef79b7f2de143d7cd5156d433638592ef1ce5f8554e.js"
+    integrity="sha256-Ai0OvDtGozXrHH73m38t4UPXzVFW1DNjhZLvHOX4VU4="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.afb4a97d267bd0c2e9391dd7b62a45afcd549fea29cb7747564f0cb36db70f1b.css"
+    integrity="sha256-r7SpfSZ70MLpOR3XtipFr81Un&#43;opy3dHVk8Ms223Dxs="
+  />
+  
+    
+    
+    
+  
+  
+  
+    
+    
+  
+  
+    
+    
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.5b9218820e6c6b9f04b4c5a03dffd0d57bc9189f511ee80ea74222de3a608e2f.js"
+      integrity="sha256-W5IYgg5sa58EtMWgPf/Q1XvJGJ9RHugOp0Ii3jpgji8="
+      data-copy="Copy"
+      data-copied="Copied"
+    ></script>
+  
+  
+  <meta
+    name="description"
+    content="
+      
+        언리얼 컨테이너 라이브러리 # Unreal Container Library (UCL) 언리얼이 자체적으로 제작해서 제공하는 라이브러리이다.
+      
+    "
+  />
+  
+  
+  
+  <link rel="canonical" href="https://frompero.github.io/post/unreal/unreal-05/" />
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="[Unreal] 언리얼 컨테이너 라이브러리" />
+<meta property="og:description" content="언리얼 컨테이너 라이브러리 # Unreal Container Library (UCL) 언리얼이 자체적으로 제작해서 제공하는 라이브러리이다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://frompero.github.io/post/unreal/unreal-05/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-08-02T01:00:00+09:00" />
+<meta property="article:modified_time" content="2023-08-02T01:00:00+09:00" />
+
+
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="[Unreal] 언리얼 컨테이너 라이브러리"/>
+<meta name="twitter:description" content="언리얼 컨테이너 라이브러리 # Unreal Container Library (UCL) 언리얼이 자체적으로 제작해서 제공하는 라이브러리이다."/>
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "[Unreal] 언리얼 컨테이너 라이브러리",
+    "headline": "[Unreal] 언리얼 컨테이너 라이브러리",
+    
+    "abstract": "언리얼 컨테이너 라이브러리 # Unreal Container Library (UCL) 언리얼이 자체적으로 제작해서 제공하는 라이브러리이다.",
+    "inLanguage": "en",
+    "url" : "https:\/\/frompero.github.io\/post\/unreal\/unreal-05\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Pero"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-08-02T01:00:00\u002b09:00",
+    "datePublished": "2023-08-02T01:00:00\u002b09:00",
+    
+    "dateModified": "2023-08-02T01:00:00\u002b09:00",
+    
+    "keywords": ["Unreal"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "842"
+  }
+  </script>
+
+
+  
+  <meta name="author" content="Pero" />
+  
+    
+      <link href="mailto:peropeq@gmail.com" rel="me" />
+    
+  
+  
+  
+
+
+
+
+
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/lib/katex/katex.min.7c7c1a59e6eec00ecd485e5083f69fe14783c7d5ea52962938682e6e8df25aef9bd88411e14790c1b6f8d938bb81502336d56823f23d4c4a187aef689b0702ea.css"
+    integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu&#43;b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g=="
+  />
+  
+  
+  <script
+    defer
+    src="/lib/katex/katex.min.2d037120c479ad7bfba3e6f597cf8dd4464c7e11bb88567d1e19db2644e9e338cdaf95afb2def902a51e143c5e4546bb979bc40f2522022a7ffebf8414b2c2c8.js"
+    integrity="sha512-LQNxIMR5rXv7o&#43;b1l8&#43;N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r&#43;EFLLCyA=="
+  ></script>
+  
+  
+  <script
+    defer
+    src="/lib/katex/auto-render.min.e6511c3458afadbb974a54c917a45e383efdb02303964d83fdb17ff69367d6d871a53a09973ffec8c9d3525c7b8c64602e6c16a64842884ad60989a16d953fd0.js"
+    integrity="sha512-5lEcNFivrbuXSlTJF6ReOD79sCMDlk2D/bF/9pNn1thxpToJlz/&#43;yMnTUlx7jGRgLmwWpkhCiErWCYmhbZU/0A=="
+    onload="renderMathInElement(document.body);"
+  ></script>
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+  
+  
+  
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QBM4YPD699"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-QBM4YPD699', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+  
+  
+</head>
+<body
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 sm:px-14 md:px-24 lg:px-32 dark:bg-neutral-800 dark:text-neutral"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="-translate-y-8 rounded-b-lg bg-primary-200 px-3 py-1 text-sm focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="pe-2 font-bold text-primary-600 dark:text-primary-400">&darr;</span
+        >Skip to main content</a
+      >
+    </div>
+    
+    
+      <header class="py-6 font-semibold text-neutral-900 print:hidden sm:py-10 dark:text-neutral">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="z-40 flex flex-row items-center">
+      
+  <a
+    class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+    rel="me"
+    href="/"
+    >from Pero</a
+  >
+
+    </div>
+    
+      
+      <label id="menu-button" for="menu-controller" class="block sm:hidden">
+        <input type="checkbox" id="menu-controller" class="hidden" />
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="invisible fixed inset-0 z-30 m-auto h-full w-full cursor-default overflow-auto bg-neutral-100/50 opacity-0 backdrop-blur-sm transition-opacity dark:bg-neutral-900/50"
+        >
+          <ul
+            class="mx-auto flex w-full max-w-7xl list-none flex-col overflow-visible px-6 py-6 text-end sm:px-14 sm:py-10 sm:pt-10 md:px-24 lg:px-32"
+          >
+            <li class="mb-1">
+              <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400"
+                ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span></span
+              >
+            </li>
+            
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/post/"
+                      title="Posts"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Posts</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/categories/"
+                      title="Categories"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Categories</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/tags/"
+                      title="Tags"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Tags</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    
+                      <button
+                        id="search-button-1"
+                        title="Search (/)"
+                      >
+                        
+                          <span
+                            class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                          ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </button>
+                    
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    <button
+                      id="appearance-switcher-1"
+                      type="button"
+                      aria-label="appearance switcher"
+                    >
+                      <span
+                        class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                        title="Switch to dark appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                      <span
+                        class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                        title="Switch to light appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                    </button>
+                  
+                </li>
+              
+              
+            
+          </ul>
+        </div>
+      </label>
+      
+      <ul class="hidden list-none flex-row text-end sm:flex">
+        
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/post/"
+                  title="Posts"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Posts</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/categories/"
+                  title="Categories"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Categories</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/tags/"
+                  title="Tags"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Tags</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                
+                  <button
+                    id="search-button-2"
+                    title="Search (/)"
+                  >
+                    
+                      <span
+                        class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                      ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </button>
+                
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                <button
+                  id="appearance-switcher-2"
+                  type="button"
+                  aria-label="appearance switcher"
+                >
+                  <span
+                    class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                    title="Switch to dark appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                  <span
+                    class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                    title="Switch to light appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                </button>
+              
+            </li>
+          
+          
+
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex grow flex-col">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        [Unreal] 언리얼 컨테이너 라이브러리
+      </h1>
+      
+        <div class="mb-12 mt-8 text-base text-neutral-500 print:hidden dark:text-neutral-400">
+          
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2023-08-02 01:00:00 &#43;0900 KST">2 August 2023</time>
+    
+
+    
+    
+  </div>
+
+  
+  
+
+
+        </div>
+      
+      
+    </header>
+    <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+      
+        <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
+          <div class="toc pe-5 print:hidden lg:sticky lg:top-10">
+            <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
+  <summary
+    class="-ms-5 block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 lg:hidden dark:bg-neutral-700 dark:text-neutral-100"
+  >
+    Table of Contents
+  </summary>
+  <div class="-ms-5 border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#언리얼-컨테이너-라이브러리">언리얼 컨테이너 라이브러리</a></li>
+    <li><a href="#각-라이브러리의-특징">각 라이브러리의 특징</a></li>
+    <li><a href="#tarray와-슬랙"><code>TArray</code>와 슬랙</a></li>
+    <li><a href="#tset-tmap은-이빠진-배열"><code>TSet</code>, <code>TMap</code>은 이빠진 배열</a></li>
+    <li><a href="#tset-tmap에-커스텀-key를-사용하는-방법"><code>TSet</code>, <code>TMap</code>에 커스텀 Key를 사용하는 방법</a></li>
+    <li><a href="#stl과의-차이점">STL과의 차이점</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+          </div>
+        </div>
+      
+      <div class="min-h-0 min-w-0 max-w-prose grow">
+        <hr>
+<p><br /><br /></p>
+<h2 id="언리얼-컨테이너-라이브러리" class="relative group">언리얼 컨테이너 라이브러리 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%96%b8%eb%a6%ac%ec%96%bc-%ec%bb%a8%ed%85%8c%ec%9d%b4%eb%84%88-%eb%9d%bc%ec%9d%b4%eb%b8%8c%eb%9f%ac%eb%a6%ac" aria-label="Anchor">#</a></span></h2><ul>
+<li>Unreal Container Library (UCL)</li>
+<li>언리얼이 자체적으로 제작해서 제공하는 라이브러리이다. 언리얼 엔진에 특화되어 있으며, 언리얼 오브젝트 구조만 안정적으로 지원한다. 따라서 언리얼 엔진에서는 C++ STL이 아닌 UCL을 사용하자.</li>
+</ul>
+<br />
+<ul>
+<li>다양한 라이브러리가 있지만 실제 게임 제작에 유용하게 사용되는 라이브러리는 다음 세 가지이다.
+<ul>
+<li><code>TArray</code>, <code>TSet</code>, <code>TMap</code></li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="각-라이브러리의-특징" class="relative group">각 라이브러리의 특징 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ea%b0%81-%eb%9d%bc%ec%9d%b4%eb%b8%8c%eb%9f%ac%eb%a6%ac%ec%9d%98-%ed%8a%b9%ec%a7%95" aria-label="Anchor">#</a></span></h2><ul>
+<li>
+<a href="https://docs.unrealengine.com/5.1/ko/array-containers-in-unreal-engine/" target="_blank" rel="noreferrer">언리얼 공식 문서 : TArray</a></li>
+<li>
+<a href="https://docs.unrealengine.com/5.1/ko/set-containers-in-unreal-engine/" target="_blank" rel="noreferrer">언리얼 공식 문서 : TSet</a></li>
+<li>
+<a href="https://docs.unrealengine.com/5.1/ko/map-containers-in-unreal-engine/" target="_blank" rel="noreferrer">언리얼 공식 문서 : TMap</a></li>
+</ul>
+<br />
+<ul>
+<li>공통 특징
+<ul>
+<li>동질성 컨테이너이므로, 안에 있는 요소는 전부 반드시 같은 유형이어야 한다.</li>
+<li><code>int32</code>, <code>float</code> 와 같은 값 유형이다. 안에 있는 요소도 모두 값 유형이어야 한다.</li>
+<li>소멸되면 그 안의 요소들도 모두 소멸된다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th><code>TArray</code></th>
+<th><code>TSet</code></th>
+<th><code>TMap</code></th>
+<th><code>TMultiMap</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>구현 방식</strong></td>
+<td>동적 배열</td>
+<td>해시 테이블</td>
+<td>해시 테이블</td>
+<td>해시 테이블</td>
+</tr>
+<tr>
+<td><strong>저장 방식</strong></td>
+<td>연속 저장</td>
+<td>이빠진 배열<br />삽입 시 중간에 <br />빈 공간으로 들어간다.<br />(순서 보장 X)</td>
+<td>이빠진 배열<br />삽입 시 중간에 <br />빈 공간으로 들어간다.<br />(순서 보장 X)</td>
+<td>이빠진 배열<br />삽입 시 중간에 <br />빈 공간으로 들어간다.<br />(순서 보장 X)</td>
+</tr>
+<tr>
+<td><strong>접근 방식</strong></td>
+<td>Via Index</td>
+<td>Via Key</td>
+<td>Via Key</td>
+<td>Via Key</td>
+</tr>
+<tr>
+<td><strong>중간 삽입 시<br />원소 밀어냄</strong></td>
+<td>O</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td><strong>중복 가능</strong></td>
+<td>O</td>
+<td>X <br />(새 값으로 대체됨)</td>
+<td>X <br />(새 값으로 대체됨)</td>
+<td>O</td>
+</tr>
+<tr>
+<td><strong>자동 정렬</strong></td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td><strong>이럴 때 사용하자!</strong></td>
+<td>고속 순회<br />랜덤 접근</td>
+<td>빠른 중복 감지</td>
+<td>중복 없이<br />Key, Value로 관리</td>
+<td>중복 있게<br />Key, Value로 관리</td>
+</tr>
+</tbody>
+</table>
+<br />
+<ul>
+<li>시간 복잡도는 다음과 같다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th style="text-align:center"><code>TArray</code></th>
+<th style="text-align:center"><code>TSet</code>, <code>TMap</code>, <code>TMultiMap</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>접근</strong></td>
+<td style="text-align:center">$O(1)$</td>
+<td style="text-align:center">$O(1)$</td>
+</tr>
+<tr>
+<td><strong>검색</strong></td>
+<td style="text-align:center">$O(N)$</td>
+<td style="text-align:center">$O(1)$</td>
+</tr>
+<tr>
+<td><strong>삽입</strong></td>
+<td style="text-align:center">$O(N)$</td>
+<td style="text-align:center">$O(1)$</td>
+</tr>
+<tr>
+<td><strong>삭제</strong></td>
+<td style="text-align:center">$O(N)$</td>
+<td style="text-align:center">$O(1)$</td>
+</tr>
+</tbody>
+</table>
+<p><br /><br /></p>
+<h2 id="tarray와-슬랙" class="relative group"><code>TArray</code>와 슬랙 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#tarray%ec%99%80-%ec%8a%ac%eb%9e%99" aria-label="Anchor">#</a></span></h2><ul>
+<li>매번 재할당하는 것을 피하기 위해서 얼로케이터는 요청한 것보다 넉넉한 메모리를 마련한다.</li>
+<li>그리고 엘리먼트를 삭제한다고 해서 메모리가 해제되진 않는다. 따라서 <strong>배열에 슬랙(slack: 여유분)이 남게 된다.</strong></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">TArray</span><span class="o">&lt;</span><span class="n">int32</span><span class="o">&gt;</span> <span class="n">SlackArray</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.GetSlack() == 0 // 비어 있는 슬랙 개수 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Num()      == 0 // 데이터가 있는 요소 개수
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Max()      == 0 // 비어 있는 슬랙 + 데이터가 있는 요소 개수 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">SlackArray</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.GetSlack() == 3
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Num()      == 1
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Max()      == 4
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">SlackArray</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">SlackArray</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">SlackArray</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">SlackArray</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.GetSlack() == 17
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Num()      == 5
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Max()      == 22
+</span></span></span></code></pre></div><br />
+<ul>
+<li><code>Empty()</code>
+<ul>
+<li>슬랙 인수를 받아서 해당 개수만큼 슬랙을 만든다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">SlackArray</span><span class="p">.</span><span class="n">Empty</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.GetSlack() == 0
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Num()      == 0
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Max()      == 0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">SlackArray</span><span class="p">.</span><span class="n">Empty</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.GetSlack() == 3
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Num()      == 0
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Max()      == 3
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">SlackArray</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">SlackArray</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">SlackArray</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.GetSlack() == 0
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Num()      == 3
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Max()      == 3
+</span></span></span></code></pre></div><br />
+<ul>
+<li><code>Reset()</code>
+<ul>
+<li>슬랙 인수를 받아서 해당 개수만큼 슬랙을 만드는데,</li>
+<li>요청된 슬랙이 현재 할당으로 충분한 경우 메모리를 해제하지 않는다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">SlackArray</span><span class="p">.</span><span class="n">Reset</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.GetSlack() == 3
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Num()      == 0
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Max()      == 3
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">SlackArray</span><span class="p">.</span><span class="n">Reset</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.GetSlack() == 10
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Num()      == 0
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Max()      == 10
+</span></span></span></code></pre></div><br />
+<ul>
+<li><code>Shrink()</code>
+<ul>
+<li>모든 슬랙을 제거해서 현재 엘리먼트 저장에 필요한 최소 크기로 할당을 조정한다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">SlackArray</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">SlackArray</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">SlackArray</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">SlackArray</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.GetSlack() == 6
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Num()      == 4
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Max()      == 10
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">SlackArray</span><span class="p">.</span><span class="n">Shrink</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.GetSlack() == 0
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Num()      == 4
+</span></span></span><span class="line"><span class="cl"><span class="c1">// SlackArray.Max()      == 4
+</span></span></span></code></pre></div><p><br /><br /></p>
+<h2 id="tset-tmap은-이빠진-배열" class="relative group"><code>TSet</code>, <code>TMap</code>은 이빠진 배열 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#tset-tmap%ec%9d%80-%ec%9d%b4%eb%b9%a0%ec%a7%84-%eb%b0%b0%ec%97%b4" aria-label="Anchor">#</a></span></h2><ul>
+<li><code>TSet</code>과 <code>TMap</code>은 이빨이 빠져 있다. 그래서 데이터가 추가되면 그 빈 공간으로 들어가므로, 엘리먼트들의 순서를 보장할 수가 없다.</li>
+</ul>
+<br />
+<ul>
+<li><code>TSet</code>에 원소를 넣고 몇 개를 빼보자.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">TSet</span><span class="o">&lt;</span><span class="n">int32</span><span class="o">&gt;</span> <span class="n">Int32Set</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="n">int32</span> <span class="n">ix</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">ix</span> <span class="o">&lt;=</span> <span class="n">ArrayNum</span><span class="p">;</span> <span class="o">++</span><span class="n">ix</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Int32Set</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">ix</span><span class="p">);</span> <span class="c1">// 1 ~ 10을 채워넣는다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 짝수를 모두 제거한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Int32Set</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl"><span class="n">Int32Set</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Int32Set</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Int32Set</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Int32Set</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>보여지는 것은 5개의 엘리먼트이지만, 안에 들어가보면 Invalid들이 있다는 것을 알 수 있다. (이빨이 빠져있다)</li>
+<li>실제 메모리는 처음 할당한 그대로 10개를 차지하고 있다.</li>
+</ul>
+<p>
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/unreal/images/05-01-removeEven.png" alt="짝수 원소를 제거한 후 디버깅 결과" class="mx-auto my-0 rounded-md" />
+</figure>
+</p>
+<br />
+<ul>
+<li>짝수를 다시 넣으면?</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// 짝수를 다시 넣는다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Int32Set</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl"><span class="n">Int32Set</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Int32Set</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Int32Set</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Int32Set</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>채워 넣을 때는 가장 마지막에 빠진 곳부터 채워진다.
+<ul>
+<li><code>10</code> 을 가장 마지막에 뺐으므로 <code>10</code> 이 있던 공간(9번 인덱스)부터 채워진다. (순서를 보장할 수 없다)</li>
+</ul>
+</li>
+</ul>
+<p>
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/unreal/images/05-02-addEven.png" alt="짝수 원소를 다시 넣은 후 디버깅 결과" class="mx-auto my-0 rounded-md" />
+</figure>
+</p>
+<p><br /><br /></p>
+<h2 id="tset-tmap에-커스텀-key를-사용하는-방법" class="relative group"><code>TSet</code>, <code>TMap</code>에 커스텀 Key를 사용하는 방법 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#tset-tmap%ec%97%90-%ec%bb%a4%ec%8a%a4%ed%85%80-key%eb%a5%bc-%ec%82%ac%ec%9a%a9%ed%95%98%eb%8a%94-%eb%b0%a9%eb%b2%95" aria-label="Anchor">#</a></span></h2><ul>
+<li>예를 들어, 커스텀 구조체를 Key로 사용하고 싶다고 하자.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">FMyStruct</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 고유한 Key이다.  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">FString</span> <span class="n">UniqueID</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 이것은 중복될 수 있는 값이다. 이건 Key의 고유성을 판별하는 데 필요없는 값이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">float</span> <span class="n">SomeFloat</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">explicit</span> <span class="nf">FMyStruct</span><span class="p">(</span><span class="kt">float</span> <span class="n">InFloat</span><span class="p">)</span> <span class="o">:</span> <span class="n">UniqueID</span> <span class="p">(</span><span class="n">FGuid</span><span class="o">::</span><span class="n">NewGuid</span><span class="p">().</span><span class="n">ToString</span><span class="p">()),</span> <span class="n">SomeFloat</span><span class="p">(</span><span class="n">InFloat</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>커스텀 구조체는 고유성을 판별하기 위한 <code>opreator==()</code> 와 <code>GetTypeHash()</code>가 없으므로, 컴파일 에러가 발생한다. 따라서 추가해주어야 Key로 사용할 수 있다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">FMyStruct</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// (1) 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span> <span class="n">FMyStruct</span><span class="o">&amp;</span> <span class="n">InOther</span><span class="p">)</span> <span class="k">const</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">UniqueID</span> <span class="o">==</span> <span class="n">InOther</span><span class="p">.</span><span class="n">UniqueID</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// (2) 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">friend</span> <span class="n">FORCEINLINE</span> <span class="n">uint32</span> <span class="nf">GetTypeHash</span><span class="p">(</span><span class="k">const</span> <span class="n">FMyStruct</span><span class="o">&amp;</span> <span class="n">InData</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">GetTypeHash</span><span class="p">(</span><span class="n">InData</span><span class="p">.</span><span class="n">UniqueID</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>하지만 이런 함수를 만드는 것이 바람직하지 않은 경우에는 별도의 커스텀 KeyFuncs 를 제공하면 된다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">ValueType</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">TMyStructMapKeyFuncs</span> <span class="o">:</span> <span class="n">BaseKeyFuncs</span><span class="o">&lt;</span><span class="n">TPair</span><span class="o">&lt;</span><span class="n">FMyStruct</span><span class="p">,</span> <span class="n">ValueType</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">FString</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">typedef</span> <span class="n">BaseKeyFuncs</span><span class="o">&lt;</span><span class="n">TPair</span><span class="o">&lt;</span><span class="n">FMyStruct</span><span class="p">,</span> <span class="n">ValueType</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">FString</span><span class="o">&gt;</span> <span class="n">Super</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// (1) 키 전달에 사용
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">typedef</span> <span class="k">typename</span> <span class="n">Super</span><span class="o">::</span><span class="n">KeyInitType</span>     <span class="n">KeyInitType</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// (2) 엘리먼트 전달에 사용
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">typedef</span> <span class="k">typename</span> <span class="n">Super</span><span class="o">::</span><span class="n">ElementInitType</span> <span class="n">ElementInitType</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// (3) 엘리먼트의 키를 반환
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">static</span> <span class="n">KeyInitType</span> <span class="nf">GetSetKey</span><span class="p">(</span><span class="n">ElementInitType</span> <span class="n">Element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">Element</span><span class="p">.</span><span class="n">Key</span><span class="p">.</span><span class="n">UniqueID</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// (4) A 와 B 가 동일하면 true, 아니면 false 를 반환
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">static</span> <span class="kt">bool</span> <span class="nf">Matches</span><span class="p">(</span><span class="n">KeyInitType</span> <span class="n">A</span><span class="p">,</span> <span class="n">KeyInitType</span> <span class="n">B</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">A</span><span class="p">.</span><span class="n">Compare</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">ESearchCase</span><span class="o">::</span><span class="n">CaseSensitive</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// (5) 키의 해시 값을 반환
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">static</span> <span class="n">uint32</span> <span class="nf">GetKeyHash</span><span class="p">(</span><span class="n">KeyInitType</span> <span class="n">Key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">FCrc</span><span class="o">::</span><span class="n">StrCrc32</span><span class="p">(</span><span class="o">*</span><span class="n">Key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="stl과의-차이점" class="relative group">STL과의 차이점 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#stl%ea%b3%bc%ec%9d%98-%ec%b0%a8%ec%9d%b4%ec%a0%90" aria-label="Anchor">#</a></span></h2><ul>
+<li><code>TArray</code>의 경우 STL의 <code>vector</code> 와 동작 원리가 유사하다.</li>
+</ul>
+<br />
+<ul>
+<li>반면 <code>TSet</code>, <code>TMap</code>은 STL의 <code>set</code>, <code>map</code>과 차이점이 있다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th><code>set</code>, <code>map</code></th>
+<th><code>TSet</code>, <code>TMap</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>구현 방식</strong></td>
+<td>이진 트리</td>
+<td>해시 테이블</td>
+</tr>
+<tr>
+<td><strong>저장 방식</strong></td>
+<td>불연속 저장<br />순회에 적합하지 않음</td>
+<td>동적 배열 형태 (모여 있다)<br />빠르게 순회 가능</td>
+</tr>
+<tr>
+<td><strong>중복 가능</strong></td>
+<td>X<br />(첫 값만 유지)</td>
+<td>X<br />(새 값으로 대체됨)</td>
+</tr>
+<tr>
+<td><strong>자동 정렬</strong></td>
+<td>O<br />(삭제 시 재구축이 일어남)</td>
+<td>X<br />(재구축 없음)</td>
+</tr>
+<tr>
+<td><strong>비어 있는 데이터</strong></td>
+<td>없음</td>
+<td>있을 수 있음</td>
+</tr>
+</tbody>
+</table>
+<p><br /><br /></p>
+<h2 id="references" class="relative group">References <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#references" aria-label="Anchor">#</a></span></h2><ul>
+<li>
+<a href="https://www.inflearn.com/course/%EC%9D%B4%EB%93%9D%EC%9A%B0-%EC%96%B8%EB%A6%AC%EC%96%BC-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-part-1" target="_blank" rel="noreferrer">강의 : 이득우의 언리얼 프로그래밍 Part1 - 언리얼 C++의 이해 </a></li>
+</ul>
+<p><br /><br /></p>
+
+      </div>
+    </section>
+    <footer class="max-w-prose pt-8 print:hidden">
+      
+  <div class="flex">
+    
+    
+    
+      
+      
+        
+        
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+      
+    >
+      
+      
+      
+      
+      <img
+        width="500"
+        height="500"
+        class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+        alt="Pero"
+        loading="lazy" decoding="async"
+        
+          src="/main.jpg"
+        
+      />
+    </picture>
+  
+
+
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          Pero
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">Keep moving forward.</div>
+      
+      <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="mailto:peropeq@gmail.com"
+          target="_blank"
+          aria-label="Email"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+    </div>
+  </div>
+
+
+      
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="/post/unreal/unreal-04/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[Unreal] 언리얼 구조체</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-08-01 01:00:00 &#43;0900 KST">1 August 2023</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="group flex text-right" href="/post/unreal/unreal-06/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[Unreal] 언리얼 메모리 관리, GC, 스마트 포인터</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-08-04 01:00:00 &#43;0900 KST">4 August 2023</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&rarr;</span
+                ><span class="ltr:hidden rtl:inline">&larr;</span></span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+          <div class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12">
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            ⓒ 2022. Pero.
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a>
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+    </div>
+  </div>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm sm:p-6 md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50"
+  data-url="https://frompero.github.io/"
+>
+  <div
+    id="search-modal"
+    class="top-20 mx-auto flex min-h-0 w-full max-w-3xl flex-col rounded-md border border-neutral-200 bg-neutral shadow-lg dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex flex-none items-center justify-between px-2">
+      <form class="flex min-w-0 flex-auto items-center">
+        <div class="flex h-8 w-8 items-center justify-center text-neutral-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="mx-1 flex h-12 flex-auto appearance-none bg-transparent focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex h-8 w-8 items-center justify-center text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto overflow-auto px-2">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1556 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="rgb(255,255,255)" />
+  
+  <title>[This is C#] Chapter 19. 스레드와 태스크 &middot; from Pero</title>
+    <meta name="title" content="[This is C#] Chapter 19. 스레드와 태스크 &middot; from Pero" />
+  
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.022d0ebc3b46a335eb1c7ef79b7f2de143d7cd5156d433638592ef1ce5f8554e.js"
+    integrity="sha256-Ai0OvDtGozXrHH73m38t4UPXzVFW1DNjhZLvHOX4VU4="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.afb4a97d267bd0c2e9391dd7b62a45afcd549fea29cb7747564f0cb36db70f1b.css"
+    integrity="sha256-r7SpfSZ70MLpOR3XtipFr81Un&#43;opy3dHVk8Ms223Dxs="
+  />
+  
+    
+    
+    
+  
+  
+  
+    
+    
+  
+  
+    
+    
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.5b9218820e6c6b9f04b4c5a03dffd0d57bc9189f511ee80ea74222de3a608e2f.js"
+      integrity="sha256-W5IYgg5sa58EtMWgPf/Q1XvJGJ9RHugOp0Ii3jpgji8="
+      data-copy="Copy"
+      data-copied="Copied"
+    ></script>
+  
+  
+  <meta
+    name="description"
+    content="
+      
+        이것이 C#이다 책을 읽고 공부한 노트입니다.
+      
+    "
+  />
+  
+  
+  
+  <link rel="canonical" href="https://frompero.github.io/post/csharp/this-is-c-sharp-19/" />
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="[This is C#] Chapter 19. 스레드와 태스크" />
+<meta property="og:description" content="이것이 C#이다 책을 읽고 공부한 노트입니다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://frompero.github.io/post/csharp/this-is-c-sharp-19/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-04-18T01:00:00+09:00" />
+<meta property="article:modified_time" content="2022-04-18T01:00:00+09:00" />
+
+
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="[This is C#] Chapter 19. 스레드와 태스크"/>
+<meta name="twitter:description" content="이것이 C#이다 책을 읽고 공부한 노트입니다."/>
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "[This is C#] Chapter 19. 스레드와 태스크",
+    "headline": "[This is C#] Chapter 19. 스레드와 태스크",
+    
+    "abstract": "이것이 C#이다 책을 읽고 공부한 노트입니다.",
+    "inLanguage": "en",
+    "url" : "https:\/\/frompero.github.io\/post\/csharp\/this-is-c-sharp-19\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Pero"
+    },
+    "copyrightYear": "2022",
+    "dateCreated": "2022-04-18T01:00:00\u002b09:00",
+    "datePublished": "2022-04-18T01:00:00\u002b09:00",
+    
+    "dateModified": "2022-04-18T01:00:00\u002b09:00",
+    
+    "keywords": ["C-Sharp"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1459"
+  }
+  </script>
+
+
+  
+  <meta name="author" content="Pero" />
+  
+    
+      <link href="mailto:peropeq@gmail.com" rel="me" />
+    
+  
+  
+  
+
+
+
+
+
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/lib/katex/katex.min.7c7c1a59e6eec00ecd485e5083f69fe14783c7d5ea52962938682e6e8df25aef9bd88411e14790c1b6f8d938bb81502336d56823f23d4c4a187aef689b0702ea.css"
+    integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu&#43;b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g=="
+  />
+  
+  
+  <script
+    defer
+    src="/lib/katex/katex.min.2d037120c479ad7bfba3e6f597cf8dd4464c7e11bb88567d1e19db2644e9e338cdaf95afb2def902a51e143c5e4546bb979bc40f2522022a7ffebf8414b2c2c8.js"
+    integrity="sha512-LQNxIMR5rXv7o&#43;b1l8&#43;N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r&#43;EFLLCyA=="
+  ></script>
+  
+  
+  <script
+    defer
+    src="/lib/katex/auto-render.min.e6511c3458afadbb974a54c917a45e383efdb02303964d83fdb17ff69367d6d871a53a09973ffec8c9d3525c7b8c64602e6c16a64842884ad60989a16d953fd0.js"
+    integrity="sha512-5lEcNFivrbuXSlTJF6ReOD79sCMDlk2D/bF/9pNn1thxpToJlz/&#43;yMnTUlx7jGRgLmwWpkhCiErWCYmhbZU/0A=="
+    onload="renderMathInElement(document.body);"
+  ></script>
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+  
+  
+  
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QBM4YPD699"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-QBM4YPD699', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+  
+  
+</head>
+<body
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 sm:px-14 md:px-24 lg:px-32 dark:bg-neutral-800 dark:text-neutral"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="-translate-y-8 rounded-b-lg bg-primary-200 px-3 py-1 text-sm focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="pe-2 font-bold text-primary-600 dark:text-primary-400">&darr;</span
+        >Skip to main content</a
+      >
+    </div>
+    
+    
+      <header class="py-6 font-semibold text-neutral-900 print:hidden sm:py-10 dark:text-neutral">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="z-40 flex flex-row items-center">
+      
+  <a
+    class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+    rel="me"
+    href="/"
+    >from Pero</a
+  >
+
+    </div>
+    
+      
+      <label id="menu-button" for="menu-controller" class="block sm:hidden">
+        <input type="checkbox" id="menu-controller" class="hidden" />
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="invisible fixed inset-0 z-30 m-auto h-full w-full cursor-default overflow-auto bg-neutral-100/50 opacity-0 backdrop-blur-sm transition-opacity dark:bg-neutral-900/50"
+        >
+          <ul
+            class="mx-auto flex w-full max-w-7xl list-none flex-col overflow-visible px-6 py-6 text-end sm:px-14 sm:py-10 sm:pt-10 md:px-24 lg:px-32"
+          >
+            <li class="mb-1">
+              <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400"
+                ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span></span
+              >
+            </li>
+            
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/post/"
+                      title="Posts"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Posts</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/categories/"
+                      title="Categories"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Categories</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/tags/"
+                      title="Tags"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Tags</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    
+                      <button
+                        id="search-button-1"
+                        title="Search (/)"
+                      >
+                        
+                          <span
+                            class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                          ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </button>
+                    
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    <button
+                      id="appearance-switcher-1"
+                      type="button"
+                      aria-label="appearance switcher"
+                    >
+                      <span
+                        class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                        title="Switch to dark appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                      <span
+                        class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                        title="Switch to light appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                    </button>
+                  
+                </li>
+              
+              
+            
+          </ul>
+        </div>
+      </label>
+      
+      <ul class="hidden list-none flex-row text-end sm:flex">
+        
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/post/"
+                  title="Posts"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Posts</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/categories/"
+                  title="Categories"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Categories</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/tags/"
+                  title="Tags"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Tags</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                
+                  <button
+                    id="search-button-2"
+                    title="Search (/)"
+                  >
+                    
+                      <span
+                        class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                      ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </button>
+                
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                <button
+                  id="appearance-switcher-2"
+                  type="button"
+                  aria-label="appearance switcher"
+                >
+                  <span
+                    class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                    title="Switch to dark appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                  <span
+                    class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                    title="Switch to light appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                </button>
+              
+            </li>
+          
+          
+
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex grow flex-col">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        [This is C#] Chapter 19. 스레드와 태스크
+      </h1>
+      
+        <div class="mb-12 mt-8 text-base text-neutral-500 print:hidden dark:text-neutral-400">
+          
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2022-04-18 01:00:00 &#43;0900 KST">18 April 2022</time>
+    
+
+    
+    
+  </div>
+
+  
+  
+
+
+        </div>
+      
+      
+    </header>
+    <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+      
+        <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
+          <div class="toc pe-5 print:hidden lg:sticky lg:top-10">
+            <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
+  <summary
+    class="-ms-5 block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 lg:hidden dark:bg-neutral-700 dark:text-neutral-100"
+  >
+    Table of Contents
+  </summary>
+  <div class="-ms-5 border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#프로세스와-스레드">프로세스와 스레드</a>
+      <ul>
+        <li><a href="#스레드-시작하기">스레드 시작하기</a></li>
+        <li><a href="#스레드-임의로-종료시키기">스레드 임의로 종료시키기</a></li>
+        <li><a href="#스레드의-상태-변화">스레드의 상태 변화</a></li>
+        <li><a href="#인터럽트-스레드를-임의로-종료하는-다른-방법">인터럽트: 스레드를 임의로 종료하는 다른 방법</a></li>
+        <li><a href="#스레드-간의-동기화">스레드 간의 동기화</a></li>
+      </ul>
+    </li>
+    <li><a href="#task와-taskresult-그리고-parallel">Task와 Task<Result> 그리고 Parallel</a>
+      <ul>
+        <li><a href="#systemthreadingtaskstask-클래스">System.Threading.Tasks.Task 클래스</a></li>
+        <li><a href="#코드의-비동기-실행-결과를-주는-taskresult-클래스">코드의 비동기 실행 결과를 주는 Task<Result> 클래스</a></li>
+        <li><a href="#손쉬운-병렬-처리를-가능케-하는-parallel-클래스">손쉬운 병렬 처리를 가능케 하는 Parallel 클래스</a></li>
+      </ul>
+    </li>
+    <li><a href="#async-한정자와-await-연산자로-만드는-비동기-코드">async 한정자와 await 연산자로 만드는 비동기 코드</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+          </div>
+        </div>
+      
+      <div class="min-h-0 min-w-0 max-w-prose grow">
+        <div style="text-align: right"> 
+<p>
+<a href="http://www.yes24.com/Product/Goods/96674785" target="_blank" rel="noreferrer">이것이 C#이다</a> 책을 읽고 공부한 노트입니다.</p>
+</div>
+<hr>
+<p><br /><br /></p>
+<h2 id="프로세스와-스레드" class="relative group">프로세스와 스레드 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%94%84%eb%a1%9c%ec%84%b8%ec%8a%a4%ec%99%80-%ec%8a%a4%eb%a0%88%eb%93%9c" aria-label="Anchor">#</a></span></h2><ul>
+<li>프로세스(Process)
+<ul>
+<li>프로그램이 실행되어 메모리에 적재된 인스턴스이다.</li>
+</ul>
+</li>
+<li>스레드(Thread)
+<ul>
+<li>프로세스 내에서 실행되는 흐름의 단위이다.</li>
+<li>운영체제가 CPU 시간을 할당하는 기본 단위이다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>멀티 스레드의 장점
+<ul>
+<li>응답성을 높일 수 있다.</li>
+<li>자원 공유가 쉽다.</li>
+<li>자원을 공유하므로 경제적이다.</li>
+</ul>
+</li>
+<li>멀티 스레드의 단점
+<ul>
+<li>구현이 까다롭다.</li>
+<li>스레드를 너무 많이 사용하면 문맥교환이 잦아져서 오히려 성능이 더 저하된다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<h3 id="스레드-시작하기" class="relative group">스레드 시작하기 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%8a%a4%eb%a0%88%eb%93%9c-%ec%8b%9c%ec%9e%91%ed%95%98%ea%b8%b0" aria-label="Anchor">#</a></span></h3><ul>
+<li>.NET은 스레드를 제어하는 <code>System.Threading.Thread</code> 클래스를 제공한다.
+<ol>
+<li><code>Thread</code>의 인스턴스를 생성한다. 인수로 실행할 메소드를 넘긴다.</li>
+<li><code>Thread.Start()</code>메소드를 호출해서 스레드를 시작한다.</li>
+<li><code>Thread.Join()</code>메소드를 호출해서 스레드가 끝날 때까지 기다린다.</li>
+</ol>
+</li>
+</ul>
+<br />
+<h3 id="스레드-임의로-종료시키기" class="relative group">스레드 임의로 종료시키기 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%8a%a4%eb%a0%88%eb%93%9c-%ec%9e%84%ec%9d%98%eb%a1%9c-%ec%a2%85%eb%a3%8c%ec%8b%9c%ed%82%a4%ea%b8%b0" aria-label="Anchor">#</a></span></h3><ul>
+<li><code>Thread.Abort()</code>메소드를 호출하면 즉시 종료되지는 않는다.
+<ul>
+<li>CLR은 해당 스레드가 실행 중이던 코드에 <code>ThreadAbortException</code>을 던진다. 이 때 예외를 <code>catch</code>하는 코드가 있으면 처리한 다음 <code>finally</code> 블록까지 실행한 후에야 해당 스레드는 완전히 종료된다.</li>
+<li>왠만하면 사용하지 않는 것이 좋다. 해당 스레드가 독점 자원을 잠근 후 종료되면, 그 자원은 해제되지 못하기 때문이다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<h3 id="스레드의-상태-변화" class="relative group">스레드의 상태 변화 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%8a%a4%eb%a0%88%eb%93%9c%ec%9d%98-%ec%83%81%ed%83%9c-%eb%b3%80%ed%99%94" aria-label="Anchor">#</a></span></h3><ul>
+<li>.NET은 스레드의 상태를 <code>ThreadState</code> 열거형에 정의해두었다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>상태</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unstarted</td>
+<td>스레드 객체를 생성한 후 <code>Thread.Start()</code> 메소드가 호출되기 전의 상태이다.</td>
+</tr>
+<tr>
+<td>Running</td>
+<td>스레드가 시작하여 동작 중인 상태이다. <code>Unstarted</code>에서 <code>Thread.Start()</code>하면 이 상태가 된다.</td>
+</tr>
+<tr>
+<td>Suspended</td>
+<td>스레드의 일시 중단 상태이다. <code>Thread.Suspend()</code> 메소드를 통해 이 상태로 만들 수 있으며, <code>Thread.Resume()</code> 메소드를 통해 다시 <code>Running</code> 상태로 만들 수 있다.</td>
+</tr>
+<tr>
+<td>WaitSleepJoin</td>
+<td>스레드가 블록(Block)된 상태이다. <code>Monitor.Enter()</code>나 <code>Thread.Sleep()</code>나 <code>Thread.Join()</code> 메소드를 호출하면 이 상태가 된다.</td>
+</tr>
+<tr>
+<td>Aborted</td>
+<td>스레드가 취소된 상태이다. <code>Thread.Abort()</code> 메소드를 호출하면 이 상태가 된다. 이후 <code>Stopped</code> 상태로 전환되어 완전히 중지된다.</td>
+</tr>
+<tr>
+<td>Stopped</td>
+<td>스레드가 중지된 상태이다. <code>Thread.Abort()</code> 메소드를 호출하거나 실행 중인 메소드가 종료되면 이 상태가 된다.</td>
+</tr>
+<tr>
+<td>Background</td>
+<td>스레드가 백그라운드로 동작하고 있음을 나타낸다. 포어그라운드의 경우 스레드가 하나라도 살아 있으면 프로세스가 죽지 않는다. 반면 백그라운드의 경우 스레드가 살아 있는지와 관계없이 프로세스가 죽으면 스레드도 모두 죽는다.</td>
+</tr>
+</tbody>
+</table>
+<br />
+<ul>
+<li><code>ThreadState</code> 열거형은 <code>Flags</code>애트리뷰트를 갖고 있다.
+<ul>
+<li>따라서 이 열거형의 요소들의 집합으로 표현할 수 있다. 즉, 비트 필드(Bit field)로 처리할 수 있다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="na">[Flags]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">enum</span> <span class="n">MyEnum</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Apple</span> <span class="p">=</span> <span class="m">1</span> <span class="p">&lt;&lt;</span> <span class="m">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Orange</span> <span class="p">=</span> <span class="m">1</span> <span class="p">&lt;&lt;</span> <span class="m">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Kiwi</span> <span class="p">=</span> <span class="m">1</span> <span class="p">&lt;&lt;</span> <span class="m">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Mango</span> <span class="p">=</span> <span class="m">1</span> <span class="p">&lt;&lt;</span> <span class="m">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">((</span><span class="n">MyEnum</span><span class="p">)</span> <span class="m">1</span><span class="p">);</span>       <span class="c1">// Apple</span>
+</span></span><span class="line"><span class="cl"><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">((</span><span class="n">MyEnum</span><span class="p">)</span> <span class="p">(</span><span class="m">1</span> <span class="p">|</span> <span class="m">4</span><span class="p">));</span> <span class="c1">// Apple, Kiwi </span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Flags 애트리뷰트를 갖고 있는 열거형은 요소의 집합으로 표현될 수 있다.</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>비트 연산을 통해 <code>ThreadState</code> 필드의 값을 확인할 수 있다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>상태</th>
+<th>10진수</th>
+<th>2진수</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Running</code></td>
+<td>0</td>
+<td>000000000</td>
+</tr>
+<tr>
+<td><code>StopRequested</code></td>
+<td>1</td>
+<td>000000001</td>
+</tr>
+<tr>
+<td><code>SuspendRequested</code></td>
+<td>2</td>
+<td>000000010</td>
+</tr>
+<tr>
+<td><code>Background</code></td>
+<td>4</td>
+<td>000000100</td>
+</tr>
+<tr>
+<td><code>Unstarted</code></td>
+<td>8</td>
+<td>000001000</td>
+</tr>
+<tr>
+<td><code>Stopped</code></td>
+<td>16</td>
+<td>000010000</td>
+</tr>
+<tr>
+<td><code>WaitSleepJoin</code></td>
+<td>32</td>
+<td>000100000</td>
+</tr>
+<tr>
+<td><code>Suspended</code></td>
+<td>64</td>
+<td>001000000</td>
+</tr>
+<tr>
+<td><code>AbortRequested</code></td>
+<td>128</td>
+<td>010000000</td>
+</tr>
+<tr>
+<td><code>Aborted</code></td>
+<td>256</td>
+<td>100000000</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">Thread</span> <span class="n">th</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="p">(...);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">((</span><span class="n">th</span><span class="p">.</span><span class="n">ThreadState</span> <span class="p">&amp;</span> <span class="n">ThreadState</span><span class="p">.</span><span class="n">Aborted</span><span class="p">)</span> <span class="p">==</span> <span class="n">ThreadState</span><span class="p">.</span><span class="n">Aborted</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;스레드가 정지했습니다.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span> <span class="k">if</span> <span class="p">((</span><span class="n">th</span><span class="p">.</span><span class="n">ThreadState</span> <span class="p">&amp;</span> <span class="n">ThreadState</span><span class="p">.</span><span class="n">Stopped</span><span class="p">)</span> <span class="p">==</span> <span class="n">ThreadState</span><span class="p">.</span><span class="n">Stopped</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;스레드가 취소되었습니다.&#34;</span><span class="p">);</span>
+</span></span></code></pre></div><br />
+<h3 id="인터럽트-스레드를-임의로-종료하는-다른-방법" class="relative group">인터럽트: 스레드를 임의로 종료하는 다른 방법 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%9d%b8%ed%84%b0%eb%9f%bd%ed%8a%b8-%ec%8a%a4%eb%a0%88%eb%93%9c%eb%a5%bc-%ec%9e%84%ec%9d%98%eb%a1%9c-%ec%a2%85%eb%a3%8c%ed%95%98%eb%8a%94-%eb%8b%a4%eb%a5%b8-%eb%b0%a9%eb%b2%95" aria-label="Anchor">#</a></span></h3><ul>
+<li><code>Thread.Interrupt()</code>메소드
+<ul>
+<li><code>Thread.Abort()</code>메소드는 강제로 종료하지만, <code>Thread.Interrupt()</code>메소드는 스레드가 동작중인 상태(Running 상태)를 피해서 WaitJoinSleep상태에 들어갔을 때 <code>ThreadInterruptedException</code> 예외를 던져서 스레드를 중지시킨다.</li>
+<li>절대로 중단되면 안 되는 작업을 하고 있을 때는 중단되지 않는다는 보장을 받을 수 있다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<h3 id="스레드-간의-동기화" class="relative group">스레드 간의 동기화 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%8a%a4%eb%a0%88%eb%93%9c-%ea%b0%84%ec%9d%98-%eb%8f%99%ea%b8%b0%ed%99%94" aria-label="Anchor">#</a></span></h3><ul>
+<li><strong>동기화(Synchronization)</strong>
+<ul>
+<li>스레드의 자원에 대한 접근을 제어하는 방법이다.</li>
+<li>스레드 동기화에서 가장 중요한 것은 <strong>자원을 한 번에 하나의 스레드가 사용</strong>하도록 보장하는 것이다.</li>
+<li>.NET은 <code>lock</code> 키워드와 <code>Monitor</code> 클래스를 제공한다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>
+<p><code>lock</code> 키워드로 동기화하기</p>
+<ul>
+<li><code>lock</code> 키워드로 코드 영역을 감싸주면 <strong>크리티컬 섹션</strong>으로 바꿀 수 있다.</li>
+<li>한 스레드가 그 코드를 실행하고 마칠 때까지 다른 스레드는 그 코드 영역을 실행할 수 없다.</li>
+</ul>
+</li>
+<li>
+<p><code>lock</code> 키원드의 매개변수로 사용하는 객체로 <strong>부적절한 것들</strong>이 있다. 외부 코드에서도 접근할 수 있는 것은 안 된다.</p>
+<ul>
+<li><code>this</code></li>
+<li><code>Type</code> 형식
+<ul>
+<li><code>typeof</code> 연산자나 <code>GetType()</code>메소드는 피하자.</li>
+</ul>
+</li>
+<li><code>string</code> 형식</li>
+</ul>
+</li>
+</ul>
+<br />
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Counter</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">const</span> <span class="kt">int</span> <span class="n">LOOP_COUNT</span> <span class="p">=</span> <span class="m">100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="k">readonly</span> <span class="kt">object</span> <span class="n">thisLock</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kt">int</span> <span class="n">count</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">int</span> <span class="n">Count</span> <span class="p">{</span> <span class="k">get</span> <span class="p">=&gt;</span> <span class="n">count</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Counter</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">thisLock</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">object</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">count</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="k">void</span> <span class="n">Increase</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">loopCount</span> <span class="p">=</span> <span class="n">LOOP_COUNT</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="p">(</span><span class="n">loopCount</span><span class="p">--</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">lock</span> <span class="p">(</span><span class="n">thisLock</span><span class="p">)</span> <span class="c1">// 여기는 크리티컬 섹션이다</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">count</span><span class="p">++;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;Increase: {count}&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="k">void</span> <span class="n">Decrease</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">loopCount</span> <span class="p">=</span> <span class="n">LOOP_COUNT</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="p">(</span><span class="n">loopCount</span><span class="p">--</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">lock</span> <span class="p">(</span><span class="n">thisLock</span><span class="p">)</span> <span class="c1">// 여기는 크리티컬 섹션이다</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">count</span><span class="p">--;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;Decrease: {count}&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MainApp</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Counter</span> <span class="n">counter</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Counter</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 두 개의 스레드 </span>
+</span></span><span class="line"><span class="cl">        <span class="n">Thread</span> <span class="n">inc</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="p">(</span><span class="k">new</span> <span class="n">ThreadStart</span><span class="p">(</span><span class="n">counter</span><span class="p">.</span><span class="n">Increase</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Thread</span> <span class="n">dec</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="p">(</span><span class="k">new</span> <span class="n">ThreadStart</span><span class="p">(</span><span class="n">counter</span><span class="p">.</span><span class="n">Decrease</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 스레드 시작</span>
+</span></span><span class="line"><span class="cl">        <span class="n">inc</span><span class="p">.</span><span class="n">Start</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dec</span><span class="p">.</span><span class="n">Start</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 스레드가 끝날 때까지 기다린다</span>
+</span></span><span class="line"><span class="cl">        <span class="n">inc</span><span class="p">.</span><span class="n">Join</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dec</span><span class="p">.</span><span class="n">Join</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;Count: {counter.Count}&#34;</span><span class="p">);</span> <span class="c1">// 0</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li><code>Monitor</code> 클래스로 동기화하기
+<ul>
+<li><code>lock</code> 키워드로 똑같은 기능을 하는 <code>Monitor.Enter()</code>(크리티컬 섹션 만들기)와 <code>Monitor.Exit()</code>(크리티컬 섹션 제거하기)이 있다.</li>
+<li><code>lock</code> 키워드도 사실은 이 두 메서드들을 바탕으로 구현되어있다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">void</span> <span class="n">Increase</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">loopCount</span> <span class="p">=</span> <span class="n">LOOP_COUNT</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">loopCount</span><span class="p">--</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Monitor</span><span class="p">.</span><span class="n">Enter</span><span class="p">(</span><span class="n">thisLock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">count</span><span class="p">++;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">finally</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Monitor</span><span class="p">.</span><span class="n">Exit</span><span class="p">(</span><span class="n">thisLock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li><code>lock</code>보다 좀 더 섬세하게 멀티 스레드 간의 동기화를 가능하게 해주는 메서드들&hellip;
+<ul>
+<li><code>Monitor.Wait()</code>메서드
+<ul>
+<li>스레드를 WaitSleepJoin상태로 만든다. 해당 스레드는 갖고 있던 lock을 내려놓고 Waiting Queue에 입력된다.</li>
+</ul>
+</li>
+<li><code>Monitor.Pulse()</code>메서드
+<ul>
+<li>CLR은 Waiting Queue에서 첫 번째 위치에 있는 스레드를 꺼내서 Ready Queue에 입력시킨다. 그 스레드는 차례로 lock을 얻어서 Running상태에 들어간다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">void</span> <span class="n">Increase</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">loopCount</span> <span class="p">=</span> <span class="n">LOOP_COUNT</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">loopCount</span><span class="p">--</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">lock</span> <span class="p">(</span><span class="n">thisLock</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// count가 0보다 크거나 </span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 다른 스레드에 의해 lockedCount가 true가 되면</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// Wait()으로 블록된다. </span>
+</span></span><span class="line"><span class="cl">            <span class="k">while</span> <span class="p">(</span><span class="n">count</span> <span class="p">&gt;</span> <span class="m">0</span> <span class="p">||</span> <span class="n">lockedCount</span> <span class="p">==</span> <span class="kc">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Monitor</span><span class="p">.</span><span class="n">Wait</span><span class="p">(</span><span class="n">thisLock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">lockedCount</span> <span class="p">=</span> <span class="kc">true</span><span class="p">;</span>  <span class="c1">// 다른 스레드가 사용하지 못하도록한다. </span>
+</span></span><span class="line"><span class="cl">            <span class="n">count</span><span class="p">++;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">lockedCount</span> <span class="p">=</span> <span class="kc">false</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">            <span class="n">Monitor</span><span class="p">.</span><span class="n">Pulse</span><span class="p">(</span><span class="n">thisLock</span><span class="p">);</span> <span class="c1">// 다른 스레드를 깨운다.</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="task와-taskresult-그리고-parallel" class="relative group">Task와 Task<Result> 그리고 Parallel <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#task%ec%99%80-taskresult-%ea%b7%b8%eb%a6%ac%ea%b3%a0-parallel" aria-label="Anchor">#</a></span></h2><ul>
+<li>지금까지 보았던 멀티 스레드는&hellip;
+<ul>
+<li>여러 개의 작업을 각각 처리해야하는 상황이었다. (쪼갠 것 아님)</li>
+</ul>
+</li>
+<li>지금부터 볼 병렬 처리는&hellip;
+<ul>
+<li>하나의 작업을 쪼갠 뒤 쪼개진 작업들을 동시에 처리하는 것이다.</li>
+</ul>
+</li>
+<li>비동기(Asynchronous) 처리는&hellip;
+<ul>
+<li>메소드를 호출한 뒤에 메소드의 종료를 기다리지 않고 바로 다음 코드를 실행하는 것이다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<h3 id="systemthreadingtaskstask-클래스" class="relative group">System.Threading.Tasks.Task 클래스 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#systemthreadingtaskstask-%ed%81%b4%eb%9e%98%ec%8a%a4" aria-label="Anchor">#</a></span></h3><ul>
+<li><code>Task</code> 클래스
+<ul>
+<li>비동기적으로 실행되는 단일 작업이다.</li>
+<li>인스턴스를 생성할 때 <code>Action</code> 대리자를 넘겨받는다. 즉, 반환형을 갖지 않는 메소드, 익명 메소드, 무명 함수 등을 넘겨받는다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="c1">// 실행할 작업물</span>
+</span></span><span class="line"><span class="cl"><span class="n">Action</span> <span class="n">action</span> <span class="p">=</span> <span class="p">()</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">1000</span><span class="p">);</span> <span class="c1">// 이 코드에 상관없이 &#34;동기&#34;가 출력된다. </span>
+</span></span><span class="line"><span class="cl">    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;비동기&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Task로 할당</span>
+</span></span><span class="line"><span class="cl"><span class="n">Task</span> <span class="n">task</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Task</span><span class="p">(</span><span class="n">action</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 비동기로 실행한다. </span>
+</span></span><span class="line"><span class="cl"><span class="n">task</span><span class="p">.</span><span class="n">Start</span><span class="p">();</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;동기&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 비동기 코드가 완료될 때까지 대기한다. </span>
+</span></span><span class="line"><span class="cl"><span class="n">task</span><span class="p">.</span><span class="n">Wait</span><span class="p">();</span> 
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="c1">// 위와 같은 코드인데</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Task의 생성과 시작을 한번에 한다.</span>
+</span></span><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">task</span> <span class="p">=</span> <span class="n">Task</span><span class="p">.</span><span class="n">Run</span><span class="p">(()</span> <span class="p">=&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">1000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;비동기&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;동기&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">task</span><span class="p">.</span><span class="n">Wait</span><span class="p">();</span>
+</span></span></code></pre></div><br />
+<h3 id="코드의-비동기-실행-결과를-주는-taskresult-클래스" class="relative group">코드의 비동기 실행 결과를 주는 Task<Result> 클래스 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%bd%94%eb%93%9c%ec%9d%98-%eb%b9%84%eb%8f%99%ea%b8%b0-%ec%8b%a4%ed%96%89-%ea%b2%b0%ea%b3%bc%eb%a5%bc-%ec%a3%bc%eb%8a%94-taskresult-%ed%81%b4%eb%9e%98%ec%8a%a4" aria-label="Anchor">#</a></span></h3><ul>
+<li><code>Task&lt;Result&gt;</code> 클래스
+<ul>
+<li>비동기 실행 결과를 손쉽게 얻을 수 있다.</li>
+<li>인스턴스를 생성할 때 <code>Func</code> 대리자를 넘겨받아서 결과를 반환한다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">task</span> <span class="p">=</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;&gt;.</span><span class="n">Run</span><span class="p">(()</span> <span class="p">=&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">1000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">list</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="m">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">list</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="m">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">list</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="m">5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">list</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">task</span><span class="p">.</span><span class="n">Wait</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">total</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
+</span></span><span class="line"><span class="cl"><span class="n">total</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">total</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">total</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="m">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">total</span><span class="p">.</span><span class="n">AddRange</span><span class="p">(</span><span class="n">task</span><span class="p">.</span><span class="n">Result</span><span class="p">.</span><span class="n">ToArray</span><span class="p">());</span> <span class="c1">// 0, 1, 2, 3, 4, 5</span>
+</span></span></code></pre></div><br />
+<h3 id="손쉬운-병렬-처리를-가능케-하는-parallel-클래스" class="relative group">손쉬운 병렬 처리를 가능케 하는 Parallel 클래스 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%86%90%ec%89%ac%ec%9a%b4-%eb%b3%91%eb%a0%ac-%ec%b2%98%eb%a6%ac%eb%a5%bc-%ea%b0%80%eb%8a%a5%ec%bc%80-%ed%95%98%eb%8a%94-parallel-%ed%81%b4%eb%9e%98%ec%8a%a4" aria-label="Anchor">#</a></span></h3><ul>
+<li><code>System.Threading.Tasks.Parallel</code> 클래스
+<ul>
+<li><code>For()</code>, <code>Foreach()</code> 등의 메소드로 병렬 처리를 좀 더 쉽게 구현할 수 있다.</li>
+<li>해당 메소드를 병렬로 호출할 때 몇 개의 스레드를 사용할지는 <code>Parallel</code>클래스가 내부적으로 판단하여 최적화한다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">total</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 0부터 100사이의 정수를 메소드의 인수로 넘긴다. </span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 병렬로 처리된다. </span>
+</span></span><span class="line"><span class="cl"><span class="n">Parallel</span><span class="p">.</span><span class="n">For</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="p">%</span> <span class="m">2</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">lock</span> <span class="p">(</span><span class="n">total</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">total</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">total</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">$&#34;{total[i]} &#34;</span><span class="p">);</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="async-한정자와-await-연산자로-만드는-비동기-코드" class="relative group">async 한정자와 await 연산자로 만드는 비동기 코드 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#async-%ed%95%9c%ec%a0%95%ec%9e%90%ec%99%80-await-%ec%97%b0%ec%82%b0%ec%9e%90%eb%a1%9c-%eb%a7%8c%eb%93%9c%eb%8a%94-%eb%b9%84%eb%8f%99%ea%b8%b0-%ec%bd%94%eb%93%9c" aria-label="Anchor">#</a></span></h2><ul>
+<li>
+<p><code>async</code> 한정자</p>
+<ul>
+<li>컴파일러에게 해당 메서드가 비동기 작업이 포함된 <code>await</code>를 가지고 있음을 알려준다.</li>
+<li>내부에서 <code>await</code> 연산자를 찾으면 그곳에서 호출자에게 제어를 돌려준다.</li>
+<li>내부에서 <code>await</code> 연산자를 만나지 못하면 제어를 돌려주지 않으므로, 그냥 동기적으로 실행하게 된다.</li>
+<li>반환 형식
+<ul>
+<li><code>void</code>: 실행하고 잊어버릴 작업을 수행하는 메소드일 때. 리턴형이 없으므로 비동기 메서드를 호출하는 쪽에서 비동기 제어를 할 수 없게 된다.</li>
+<li><code>Task</code>: 리턴값이 없는 경우.</li>
+<li><code>Task&lt;Result&gt;</code>: 리턴값이 있는 경우.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>await</code> 연산자</p>
+<ul>
+<li>단항 연산자이며 <code>awaitable</code> 클래스(<code>GetAwaiter()</code>메서드를 갖는다)를 인수로 갖는다.
+<ul>
+<li>이것은 <code>Task</code> 혹은 <code>Task&lt;T&gt;</code> 가 일반적이다.</li>
+</ul>
+</li>
+<li>이 작업을 하는 동안 스레드가 차단되지 않도록(다른 일도 할 수 있도록)한다. 그리고 그 결과를 사용하기 전에 해당 <code>Task</code>가 끝날 때까지 기다린다. 완료 되면 다음 실행문부터 실행을 계속한다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><code>async</code> 메소드의 리턴형 종류</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="c1">// void</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">async</span> <span class="k">void</span> <span class="n">AsyncFunc</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Task</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">async</span> <span class="n">Task</span> <span class="n">AsyncFunc</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span> 
+</span></span><span class="line"><span class="cl">        <span class="k">await</span> <span class="n">Task</span><span class="p">.</span><span class="n">Delay</span><span class="p">(</span><span class="m">1000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Task&lt;TResult&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">AsyncFunc</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span> 
+</span></span><span class="line"><span class="cl">        <span class="k">await</span> <span class="n">Task</span><span class="p">.</span><span class="n">Delay</span><span class="p">(</span><span class="m">1000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="m">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li><code>void</code> 를 반환하는 <code>async</code> 메서드</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">TaskTest</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Main Thread is NOT Blocked&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">async</span> <span class="k">void</span> <span class="n">TaskTest</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">await</span> <span class="n">Task</span><span class="p">.</span><span class="n">Delay</span><span class="p">(</span><span class="m">5000</span><span class="p">);</span> <span class="c1">// 5초를 기다린다. </span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;TaskTest Done&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li><code>Task</code>를 반환하는 <code>async</code> 메서드</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="c1">// async 한정자가 있으므로 await를 가질 수 있다. </span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kd">async</span> <span class="n">Task</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Task</span> <span class="n">t</span> <span class="p">=</span> <span class="n">TaskTest1</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Do Something Before TaskTest&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">await</span> <span class="n">t</span><span class="p">;</span> <span class="c1">// 여기서 t가 끝날 때까지 기다린다. </span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Do Something after TaskTest&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">async</span> <span class="n">Task</span> <span class="n">TaskTest1</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">await</span> <span class="n">Task</span><span class="p">.</span><span class="n">Delay</span><span class="p">(</span><span class="m">5000</span><span class="p">);</span> <span class="c1">// 5초를 기다린다. </span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;TaskTest Done&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li><code>Task&lt;TResult&gt;</code>를 반환하는 <code>async</code> 메서드</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kd">async</span> <span class="n">Task</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Task</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">t</span> <span class="p">=</span> <span class="n">TaskTest</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">10</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Do Something Before TaskTest&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">UID</span> <span class="p">=</span> <span class="k">await</span> <span class="n">t</span><span class="p">;</span> <span class="c1">// await을 통해서 반환값을 추출할 수 있다. </span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;UserID : {UID}&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">TaskTest</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">UID</span> <span class="p">=</span> <span class="k">await</span> <span class="p">...;</span> <span class="c1">// DB or server에서 UID 얻어오는 비동기 메서드 호출</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;TaskTest Done&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">UID</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li><code>await</code>와 <code>async</code> 예제</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">async</span> <span class="kd">static</span> <span class="kd">private</span> <span class="k">void</span> <span class="n">AsyncMethod</span><span class="p">(</span><span class="kt">int</span> <span class="n">count</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;B&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 호출자에게 제어를 돌려주고 아래 코드는 비동기적으로 처리된다. </span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 아래 Task가 끝나야지 다음 문장이 실행 된다. </span>
+</span></span><span class="line"><span class="cl">    <span class="k">await</span> <span class="n">Task</span><span class="p">.</span><span class="n">Run</span><span class="p">(</span><span class="kd">async</span> <span class="p">()</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">count</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;{i} / {count} ...&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">await</span> <span class="n">Task</span><span class="p">.</span><span class="n">Delay</span><span class="p">(</span><span class="m">100</span><span class="p">);</span> <span class="c1">// Thread.Sleep()의 비동기 버전이다. </span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;D&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">static</span> <span class="k">void</span> <span class="n">Caller</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">AsyncMethod</span><span class="p">(</span><span class="m">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;C&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Caller</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span> <span class="c1">// (프로그램 종료 방지)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><pre tabindex="0"><code>A
+B
+C
+0 / 3 ...
+1 / 3 ...
+2 / 3 ...
+D
+</code></pre><p><br /><br /></p>
+
+      </div>
+    </section>
+    <footer class="max-w-prose pt-8 print:hidden">
+      
+  <div class="flex">
+    
+    
+    
+      
+      
+        
+        
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+      
+    >
+      
+      
+      
+      
+      <img
+        width="500"
+        height="500"
+        class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+        alt="Pero"
+        loading="lazy" decoding="async"
+        
+          src="/main.jpg"
+        
+      />
+    </picture>
+  
+
+
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          Pero
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">Keep moving forward.</div>
+      
+      <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="mailto:peropeq@gmail.com"
+          target="_blank"
+          aria-label="Email"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+    </div>
+  </div>
+
+
+      
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="/post/csharp/this-is-c-sharp-14/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[This is C#] Chapter 14. 람다식</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-04-17 03:00:00 &#43;0900 KST">17 April 2022</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="group flex text-right" href="/post/csharp/c-sharp-01/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[C#] 컴파일 과정</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-04-19 01:00:00 &#43;0900 KST">19 April 2022</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&rarr;</span
+                ><span class="ltr:hidden rtl:inline">&larr;</span></span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+          <div class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12">
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            ⓒ 2022. Pero.
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a>
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+    </div>
+  </div>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm sm:p-6 md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50"
+  data-url="https://frompero.github.io/"
+>
+  <div
+    id="search-modal"
+    class="top-20 mx-auto flex min-h-0 w-full max-w-3xl flex-col rounded-md border border-neutral-200 bg-neutral shadow-lg dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex flex-none items-center justify-between px-2">
+      <form class="flex min-w-0 flex-auto items-center">
+        <div class="flex h-8 w-8 items-center justify-center text-neutral-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="mx-1 flex h-12 flex-auto appearance-none bg-transparent focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex h-8 w-8 items-center justify-center text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto overflow-auto px-2">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+</html>

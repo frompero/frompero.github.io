@@ -1,0 +1,1362 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="rgb(255,255,255)" />
+  
+  <title>[OS] Chapter 5. 프로세스 관리 &middot; from Pero</title>
+    <meta name="title" content="[OS] Chapter 5. 프로세스 관리 &middot; from Pero" />
+  
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.022d0ebc3b46a335eb1c7ef79b7f2de143d7cd5156d433638592ef1ce5f8554e.js"
+    integrity="sha256-Ai0OvDtGozXrHH73m38t4UPXzVFW1DNjhZLvHOX4VU4="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.afb4a97d267bd0c2e9391dd7b62a45afcd549fea29cb7747564f0cb36db70f1b.css"
+    integrity="sha256-r7SpfSZ70MLpOR3XtipFr81Un&#43;opy3dHVk8Ms223Dxs="
+  />
+  
+    
+    
+    
+  
+  
+  
+    
+    
+  
+  
+    
+    
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.5b9218820e6c6b9f04b4c5a03dffd0d57bc9189f511ee80ea74222de3a608e2f.js"
+      integrity="sha256-W5IYgg5sa58EtMWgPf/Q1XvJGJ9RHugOp0Ii3jpgji8="
+      data-copy="Copy"
+      data-copied="Copied"
+    ></script>
+  
+  
+  <meta
+    name="description"
+    content="
+      
+        운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.
+      
+    "
+  />
+  
+  
+  
+  <link rel="canonical" href="https://frompero.github.io/post/os/os-it-principles-05/" />
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="[OS] Chapter 5. 프로세스 관리" />
+<meta property="og:description" content="운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://frompero.github.io/post/os/os-it-principles-05/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-06-09T01:00:00+09:00" />
+<meta property="article:modified_time" content="2022-06-09T01:00:00+09:00" />
+
+
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="[OS] Chapter 5. 프로세스 관리"/>
+<meta name="twitter:description" content="운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다."/>
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "[OS] Chapter 5. 프로세스 관리",
+    "headline": "[OS] Chapter 5. 프로세스 관리",
+    
+    "abstract": "운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.",
+    "inLanguage": "en",
+    "url" : "https:\/\/frompero.github.io\/post\/os\/os-it-principles-05\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Pero"
+    },
+    "copyrightYear": "2022",
+    "dateCreated": "2022-06-09T01:00:00\u002b09:00",
+    "datePublished": "2022-06-09T01:00:00\u002b09:00",
+    
+    "dateModified": "2022-06-09T01:00:00\u002b09:00",
+    
+    "keywords": ["OS"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1181"
+  }
+  </script>
+
+
+  
+  <meta name="author" content="Pero" />
+  
+    
+      <link href="mailto:peropeq@gmail.com" rel="me" />
+    
+  
+  
+  
+
+
+
+
+
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/lib/katex/katex.min.7c7c1a59e6eec00ecd485e5083f69fe14783c7d5ea52962938682e6e8df25aef9bd88411e14790c1b6f8d938bb81502336d56823f23d4c4a187aef689b0702ea.css"
+    integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu&#43;b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g=="
+  />
+  
+  
+  <script
+    defer
+    src="/lib/katex/katex.min.2d037120c479ad7bfba3e6f597cf8dd4464c7e11bb88567d1e19db2644e9e338cdaf95afb2def902a51e143c5e4546bb979bc40f2522022a7ffebf8414b2c2c8.js"
+    integrity="sha512-LQNxIMR5rXv7o&#43;b1l8&#43;N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r&#43;EFLLCyA=="
+  ></script>
+  
+  
+  <script
+    defer
+    src="/lib/katex/auto-render.min.e6511c3458afadbb974a54c917a45e383efdb02303964d83fdb17ff69367d6d871a53a09973ffec8c9d3525c7b8c64602e6c16a64842884ad60989a16d953fd0.js"
+    integrity="sha512-5lEcNFivrbuXSlTJF6ReOD79sCMDlk2D/bF/9pNn1thxpToJlz/&#43;yMnTUlx7jGRgLmwWpkhCiErWCYmhbZU/0A=="
+    onload="renderMathInElement(document.body);"
+  ></script>
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+  
+  
+  
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QBM4YPD699"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-QBM4YPD699', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+  
+  
+</head>
+<body
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 sm:px-14 md:px-24 lg:px-32 dark:bg-neutral-800 dark:text-neutral"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="-translate-y-8 rounded-b-lg bg-primary-200 px-3 py-1 text-sm focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="pe-2 font-bold text-primary-600 dark:text-primary-400">&darr;</span
+        >Skip to main content</a
+      >
+    </div>
+    
+    
+      <header class="py-6 font-semibold text-neutral-900 print:hidden sm:py-10 dark:text-neutral">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="z-40 flex flex-row items-center">
+      
+  <a
+    class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+    rel="me"
+    href="/"
+    >from Pero</a
+  >
+
+    </div>
+    
+      
+      <label id="menu-button" for="menu-controller" class="block sm:hidden">
+        <input type="checkbox" id="menu-controller" class="hidden" />
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="invisible fixed inset-0 z-30 m-auto h-full w-full cursor-default overflow-auto bg-neutral-100/50 opacity-0 backdrop-blur-sm transition-opacity dark:bg-neutral-900/50"
+        >
+          <ul
+            class="mx-auto flex w-full max-w-7xl list-none flex-col overflow-visible px-6 py-6 text-end sm:px-14 sm:py-10 sm:pt-10 md:px-24 lg:px-32"
+          >
+            <li class="mb-1">
+              <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400"
+                ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span></span
+              >
+            </li>
+            
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/post/"
+                      title="Posts"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Posts</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/categories/"
+                      title="Categories"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Categories</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/tags/"
+                      title="Tags"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Tags</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    
+                      <button
+                        id="search-button-1"
+                        title="Search (/)"
+                      >
+                        
+                          <span
+                            class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                          ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </button>
+                    
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    <button
+                      id="appearance-switcher-1"
+                      type="button"
+                      aria-label="appearance switcher"
+                    >
+                      <span
+                        class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                        title="Switch to dark appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                      <span
+                        class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                        title="Switch to light appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                    </button>
+                  
+                </li>
+              
+              
+            
+          </ul>
+        </div>
+      </label>
+      
+      <ul class="hidden list-none flex-row text-end sm:flex">
+        
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/post/"
+                  title="Posts"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Posts</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/categories/"
+                  title="Categories"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Categories</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/tags/"
+                  title="Tags"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Tags</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                
+                  <button
+                    id="search-button-2"
+                    title="Search (/)"
+                  >
+                    
+                      <span
+                        class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                      ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </button>
+                
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                <button
+                  id="appearance-switcher-2"
+                  type="button"
+                  aria-label="appearance switcher"
+                >
+                  <span
+                    class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                    title="Switch to dark appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                  <span
+                    class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                    title="Switch to light appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                </button>
+              
+            </li>
+          
+          
+
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex grow flex-col">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        [OS] Chapter 5. 프로세스 관리
+      </h1>
+      
+        <div class="mb-12 mt-8 text-base text-neutral-500 print:hidden dark:text-neutral-400">
+          
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2022-06-09 01:00:00 &#43;0900 KST">9 June 2022</time>
+    
+
+    
+    
+  </div>
+
+  
+  
+
+
+        </div>
+      
+      
+    </header>
+    <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+      
+        <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
+          <div class="toc pe-5 print:hidden lg:sticky lg:top-10">
+            <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
+  <summary
+    class="-ms-5 block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 lg:hidden dark:bg-neutral-700 dark:text-neutral-100"
+  >
+    Table of Contents
+  </summary>
+  <div class="-ms-5 border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#프로세스">프로세스</a>
+      <ul>
+        <li><a href="#프로세스의-상태">프로세스의 상태</a></li>
+        <li><a href="#프로세스-제어블록">프로세스 제어블록</a></li>
+        <li><a href="#문맥-교환">문맥 교환</a></li>
+        <li><a href="#상태-관리-큐들">상태 관리 큐들</a></li>
+        <li><a href="#스케줄러들">스케줄러들</a></li>
+      </ul>
+    </li>
+    <li><a href="#스레드">스레드</a>
+      <ul>
+        <li><a href="#스레드가-가지고-있는-것">스레드가 가지고 있는 것</a></li>
+        <li><a href="#다중-스레드의-장점">다중 스레드의 장점</a></li>
+        <li><a href="#스레드의-구현">스레드의 구현</a></li>
+      </ul>
+    </li>
+    <li><a href="#프로세스의-생성">프로세스의 생성</a></li>
+    <li><a href="#프로세스와-관련된-시스템-콜들">프로세스와 관련된 시스템 콜들</a></li>
+    <li><a href="#프로세스-간의-협력">프로세스 간의 협력</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+          </div>
+        </div>
+      
+      <div class="min-h-0 min-w-0 max-w-prose grow">
+        <div style="text-align: right"> 
+<p>
+<a href="http://www.yes24.com/Product/Goods/90124877" target="_blank" rel="noreferrer">운영체제와 정보기술의 원리</a> 강의를 듣고 공부한 노트입니다.</p>
+</div>
+<hr>
+<p><br /><br /></p>
+<h2 id="프로세스" class="relative group">프로세스 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%94%84%eb%a1%9c%ec%84%b8%ec%8a%a4" aria-label="Anchor">#</a></span></h2><ul>
+<li>
+<p><strong>프로세스(process)</strong></p>
+<ul>
+<li>실행 중인 프로그램(program in execution)을 뜻한다.</li>
+</ul>
+</li>
+<li>
+<p>프로세스의 <strong>문맥(context)</strong></p>
+<ul>
+<li>프로세스가 <u>현재 어떤 상태</u>에서 수행되고 있는지 정확히 규명하기 위해 필요한 정보이다.</li>
+<li>프로세스가 CPU를 다시 획득해서 명령 수행을 재개하려면 문맥이 필요하다.</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>종류</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>프로세스의 주소 공간</strong></td>
+<td>코드, 데이터, 스택으로 구성된 자신만의 독자적 주소 공간</td>
+</tr>
+<tr>
+<td><strong>하드웨어 문맥</strong></td>
+<td>프로그램 카운터값 <br />각종 레지스터에 저장하고 있는 값</td>
+</tr>
+<tr>
+<td><strong>커널 상의 문맥</strong></td>
+<td>PCB <br />커널 스택</td>
+</tr>
+</tbody>
+</table>
+<p><br /><br /></p>
+<h3 id="프로세스의-상태" class="relative group">프로세스의 상태 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%94%84%eb%a1%9c%ec%84%b8%ec%8a%a4%ec%9d%98-%ec%83%81%ed%83%9c" aria-label="Anchor">#</a></span></h3><ul>
+<li>프로세스는 항상 다음 중 어느 한 상태에 머물러 있다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>상태</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>준비<br />(ready)</strong></td>
+<td>메모리를 획득해서, CPU만 보유하면 당장 명령을 실행할 수 있는 상태</td>
+</tr>
+<tr>
+<td><strong>실행<br />(running)</strong></td>
+<td>CPU를 보유하고 기계어 명령을 실행하고 있는 상태</td>
+</tr>
+<tr>
+<td><strong>봉쇄<br />(blocked, wait, sleep)</strong></td>
+<td>CPU를 할당받더라도 당장 명령을 실행할 수 없는 상태 <br />(예: 입출력 작업 진행 중)</td>
+</tr>
+<tr>
+<td><strong>시작<br />(new)</strong></td>
+<td>프로세스가 시작되어 그 프로세스를 위한 각종 자료구조는 생성되었지만 아직 메모리 획득을 승인받지 못한 상태</td>
+</tr>
+<tr>
+<td><strong>완료<br />(terminated)</strong></td>
+<td>프로세스가 종료되었으나 운영체제가 그 프로세스와 관련된 자료구조를 완전히 정리하지 못한 상태</td>
+</tr>
+<tr>
+<td><strong>중지<br />(suspended, stopped)</strong></td>
+<td>외부적인 이유로 프로세스의 수행이 정지된 상태 <br />메모리를 조금도 보유하지 않고 디스크에 통째로 스왑 아웃된 상태로 존재한다. <br />(이어서&hellip;)</td>
+</tr>
+</tbody>
+</table>
+<p><br /><br /></p>
+<h3 id="프로세스-제어블록" class="relative group">프로세스 제어블록 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%94%84%eb%a1%9c%ec%84%b8%ec%8a%a4-%ec%a0%9c%ec%96%b4%eb%b8%94%eb%a1%9d" aria-label="Anchor">#</a></span></h3><p>
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/os/images/05-01-pcb.jpeg" alt="PCB의 구조" class="mx-auto my-0 rounded-md" />
+</figure>
+</p>
+<ul>
+<li><strong>프로세스 제어블록(Process Control Block; PCB)</strong>
+<ul>
+<li>운영체제가 프로세스들을 관리하기 위해 프로세스의 정보를 담는 커널 내의 자료구조이다.</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>종류</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>운영체제가 관리상 사용하는 정보</td>
+<td><strong>프로세스 번호</strong> : 프로세스 고유 번호 <br /><strong>프로세스 상태</strong> : 준비, 실행, 봉쇄 등의 상태 <br /><strong>스케줄링 정보, 우선순위</strong> : CPU 스케줄링을 위해</td>
+</tr>
+<tr>
+<td>CPU 수행 관련 하드웨어 값</td>
+<td><strong>프로그램 카운터 값</strong> : 다음에 수행할 명령의 위치 <br /><strong>레지스터 값</strong> : CPU 연산을 위해 현 시점에 레지스터에 어떤 값을 저장하고 있는지</td>
+</tr>
+<tr>
+<td>메모리 관련</td>
+<td><strong>코드, 데이터, 스택의 위치 정보</strong> : 메모리 할당을 위해</td>
+</tr>
+<tr>
+<td>파일 관련</td>
+<td>프로세스가 오픈한 파일 정보</td>
+</tr>
+</tbody>
+</table>
+<p><br /><br /></p>
+<h3 id="문맥-교환" class="relative group">문맥 교환 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%eb%ac%b8%eb%a7%a5-%ea%b5%90%ed%99%98" aria-label="Anchor">#</a></span></h3><ul>
+<li><strong>문맥 교환(context switch)</strong>
+<ul>
+<li><u>하나의 사용자 프로세스로부터 다른 사용자 프로세스로 CPU의 제어권이 이양되는 것</u>이다.</li>
+<li>이전의 프로세스의 상태(문맥)를 보관하고 새로운 프로세스의 상태를 적재하는 작업이 이루어진다.</li>
+<li>한 프로세스의 문맥은 그 프로세스의 프로세스 제어 블록에 기록되어 있다.</li>
+<li>문맥 교환에 소요되는 시간은 오버헤드이기 때문에 적절한 타이머의 CPU 할당 시간을 정하는 것이 중요하겠다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>준비 상태에 있는 프로세스가 실행 상태로 되면서 CPU의 제어권이 넘어가는 과정을 <strong>CPU 디스패치(dispatch)</strong> 라고 한다.</li>
+</ul>
+<br />
+<ul>
+<li>문맥교환이 발생하는 경우
+<ul>
+<li>타이머 인터럽트 발생</li>
+<li>실행 중이던 프로세스의 입출력 요청</li>
+<li>다른 조건을 충족하지 못해 CPU를 회수당하고 봉쇄 상태가 되는 경우</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>문맥교환이 아닌 경우
+<ul>
+<li>사용자 프로세스 A의 인터럽트 또는 시스템 콜에 의해 사용자 모드에서 커널 모드로 실행 모드가 바뀐다. 커널 모드에서 인터럽트 처리루틴 또는 시스템 콜 함수를 실행한다. 그리고 다시 문맥 교환 없이 사용자 프로세스 A의 사용자 모드로 되돌아 온다.</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h3 id="상태-관리-큐들" class="relative group">상태 관리 큐들 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%83%81%ed%83%9c-%ea%b4%80%eb%a6%ac-%ed%81%90%eb%93%a4" aria-label="Anchor">#</a></span></h3><ul>
+<li>커널의 주소 영역 중 <strong>데이터</strong> 영역에 다양한 큐(queue)를 두어 프로세스들의 상태를 관리한다.</li>
+</ul>
+<br />
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>작업 큐<br />(job queue)</strong></td>
+<td>시스템 내의 모든 프로세스를 관리하기 위한 큐 <br />가장 넓은 개념이다.</td>
+</tr>
+<tr>
+<td><strong>준비 큐<br />(ready queue)</strong></td>
+<td>CPU를 할당 받기 위해 준비 상태에 있는 프로세스들을 줄세우기 위한 큐</td>
+</tr>
+<tr>
+<td><strong>장치 큐<br />(device queue)</strong></td>
+<td>특정 자원을 기다리는 프로세스들을 줄 세우기 위해 자원별로 있는 큐 <br />(예: 디스크 입출력 서비스를 받기 위해 기다리는 프로세스들)</td>
+</tr>
+<tr>
+<td><strong>자원 큐</strong></td>
+<td>소프트웨어 자원을 기다리는 경우 <br />(예: 공유 데이터에 대한 접근 제어를 위한 큐)</td>
+</tr>
+</tbody>
+</table>
+<p><br /><br /></p>
+<h3 id="스케줄러들" class="relative group">스케줄러들 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%8a%a4%ec%bc%80%ec%a4%84%eb%9f%ac%eb%93%a4" aria-label="Anchor">#</a></span></h3><p>
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/os/images/05-01-processStateDiagram.jpg" alt="프로세스 상태 변화도" class="mx-auto my-0 rounded-md" />
+</figure>
+</p>
+<ul>
+<li><strong>스케줄러(scheduler)</strong>
+<ul>
+<li>어떤 프로세스에게 자원을 할당할지를 결정하는 운영체제 커널의 코드이다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<table>
+<thead>
+<tr>
+<th>스케줄러</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>장기 스케줄러 <br />= 작업 스케줄러 (job scheduler)</strong></td>
+<td>어떤 프로세스를 <u>준비 큐</u>에 진입시킬지 결정한다. <br />즉, 프로세스에게 <u>메모리를 할당하는 문제</u>에 관여하므로, 메모리에 동시에 올라가 있는 프로세스의 수(degree of multiprogramming)를 조절하는 역할을 한다. <br />현대의 시분할 시스템에서는 장기 스케줄러가 없고, 실행되면 무조건 ready 상태로 된다. 따라서 degree of multiprogramming은 <u>중기 스케줄러가 대신</u>한다.</td>
+</tr>
+<tr>
+<td><strong>단기 스케줄러 <br />= CPU 스케줄러</strong></td>
+<td>어떤 프로세스를 <u>실행 상태</u>로 만들지 결정한다. <br />즉, 프로세스에게 <mark><strong>CPU를 할당하는 문제</strong></mark>에 관여한다. <br />시분할 시스템에서는 타이머 인터럽트가 발생하면 단기 스케줄러가 호출된다.</td>
+</tr>
+<tr>
+<td><strong>중기 스케줄러 <br />= swapper</strong></td>
+<td>여유공간 마련을 위해 <u>프로세스를 통째로 메모리에서 디스크로 쫒아낸다. (스왑 아웃; swap out)</u> <br />0순위로 스왑 아웃되는 프로세스는 봉쇄 상태에 있는 프로세스들이다.</td>
+</tr>
+</tbody>
+</table>
+<br />
+<ul>
+<li>(이어서&hellip;) 중기 스케줄러의 등장으로 프로세스의 상태가 추가된다.</li>
+<li><mark><strong>중지(suspended, stopped)</strong></mark>
+<ul>
+<li>외부적인 이유로 프로세스의 수행이 정지된 상태이다.</li>
+<li>메모리를 조금도 보유하지 않고 디스크에 통째로 <u>스왑 아웃된 상태로 존재</u>한다.</li>
+<li>예: 사용자가 프로그램을 일시 정지한 경우, 메모리에 너무 많은 프로세스가 올라와 있어서 시스템이 프로세스를 잠시 중단시킨 경우</li>
+<li><strong>중지준비(suspended ready)</strong>
+<ul>
+<li>준비 상태에 있던 프로세스가 중기 스케줄러에 의해 디스크로 스왑 아웃되었을 때</li>
+</ul>
+</li>
+<li><strong>중지봉쇄(suspended block)</strong>
+<ul>
+<li>봉쇄 상태에 있던 프로세스가 중기 스케줄러에 의해 디스크로 스왑 아웃되었을 때</li>
+</ul>
+</li>
+<li>봉쇄와 중지의 차이점
+<ul>
+<li>봉쇄: 자신이 요청한 event가 만족되면 Ready 상태가 된다.</li>
+<li>중지: 외부에서 resume해주어야 Active 된다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="스레드" class="relative group">스레드 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%8a%a4%eb%a0%88%eb%93%9c" aria-label="Anchor">#</a></span></h2><ul>
+<li><strong>스레드(thread; lightweight process)</strong>
+<ul>
+<li>CPU를 수행하는 단위</li>
+</ul>
+</li>
+</ul>
+<br />
+<h3 id="스레드가-가지고-있는-것" class="relative group">스레드가 가지고 있는 것 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%8a%a4%eb%a0%88%eb%93%9c%ea%b0%80-%ea%b0%80%ec%a7%80%ea%b3%a0-%ec%9e%88%eb%8a%94-%ea%b2%83" aria-label="Anchor">#</a></span></h3><table>
+<thead>
+<tr>
+<th>구분</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>스레드가 독자적으로 갖고 있는 것들 <br />= CPU 수행을 위한 것들</strong></td>
+<td>프로그램 카운터 값 <br />레지스터 값 <br />스택</td>
+</tr>
+<tr>
+<td><strong>스레드가 동료 스레드와 공유하는 부분</strong></td>
+<td>코드 영역<br />데이터 영역 <br />운영체제 자원들</td>
+</tr>
+</tbody>
+</table>
+<p><br /><br /></p>
+<h3 id="다중-스레드의-장점" class="relative group">다중 스레드의 장점 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%eb%8b%a4%ec%a4%91-%ec%8a%a4%eb%a0%88%eb%93%9c%ec%9d%98-%ec%9e%a5%ec%a0%90" aria-label="Anchor">#</a></span></h3><ul>
+<li><strong>응답성(Responsiveness)</strong>
+<ul>
+<li>하나의 스레드가 봉쇄 상태인 동안(예: 웹 페이지에서 네트워크를 통해 이미지를 불러온다)에도 동일한 프로세스 내 다른 스레드가 실행(예: 이미지는 나중에 출력하고, 나머지 웹 페이지를 화면에 출력한다)되어 작업을 처리할 수 있다.</li>
+</ul>
+</li>
+<li><strong>자원 공유(Resource sharing)</strong>
+<ul>
+<li>하나의 프로세스 내에서 CPU 수행 단위만 여러개(스레드를 여러개)두게 되면 서로 자원을 공유하므로 효율적으로 사용할 수 있다.</li>
+</ul>
+</li>
+<li><strong>경제성(Economy)</strong>
+<ul>
+<li>프로세스를 하나 만드는 것보다 스레드를 하나 만드는 것이 오버헤드가 적다.</li>
+<li>프로세스 간 문맥교환보다 스레드 간 문맥 교환이 오버헤드가 적다.</li>
+</ul>
+</li>
+<li><strong>멀티 프로세서 환경에서의 활용(Utilization of Multi Processor Architectures)</strong>
+<ul>
+<li>CPU가 여러개인 컴퓨터에서는 병렬성을 높일 수 있다.</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h3 id="스레드의-구현" class="relative group">스레드의 구현 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%8a%a4%eb%a0%88%eb%93%9c%ec%9d%98-%ea%b5%ac%ed%98%84" aria-label="Anchor">#</a></span></h3><ul>
+<li>커널의 지원을 받는 스레드(kernel level thread)
+<ul>
+<li>운영체제 커널이 스레드가 여러개 있다는 사실을 알고 있다.</li>
+</ul>
+</li>
+<li>라이브러리의 지원을 받는 스레드(user level thread)
+<ul>
+<li>운영체제가 스레드의 존재를 모르고, 사용자의 프로세스가 직접 스레드를 관리한다.</li>
+</ul>
+</li>
+<li>실시간(real-time) 기능을 지원하는 스레드</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="프로세스의-생성" class="relative group">프로세스의 생성 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%94%84%eb%a1%9c%ec%84%b8%ec%8a%a4%ec%9d%98-%ec%83%9d%ec%84%b1" aria-label="Anchor">#</a></span></h2><ul>
+<li>프로세스의 생성 (process creation)
+<ul>
+<li>시스템이 부팅된 후 최초의 프로세스는 운영체제가 직접 생성하지만, 그 다음 부터는 이미 존재하는 프로세스가 다른 프로세스를 <u>복제 생성</u>한다.</li>
+<li>각각을 부모 프로세스, 자식 프로세스라고 하며, 트리와 같은 계층 구조을 형성하게 된다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>생성된 프로세스가 자원을 획득하는 방법
+<ul>
+<li>경우 1. 운영체제로 부터 직접 할당받는다.</li>
+<li>경우 2. 부모 프로세스와 자원을 공유한다. (모든 자원을 or 일부를 or 공유하지 않음)</li>
+</ul>
+</li>
+<li>생성된 프로세스가 수행(execution)되는 방법
+<ul>
+<li>경우 1. 부모와 자식이 공존하며 수행된다.</li>
+<li>경우 2. 자식이 종료(terminate)될 때까지 부모 프로세스가 기다린다(wait).</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="프로세스와-관련된-시스템-콜들" class="relative group">프로세스와 관련된 시스템 콜들 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%94%84%eb%a1%9c%ec%84%b8%ec%8a%a4%ec%99%80-%ea%b4%80%eb%a0%a8%eb%90%9c-%ec%8b%9c%ec%8a%a4%ed%85%9c-%ec%bd%9c%eb%93%a4" aria-label="Anchor">#</a></span></h2><ul>
+<li><code>fork()</code> 시스템 콜
+<ul>
+<li>프로세스 ID를 제외한 부모 프로세스의 모든 내용을 그대로 복제해서 자식 프로세스를 생성한다.</li>
+<li>프로그램 카운터 값도 복제되므로, 부모 프로세스가 실행한 그 다음 위치 부터 실행하게 된다.</li>
+<li>자식 프로세스는 자신만의 <u>독자적인 주소 공간</u>을 갖지만, 처음에 내용은 부모 프로세스의 내용을 그대로 <u>복사해서 생성</u>한다.</li>
+<li>구분하는 법: <code>fork()</code> 함수의 결괏값이 <strong>양수</strong>이면 <u>부모 프로세스</u>이고, <strong>0</strong>이면 복제된 <u>자식 프로세스</u>이다.</li>
+</ul>
+</li>
+<li><code>exec()</code> 시스템 콜
+<ul>
+<li>프로세스의 주소 공간을 완전히 <u>새로운 프로그램으로 덮어씌운 후 새로운 프로그램의 첫 부분부터 다시 실행을 시작</u>하도록 한다.</li>
+</ul>
+</li>
+<li><code>wait()</code> 시스템 콜
+<ul>
+<li>자식 프로세스가 종료되기를 기다리며 <u>부모 프로세스가 봉쇄 상태</u>에 머무르도록 한다.</li>
+<li>부모 프로세스와 자식 프로세스 간의 동기화(synchronization)가 가능해진다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>프로세스가 종료되는 방법
+<ul>
+<li>경우 1. 자발적 종료
+<ul>
+<li><code>exec()</code> 시스템 콜로 운영체제에게 자신이 종료됨을 알린다. 프로그래머가 명시적으로 호출하지 않아도 컴파일러가 자동으로 삽입해서 프로세스의 종료 직전에 호출한다.</li>
+</ul>
+</li>
+<li>경우 2. 비자발적 종료
+<ul>
+<li><code>abort()</code> 시스템 콜로 부모 프로세스가 자식 프로세스의 수행을 강제로 종료 시킨다.
+<ul>
+<li>(1) 자식 프로세스가 한계치를 넘어서는 자원을 요구할 때</li>
+<li>(2) 자식 프로세스의 작업이 더 이상 필요하지 않을 때</li>
+<li>(3) 부모 프로세스가 종료될 때. 부모 프로세스가 종료될 경우에는 자식 프로세스들을 연쇄적으로 종료 시킨 후에야 본인이 종료될 수 있다.</li>
+</ul>
+</li>
+<li>사용자가 키보드로 kill, break 등을 친 경우.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="프로세스-간의-협력" class="relative group">프로세스 간의 협력 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%94%84%eb%a1%9c%ec%84%b8%ec%8a%a4-%ea%b0%84%ec%9d%98-%ed%98%91%eb%a0%a5" aria-label="Anchor">#</a></span></h2><ul>
+<li>프로세스는 독립적인 주소 공간을 가지기 때문에 각자 독립적인 관계가 된다.</li>
+<li>하지만 경우에 따라서는 독립적인 프로세스들이 협력할 때 업무의 효율성이 증진될 수 있다.</li>
+</ul>
+<br />
+<ul>
+<li><strong>프로세스 간 협력 매커니즘 (Inter-Process Communication; IPC)</strong></li>
+<li><strong>1. 메시지 전달 방식(message passing)</strong>
+<ul>
+<li>공유 데이터를 일절 사용하지 않고, 메시지를 주고받으면서 통신하는 방식이다.</li>
+<li>메시지는 시스템 콜 방식으로 운영체제의 <u>커널에게 요청</u>해서 주고받는다.</li>
+<li><strong>(1) 직접 통신(direct communication)</strong>
+<ul>
+<li>통신하려는 프로세스의 이름을 명시적으로 표시한다.</li>
+<li>예: <code>send(P, message)</code>, <code>receive(Q, message)</code></li>
+</ul>
+</li>
+<li><strong>(2) 간접 통신(indirect communication)</strong>
+<ul>
+<li>메일박스(mail box) 또는 포트(port)를 통해 메시지를 간접적으로 전달한다.</li>
+<li>예: <code>send(M, message)</code>, <code>receive(M, message)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>2. 공유 메모리 방식(shared memory)</strong>
+<ul>
+<li>프로세스들이 주소 공간의 일부를 공유하는 방식이다.</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+
+      </div>
+    </section>
+    <footer class="max-w-prose pt-8 print:hidden">
+      
+  <div class="flex">
+    
+    
+    
+      
+      
+        
+        
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+      
+    >
+      
+      
+      
+      
+      <img
+        width="500"
+        height="500"
+        class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+        alt="Pero"
+        loading="lazy" decoding="async"
+        
+          src="/main.jpg"
+        
+      />
+    </picture>
+  
+
+
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          Pero
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">Keep moving forward.</div>
+      
+      <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="mailto:peropeq@gmail.com"
+          target="_blank"
+          aria-label="Email"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+    </div>
+  </div>
+
+
+      
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="/post/os/os-it-principles-03/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[OS] Chapter 3, 4. 컴퓨터 시스템의 동작 원리</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-06-02 02:00:00 &#43;0900 KST">2 June 2022</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="group flex text-right" href="/post/os/os-it-principles-06/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[OS] Chapter 6. CPU 스케줄링</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-06-16 01:00:00 &#43;0900 KST">16 June 2022</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&rarr;</span
+                ><span class="ltr:hidden rtl:inline">&larr;</span></span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+          <div class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12">
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            ⓒ 2022. Pero.
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a>
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+    </div>
+  </div>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm sm:p-6 md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50"
+  data-url="https://frompero.github.io/"
+>
+  <div
+    id="search-modal"
+    class="top-20 mx-auto flex min-h-0 w-full max-w-3xl flex-col rounded-md border border-neutral-200 bg-neutral shadow-lg dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex flex-none items-center justify-between px-2">
+      <form class="flex min-w-0 flex-auto items-center">
+        <div class="flex h-8 w-8 items-center justify-center text-neutral-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="mx-1 flex h-12 flex-auto appearance-none bg-transparent focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex h-8 w-8 items-center justify-center text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto overflow-auto px-2">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+</html>

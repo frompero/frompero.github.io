@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on from Pero</title>
+    <link>https://frompero.github.io/tags/</link>
+    <description>Recent content in Tags on from Pero</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>ⓒ 2022. Pero.</copyright>
+    <lastBuildDate>Mon, 14 Aug 2023 01:00:00 +0900</lastBuildDate>
+    <atom:link href="https://frompero.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C&#43;&#43;</title>
+      <link>https://frompero.github.io/tags/c&#43;&#43;/</link>
+      <pubDate>Mon, 14 Aug 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/tags/c&#43;&#43;/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Unreal</title>
+      <link>https://frompero.github.io/tags/unreal/</link>
+      <pubDate>Wed, 09 Aug 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/tags/unreal/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Design Pattern</title>
+      <link>https://frompero.github.io/tags/design-pattern/</link>
+      <pubDate>Thu, 09 Feb 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/tags/design-pattern/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Game Math</title>
+      <link>https://frompero.github.io/tags/game-math/</link>
+      <pubDate>Fri, 03 Feb 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/tags/game-math/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Effective C&#43;&#43;</title>
+      <link>https://frompero.github.io/tags/effective-c&#43;&#43;/</link>
+      <pubDate>Mon, 09 Jan 2023 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/tags/effective-c&#43;&#43;/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Algorithm</title>
+      <link>https://frompero.github.io/tags/algorithm/</link>
+      <pubDate>Sat, 19 Nov 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/tags/algorithm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>OS</title>
+      <link>https://frompero.github.io/tags/os/</link>
+      <pubDate>Wed, 27 Jul 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/tags/os/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>C-Sharp</title>
+      <link>https://frompero.github.io/tags/c-sharp/</link>
+      <pubDate>Tue, 19 Apr 2022 05:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/tags/c-sharp/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>C&#43;&#43; Primer Plus</title>
+      <link>https://frompero.github.io/tags/c&#43;&#43;-primer-plus/</link>
+      <pubDate>Sun, 27 Mar 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/tags/c&#43;&#43;-primer-plus/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Network</title>
+      <link>https://frompero.github.io/tags/network/</link>
+      <pubDate>Sat, 26 Feb 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/tags/network/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

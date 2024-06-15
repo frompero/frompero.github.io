@@ -1,0 +1,1341 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="rgb(255,255,255)" />
+  
+  <title>[C#] 컬렉션 &middot; from Pero</title>
+    <meta name="title" content="[C#] 컬렉션 &middot; from Pero" />
+  
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.022d0ebc3b46a335eb1c7ef79b7f2de143d7cd5156d433638592ef1ce5f8554e.js"
+    integrity="sha256-Ai0OvDtGozXrHH73m38t4UPXzVFW1DNjhZLvHOX4VU4="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.afb4a97d267bd0c2e9391dd7b62a45afcd549fea29cb7747564f0cb36db70f1b.css"
+    integrity="sha256-r7SpfSZ70MLpOR3XtipFr81Un&#43;opy3dHVk8Ms223Dxs="
+  />
+  
+    
+    
+    
+  
+  
+  
+    
+    
+  
+  
+    
+    
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.5b9218820e6c6b9f04b4c5a03dffd0d57bc9189f511ee80ea74222de3a608e2f.js"
+      integrity="sha256-W5IYgg5sa58EtMWgPf/Q1XvJGJ9RHugOp0Ii3jpgji8="
+      data-copy="Copy"
+      data-copied="Copied"
+    ></script>
+  
+  
+  <meta
+    name="description"
+    content="
+      
+        컬렉션이란?
+      
+    "
+  />
+  
+  
+  
+  <link rel="canonical" href="https://frompero.github.io/post/csharp/c-sharp-04/" />
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="[C#] 컬렉션" />
+<meta property="og:description" content="컬렉션이란?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://frompero.github.io/post/csharp/c-sharp-04/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-04-19T04:00:00+09:00" />
+<meta property="article:modified_time" content="2022-04-19T04:00:00+09:00" />
+
+
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="[C#] 컬렉션"/>
+<meta name="twitter:description" content="컬렉션이란?"/>
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "[C#] 컬렉션",
+    "headline": "[C#] 컬렉션",
+    
+    "abstract": "컬렉션이란?",
+    "inLanguage": "en",
+    "url" : "https:\/\/frompero.github.io\/post\/csharp\/c-sharp-04\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Pero"
+    },
+    "copyrightYear": "2022",
+    "dateCreated": "2022-04-19T04:00:00\u002b09:00",
+    "datePublished": "2022-04-19T04:00:00\u002b09:00",
+    
+    "dateModified": "2022-04-19T04:00:00\u002b09:00",
+    
+    "keywords": ["C-Sharp"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "841"
+  }
+  </script>
+
+
+  
+  <meta name="author" content="Pero" />
+  
+    
+      <link href="mailto:peropeq@gmail.com" rel="me" />
+    
+  
+  
+  
+
+
+
+
+
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/lib/katex/katex.min.7c7c1a59e6eec00ecd485e5083f69fe14783c7d5ea52962938682e6e8df25aef9bd88411e14790c1b6f8d938bb81502336d56823f23d4c4a187aef689b0702ea.css"
+    integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu&#43;b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g=="
+  />
+  
+  
+  <script
+    defer
+    src="/lib/katex/katex.min.2d037120c479ad7bfba3e6f597cf8dd4464c7e11bb88567d1e19db2644e9e338cdaf95afb2def902a51e143c5e4546bb979bc40f2522022a7ffebf8414b2c2c8.js"
+    integrity="sha512-LQNxIMR5rXv7o&#43;b1l8&#43;N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r&#43;EFLLCyA=="
+  ></script>
+  
+  
+  <script
+    defer
+    src="/lib/katex/auto-render.min.e6511c3458afadbb974a54c917a45e383efdb02303964d83fdb17ff69367d6d871a53a09973ffec8c9d3525c7b8c64602e6c16a64842884ad60989a16d953fd0.js"
+    integrity="sha512-5lEcNFivrbuXSlTJF6ReOD79sCMDlk2D/bF/9pNn1thxpToJlz/&#43;yMnTUlx7jGRgLmwWpkhCiErWCYmhbZU/0A=="
+    onload="renderMathInElement(document.body);"
+  ></script>
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+  
+  
+  
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QBM4YPD699"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-QBM4YPD699', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+  
+  
+</head>
+<body
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 sm:px-14 md:px-24 lg:px-32 dark:bg-neutral-800 dark:text-neutral"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="-translate-y-8 rounded-b-lg bg-primary-200 px-3 py-1 text-sm focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="pe-2 font-bold text-primary-600 dark:text-primary-400">&darr;</span
+        >Skip to main content</a
+      >
+    </div>
+    
+    
+      <header class="py-6 font-semibold text-neutral-900 print:hidden sm:py-10 dark:text-neutral">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="z-40 flex flex-row items-center">
+      
+  <a
+    class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+    rel="me"
+    href="/"
+    >from Pero</a
+  >
+
+    </div>
+    
+      
+      <label id="menu-button" for="menu-controller" class="block sm:hidden">
+        <input type="checkbox" id="menu-controller" class="hidden" />
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="invisible fixed inset-0 z-30 m-auto h-full w-full cursor-default overflow-auto bg-neutral-100/50 opacity-0 backdrop-blur-sm transition-opacity dark:bg-neutral-900/50"
+        >
+          <ul
+            class="mx-auto flex w-full max-w-7xl list-none flex-col overflow-visible px-6 py-6 text-end sm:px-14 sm:py-10 sm:pt-10 md:px-24 lg:px-32"
+          >
+            <li class="mb-1">
+              <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400"
+                ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span></span
+              >
+            </li>
+            
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/post/"
+                      title="Posts"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Posts</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/categories/"
+                      title="Categories"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Categories</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/tags/"
+                      title="Tags"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Tags</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    
+                      <button
+                        id="search-button-1"
+                        title="Search (/)"
+                      >
+                        
+                          <span
+                            class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                          ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </button>
+                    
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    <button
+                      id="appearance-switcher-1"
+                      type="button"
+                      aria-label="appearance switcher"
+                    >
+                      <span
+                        class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                        title="Switch to dark appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                      <span
+                        class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                        title="Switch to light appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                    </button>
+                  
+                </li>
+              
+              
+            
+          </ul>
+        </div>
+      </label>
+      
+      <ul class="hidden list-none flex-row text-end sm:flex">
+        
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/post/"
+                  title="Posts"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Posts</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/categories/"
+                  title="Categories"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Categories</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/tags/"
+                  title="Tags"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Tags</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                
+                  <button
+                    id="search-button-2"
+                    title="Search (/)"
+                  >
+                    
+                      <span
+                        class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                      ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </button>
+                
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                <button
+                  id="appearance-switcher-2"
+                  type="button"
+                  aria-label="appearance switcher"
+                >
+                  <span
+                    class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                    title="Switch to dark appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                  <span
+                    class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                    title="Switch to light appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                </button>
+              
+            </li>
+          
+          
+
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex grow flex-col">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        [C#] 컬렉션
+      </h1>
+      
+        <div class="mb-12 mt-8 text-base text-neutral-500 print:hidden dark:text-neutral-400">
+          
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2022-04-19 04:00:00 &#43;0900 KST">19 April 2022</time>
+    
+
+    
+    
+  </div>
+
+  
+  
+
+
+        </div>
+      
+      
+    </header>
+    <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+      
+        <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
+          <div class="toc pe-5 print:hidden lg:sticky lg:top-10">
+            <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
+  <summary
+    class="-ms-5 block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 lg:hidden dark:bg-neutral-700 dark:text-neutral-100"
+  >
+    Table of Contents
+  </summary>
+  <div class="-ms-5 border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#컬렉션이란">컬렉션이란?</a></li>
+    <li><a href="#불변성과-가변성">불변성과 가변성</a></li>
+    <li><a href="#listt">List&lt;T&gt;</a></li>
+    <li><a href="#linkedlistt">LinkedList&lt;T&gt;</a></li>
+    <li><a href="#dictionarytkey-tvalue">Dictionary&lt;TKey, TValue&gt;</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+          </div>
+        </div>
+      
+      <div class="min-h-0 min-w-0 max-w-prose grow">
+        <hr>
+<p><br /><br /></p>
+<h2 id="컬렉션이란" class="relative group">컬렉션이란? <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%bb%ac%eb%a0%89%ec%85%98%ec%9d%b4%eb%9e%80" aria-label="Anchor">#</a></span></h2><p>
+
+
+
+
+
+
+  
+  
+<figure><img src="/post/csharp/images/04-01-collection.jpeg" alt="C#의 자료구조" class="mx-auto my-0 rounded-md" />
+</figure>
+
+
+<a href="https://blog.naver.com/PostView.nhn?blogId=tutorials_korea&amp;logNo=221610337593&amp;redirect=Dlog&amp;widgetTypeCall=true&amp;directAccess=false" target="_blank" rel="noreferrer">Image Source</a></p>
+<ul>
+<li>C#에서 지원하는 자료구조 클래스이다. C++의 컨테이너와 비슷하다.</li>
+<li>컬렉션은 <strong>제네릭(Generic)</strong> 과 <strong>논제네릭(Non-Generic)</strong> 으로 나뉜다.
+<ul>
+<li>논제네릭은 <code>object</code> 형식을 사용해서 데이터를 관리하기 때문에 박싱과 언박싱이 잦아 성능 문제가 있어서 제네릭 컬렉션을 사용한다.</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>특징</th>
+<th>Generic</th>
+<th>Non-Generic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>인덱스</strong></td>
+<td>List&lt;T&gt;</td>
+<td>Array, ArrayList</td>
+</tr>
+<tr>
+<td><strong>키 - 값 쌍</strong></td>
+<td>Dictionary&lt;TKey,TValue&gt;</td>
+<td>Hashtable</td>
+</tr>
+<tr>
+<td><strong>FIFO</strong></td>
+<td>Queue&lt;T&gt;</td>
+<td>Queue</td>
+</tr>
+<tr>
+<td><strong>LIFO</strong></td>
+<td>Stack&lt;T&gt;</td>
+<td>Stack</td>
+</tr>
+<tr>
+<td><strong>순서대로 엑세스</strong></td>
+<td>LinkedList&lt;T&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>정렬된 컬렉션</strong></td>
+<td>SortedList&lt;TKey,TValue&gt;</td>
+<td>SortedList</td>
+</tr>
+<tr>
+<td><strong>수학함수용 집합</strong></td>
+<td>HashSet&lt;T&gt;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><br /><br /></p>
+<h2 id="불변성과-가변성" class="relative group">불변성과 가변성 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%eb%b6%88%eb%b3%80%ec%84%b1%ea%b3%bc-%ea%b0%80%eb%b3%80%ec%84%b1" aria-label="Anchor">#</a></span></h2><ul>
+<li><strong>불변성(Invariance)</strong>
+<ul>
+<li>변경할 수 없는. 인스턴스가 생성된 후 값을 변경할 수 없는 타입이다.</li>
+<li>예: <code>string</code></li>
+</ul>
+</li>
+<li><strong>가변성(Variance)</strong>
+<ul>
+<li>변경할 수 있는. 인스턴스가 생성된 후 값이 변경될 수 있는 타입이다.</li>
+<li>예: <code>StringBuilder</code></li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>여기서는 제네릭의 가변성을 살펴본다.
+<ul>
+<li>가변성은 암묵적으로 레퍼런스를 변환할 수 있는 능력이므로, Value Type에는 사용할 수 없고, Reference Type에만 적용된다.</li>
+<li>타입 T 파라미터를 <code>&lt;out T&gt;</code>로 사용하면 공변성이 되고, <code>&lt;in T&gt;</code>로 사용하면 반공변성이 되며, in이나 out 없이 <code>&lt;T&gt;</code>로 사용하면 불변성이 된다.</li>
+<li>공변성을 지원하는 타입
+<ul>
+<li><code>IEnumerable&lt;out T&gt;</code>, <code>IEnumerator&lt;out T&gt;</code>, <code>IQueryable&lt;out T&gt;</code>, <code>Func&lt;out T&gt;</code> 등</li>
+</ul>
+</li>
+<li>반공변성을 지원하는 타입
+<ul>
+<li><code>IComparer&lt;in T&gt;</code>, <code>IComparable&lt;in T&gt;</code>, <code>IEqualityComparer&lt;in T&gt;</code>, <code>Action&lt;in T&gt;</code> 등</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>속성</th>
+<th>특징</th>
+<th>파라미터</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>불변성</strong></td>
+<td>동일 타입만 할당 가능</td>
+<td><code>&lt;T&gt;</code></td>
+</tr>
+<tr>
+<td><strong>가변성 - 공변성(Covariance)</strong></td>
+<td>상위 타입 할당 가능</td>
+<td><code>&lt;out T&gt;</code></td>
+</tr>
+<tr>
+<td><strong>가변성 - 반공변성(Contravariance)</strong></td>
+<td>하위 타입 할당 가능</td>
+<td><code>&lt;in T&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Animal</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">int</span> <span class="n">Age</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="k">void</span> <span class="n">Move</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Dog</span> <span class="p">:</span> <span class="n">Animal</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="k">void</span> <span class="n">Bark</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">K9</span> <span class="p">:</span> <span class="n">Dog</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="k">void</span> <span class="n">FindDrug</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c1">// 제네릭 인터페이스: Covariance </span>
+</span></span><span class="line"><span class="cl"><span class="k">interface</span> <span class="nc">ICreate</span><span class="p">&lt;</span><span class="k">out</span> <span class="n">T</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span> <span class="n">Create</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">DogFactory</span> <span class="p">:</span> <span class="n">ICreate</span><span class="p">&lt;</span><span class="n">Dog</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Dog</span> <span class="n">Create</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">new</span> <span class="n">Dog</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 제네릭 인터페이스: Contravariance</span>
+</span></span><span class="line"><span class="cl"><span class="k">interface</span> <span class="nc">ITest</span><span class="p">&lt;</span><span class="k">in</span> <span class="n">T</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">void</span> <span class="n">Run</span><span class="p">(</span><span class="n">T</span> <span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">AnimalTest</span> <span class="p">:</span> <span class="n">ITest</span><span class="p">&lt;</span><span class="n">Animal</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="k">void</span> <span class="n">Run</span><span class="p">(</span><span class="n">Animal</span> <span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="p">.</span><span class="n">Move</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Main</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="k">void</span> <span class="n">Run</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ICreate</span><span class="p">&lt;</span><span class="n">Animal</span><span class="p">&gt;</span> <span class="n">creator</span> <span class="p">=</span> <span class="p">(</span><span class="n">ICreate</span><span class="p">&lt;</span><span class="n">Dog</span><span class="p">&gt;)</span><span class="k">new</span> <span class="n">DogFactory</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Animal</span> <span class="n">ani</span> <span class="p">=</span> <span class="n">creator</span><span class="p">.</span><span class="n">Create</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ani</span><span class="p">.</span><span class="n">Move</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">ITest</span><span class="p">&lt;</span><span class="n">Dog</span><span class="p">&gt;</span> <span class="n">d</span> <span class="p">=</span> <span class="p">(</span><span class="n">ITest</span><span class="p">&lt;</span><span class="n">Animal</span><span class="p">&gt;)</span><span class="k">new</span> <span class="n">AnimalTest</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">d</span><span class="p">.</span><span class="n">Run</span><span class="p">(</span><span class="k">new</span> <span class="n">Dog</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">d</span><span class="p">.</span><span class="n">Run</span><span class="p">(</span><span class="k">new</span> <span class="n">K9</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">AnimalComparer</span> <span class="p">:</span> <span class="n">IComparer</span><span class="p">&lt;</span><span class="n">Animal</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">IComparer</span><span class="p">&lt;</span><span class="n">Animal</span><span class="p">&gt;.</span><span class="n">Compare</span><span class="p">(</span><span class="n">Animal</span> <span class="n">a</span><span class="p">,</span> <span class="n">Animal</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="p">==</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="n">b</span> <span class="p">==</span> <span class="kc">null</span> <span class="p">?</span> <span class="m">0</span> <span class="p">:</span> <span class="p">-</span><span class="m">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">b</span> <span class="p">==</span> <span class="kc">null</span> <span class="p">?</span> <span class="m">1</span> <span class="p">:</span> <span class="n">a</span><span class="p">.</span><span class="n">Age</span><span class="p">.</span><span class="n">CompareTo</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">Age</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Main</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="k">void</span> <span class="n">Run</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// covariance </span>
+</span></span><span class="line"><span class="cl">        <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Animal</span><span class="p">&gt;</span> <span class="n">animals</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Dog</span><span class="p">&gt;()</span> <span class="p">{</span> <span class="k">new</span> <span class="n">Dog</span><span class="p">()</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="n">animals</span><span class="p">.</span><span class="n">GetEnumerator</span><span class="p">().</span><span class="n">Current</span><span class="p">.</span><span class="n">Move</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="c1">// contravariance </span>
+</span></span><span class="line"><span class="cl">        <span class="n">IComparer</span><span class="p">&lt;</span><span class="n">Dog</span><span class="p">&gt;</span> <span class="n">dogComparer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">AnimalComparer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Dog</span> <span class="n">dogA</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dog</span> <span class="p">{</span> <span class="n">Age</span> <span class="p">=</span> <span class="m">10</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Dog</span> <span class="n">dogB</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dog</span> <span class="p">{</span> <span class="n">Age</span> <span class="p">=</span> <span class="m">10</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">result</span> <span class="p">=</span> <span class="n">dogComparer</span><span class="p">.</span><span class="n">Compare</span><span class="p">(</span><span class="n">dogA</span><span class="p">,</span> <span class="n">dogB</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="listt" class="relative group">List&lt;T&gt; <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#listt" aria-label="Anchor">#</a></span></h2><ul>
+<li>내부적으로는 배열을 사용한다. 현재 크기의 2배로 늘리면서 재할당한다.</li>
+<li>메모리가 순차적으로 할당이 된다. 그래서 불연속적인 메모리 할당 보다는 순차 접근이 빠르다. (캐시에 참조 지역성의 원리에 따라서 저장이 함께 되므로)</li>
+<li>대신 인덱스로 접근하기 때문에 임의 접근은 빠르다.</li>
+<li>중간에 삽입, 삭제가 효율적이지 않다. 원소들을 한칸씩 옮겨야 하기 때문이다. 그 과정에서 사본을 생성해야 하는 일도 발생한다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>메서드</th>
+<th>기능</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Add(T)</code></td>
+<td>개체를 끝부분에 추가한다.</td>
+</tr>
+<tr>
+<td><code>AddRang(IEnumerable\&lt;T\&gt;)</code></td>
+<td>개체들을 끝부분에 추가한다.</td>
+</tr>
+<tr>
+<td><code>Insert(Int32, T)</code></td>
+<td>개체를 지정된 인덱스에 추가한다.</td>
+</tr>
+<tr>
+<td><code>Remove(T)</code></td>
+<td>처음 발견되는 해당 개체를 삭제한다.</td>
+</tr>
+<tr>
+<td><code>RemoveAll(Predicate\&lt;T\&gt;)</code></td>
+<td>해당 조건을 만족하는 개체들을 모두 삭제한다.</td>
+</tr>
+<tr>
+<td><code>Clear()</code></td>
+<td>개체들을 모두 제거한다.</td>
+</tr>
+<tr>
+<td><code>Contains(T)</code></td>
+<td>개체를 포함하고 있는지 확인한다.</td>
+</tr>
+<tr>
+<td><code>IndexOf(T)</code></td>
+<td>개체의 인덱스를 반환한다. 없으면 -1을 반환한다.</td>
+</tr>
+<tr>
+<td><code>Sort()</code></td>
+<td>개체들을 오름차순 혹은 내림차순으로 정렬한다.</td>
+</tr>
+<tr>
+<td><code>Reverse()</code></td>
+<td>개체들을 현재 상대의 반대로 만든다.</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">l</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">2</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl"><span class="n">l</span><span class="p">.</span><span class="n">Reverse</span><span class="p">();</span> <span class="c1">// 2 3 1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">l</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="m">3</span><span class="p">);</span> <span class="c1">// 2 3 1 3</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">l</span><span class="p">.</span><span class="n">AddRange</span><span class="p">(</span><span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="p">{</span><span class="m">6</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">8</span><span class="p">});</span> <span class="c1">// 2 3 1 3 6 7 8</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">l</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="m">1</span><span class="p">);</span> <span class="c1">// 2 3 3 6 7 8</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">l</span><span class="p">.</span><span class="n">RemoveAll</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span> <span class="p">==</span> <span class="m">3</span><span class="p">);</span> <span class="c1">// 2 6 7 8 </span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">res</span> <span class="p">=</span> <span class="n">l</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="m">9</span><span class="p">);</span> <span class="c1">// true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">idx</span> <span class="p">=</span> <span class="n">l</span><span class="p">.</span><span class="n">IndexOf</span><span class="p">(</span><span class="m">7</span><span class="p">);</span> <span class="c1">// 2</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="linkedlistt" class="relative group">LinkedList&lt;T&gt; <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#linkedlistt" aria-label="Anchor">#</a></span></h2><ul>
+<li>이중 연결리스트로 구현되어 있다.</li>
+<li>포인터만 변경하면 되므로 중간 삽입, 삭제가 시간복잡도 1만에 이루어진다.</li>
+<li>임의접근이 안 되기 때문에 처음부터 순차적으로 살펴봐야 한다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>메서드</th>
+<th>기능</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AddFirst(T)</code></td>
+<td>개체를 리스트의 맨 앞에 추가한다.</td>
+</tr>
+<tr>
+<td><code>AddLast(T)</code></td>
+<td>개체를 리스트의 맨 뒤에 추가한다.</td>
+</tr>
+<tr>
+<td><code>AddBefore(LinkedListNode\&lt;T\&gt;, LinkedListNode\&lt;T\&gt;)</code></td>
+<td>개체를 해당 인덱스 위치 앞에 추가한다.</td>
+</tr>
+<tr>
+<td><code>AddAfter(LinkedListNode\&lt;T\&gt;, LinkedListNode\&lt;T\&gt;)</code></td>
+<td>개체를 해당 인덱스 위치 다음에 추가한다.</td>
+</tr>
+<tr>
+<td><code>Remove(T)</code></td>
+<td>처음 발견되는 해당 개체를 삭제한다.</td>
+</tr>
+<tr>
+<td><code>RemoveFirst()</code></td>
+<td>맨 앞의 개체를 제거한다.</td>
+</tr>
+<tr>
+<td><code>RemoveLast()</code></td>
+<td>맨 뒤의 개체를 제거한다.</td>
+</tr>
+<tr>
+<td><code>Clear()</code></td>
+<td>개체들을 모두 제거한다.</td>
+</tr>
+<tr>
+<td><code>Contains(T)</code></td>
+<td>개체를 포함하고 있는지 확인한다.</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kt">int</span><span class="p">[]</span> <span class="n">input</span> <span class="p">=</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="m">1</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">LinkedList</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">ll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="p">(</span><span class="n">input</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ll</span><span class="p">.</span><span class="n">AddFirst</span><span class="p">(</span><span class="m">0</span><span class="p">);</span> <span class="c1">// 0, 1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ll</span><span class="p">.</span><span class="n">AddLast</span><span class="p">(</span><span class="m">4</span><span class="p">);</span> <span class="c1">// 0, 1, 4</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ll</span><span class="p">.</span><span class="n">AddAfter</span><span class="p">(</span><span class="n">ll</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="m">1</span><span class="p">),</span> <span class="k">new</span> <span class="n">LinkedListNode</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;(</span><span class="m">3</span><span class="p">));</span> <span class="c1">// 0, 1, 3, 4</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ll</span><span class="p">.</span><span class="n">AddBefore</span><span class="p">(</span><span class="n">ll</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="m">3</span><span class="p">),</span> <span class="k">new</span> <span class="n">LinkedListNode</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;(</span><span class="m">2</span><span class="p">));</span> <span class="c1">// 0, 1, 2, 3, 4</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ll</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="m">3</span><span class="p">);</span>  <span class="c1">// 0, 1, 2, 4</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ll</span><span class="p">.</span><span class="n">RemoveFirst</span><span class="p">();</span> <span class="c1">// 1, 2, 4</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ll</span><span class="p">.</span><span class="n">RemoveLast</span><span class="p">();</span> <span class="c1">// 1, 2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">res</span> <span class="p">=</span> <span class="n">ll</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="m">1</span><span class="p">);</span> <span class="c1">// true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">LinkedListNode</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">node</span> <span class="p">=</span> <span class="n">ll</span><span class="p">.</span><span class="n">First</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">ll</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">Value</span> <span class="p">+</span> <span class="s">&#34; &#34;</span><span class="p">);</span> <span class="c1">// 1, 2</span>
+</span></span><span class="line"><span class="cl">    <span class="n">node</span> <span class="p">=</span> <span class="n">node</span><span class="p">.</span><span class="n">Next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="dictionarytkey-tvalue" class="relative group">Dictionary&lt;TKey, TValue&gt; <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#dictionarytkey-tvalue" aria-label="Anchor">#</a></span></h2><ul>
+<li>인덱스 번호가 아닌, 키를 사용해서 값을 얻는다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>메서드</th>
+<th>기능</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Add(TKey, TValue)</code></td>
+<td>개체를 추가한다.</td>
+</tr>
+<tr>
+<td><code>Remove(TKey)</code></td>
+<td>지정된 키를 가진 개체를 삭제한다.</td>
+</tr>
+<tr>
+<td><code>Remove(TKey, TValue)</code></td>
+<td>지정된 키를 가진 개체를 삭제하고, 두번째 필드에 값을 저장한다.</td>
+</tr>
+<tr>
+<td><code>Clear()</code></td>
+<td>개체들을 모두 제거한다.</td>
+</tr>
+<tr>
+<td><code>ContainsKey(TKey)</code></td>
+<td>키를 포함하고 있는지 확인한다.</td>
+</tr>
+<tr>
+<td><code>ContainsValue(TValue)</code></td>
+<td>값을 포함하고 있는지 확인한다.</td>
+</tr>
+<tr>
+<td><code>Reverse()</code></td>
+<td>개체들을 현재 상대의 반대로 만든다.</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;</span> <span class="n">d</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;</span> <span class="p">{</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="s">&#34;First&#34;</span> <span class="p">},</span> <span class="p">{</span> <span class="m">2</span><span class="p">,</span> <span class="s">&#34;Second&#34;</span> <span class="p">},</span> <span class="p">{</span> <span class="m">3</span><span class="p">,</span> <span class="s">&#34;Third&#34;</span><span class="p">}</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl"><span class="n">d</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="m">4</span><span class="p">,</span> <span class="s">&#34;Forth&#34;</span><span class="p">);</span> <span class="c1">// First, Second, Third, Forth</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">d</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="m">1</span><span class="p">);</span> <span class="c1">// Second, Third, Forth</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">d</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="k">out</span> <span class="kt">var</span> <span class="n">deletedThis</span><span class="p">);</span> <span class="c1">// Third, Forth  |  deletedThis = Second</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">d</span><span class="p">[</span><span class="m">4</span><span class="p">]</span> <span class="p">=</span> <span class="s">&#34;Fifth&#34;</span><span class="p">;</span> <span class="c1">// Third, Fifth</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">resKey</span> <span class="p">=</span> <span class="n">d</span><span class="p">.</span><span class="n">ContainsKey</span><span class="p">(</span><span class="m">1</span><span class="p">);</span> <span class="c1">// false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">resVal</span> <span class="p">=</span> <span class="n">d</span><span class="p">.</span><span class="n">ContainsValue</span><span class="p">(</span><span class="s">&#34;Fifth&#34;</span><span class="p">);</span> <span class="c1">// true</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="references" class="relative group">References <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#references" aria-label="Anchor">#</a></span></h2><ul>
+<li>
+<a href="https://blog.naver.com/PostView.nhn?blogId=tutorials_korea&amp;logNo=221610337593&amp;redirect=Dlog&amp;widgetTypeCall=true&amp;directAccess=false" target="_blank" rel="noreferrer">https://blog.naver.com/PostView.nhn?blogId=tutorials_korea&logNo=221610337593&redirect=Dlog&widgetTypeCall=true&directAccess=false</a></li>
+<li>
+<a href="https://www.csharpstudy.com/DevNote/Article/31" target="_blank" rel="noreferrer">https://www.csharpstudy.com/DevNote/Article/31</a></li>
+</ul>
+<p><br /><br /></p>
+
+      </div>
+    </section>
+    <footer class="max-w-prose pt-8 print:hidden">
+      
+  <div class="flex">
+    
+    
+    
+      
+      
+        
+        
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+      
+    >
+      
+      
+      
+      
+      <img
+        width="500"
+        height="500"
+        class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+        alt="Pero"
+        loading="lazy" decoding="async"
+        
+          src="/main.jpg"
+        
+      />
+    </picture>
+  
+
+
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          Pero
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">Keep moving forward.</div>
+      
+      <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="mailto:peropeq@gmail.com"
+          target="_blank"
+          aria-label="Email"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+    </div>
+  </div>
+
+
+      
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="/post/csharp/c-sharp-03/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[C#] virtual 메서드</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-04-19 03:00:00 &#43;0900 KST">19 April 2022</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="group flex text-right" href="/post/csharp/c-sharp-05/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[C#] 가비지 컬렉션</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-04-19 05:00:00 &#43;0900 KST">19 April 2022</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&rarr;</span
+                ><span class="ltr:hidden rtl:inline">&larr;</span></span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+          <div class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12">
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            ⓒ 2022. Pero.
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a>
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+    </div>
+  </div>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm sm:p-6 md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50"
+  data-url="https://frompero.github.io/"
+>
+  <div
+    id="search-modal"
+    class="top-20 mx-auto flex min-h-0 w-full max-w-3xl flex-col rounded-md border border-neutral-200 bg-neutral shadow-lg dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex flex-none items-center justify-between px-2">
+      <form class="flex min-w-0 flex-auto items-center">
+        <div class="flex h-8 w-8 items-center justify-center text-neutral-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="mx-1 flex h-12 flex-auto appearance-none bg-transparent focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex h-8 w-8 items-center justify-center text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto overflow-auto px-2">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1284 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="rgb(255,255,255)" />
+  
+  <title>[Effective C&#43;&#43;] Chapter 3. 자원 관리 &middot; from Pero</title>
+    <meta name="title" content="[Effective C&#43;&#43;] Chapter 3. 자원 관리 &middot; from Pero" />
+  
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.022d0ebc3b46a335eb1c7ef79b7f2de143d7cd5156d433638592ef1ce5f8554e.js"
+    integrity="sha256-Ai0OvDtGozXrHH73m38t4UPXzVFW1DNjhZLvHOX4VU4="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.afb4a97d267bd0c2e9391dd7b62a45afcd549fea29cb7747564f0cb36db70f1b.css"
+    integrity="sha256-r7SpfSZ70MLpOR3XtipFr81Un&#43;opy3dHVk8Ms223Dxs="
+  />
+  
+    
+    
+    
+  
+  
+  
+    
+    
+  
+  
+    
+    
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.5b9218820e6c6b9f04b4c5a03dffd0d57bc9189f511ee80ea74222de3a608e2f.js"
+      integrity="sha256-W5IYgg5sa58EtMWgPf/Q1XvJGJ9RHugOp0Ii3jpgji8="
+      data-copy="Copy"
+      data-copied="Copied"
+    ></script>
+  
+  
+  <meta
+    name="description"
+    content="
+      
+        이펙티브 C&#43;&#43; 책을 읽고 공부한 노트입니다.
+      
+    "
+  />
+  
+  
+  
+  <link rel="canonical" href="https://frompero.github.io/post/cpp/effective-cpp-03/" />
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="[Effective C&#43;&#43;] Chapter 3. 자원 관리" />
+<meta property="og:description" content="이펙티브 C&#43;&#43; 책을 읽고 공부한 노트입니다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://frompero.github.io/post/cpp/effective-cpp-03/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-01-03T01:00:00+09:00" />
+<meta property="article:modified_time" content="2023-01-03T01:00:00+09:00" />
+
+
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="[Effective C&#43;&#43;] Chapter 3. 자원 관리"/>
+<meta name="twitter:description" content="이펙티브 C&#43;&#43; 책을 읽고 공부한 노트입니다."/>
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "[Effective C\u002b\u002b] Chapter 3. 자원 관리",
+    "headline": "[Effective C\u002b\u002b] Chapter 3. 자원 관리",
+    
+    "abstract": "이펙티브 C\u002b\u002b 책을 읽고 공부한 노트입니다.",
+    "inLanguage": "en",
+    "url" : "https:\/\/frompero.github.io\/post\/cpp\/effective-cpp-03\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Pero"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-01-03T01:00:00\u002b09:00",
+    "datePublished": "2023-01-03T01:00:00\u002b09:00",
+    
+    "dateModified": "2023-01-03T01:00:00\u002b09:00",
+    
+    "keywords": ["Effective C++"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "970"
+  }
+  </script>
+
+
+  
+  <meta name="author" content="Pero" />
+  
+    
+      <link href="mailto:peropeq@gmail.com" rel="me" />
+    
+  
+  
+  
+
+
+
+
+
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/lib/katex/katex.min.7c7c1a59e6eec00ecd485e5083f69fe14783c7d5ea52962938682e6e8df25aef9bd88411e14790c1b6f8d938bb81502336d56823f23d4c4a187aef689b0702ea.css"
+    integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu&#43;b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g=="
+  />
+  
+  
+  <script
+    defer
+    src="/lib/katex/katex.min.2d037120c479ad7bfba3e6f597cf8dd4464c7e11bb88567d1e19db2644e9e338cdaf95afb2def902a51e143c5e4546bb979bc40f2522022a7ffebf8414b2c2c8.js"
+    integrity="sha512-LQNxIMR5rXv7o&#43;b1l8&#43;N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r&#43;EFLLCyA=="
+  ></script>
+  
+  
+  <script
+    defer
+    src="/lib/katex/auto-render.min.e6511c3458afadbb974a54c917a45e383efdb02303964d83fdb17ff69367d6d871a53a09973ffec8c9d3525c7b8c64602e6c16a64842884ad60989a16d953fd0.js"
+    integrity="sha512-5lEcNFivrbuXSlTJF6ReOD79sCMDlk2D/bF/9pNn1thxpToJlz/&#43;yMnTUlx7jGRgLmwWpkhCiErWCYmhbZU/0A=="
+    onload="renderMathInElement(document.body);"
+  ></script>
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+  
+  
+  
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QBM4YPD699"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-QBM4YPD699', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+  
+  
+</head>
+<body
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 sm:px-14 md:px-24 lg:px-32 dark:bg-neutral-800 dark:text-neutral"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="-translate-y-8 rounded-b-lg bg-primary-200 px-3 py-1 text-sm focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="pe-2 font-bold text-primary-600 dark:text-primary-400">&darr;</span
+        >Skip to main content</a
+      >
+    </div>
+    
+    
+      <header class="py-6 font-semibold text-neutral-900 print:hidden sm:py-10 dark:text-neutral">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="z-40 flex flex-row items-center">
+      
+  <a
+    class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+    rel="me"
+    href="/"
+    >from Pero</a
+  >
+
+    </div>
+    
+      
+      <label id="menu-button" for="menu-controller" class="block sm:hidden">
+        <input type="checkbox" id="menu-controller" class="hidden" />
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="invisible fixed inset-0 z-30 m-auto h-full w-full cursor-default overflow-auto bg-neutral-100/50 opacity-0 backdrop-blur-sm transition-opacity dark:bg-neutral-900/50"
+        >
+          <ul
+            class="mx-auto flex w-full max-w-7xl list-none flex-col overflow-visible px-6 py-6 text-end sm:px-14 sm:py-10 sm:pt-10 md:px-24 lg:px-32"
+          >
+            <li class="mb-1">
+              <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400"
+                ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span></span
+              >
+            </li>
+            
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/post/"
+                      title="Posts"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Posts</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/categories/"
+                      title="Categories"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Categories</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    <a
+                      href="/tags/"
+                      title="Tags"
+                      onclick="close_menu()"
+                      
+                      ><span
+                          class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                          >Tags</span
+                        >
+                      </a
+                    >
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    
+                      <button
+                        id="search-button-1"
+                        title="Search (/)"
+                      >
+                        
+                          <span
+                            class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                          ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </button>
+                    
+                  
+                </li>
+              
+                
+                <li class="group mb-1">
+                  
+                    
+                    <button
+                      id="appearance-switcher-1"
+                      type="button"
+                      aria-label="appearance switcher"
+                    >
+                      <span
+                        class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                        title="Switch to dark appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                      <span
+                        class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                        title="Switch to light appearance"
+                      >
+                        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                            class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                            ></span
+                          >
+                        
+                      </span>
+                    </button>
+                  
+                </li>
+              
+              
+            
+          </ul>
+        </div>
+      </label>
+      
+      <ul class="hidden list-none flex-row text-end sm:flex">
+        
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/post/"
+                  title="Posts"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Posts</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/categories/"
+                  title="Categories"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Categories</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                <a
+                  href="/tags/"
+                  title="Tags"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Tags</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                
+                  <button
+                    id="search-button-2"
+                    title="Search (/)"
+                  >
+                    
+                      <span
+                        class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                      ><span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span></span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </button>
+                
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              
+                
+                <button
+                  id="appearance-switcher-2"
+                  type="button"
+                  aria-label="appearance switcher"
+                >
+                  <span
+                    class="group-dark:hover:text-primary-400 inline transition-colors group-hover:text-primary-600 dark:hidden"
+                    title="Switch to dark appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                  <span
+                    class="group-dark:hover:text-primary-400 hidden transition-colors group-hover:text-primary-600 dark:inline"
+                    title="Switch to light appearance"
+                  >
+                    <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span><span
+                        class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                        ></span
+                      >
+                    
+                  </span>
+                </button>
+              
+            </li>
+          
+          
+
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex grow flex-col">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        [Effective C++] Chapter 3. 자원 관리
+      </h1>
+      
+        <div class="mb-12 mt-8 text-base text-neutral-500 print:hidden dark:text-neutral-400">
+          
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2023-01-03 01:00:00 &#43;0900 KST">3 January 2023</time>
+    
+
+    
+    
+  </div>
+
+  
+  
+
+
+        </div>
+      
+      
+    </header>
+    <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+      
+        <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
+          <div class="toc pe-5 print:hidden lg:sticky lg:top-10">
+            <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
+  <summary
+    class="-ms-5 block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 lg:hidden dark:bg-neutral-700 dark:text-neutral-100"
+  >
+    Table of Contents
+  </summary>
+  <div class="-ms-5 border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#item-13-자원-관리에는-객체가-그만">Item 13: 자원 관리에는 객체가 그만!</a>
+      <ul>
+        <li><a href="#자원-관리-객체">자원 관리 객체</a></li>
+        <li><a href="#스마트-포인터">스마트 포인터</a></li>
+      </ul>
+    </li>
+    <li><a href="#item-14-자원-관리-클래스의-복사-동작에-대해-진지하게-고찰하자">Item 14: 자원 관리 클래스의 복사 동작에 대해 진지하게 고찰하자</a>
+      <ul>
+        <li><a href="#자원-관리-객체의-복사-처리">자원 관리 객체의 복사 처리</a></li>
+      </ul>
+    </li>
+    <li><a href="#item-15-자원-관리-클래스에서-관리되는-자원은-외부에서-접근할-수-있도록-하자">Item 15: 자원 관리 클래스에서 관리되는 자원은 외부에서 접근할 수 있도록 하자</a>
+      <ul>
+        <li><a href="#raii-클래스를-자원으로-변환하는-방법">RAII 클래스를 자원으로 변환하는 방법</a></li>
+      </ul>
+    </li>
+    <li><a href="#item-16-new-및-delete를-사용할-때는-형태를-반드시-맞추자">Item 16: <code>new</code> 및 <code>delete</code>를 사용할 때는 형태를 반드시 맞추자</a></li>
+    <li><a href="#item-17-new로-생성한-객체를-스마트-포인터에-저장하는-코드는-별도의-한-문장으로-만들자">Item 17: <code>new</code>로 생성한 객체를 스마트 포인터에 저장하는 코드는 별도의 한 문장으로 만들자</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+          </div>
+        </div>
+      
+      <div class="min-h-0 min-w-0 max-w-prose grow">
+        <div style="text-align: right"> 
+<p>
+<a href="http://www.yes24.com/Product/Goods/17525589" target="_blank" rel="noreferrer">이펙티브 C++</a> 책을 읽고 공부한 노트입니다.</p>
+</div>
+<hr>
+<p><br /><br /></p>
+<h2 id="item-13-자원-관리에는-객체가-그만" class="relative group">Item 13: 자원 관리에는 객체가 그만! <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-13-%ec%9e%90%ec%9b%90-%ea%b4%80%eb%a6%ac%ec%97%90%eb%8a%94-%ea%b0%9d%ec%b2%b4%ea%b0%80-%ea%b7%b8%eb%a7%8c" aria-label="Anchor">#</a></span></h2><ul>
+<li>프로그래밍 분야에서, <strong>자원(resource)</strong> 이란?
+<ul>
+<li>사용을 일단 마치고 난 후엔 시스템에 돌려주어야 하는 모든 것이다.</li>
+<li>동적 할당 메모리, 파일 서술자(file descriptor), 뮤텍스 잠금(mutex lock), GUI에서 쓰이는 폰트나 브러시, 데이터베이스 연결, 네트워크 소켓 등</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>어떻게 하면 팩토리 함수로 얻은 자원이 항상 해제되도록 할 수 있을까?</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Investment</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Investment</span> <span class="o">*</span> <span class="nf">createInvestment</span><span class="p">();</span> <span class="c1">// 팩토리 함수 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">f</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Investment</span> <span class="o">*</span> <span class="n">pInv</span> <span class="o">=</span> <span class="n">createInvestment</span><span class="p">();</span> <span class="c1">// Investment를 생성한다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  
+</span></span><span class="line"><span class="cl">  <span class="c1">// 도중하차되어 여기까지 코드가 도달하지 않으면 어떡할 것인가?
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">delete</span> <span class="n">pInv</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="자원-관리-객체" class="relative group">자원 관리 객체 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%9e%90%ec%9b%90-%ea%b4%80%eb%a6%ac-%ea%b0%9d%ec%b2%b4" aria-label="Anchor">#</a></span></h3><ul>
+<li><strong>객체</strong>를 써서 자원을 관리하는 게 최고다.</li>
+<li>자원을 객체에 넣음으로써 C++이 자동으로 호출해 주는 소멸자 덕분에 자원이 저절로 해제되도록 할 수 있다.</li>
+<li>자원 관리 객체의 사용 방법
+<ul>
+<li>(1) 자원을 획득한 후에 <strong>자원 관리 객체에게 넘긴다. (Resource Acquisition Is Initialization; RAII)</strong></li>
+<li>(2) 자원 관리 객체는 자신의 <strong>소멸자를 사용해서 자원이 확실히 해제되도록 한다.</strong></li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h3 id="스마트-포인터" class="relative group">스마트 포인터 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%8a%a4%eb%a7%88%ed%8a%b8-%ed%8f%ac%ec%9d%b8%ed%84%b0" aria-label="Anchor">#</a></span></h3><ul>
+<li>이런 객체 중에 하나가 바로 <strong>스마트 포인터(smart pointer)</strong> 이다.
+<ul>
+<li><code>auto_ptr</code>은 블록을 벗어나면 소멸자가 자동으로 <code>delete</code>를 불러주도록 설계되어 있다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">f</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">auto_ptr</span><span class="o">&lt;</span><span class="n">Investment</span><span class="o">&gt;</span> <span class="n">pInv</span><span class="p">(</span><span class="n">createInvestment</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="c1">// auto_ptr이 소멸자를 통해 delete pInv를 한다. 
+</span></span></span></code></pre></div><ul>
+<li><code>auto_ptr</code>은 객체를 복사하면 원본 객체는 <code>null</code>로 바뀐다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">auto_ptr</span><span class="o">&lt;</span><span class="n">Investment</span><span class="o">&gt;</span> <span class="n">pInv1</span><span class="p">(</span><span class="n">createInvestment</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// pInv2가 Investment를 가리키고, pInv1은 null이다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">auto_ptr</span><span class="o">&lt;</span><span class="n">Investment</span><span class="o">&gt;</span> <span class="n">pInv2</span><span class="p">(</span><span class="n">pInv1</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// pInv1이 Investment를 가리키고, pInv2는 null이다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">pInv1</span> <span class="o">=</span> <span class="n">pInv2</span><span class="p">;</span> 
+</span></span></code></pre></div><br />
+<ul>
+<li><strong>참조 카운팅 방식 스마트 포인터(reference-counting smart pointer: RCDP)</strong> 인 <code>shared_ptr</code>를 사용하면 여러 포인터가 객체를 가리키도록 할 수 있다.
+<ul>
+<li><code>shared_ptr</code>은 가리키는 외부 객체의 수가 <strong>0이 되면 해당 자원을 자동으로 삭제</strong>한다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Investment</span><span class="o">&gt;</span> <span class="n">pInv1</span><span class="p">(</span><span class="n">createInvestment</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// pInv1와 pInv2 모두 Investment를 가리킨다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Investment</span><span class="o">&gt;</span> <span class="n">pInv2</span><span class="p">(</span><span class="n">pInv1</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl"><span class="n">pInv1</span> <span class="o">=</span> <span class="n">pInv2</span><span class="p">;</span> 
+</span></span></code></pre></div><br />
+<ul>
+<li>스마트 포인터에서 주의할 점
+<ul>
+<li><code>delete</code>를 부르는 것이지 <code>delete []</code>를 부르는 것이 아니다.</li>
+<li>따라서 아래와 같은 코드는 문제가 발생한다.</li>
+<li>배열을 위한 부스트(<code>boost::scoped_array</code>, <code>boost::shared_array</code>)는 Item 55를 참고하자.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">auto_ptr</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">aps</span><span class="p">(</span><span class="k">new</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">[</span><span class="mi">10</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">apt</span><span class="p">(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">1024</span><span class="p">]);</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="item-14-자원-관리-클래스의-복사-동작에-대해-진지하게-고찰하자" class="relative group">Item 14: 자원 관리 클래스의 복사 동작에 대해 진지하게 고찰하자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-14-%ec%9e%90%ec%9b%90-%ea%b4%80%eb%a6%ac-%ed%81%b4%eb%9e%98%ec%8a%a4%ec%9d%98-%eb%b3%b5%ec%82%ac-%eb%8f%99%ec%9e%91%ec%97%90-%eb%8c%80%ed%95%b4-%ec%a7%84%ec%a7%80%ed%95%98%ea%b2%8c-%ea%b3%a0%ec%b0%b0%ed%95%98%ec%9e%90" aria-label="Anchor">#</a></span></h2><ul>
+<li>모든 자원은 힙에 생기지 않으므로, <code>delete</code>를 알아서 해주는 스마트 포인터로는 다른 자원 관리가 불가능하다.
+<ul>
+<li>그렇다면 직접 RAII 법칙에 맞는 자원 관리 클래스를 만들어볼 수 있겠다.</li>
+<li>예를 들어, 뮤텍스 잠금을 관리하는 클래스를 만든다고 하자.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Lock</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Mutex</span> <span class="o">*</span> <span class="n">mutexPtr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">explicit</span> <span class="n">Lock</span><span class="p">(</span><span class="n">Mutex</span> <span class="o">*</span> <span class="n">pm</span><span class="p">)</span> <span class="o">:</span> <span class="n">mutexPtr</span><span class="p">(</span><span class="n">pm</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="p">(</span><span class="n">mutexPtr</span><span class="p">);</span> <span class="c1">// 잠금
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="o">~</span><span class="n">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">unlock</span><span class="p">(</span><span class="n">mutexPtr</span><span class="p">);</span> <span class="c1">// 해제 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 사용자는 이렇게 사용하면 되겠다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Mutex</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Lock</span> <span class="n">lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">m</span><span class="p">);</span> <span class="c1">// 잠금을 건다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// ... 임계 영역에서 연산을 수행한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span> <span class="c1">// 블록의 끝이므로 ~Lock()소멸자가 자동으로 불려서 잠금이 해제된다.  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="자원-관리-객체의-복사-처리" class="relative group">자원 관리 객체의 복사 처리 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%9e%90%ec%9b%90-%ea%b4%80%eb%a6%ac-%ea%b0%9d%ec%b2%b4%ec%9d%98-%eb%b3%b5%ec%82%ac-%ec%b2%98%eb%a6%ac" aria-label="Anchor">#</a></span></h3><ul>
+<li>하지만 <code>Lock</code> 객체가 복사된다면 어떻게 해야 할까?</li>
+<li>(1) <strong>복사를 금지</strong>한다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Lock</span> <span class="o">:</span> <span class="k">private</span> <span class="n">Uncopyable</span> <span class="p">{};</span> <span class="c1">// Item 6 참고 
+</span></span></span></code></pre></div><br />
+<ul>
+<li>(2) <strong>참조 카운팅</strong>을 수행한다.
+<ul>
+<li><code>shared_ptr</code>은 삭제자(delete) 지정을 허용한다. 그래서 소멸자에서 <code>delete</code>를 대신해 불릴 함수를 지정할 수 있다.</li>
+<li><code>auto_ptr</code>은 이런 기능이 없다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Lock</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Mutex</span><span class="o">&gt;</span> <span class="n">mutexPtr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">explicit</span> <span class="n">Lock</span><span class="p">(</span><span class="n">Mutex</span> <span class="o">*</span> <span class="n">pm</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">:</span> <span class="n">mutexPtr</span><span class="p">(</span><span class="n">pm</span><span class="p">,</span> <span class="n">unlock</span><span class="p">)</span> <span class="c1">// 삭제자를 unlock으로 지정한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="p">(</span><span class="n">mutexPtr</span><span class="p">.</span><span class="n">get</span><span class="p">());</span> <span class="c1">// 잠금
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>(3) 자원을 <strong>진짜로 복사</strong>한다.
+<ul>
+<li>깊은 복사(deep copy)를 수행해야 하겠다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>(4) 자원의 <strong>소유권을 옮긴다.</strong>
+<ul>
+<li><code>auto_ptr</code>의 복사 동작과 같다.</li>
+</ul>
+</li>
+</ul>
+<p><br /><br /></p>
+<h2 id="item-15-자원-관리-클래스에서-관리되는-자원은-외부에서-접근할-수-있도록-하자" class="relative group">Item 15: 자원 관리 클래스에서 관리되는 자원은 외부에서 접근할 수 있도록 하자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-15-%ec%9e%90%ec%9b%90-%ea%b4%80%eb%a6%ac-%ed%81%b4%eb%9e%98%ec%8a%a4%ec%97%90%ec%84%9c-%ea%b4%80%eb%a6%ac%eb%90%98%eb%8a%94-%ec%9e%90%ec%9b%90%ec%9d%80-%ec%99%b8%eb%b6%80%ec%97%90%ec%84%9c-%ec%a0%91%ea%b7%bc%ed%95%a0-%ec%88%98-%ec%9e%88%eb%8f%84%eb%a1%9d-%ed%95%98%ec%9e%90" aria-label="Anchor">#</a></span></h2><ul>
+<li>외부에서 자원 관리 클래스의 자원에 접근할 수 있도록 해야할 경우가 있다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// Item 13에서 가져온 예제 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 투자금이 유입된 이후로 경과한 날수를 계산한다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">daysHeld</span><span class="p">(</span><span class="k">const</span> <span class="n">Investment</span> <span class="o">*</span> <span class="n">pi</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">f</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Investment</span><span class="o">&gt;</span> <span class="n">pInv</span><span class="p">(</span><span class="n">createInvestment</span><span class="p">());</span> 
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">days</span> <span class="o">=</span> <span class="n">daysHeld</span><span class="p">(</span><span class="n">pInv</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="c1">// 이렇게 사용하고 싶지만 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// pInv는 std::shared_ptr&lt;Investment&gt; 이고
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 매개변수 형식은 Investment * 이다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// shared_ptr의 자원에 접근할 수 있어야 하겠다. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> 
+</span></span></code></pre></div><p><br /><br /></p>
+<h3 id="raii-클래스를-자원으로-변환하는-방법" class="relative group">RAII 클래스를 자원으로 변환하는 방법 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#raii-%ed%81%b4%eb%9e%98%ec%8a%a4%eb%a5%bc-%ec%9e%90%ec%9b%90%ec%9c%bc%eb%a1%9c-%eb%b3%80%ed%99%98%ed%95%98%eb%8a%94-%eb%b0%a9%eb%b2%95" aria-label="Anchor">#</a></span></h3><ul>
+<li>명시적 혹은 암시적 변환 함수를 제공한다.
+<ul>
+<li>어떤 함수를 사용할지는 사용 용도 및 환경에 따라 달라지겠다.</li>
+<li>늘 그렇지는 않지만 명시적 변환 함수를 제공하는 쪽이 나을 때가 많다.</li>
+<li>RAII 클래스는 애초에 데이터 은닉이 목적이 아니므로, 자원을 공개한다고 해서 캡슐화에 위배되는 것은 아니다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>(1) <strong>명시적 변환(explicit conversion)</strong>
+<ul>
+<li><code>shared_ptr</code>과 <code>auto_ptr</code>은 <code>get()</code>이라는 멤버 함수를 제공한다. 이것으로 실제 자원을 가리키는 포인터의 사본을 얻을 수 있다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">days</span> <span class="o">=</span> <span class="n">daysHeld</span><span class="p">(</span><span class="n">pInv</span><span class="p">.</span><span class="n">get</span><span class="p">());</span> <span class="c1">// 동작한다. 
+</span></span></span></code></pre></div><br />
+<ul>
+<li>(2) <strong>암시적 변환(implicit conversion)</strong>
+<ul>
+<li><code>shared_ptr</code>과 <code>auto_ptr</code>은 포인터 역참조 연산자(<code>operator-&gt;</code>, <code>operator*</code>)를 오버로딩하고 있다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Investment</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">bool</span> <span class="n">isTaxFree</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Investment</span> <span class="o">*</span> <span class="nf">createInvestment</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Investment</span><span class="o">&gt;</span> <span class="n">pi1</span><span class="p">(</span><span class="n">createInvestment</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">bool</span> <span class="n">isTaxFree1</span> <span class="o">=</span> <span class="n">pi1</span><span class="o">-&gt;</span><span class="n">isTaxFree</span><span class="p">();</span> <span class="c1">// operator-&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">auto_ptr</span><span class="o">&lt;</span><span class="n">Investment</span><span class="o">&gt;</span> <span class="n">pi2</span><span class="p">(</span><span class="n">createInvestment</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">bool</span> <span class="n">isTaxFree2</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">pi2</span><span class="p">).</span><span class="n">isTaxFree</span><span class="p">();</span> <span class="c1">// operator*
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>두 변환의 예시</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FontHandle</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Font</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">FontHandle</span> <span class="n">f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">FontHandle</span> <span class="n">get</span> <span class="k">const</span> <span class="c1">// 명시적 변환 함수 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">operator</span> <span class="nf">FontHandle</span><span class="p">()</span> <span class="k">const</span> <span class="c1">// 암시적 변환 함수
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">FontHandle</span> <span class="nf">getFont</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">changeFontSize</span><span class="p">(</span><span class="n">FontHandle</span> <span class="n">f</span><span class="p">,</span> <span class="kt">int</span> <span class="n">newSize</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Font</span> <span class="n">f</span><span class="p">(</span><span class="n">getFont</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// (1) 명시적 변환
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">changeFontSize</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">get</span><span class="p">(),</span> <span class="mi">13</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// (2) 암시적 변환 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">changeFontSize</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">13</span><span class="p">);</span> <span class="c1">// Font 형식인 f가 FontHandler로 변환된다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl">  <span class="c1">// 원치 않는 경우가 발생할 수도 있다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">FontHandle</span> <span class="n">fh</span> <span class="o">=</span> <span class="n">f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Font를 복사하고 싶었는데
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// f가 FontHandle로 바뀐 후 복사된다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="item-16-new-및-delete를-사용할-때는-형태를-반드시-맞추자" class="relative group">Item 16: <code>new</code> 및 <code>delete</code>를 사용할 때는 형태를 반드시 맞추자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-16-new-%eb%b0%8f-delete%eb%a5%bc-%ec%82%ac%ec%9a%a9%ed%95%a0-%eb%95%8c%eb%8a%94-%ed%98%95%ed%83%9c%eb%a5%bc-%eb%b0%98%eb%93%9c%ec%8b%9c-%eb%a7%9e%ec%b6%94%ec%9e%90" aria-label="Anchor">#</a></span></h2><ul>
+<li><code>new</code> 연산자를 사용하면 벌어지는 일들
+<ul>
+<li>(1) 메모리가 할당된다. (<code>operator new</code> 함수가 사용된다)</li>
+<li>(2) 생성자가 호출된다.</li>
+</ul>
+</li>
+<li><code>delete</code> 연산자를 사용하면 벌어지는 일들
+<ul>
+<li>(1) 소멸자가 호출된다.</li>
+<li>(2) 메모리가 해제된다. (<code>operator delete</code> 함수가 사용된다)</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li><code>new</code>를 사용해서 힙에 만들어진 <strong>단일 객체</strong>의 메모리 배치구조는, <strong>객체 배열</strong>에 대한 메모리 배치구조와 다르다.
+<ul>
+<li>힙의 맨 앞에 배열원소의 개수가 박혀 들어간다.</li>
+<li>이걸로 <code>delete</code>는 소멸자를 몇 번 부를지를 알 수 있다.</li>
+</ul>
+</li>
+</ul>
+<br />
+<ul>
+<li>따라서 <code>new []</code> 표현식을 썼으면, <code>delete []</code> 표현식을 맞춰 써야한다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">*</span> <span class="n">sPtr1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">*</span> <span class="n">sPtr2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">delete</span> <span class="n">sPtr1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">delete</span> <span class="p">[]</span> <span class="n">sPtr2</span><span class="p">;</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>왠만하면 배열 타입을 <code>typedef</code> 타입으로 만들지 말자.
+<ul>
+<li><code>delete []</code>를 써야 하는지 헷갈린다.</li>
+<li><code>vector</code> 타입으로 만드는게 낫겠다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">AddressLines</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">*</span> <span class="n">pal</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AddressLines</span><span class="p">;</span> <span class="c1">// new string[4];
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl">  <span class="k">delete</span> <span class="n">pal</span><span class="p">;</span>    <span class="c1">// 이거 아니다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">delete</span> <span class="p">[]</span> <span class="n">pal</span><span class="p">;</span> <span class="c1">// 이거 써야되는데 헷갈리지 않는가?
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p><br /><br /></p>
+<h2 id="item-17-new로-생성한-객체를-스마트-포인터에-저장하는-코드는-별도의-한-문장으로-만들자" class="relative group">Item 17: <code>new</code>로 생성한 객체를 스마트 포인터에 저장하는 코드는 별도의 한 문장으로 만들자 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#item-17-new%eb%a1%9c-%ec%83%9d%ec%84%b1%ed%95%9c-%ea%b0%9d%ec%b2%b4%eb%a5%bc-%ec%8a%a4%eb%a7%88%ed%8a%b8-%ed%8f%ac%ec%9d%b8%ed%84%b0%ec%97%90-%ec%a0%80%ec%9e%a5%ed%95%98%eb%8a%94-%ec%bd%94%eb%93%9c%eb%8a%94-%eb%b3%84%eb%8f%84%ec%9d%98-%ed%95%9c-%eb%ac%b8%ec%9e%a5%ec%9c%bc%eb%a1%9c-%eb%a7%8c%eb%93%a4%ec%9e%90" aria-label="Anchor">#</a></span></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Widget</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">getPriority</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">processWidget</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span> <span class="n">pw</span><span class="p">,</span> <span class="kt">int</span> <span class="n">priority</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 컴파일 에러 :
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// shared_ptr의 생성자는 explicit이라서 암시적 변환이 안 된다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">processWidget</span><span class="p">(</span><span class="k">new</span> <span class="n">Widget</span><span class="p">,</span> <span class="n">getPriority</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 이것은 위험하다 :
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// new Widget으로 만들어진 자원이 shared_ptr에 저장되기 전, 그 사이에
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// getPriority()가 불리고 예외가 발생했다면
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 만들어진 자원은 유실되고 만다.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">processWidget</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span> <span class="n">Widget</span><span class="p">),</span> <span class="n">getPriority</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><br />
+<ul>
+<li>따라서,<code>new</code>로 생성한 객체를 스마트 포인터에 저장하는 코드는 별도의 문장으로 만들어야 하겠다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span> <span class="n">pw</span><span class="p">(</span><span class="k">new</span> <span class="n">Widget</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">processWidget</span><span class="p">(</span><span class="n">pw</span><span class="p">,</span> <span class="n">getPriority</span><span class="p">());</span>
+</span></span></code></pre></div><p><br /><br /></p>
+
+      </div>
+    </section>
+    <footer class="max-w-prose pt-8 print:hidden">
+      
+  <div class="flex">
+    
+    
+    
+      
+      
+        
+        
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+      
+    >
+      
+      
+      
+      
+      <img
+        width="500"
+        height="500"
+        class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+        alt="Pero"
+        loading="lazy" decoding="async"
+        
+          src="/main.jpg"
+        
+      />
+    </picture>
+  
+
+
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          Pero
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">Keep moving forward.</div>
+      
+      <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="mailto:peropeq@gmail.com"
+          target="_blank"
+          aria-label="Email"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+    </div>
+  </div>
+
+
+      
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="/post/cpp/effective-cpp-02/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[Effective C++] Chapter 2. 생성자, 소멸자 및 대입 연산자</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-01-02 01:00:00 &#43;0900 KST">2 January 2023</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="group flex text-right" href="/post/cpp/effective-cpp-04/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >[Effective C++] Chapter 4. 설계 및 선언</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-01-04 01:00:00 &#43;0900 KST">4 January 2023</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&rarr;</span
+                ><span class="ltr:hidden rtl:inline">&larr;</span></span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+          <div class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12">
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            ⓒ 2022. Pero.
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a>
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+    </div>
+  </div>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm sm:p-6 md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50"
+  data-url="https://frompero.github.io/"
+>
+  <div
+    id="search-modal"
+    class="top-20 mx-auto flex min-h-0 w-full max-w-3xl flex-col rounded-md border border-neutral-200 bg-neutral shadow-lg dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex flex-none items-center justify-between px-2">
+      <form class="flex min-w-0 flex-auto items-center">
+        <div class="flex h-8 w-8 items-center justify-center text-neutral-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="mx-1 flex h-12 flex-auto appearance-none bg-transparent focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex h-8 w-8 items-center justify-center text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto overflow-auto px-2">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C-Sharp on from Pero</title>
+    <link>https://frompero.github.io/categories/c-sharp/</link>
+    <description>Recent content in C-Sharp on from Pero</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>ⓒ 2022. Pero.</copyright>
+    <lastBuildDate>Tue, 19 Apr 2022 05:00:00 +0900</lastBuildDate>
+    <atom:link href="https://frompero.github.io/categories/c-sharp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[C#] 가비지 컬렉션</title>
+      <link>https://frompero.github.io/post/csharp/c-sharp-05/</link>
+      <pubDate>Tue, 19 Apr 2022 05:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/c-sharp-05/</guid>
+      <description>C, C++의 경우 # C, C++에서는 프로그래머가 수동으로 Heap 영역의 해제를 관리해주어야 한다.</description>
+    </item>
+    <item>
+      <title>[C#] 컬렉션</title>
+      <link>https://frompero.github.io/post/csharp/c-sharp-04/</link>
+      <pubDate>Tue, 19 Apr 2022 04:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/c-sharp-04/</guid>
+      <description>컬렉션이란?</description>
+    </item>
+    <item>
+      <title>[C#] virtual 메서드</title>
+      <link>https://frompero.github.io/post/csharp/c-sharp-03/</link>
+      <pubDate>Tue, 19 Apr 2022 03:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/c-sharp-03/</guid>
+      <description>virtual table # Image Source</description>
+    </item>
+    <item>
+      <title>[C#] 객체와 메모리</title>
+      <link>https://frompero.github.io/post/csharp/c-sharp-02/</link>
+      <pubDate>Tue, 19 Apr 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/c-sharp-02/</guid>
+      <description>프로그램을 실행하면 4개의 힙이 생긴다.</description>
+    </item>
+    <item>
+      <title>[C#] 컴파일 과정</title>
+      <link>https://frompero.github.io/post/csharp/c-sharp-01/</link>
+      <pubDate>Tue, 19 Apr 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/c-sharp-01/</guid>
+      <description>C# 컴파일 과정 # Image Source</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 19. 스레드와 태스크</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-19/</link>
+      <pubDate>Mon, 18 Apr 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-19/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 14. 람다식</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-14/</link>
+      <pubDate>Sun, 17 Apr 2022 03:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-14/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 13. 대리자와 이벤트</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-13/</link>
+      <pubDate>Sun, 17 Apr 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-13/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 11. 일반화 프로그래밍</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-11/</link>
+      <pubDate>Sat, 16 Apr 2022 05:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-11/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 10. 배열과 컬렉션 그리고 인덱서</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-10/</link>
+      <pubDate>Sat, 16 Apr 2022 04:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-10/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 9. 프로퍼티</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-09/</link>
+      <pubDate>Sat, 16 Apr 2022 03:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-09/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 8. 인터페이스와 추상 클래스</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-08/</link>
+      <pubDate>Sat, 16 Apr 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-08/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 7. 클래스</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-07/</link>
+      <pubDate>Sat, 16 Apr 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-07/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 6. 메소드로 코드 간추리기</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-06/</link>
+      <pubDate>Fri, 15 Apr 2022 04:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-06/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 5. 코드의 흐름 제어하기</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-05/</link>
+      <pubDate>Fri, 15 Apr 2022 03:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-05/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 4. 데이터를 가공하는 연산자</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-04/</link>
+      <pubDate>Fri, 15 Apr 2022 02:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-04/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+    <item>
+      <title>[This is C#] Chapter 3. 데이터 보관하기</title>
+      <link>https://frompero.github.io/post/csharp/this-is-c-sharp-03/</link>
+      <pubDate>Fri, 15 Apr 2022 01:00:00 +0900</pubDate>
+      <guid>https://frompero.github.io/post/csharp/this-is-c-sharp-03/</guid>
+      <description>이것이 C#이다 책을 읽고 공부한 노트입니다.</description>
+    </item>
+  </channel>
+</rss>
