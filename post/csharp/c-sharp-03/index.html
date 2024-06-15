@@ -15,7 +15,7 @@
 ><head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#FFFFFF" />
+  <meta name="theme-color" content="rgb(255,255,255)" />
   
   <title>[C#] virtual 메서드 &middot; from Pero</title>
     <meta name="title" content="[C#] virtual 메서드 &middot; from Pero" />
@@ -26,8 +26,8 @@
   
   <script
     type="text/javascript"
-    src="/js/appearance.min.74ad8406faea02f3e186ba5126249aaeed9073629e04b05037b903396b188724.js"
-    integrity="sha256-dK2EBvrqAvPhhrpRJiSaru2Qc2KeBLBQN7kDOWsYhyQ="
+    src="/js/appearance.min.022d0ebc3b46a335eb1c7ef79b7f2de143d7cd5156d433638592ef1ce5f8554e.js"
+    integrity="sha256-Ai0OvDtGozXrHH73m38t4UPXzVFW1DNjhZLvHOX4VU4="
   ></script>
   
   
@@ -42,8 +42,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.6c5433158ec0c1d16059b38ac10cae684e09531113f4db5a5b78d9e4333026bf.css"
-    integrity="sha256-bFQzFY7AwdFgWbOKwQyuaE4JUxET9NtaW3jZ5DMwJr8="
+    href="/css/main.bundle.min.afb4a97d267bd0c2e9391dd7b62a45afcd549fea29cb7747564f0cb36db70f1b.css"
+    integrity="sha256-r7SpfSZ70MLpOR3XtipFr81Un&#43;opy3dHVk8Ms223Dxs="
   />
   
     
@@ -160,7 +160,6 @@
   
   
   
-  
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QBM4YPD699"></script>
 <script>
 var doNotTrack = false;
@@ -181,7 +180,7 @@ if (!doNotTrack) {
   
 </head>
 <body
-    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32"
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 sm:px-14 md:px-24 lg:px-32 dark:bg-neutral-800 dark:text-neutral"
   >
     <div id="the-top" class="absolute flex self-center">
       <a
@@ -193,7 +192,7 @@ if (!doNotTrack) {
     </div>
     
     
-      <header class="py-6 font-semibold text-neutral-900 dark:text-neutral sm:py-10 print:hidden">
+      <header class="py-6 font-semibold text-neutral-900 print:hidden sm:py-10 dark:text-neutral">
   <nav class="flex items-start justify-between sm:items-center">
     
     <div class="z-40 flex flex-row items-center">
@@ -468,11 +467,11 @@ if (!doNotTrack) {
   <article>
     <header class="max-w-prose">
       
-      <h1 class="mb-8 mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
         [C#] virtual 메서드
       </h1>
       
-        <div class="mb-10 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        <div class="mb-12 mt-8 text-base text-neutral-500 print:hidden dark:text-neutral-400">
           
 
 
@@ -521,14 +520,14 @@ if (!doNotTrack) {
     <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
       
         <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
-          <div class="toc pe-5 lg:sticky lg:top-10 print:hidden">
+          <div class="toc pe-5 print:hidden lg:sticky lg:top-10">
             <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
   <summary
-    class="block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+    class="-ms-5 block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 lg:hidden dark:bg-neutral-700 dark:text-neutral-100"
   >
     Table of Contents
   </summary>
-  <div class="border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+  <div class="-ms-5 border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
     <li><a href="#virtual-table">virtual table</a></li>
@@ -558,6 +557,7 @@ if (!doNotTrack) {
   
 <figure><img src="/post/csharp/images/03-01-vtable.png" alt="가상 테이블" class="mx-auto my-0 rounded-md" />
 </figure>
+
 
 <a href="https://www.csharpstudy.com/DevNote/Article/28" target="_blank" rel="noreferrer">Image Source</a></p>
 <ul>
@@ -752,8 +752,10 @@ if (!doNotTrack) {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p><br /><br /></p>
 <h2 id="references" class="relative group">References <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#references" aria-label="Anchor">#</a></span></h2><ul>
-<li><a href="https://www.csharpstudy.com/DevNote/Article/28" target="_blank" rel="noreferrer">https://www.csharpstudy.com/DevNote/Article/28</a></li>
-<li><a href="https://blog.naver.com/bluekms21/222324955246" target="_blank" rel="noreferrer">https://blog.naver.com/bluekms21/222324955246</a></li>
+<li>
+<a href="https://www.csharpstudy.com/DevNote/Article/28" target="_blank" rel="noreferrer">https://www.csharpstudy.com/DevNote/Article/28</a></li>
+<li>
+<a href="https://blog.naver.com/bluekms21/222324955246" target="_blank" rel="noreferrer">https://blog.naver.com/bluekms21/222324955246</a></li>
 </ul>
 <p><br /><br /></p>
 
@@ -884,7 +886,7 @@ if (!doNotTrack) {
                 </span>
               </span>
               <span
-                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[-2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
                 ><span class="ltr:inline rtl:hidden">&rarr;</span
                 ><span class="ltr:hidden rtl:inline">&larr;</span></span
               >
@@ -974,7 +976,7 @@ if (!doNotTrack) {
 </footer>
 <div
   id="search-wrapper"
-  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm sm:p-6 md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50"
   data-url="https://frompero.github.io/"
 >
   <div

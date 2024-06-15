@@ -15,7 +15,7 @@
 ><head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#FFFFFF" />
+  <meta name="theme-color" content="rgb(255,255,255)" />
   
   <title>[OS] Chapter 2. 운영체제 개요 &middot; from Pero</title>
     <meta name="title" content="[OS] Chapter 2. 운영체제 개요 &middot; from Pero" />
@@ -26,8 +26,8 @@
   
   <script
     type="text/javascript"
-    src="/js/appearance.min.74ad8406faea02f3e186ba5126249aaeed9073629e04b05037b903396b188724.js"
-    integrity="sha256-dK2EBvrqAvPhhrpRJiSaru2Qc2KeBLBQN7kDOWsYhyQ="
+    src="/js/appearance.min.022d0ebc3b46a335eb1c7ef79b7f2de143d7cd5156d433638592ef1ce5f8554e.js"
+    integrity="sha256-Ai0OvDtGozXrHH73m38t4UPXzVFW1DNjhZLvHOX4VU4="
   ></script>
   
   
@@ -42,8 +42,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.6c5433158ec0c1d16059b38ac10cae684e09531113f4db5a5b78d9e4333026bf.css"
-    integrity="sha256-bFQzFY7AwdFgWbOKwQyuaE4JUxET9NtaW3jZ5DMwJr8="
+    href="/css/main.bundle.min.afb4a97d267bd0c2e9391dd7b62a45afcd549fea29cb7747564f0cb36db70f1b.css"
+    integrity="sha256-r7SpfSZ70MLpOR3XtipFr81Un&#43;opy3dHVk8Ms223Dxs="
   />
   
     
@@ -160,7 +160,6 @@
   
   
   
-  
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QBM4YPD699"></script>
 <script>
 var doNotTrack = false;
@@ -181,7 +180,7 @@ if (!doNotTrack) {
   
 </head>
 <body
-    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32"
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 sm:px-14 md:px-24 lg:px-32 dark:bg-neutral-800 dark:text-neutral"
   >
     <div id="the-top" class="absolute flex self-center">
       <a
@@ -193,7 +192,7 @@ if (!doNotTrack) {
     </div>
     
     
-      <header class="py-6 font-semibold text-neutral-900 dark:text-neutral sm:py-10 print:hidden">
+      <header class="py-6 font-semibold text-neutral-900 print:hidden sm:py-10 dark:text-neutral">
   <nav class="flex items-start justify-between sm:items-center">
     
     <div class="z-40 flex flex-row items-center">
@@ -468,11 +467,11 @@ if (!doNotTrack) {
   <article>
     <header class="max-w-prose">
       
-      <h1 class="mb-8 mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
         [OS] Chapter 2. 운영체제 개요
       </h1>
       
-        <div class="mb-10 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        <div class="mb-12 mt-8 text-base text-neutral-500 print:hidden dark:text-neutral-400">
           
 
 
@@ -521,14 +520,14 @@ if (!doNotTrack) {
     <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
       
         <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
-          <div class="toc pe-5 lg:sticky lg:top-10 print:hidden">
+          <div class="toc pe-5 print:hidden lg:sticky lg:top-10">
             <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
   <summary
-    class="block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+    class="-ms-5 block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 lg:hidden dark:bg-neutral-700 dark:text-neutral-100"
   >
     Table of Contents
   </summary>
-  <div class="border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+  <div class="-ms-5 border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
     <li><a href="#운영체제의-정의">운영체제의 정의</a></li>
@@ -552,7 +551,8 @@ if (!doNotTrack) {
       
       <div class="min-h-0 min-w-0 max-w-prose grow">
         <div style="text-align: right"> 
-<p><a href="http://www.yes24.com/Product/Goods/90124877" target="_blank" rel="noreferrer">운영체제와 정보기술의 원리</a> 강의를 듣고 공부한 노트입니다.</p>
+<p>
+<a href="http://www.yes24.com/Product/Goods/90124877" target="_blank" rel="noreferrer">운영체제와 정보기술의 원리</a> 강의를 듣고 공부한 노트입니다.</p>
 </div>
 <hr>
 <p><br /><br /></p>
@@ -712,28 +712,46 @@ if (!doNotTrack) {
 <ul>
 <li>매 시점 어떤 프로세스에게 CPU를 할당할 것인가?</li>
 <li>선입선출, 라운드 로빈, 우선순위 스케줄링&hellip;</li>
-<li><a href="/post/os/os-it-principles-06/#%ec%8a%a4%ec%bc%80%ec%a4%84%eb%a7%81-%ec%95%8c%ea%b3%a0%eb%a6%ac%ec%a6%98">CPU 스케줄링 알고리즘</a></li>
+<li>
+  
+    
+<a href="/post/os/os-it-principles-06/#%ec%8a%a4%ec%bc%80%ec%a4%84%eb%a7%81-%ec%95%8c%ea%b3%a0%eb%a6%ac%ec%a6%98">CPU 스케줄링 알고리즘</a></li>
 </ul>
 </li>
 <li><strong>메모리</strong> 자원 관리
 <ul>
 <li><strong>고정분할 방식, 가변분할방식, 가상메모리 방식&hellip;</strong></li>
-<li><a href="/post/os/os-it-principles-09/#%eb%ac%bc%eb%a6%ac%ec%a0%81-%eb%a9%94%eb%aa%a8%eb%a6%ac%ec%9d%98-%ed%95%a0%eb%8b%b9-%eb%b0%a9%ec%8b%9d">메모리 할당 방식</a></li>
-<li><a href="/post/os/os-it-principles-10/#%ed%8e%98%ec%9d%b4%ec%a7%80-%ea%b5%90%ec%b2%b4">가상 메모리 방식의 페이지 교체 알고리즘</a></li>
+<li>
+  
+    
+<a href="/post/os/os-it-principles-09/#%eb%ac%bc%eb%a6%ac%ec%a0%81-%eb%a9%94%eb%aa%a8%eb%a6%ac%ec%9d%98-%ed%95%a0%eb%8b%b9-%eb%b0%a9%ec%8b%9d">메모리 할당 방식</a></li>
+<li>
+  
+    
+<a href="/post/os/os-it-principles-10/#%ed%8e%98%ec%9d%b4%ec%a7%80-%ea%b5%90%ec%b2%b4">가상 메모리 방식의 페이지 교체 알고리즘</a></li>
 </ul>
 </li>
 <li><strong>파일</strong> 관리
 <ul>
 <li>디스크에 파일이 저장되는 방식 및 접근 권한을 관리한다.</li>
-<li><a href="/post/os/os-it-principles-11/">파일 시스템</a></li>
-<li><a href="/post/os/os-it-principles-12/">디스크 관리</a></li>
+<li>
+  
+    
+<a href="/post/os/os-it-principles-11/">파일 시스템</a></li>
+<li>
+  
+    
+<a href="/post/os/os-it-principles-12/">디스크 관리</a></li>
 </ul>
 </li>
 <li><strong>주변장치 및 입출력 장치</strong> 자원 관리
 <ul>
 <li><strong>인터럽트(interrupt)</strong> 를 통해 관리가 이루어진다.</li>
 <li>주변장치들은 CPU의 서비스가 필요해지면 신호(인터럽트)를 발생시켜서 서비스를 요청한다. 그러면 CPU가 잠시 하던 일을 멈추고 인터럽트에 의한 요청 서비스를 수행한다.</li>
-<li><a href="/post/os/os-it-principles-03/#%ec%9d%b8%ed%84%b0%eb%9f%bd%ed%8a%b8">인터럽트</a></li>
+<li>
+  
+    
+<a href="/post/os/os-it-principles-03/#%ec%9d%b8%ed%84%b0%eb%9f%bd%ed%8a%b8">인터럽트</a></li>
 </ul>
 </li>
 </ul>
@@ -866,7 +884,7 @@ if (!doNotTrack) {
                 </span>
               </span>
               <span
-                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[-2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
                 ><span class="ltr:inline rtl:hidden">&rarr;</span
                 ><span class="ltr:hidden rtl:inline">&larr;</span></span
               >
@@ -956,7 +974,7 @@ if (!doNotTrack) {
 </footer>
 <div
   id="search-wrapper"
-  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm sm:p-6 md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50"
   data-url="https://frompero.github.io/"
 >
   <div
