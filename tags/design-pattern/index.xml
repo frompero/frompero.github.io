@@ -4,7 +4,7 @@
     <title>Design Pattern on from Pero</title>
     <link>https://frompero.github.io/tags/design-pattern/</link>
     <description>Recent content in Design Pattern on from Pero</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>ⓒ 2022. Pero.</copyright>
     <lastBuildDate>Thu, 09 Feb 2023 01:00:00 +0900</lastBuildDate>
@@ -14,189 +14,189 @@
       <link>https://frompero.github.io/post/design_pattern/design-pattern-27/</link>
       <pubDate>Thu, 09 Feb 2023 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-27/</guid>
-      <description>게임 프로그래밍 패턴 책을 읽고 공부한 노트입니다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 게임 디커플링 : 컴포넌트, 이벤트 큐, 서비스 중개자</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-26/</link>
       <pubDate>Wed, 08 Feb 2023 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-26/</guid>
-      <description>게임 프로그래밍 패턴 책을 읽고 공부한 노트입니다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 게임 행동 : 바이트 코드, 하위 클래스 샌드박스, 타입 객체</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-25/</link>
       <pubDate>Tue, 07 Feb 2023 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-25/</guid>
-      <description>게임 프로그래밍 패턴 책을 읽고 공부한 노트입니다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 게임 순서 : 이중 버퍼, 게임 루프, 업데이트 메서드</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-24/</link>
       <pubDate>Mon, 06 Feb 2023 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-24/</guid>
-      <description>게임 프로그래밍 패턴 책을 읽고 공부한 노트입니다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 행동 패턴 10. 인터프리터 (Interpreter)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-23/</link>
       <pubDate>Tue, 23 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-23/</guid>
-      <description>인터프리터 패턴 # 어떤 언어에 대해 그 언어의 문법에 대한 표현을 정의하면서, 그 표현을 사용하여 해당 언어로 기술된 문장을 해석하는 해석자를 함께 정의한다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 행동 패턴 9. 이터레이터 (Iterator)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-22/</link>
       <pubDate>Mon, 22 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-22/</guid>
-      <description>이터레이터 (Iterator) # 내부 세부구조를 노출하지 않고, 어떤 집합 객체에 속한 요소들을 순차적으로 접근할 수 있는 방법을 제공한다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 행동 패턴 8. 커맨드 (Command)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-21/</link>
       <pubDate>Sun, 21 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-21/</guid>
-      <description>커맨드 패턴 # 메서드 호출을 실체화(객체화)한 것이다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 행동 패턴 8. 메멘토 (Memento)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-20/</link>
       <pubDate>Sat, 20 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-20/</guid>
-      <description>메멘토 (Memento) # 객체의 구현 세부 사항을 공개하지 않으면서(캡슐화), 해당 객체의 이전 상태를 저장하고 복원할 수 있게 해준다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 행동 패턴 7. 비지터 (Visitor)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-19/</link>
       <pubDate>Fri, 19 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-19/</guid>
-      <description>비지터 (Visitor) # 객체의 구조(Component)와 처리(Visitor)를 분리한다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 행동 패턴 6. 책임 연쇄 (Chain of responsibility)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-18/</link>
       <pubDate>Thu, 18 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-18/</guid>
-      <description>책임 연쇄 (Chain of responsibility) # 주어진 요청을 처리하기 위해서 객체 사슬을 생성하고, 이 요청은 사슬을 따라 전달되면서 적절한 핸들러에 의해 처리되게 한다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 행동 패턴 5. 템플릿 메서드 (Template Method)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-17/</link>
       <pubDate>Wed, 17 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-17/</guid>
-      <description>템플릿 메서드 (Template Method) # 부모 클래스에서 알고리즘의 골격을 정의하고, 해당 알고리즘의 구조를 변경하지 않고 자식 클래스들이 알고리즘의 특정 단계들을 오버라이드​(재정의)​ 할 수 있도록 한다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 행동 패턴 4. 상태 (State)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-16/</link>
       <pubDate>Tue, 16 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-16/</guid>
-      <description>상태 패턴 # 객체 내부의 상태가 바뀌었을 때 객체가 행동을 바꾸도록 한다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 행동 패턴 3. 전략 (Strategy)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-15/</link>
       <pubDate>Mon, 15 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-15/</guid>
-      <description>전략 (Strategy) # 바꿔 쓸 수 있는 행동을 캡슐화하고, 어떤 행동을 사용할지는 서브클래스에 맡긴다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 행동 패턴 2. 옵저버 (Observer)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-14/</link>
       <pubDate>Sun, 14 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-14/</guid>
-      <description>옵저버 패턴 # 주체와 관찰자 사이에 1 대 다 의존 관계를 정의해 둔다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 행동 패턴 1. 중재자 (Mediator)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-13/</link>
       <pubDate>Sat, 13 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-13/</guid>
-      <description>중재자 패턴 # 한 집합에 속해 있는 객체의 상호작용을 캡슐화하는 객체를 정의한다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 구조 패턴 7. 플라이웨이트 (Flyweight)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-12/</link>
       <pubDate>Fri, 12 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-12/</guid>
-      <description>플라이웨이트 패턴 # 공유를 통해 많은 수의 잘게 쪼개진 객체들을 효과적으로 사용한다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 구조 패턴 6. 컴포지트 (Composite) </title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-11/</link>
       <pubDate>Thu, 11 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-11/</guid>
-      <description>컴포지트 (Composite) # 부분과 전체를 나타내는 계층구조(트리)를 사용해서, 클라이언트가 개별 객체와 복합 객체를 똑같은 방법으로 다룰 수 있게 한다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 구조 패턴 5. 브리지 (Bridge) </title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-10/</link>
       <pubDate>Wed, 10 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-10/</guid>
-      <description>브리지 (Bridge) # 구현 부분(플랫폼) 과 추상화 부분(인터페이스) 을 각각 독립적으로 분리 하여서 서로 영향을 주지 않고 내부적으로 확장할 수 있게 한다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 구조 패턴 4. 프록시 (Proxy) </title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-09/</link>
       <pubDate>Tue, 09 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-09/</guid>
-      <description>프록시 (Proxy) # 다른 객체에 대한 접근을 제어(보호)하기 위한 대리자 역할을 수행한다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 구조 패턴 3. 퍼사드 (Facade)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-08/</link>
       <pubDate>Mon, 08 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-08/</guid>
-      <description>퍼사드 (Facade) # 서브시스템 내의 인터페이스 집합에 대한 획일화된 하나의 인터페이스를 제공한다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 구조 패턴 2. 어댑터 (Adapter)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-07/</link>
       <pubDate>Sun, 07 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-07/</guid>
-      <description>어댑터 (Adapter) # 클래스의 인터페이스를 다른 인터페이스로 변환해서 호환시켜준다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 구조 패턴 1. 데코레이터 (Decorator)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-06/</link>
       <pubDate>Sat, 06 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-06/</guid>
-      <description>데코레이터 (Decorator) # 동적으로 런타임에 객체에 추가적인 책임을 부여한다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 행동 패턴 5. 프로토타입 (Prototype)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-05/</link>
       <pubDate>Fri, 05 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-05/</guid>
-      <description>프로토타입 (Prototype) # 기존 인스턴스를 복제하여 새로운 인스턴스를 만드는 방법이다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 행동 패턴 4. 빌더 (Builder)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-04/</link>
       <pubDate>Thu, 04 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-04/</guid>
-      <description>빌더 (Builder) # 객체를 생성하는 클래스와 표현(조립) 하는 클래스를 분리해서, 동일한 절차를 거치더라도 서로 다른 표현(조립된 완성품) 을 생성하는 방법을 제공한다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 행동 패턴 3. 추상 팩토리 (Abstract Factory)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-03/</link>
       <pubDate>Wed, 03 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-03/</guid>
-      <description>추상 팩토리 (Abstract Factory) # 구체적인 클래스를 몰라도 일련의 객체군을 만들 수 있는 인터페이스를 제공한다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 행동 패턴 2. 팩토리 메서드 (Factory Method)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-02/</link>
       <pubDate>Tue, 02 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-02/</guid>
-      <description>팩토리 메서드 (Factory Method) # 객체를 만들 수 있는 인터페이스를 제공한다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Design Pattern] 행동 패턴 1. 싱글톤 (Singleton)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-01/</link>
       <pubDate>Mon, 01 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-01/</guid>
-      <description>싱글톤 패턴 # 객체의 인스턴스를 오직 한 개만 생성하고, 그 한 개의 인스턴스에 대한 전역적인 접근점을 제공한다.</description>
+      <description></description>
     </item>
   </channel>
 </rss>

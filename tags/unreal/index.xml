@@ -4,7 +4,7 @@
     <title>Unreal on from Pero</title>
     <link>https://frompero.github.io/tags/unreal/</link>
     <description>Recent content in Unreal on from Pero</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>ⓒ 2022. Pero.</copyright>
     <lastBuildDate>Wed, 09 Aug 2023 01:00:00 +0900</lastBuildDate>
@@ -14,63 +14,63 @@
       <link>https://frompero.github.io/post/unreal/unreal-11/</link>
       <pubDate>Wed, 09 Aug 2023 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/unreal/unreal-11/</guid>
-      <description>행동 트리 # 트리를 기반으로 계층화되어있다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Unreal] 언리얼 충돌 처리 방법, 월드 트레이싱 함수</title>
       <link>https://frompero.github.io/post/unreal/unreal-10/</link>
       <pubDate>Tue, 08 Aug 2023 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/unreal/unreal-10/</guid>
-      <description>충돌체를 만들자!</description>
+      <description></description>
     </item>
     <item>
       <title>[Unreal] 언리얼 프로퍼티, 함수 지정자</title>
       <link>https://frompero.github.io/post/unreal/unreal-09/</link>
       <pubDate>Mon, 07 Aug 2023 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/unreal/unreal-09/</guid>
-      <description>UPROPERTY() 에디터 관련 지정자 # 지정자 Edit Visible DefaultsOnly 블루프린트 프로퍼티 창에서 .</description>
+      <description></description>
     </item>
     <item>
       <title>[Unreal] 언리얼 메모리 관리, GC, 스마트 포인터</title>
       <link>https://frompero.github.io/post/unreal/unreal-06/</link>
       <pubDate>Fri, 04 Aug 2023 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/unreal/unreal-06/</guid>
-      <description>C++ 포인터의 메모리 관리 문제점 # 메모리 누수(Leak) new 를 했지만 delete 를 까먹어서 힙에 메모리가 그대로 남아 있는 문제.</description>
+      <description></description>
     </item>
     <item>
       <title>[Unreal] 언리얼 컨테이너 라이브러리</title>
       <link>https://frompero.github.io/post/unreal/unreal-05/</link>
       <pubDate>Wed, 02 Aug 2023 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/unreal/unreal-05/</guid>
-      <description>언리얼 컨테이너 라이브러리 # Unreal Container Library (UCL) 언리얼이 자체적으로 제작해서 제공하는 라이브러리이다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Unreal] 언리얼 구조체</title>
       <link>https://frompero.github.io/post/unreal/unreal-04/</link>
       <pubDate>Tue, 01 Aug 2023 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/unreal/unreal-04/</guid>
-      <description>언리얼 구조체의 특징 # 언리얼 공식 문서 : 언리얼 구조체 언리얼 구조체는 언리얼 오브젝트와 다르다!</description>
+      <description></description>
     </item>
     <item>
       <title>[Unreal] 언리얼 문자열 처리 방식</title>
       <link>https://frompero.github.io/post/unreal/unreal-03/</link>
       <pubDate>Mon, 31 Jul 2023 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/unreal/unreal-03/</guid>
-      <description>UTF-16에 대해 알아보자 # 문자열 처리방식은 ANSI, ASCII, EUC-KR, CP949, UTF-8 BOM, UTF-8, UTF-16 등 정말 다양하다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Unreal] 언리얼 오브젝트, 엔진 프레임 워크, 액터의 라이프 사이클</title>
       <link>https://frompero.github.io/post/unreal/unreal-02/</link>
       <pubDate>Thu, 30 Mar 2023 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/unreal/unreal-02/</guid>
-      <description>언리얼 오브젝트 # 언리얼은 ‘언리얼 오브젝트’라는 새로운 단위 객체를 만들었다.</description>
+      <description></description>
     </item>
     <item>
       <title>[Unreal] 언리얼 빌드 시스템</title>
       <link>https://frompero.github.io/post/unreal/unreal-01/</link>
       <pubDate>Wed, 29 Mar 2023 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/unreal/unreal-01/</guid>
-      <description>모듈이란?</description>
+      <description></description>
     </item>
   </channel>
 </rss>

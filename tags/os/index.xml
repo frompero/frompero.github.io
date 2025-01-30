@@ -4,7 +4,7 @@
     <title>OS on from Pero</title>
     <link>https://frompero.github.io/tags/os/</link>
     <description>Recent content in OS on from Pero</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>ⓒ 2022. Pero.</copyright>
     <lastBuildDate>Wed, 27 Jul 2022 01:00:00 +0900</lastBuildDate>
@@ -14,70 +14,70 @@
       <link>https://frompero.github.io/post/os/os-it-principles-12/</link>
       <pubDate>Wed, 27 Jul 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/os/os-it-principles-12/</guid>
-      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+      <description></description>
     </item>
     <item>
       <title>[OS] Chapter 11. 파일 시스템</title>
       <link>https://frompero.github.io/post/os/os-it-principles-11/</link>
       <pubDate>Wed, 20 Jul 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/os/os-it-principles-11/</guid>
-      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+      <description></description>
     </item>
     <item>
       <title>[OS] Chapter 10. 가상 메모리</title>
       <link>https://frompero.github.io/post/os/os-it-principles-10/</link>
       <pubDate>Wed, 13 Jul 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/os/os-it-principles-10/</guid>
-      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+      <description></description>
     </item>
     <item>
       <title>[OS] Chapter 9. 메모리 관리</title>
       <link>https://frompero.github.io/post/os/os-it-principles-09/</link>
       <pubDate>Wed, 06 Jul 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/os/os-it-principles-09/</guid>
-      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+      <description></description>
     </item>
     <item>
       <title>[OS] Chapter 8. 데드락</title>
       <link>https://frompero.github.io/post/os/os-it-principles-08/</link>
       <pubDate>Thu, 30 Jun 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/os/os-it-principles-08/</guid>
-      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+      <description></description>
     </item>
     <item>
       <title>[OS] Chapter 7. 프로세스 동기화</title>
       <link>https://frompero.github.io/post/os/os-it-principles-07/</link>
       <pubDate>Thu, 23 Jun 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/os/os-it-principles-07/</guid>
-      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+      <description></description>
     </item>
     <item>
       <title>[OS] Chapter 6. CPU 스케줄링</title>
       <link>https://frompero.github.io/post/os/os-it-principles-06/</link>
       <pubDate>Thu, 16 Jun 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/os/os-it-principles-06/</guid>
-      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+      <description></description>
     </item>
     <item>
       <title>[OS] Chapter 5. 프로세스 관리</title>
       <link>https://frompero.github.io/post/os/os-it-principles-05/</link>
       <pubDate>Thu, 09 Jun 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/os/os-it-principles-05/</guid>
-      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+      <description></description>
     </item>
     <item>
       <title>[OS] Chapter 3, 4. 컴퓨터 시스템의 동작 원리</title>
       <link>https://frompero.github.io/post/os/os-it-principles-03/</link>
       <pubDate>Thu, 02 Jun 2022 02:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/os/os-it-principles-03/</guid>
-      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+      <description></description>
     </item>
     <item>
       <title>[OS] Chapter 2. 운영체제 개요</title>
       <link>https://frompero.github.io/post/os/os-it-principles-02/</link>
       <pubDate>Thu, 02 Jun 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/os/os-it-principles-02/</guid>
-      <description>운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.</description>
+      <description></description>
     </item>
   </channel>
 </rss>

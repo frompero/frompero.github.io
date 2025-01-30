@@ -15,7 +15,7 @@
 ><head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="rgb(255,255,255)" />
+  <meta name="theme-color" content="#FFFFFF" />
   
   <title>[OS] Chapter 8. 데드락 &middot; from Pero</title>
     <meta name="title" content="[OS] Chapter 8. 데드락 &middot; from Pero" />
@@ -26,8 +26,8 @@
   
   <script
     type="text/javascript"
-    src="/js/appearance.min.022d0ebc3b46a335eb1c7ef79b7f2de143d7cd5156d433638592ef1ce5f8554e.js"
-    integrity="sha256-Ai0OvDtGozXrHH73m38t4UPXzVFW1DNjhZLvHOX4VU4="
+    src="/js/appearance.min.8a082f81b27f3cb2ee528df0b0bdc39787034cf2cc34d4669fbc9977c929023c.js"
+    integrity="sha256-iggvgbJ/PLLuUo3wsL3Dl4cDTPLMNNRmn7yZd8kpAjw="
   ></script>
   
   
@@ -42,8 +42,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.afb4a97d267bd0c2e9391dd7b62a45afcd549fea29cb7747564f0cb36db70f1b.css"
-    integrity="sha256-r7SpfSZ70MLpOR3XtipFr81Un&#43;opy3dHVk8Ms223Dxs="
+    href="/css/main.bundle.min.ec6700bbd5e666d262990b83730f4d882bf420547b1fb0fad5539eeb591afdbd.css"
+    integrity="sha256-7GcAu9XmZtJimQuDcw9NiCv0IFR7H7D61VOe61ka/b0="
   />
   
     
@@ -66,8 +66,8 @@
       defer
       type="text/javascript"
       id="script-bundle"
-      src="/js/main.bundle.min.5b9218820e6c6b9f04b4c5a03dffd0d57bc9189f511ee80ea74222de3a608e2f.js"
-      integrity="sha256-W5IYgg5sa58EtMWgPf/Q1XvJGJ9RHugOp0Ii3jpgji8="
+      src="/js/main.bundle.min.bb487ad6073790cb02c354ee8c5f8822c42c5513e10bf7a86bbe8f82118cd1fc.js"
+      integrity="sha256-u0h61gc3kMsCw1TujF&#43;IIsQsVRPhC/eoa76PghGM0fw="
       data-copy="Copy"
       data-copied="Copied"
     ></script>
@@ -77,7 +77,7 @@
     name="description"
     content="
       
-        운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.
+        
       
     "
   />
@@ -99,16 +99,19 @@
   
   
   
-  <meta property="og:title" content="[OS] Chapter 8. 데드락" />
-<meta property="og:description" content="운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://frompero.github.io/post/os/os-it-principles-08/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-06-30T01:00:00+09:00" />
-<meta property="article:modified_time" content="2022-06-30T01:00:00+09:00" />
+  <meta property="og:url" content="https://frompero.github.io/post/os/os-it-principles-08/">
+  <meta property="og:site_name" content="from Pero">
+  <meta property="og:title" content="[OS] Chapter 8. 데드락">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2022-06-30T01:00:00+09:00">
+    <meta property="article:modified_time" content="2022-06-30T01:00:00+09:00">
+    <meta property="article:tag" content="OS">
 
-
-  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="[OS] Chapter 8. 데드락"/>
-<meta name="twitter:description" content="운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다."/>
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="[OS] Chapter 8. 데드락">
 
   
   <script type="application/ld+json">
@@ -119,7 +122,7 @@
     "name": "[OS] Chapter 8. 데드락",
     "headline": "[OS] Chapter 8. 데드락",
     
-    "abstract": "운영체제와 정보기술의 원리 강의를 듣고 공부한 노트입니다.",
+    
     "inLanguage": "en",
     "url" : "https:\/\/frompero.github.io\/post\/os\/os-it-principles-08\/",
     "author" : {
@@ -138,7 +141,38 @@
     "wordCount": "692"
   }
   </script>
-
+    
+    <script type="application/ld+json">
+    {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+     {
+       "@type": "ListItem",
+       "item": "https://frompero.github.io/",
+       "name": "From Pero",
+       "position": 1
+     },
+     {
+       "@type": "ListItem",
+       "item": "https://frompero.github.io/post/",
+       "name": "Posts",
+       "position": 2
+     },
+     {
+       "@type": "ListItem",
+       "item": "https://frompero.github.io/categories/os/",
+       "name": "OS",
+       "position": 3
+     },
+     {
+       "@type": "ListItem",
+       "name": "[ Os] Chapter 8. 데드락",
+       "position": 4
+     }
+   ]
+ }
+  </script>
 
   
   <meta name="author" content="Pero" />
@@ -154,23 +188,173 @@
 
 
 
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/lib/katex/katex.min.68e17230ccd917b97b7a2def38a8108918599d8aa4f580bfb8cce5e13d23e4de43dcaba5f9000553cb2c10d0d1300aabfe5c433a3305ebd752609f0762a63e59.css"
+    integrity="sha512-aOFyMMzZF7l7ei3vOKgQiRhZnYqk9YC/uMzl4T0j5N5D3Kul&#43;QAFU8ssENDRMAqr/lxDOjMF69dSYJ8HYqY&#43;WQ=="
+  />
+  
+  
+  <script
+    defer
+    src="/lib/katex/katex.min.50f14e69d6a8da7128ae3b63974c544ed377c36d096b5e3750f114e84c89d668b9301d9b0ed3248969aa183aa2e3bc4d2c1e73d5dcb7d462890c45a18d424589.js"
+    integrity="sha512-UPFOadao2nEorjtjl0xUTtN3w20Ja143UPEU6EyJ1mi5MB2bDtMkiWmqGDqi47xNLB5z1dy31GKJDEWhjUJFiQ=="
+  ></script>
+  
+  
+  <script
+    defer
+    src="/lib/katex/auto-render.min.0fd4b77657c8f990f0c547e9562ac7c8d3be1e8783ccb5eda9c84ef2c0b3cf1e481c340dbc2f453fcfdd7d5364dff9716087f9c8be230ffb1bf874e972605383.js"
+    integrity="sha512-D9S3dlfI&#43;ZDwxUfpVirHyNO&#43;HoeDzLXtqchO8sCzzx5IHDQNvC9FP8/dfVNk3/lxYIf5yL4jD/sb&#43;HTpcmBTgw=="
+    onload="renderMathInElement(document.body);"
+  ></script>
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
 
   
   
   
   
   
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QBM4YPD699"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-QBM4YPD699', { 'anonymize_ip': false });
-}
-</script>
-
+  
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-QBM4YPD699"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-QBM4YPD699');
+        }
+      </script>
 
 
   
@@ -180,7 +364,7 @@ if (!doNotTrack) {
   
 </head>
 <body
-    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 sm:px-14 md:px-24 lg:px-32 dark:bg-neutral-800 dark:text-neutral"
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32"
   >
     <div id="the-top" class="absolute flex self-center">
       <a
@@ -192,7 +376,7 @@ if (!doNotTrack) {
     </div>
     
     
-      <header class="py-6 font-semibold text-neutral-900 print:hidden sm:py-10 dark:text-neutral">
+      <header class="py-6 font-semibold text-neutral-900 dark:text-neutral sm:py-10 print:hidden">
   <nav class="flex items-start justify-between sm:items-center">
     
     <div class="z-40 flex flex-row items-center">
@@ -467,11 +651,11 @@ if (!doNotTrack) {
   <article>
     <header class="max-w-prose">
       
-      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      <h1 class="mb-8 mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
         [OS] Chapter 8. 데드락
       </h1>
       
-        <div class="mb-12 mt-8 text-base text-neutral-500 print:hidden dark:text-neutral-400">
+        <div class="mb-10 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
           
 
 
@@ -520,14 +704,14 @@ if (!doNotTrack) {
     <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
       
         <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
-          <div class="toc pe-5 print:hidden lg:sticky lg:top-10">
+          <div class="toc pe-5 lg:sticky lg:top-10 print:hidden">
             <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
   <summary
-    class="-ms-5 block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 lg:hidden dark:bg-neutral-700 dark:text-neutral-100"
+    class="block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
   >
     Table of Contents
   </summary>
-  <div class="-ms-5 border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+  <div class="border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
     <li><a href="#데드락">데드락</a></li>
@@ -560,8 +744,7 @@ if (!doNotTrack) {
       
       <div class="min-h-0 min-w-0 max-w-prose grow">
         <div style="text-align: right"> 
-<p>
-<a href="http://www.yes24.com/Product/Goods/90124877" target="_blank" rel="noreferrer">운영체제와 정보기술의 원리</a> 강의를 듣고 공부한 노트입니다.</p>
+<p><a href="http://www.yes24.com/Product/Goods/90124877" target="_blank" rel="noreferrer">운영체제와 정보기술의 원리</a> 강의를 듣고 공부한 노트입니다.</p>
 </div>
 <hr>
 <p><br /><br /></p>
@@ -576,30 +759,30 @@ if (!doNotTrack) {
 </ul>
 <p><br /><br /></p>
 <h2 id="데드락-발생의-4가지-조건" class="relative group">데드락 발생의 4가지 조건 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%eb%8d%b0%eb%93%9c%eb%9d%bd-%eb%b0%9c%ec%83%9d%ec%9d%98-4%ea%b0%80%ec%a7%80-%ec%a1%b0%ea%b1%b4" aria-label="Anchor">#</a></span></h2><table>
-<thead>
-<tr>
-<th>조건</th>
-<th>설명</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>상호 배제 <br />(Mutual exclusion)</strong></td>
-<td>매 순간 <u>하나의 프로세스만</u> 자원을 획득할 수 있다.</td>
-</tr>
-<tr>
-<td><strong>보유 대기 <br />(Hold and wait)</strong></td>
-<td>자원을 가진 프로세스가 다른 자원을 기다릴 때, <br /><u>보유 자원을 놓지 않고</u> 계속 가지고 있다.</td>
-</tr>
-<tr>
-<td><strong>비선점 <br />(No preemption)</strong></td>
-<td>프로세스의 자원을 <u>강제로 빼앗을 수 없다.</u></td>
-</tr>
-<tr>
-<td><strong>순환 대기 <br />(Circular wait)</strong></td>
-<td>자원을 기다리는 프로세스 간에 <u>사이클</u>이 형성되어 있다.</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>조건</th>
+          <th>설명</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>상호 배제 <br />(Mutual exclusion)</strong></td>
+          <td>매 순간 <u>하나의 프로세스만</u> 자원을 획득할 수 있다.</td>
+      </tr>
+      <tr>
+          <td><strong>보유 대기 <br />(Hold and wait)</strong></td>
+          <td>자원을 가진 프로세스가 다른 자원을 기다릴 때, <br /><u>보유 자원을 놓지 않고</u> 계속 가지고 있다.</td>
+      </tr>
+      <tr>
+          <td><strong>비선점 <br />(No preemption)</strong></td>
+          <td>프로세스의 자원을 <u>강제로 빼앗을 수 없다.</u></td>
+      </tr>
+      <tr>
+          <td><strong>순환 대기 <br />(Circular wait)</strong></td>
+          <td>자원을 기다리는 프로세스 간에 <u>사이클</u>이 형성되어 있다.</td>
+      </tr>
+  </tbody>
 </table>
 <p><br /><br /></p>
 <h2 id="데드락-해결-방법" class="relative group">데드락 해결 방법 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%eb%8d%b0%eb%93%9c%eb%9d%bd-%ed%95%b4%ea%b2%b0-%eb%b0%a9%eb%b2%95" aria-label="Anchor">#</a></span></h2><h3 id="예방" class="relative group">예방 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ec%98%88%eb%b0%a9" aria-label="Anchor">#</a></span></h3><ul>
@@ -611,30 +794,30 @@ if (!doNotTrack) {
 <li>만족되지 않도록 배제 할 수 있는 조건 살펴보기</li>
 </ul>
 <table>
-<thead>
-<tr>
-<th>조건</th>
-<th>설명</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>상호 배제 <br />(Mutual exclusion)</strong></td>
-<td>공유하면 안 되는 자원은 이 조건을 반드시 성립해야 해서 <u>배제 불가능.</u></td>
-</tr>
-<tr>
-<td><strong>보유 대기 <br />(Hold and wait)</strong></td>
-<td><u>자원을 요청할 때 자원을 가지지 않도록</u> 하면 된다. <br />방법1. 프로세스 시작 시 모든 필요한 자원을 할당받게 한다. <br />방법2. 자원이 필요한 경우 보유 자원을 모두 놓고 다시 요청한다.</td>
-</tr>
-<tr>
-<td><strong>비선점 <br />(No preemption)</strong></td>
-<td>다른 자원을 요청할 때 자원을 보유한 자원을 빼앗을 수 있도록 한다. (<u>선점</u>) <br />상태를 쉽게 저장하고 복구할 수 있는 자원에서 주로 사용한다. (CPU, memory)</td>
-</tr>
-<tr>
-<td><strong>순환 대기 <br />(Circular wait)</strong></td>
-<td>모든 자원 유형에 할당 순서를 정해서 <u>정해진 순서대로만 자원을 할당</u>한다.<br />예를 들어, 1번, 3번 자원을 획득해야지만 5번 자원을 획득할 수 있는 것이다.  <br />자원 A(순서 3)을 보유 중인데 자원 B(순서 1)을 할당받으려면 우선 자원 A를 해제해야한다.  <br />하지만, 자원에 대한 이용률(Utilization)이 낮아지고, Throughput 감소, Starvation이 발생할 수 있다.</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>조건</th>
+          <th>설명</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>상호 배제 <br />(Mutual exclusion)</strong></td>
+          <td>공유하면 안 되는 자원은 이 조건을 반드시 성립해야 해서 <u>배제 불가능.</u></td>
+      </tr>
+      <tr>
+          <td><strong>보유 대기 <br />(Hold and wait)</strong></td>
+          <td><u>자원을 요청할 때 자원을 가지지 않도록</u> 하면 된다. <br />방법1. 프로세스 시작 시 모든 필요한 자원을 할당받게 한다. <br />방법2. 자원이 필요한 경우 보유 자원을 모두 놓고 다시 요청한다.</td>
+      </tr>
+      <tr>
+          <td><strong>비선점 <br />(No preemption)</strong></td>
+          <td>다른 자원을 요청할 때 자원을 보유한 자원을 빼앗을 수 있도록 한다. (<u>선점</u>) <br />상태를 쉽게 저장하고 복구할 수 있는 자원에서 주로 사용한다. (CPU, memory)</td>
+      </tr>
+      <tr>
+          <td><strong>순환 대기 <br />(Circular wait)</strong></td>
+          <td>모든 자원 유형에 할당 순서를 정해서 <u>정해진 순서대로만 자원을 할당</u>한다.<br />예를 들어, 1번, 3번 자원을 획득해야지만 5번 자원을 획득할 수 있는 것이다.  <br />자원 A(순서 3)을 보유 중인데 자원 B(순서 1)을 할당받으려면 우선 자원 A를 해제해야한다.  <br />하지만, 자원에 대한 이용률(Utilization)이 낮아지고, Throughput 감소, Starvation이 발생할 수 있다.</td>
+      </tr>
+  </tbody>
 </table>
 <p><br /><br /></p>
 <h3 id="회피" class="relative group">회피 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%ed%9a%8c%ed%94%bc" aria-label="Anchor">#</a></span></h3><ul>
@@ -654,7 +837,6 @@ if (!doNotTrack) {
   
 <figure><img src="/post/os/images/08-01-safeUnsafe.png" alt="safe, unsaafe, deadlock" class="mx-auto my-0 rounded-md" />
 </figure>
-
 
 <a href="https://www.cs.csustan.edu/~john/Classes/CS3750/Notes/Chap08/08_Deadlocks.html" target="_blank" rel="noreferrer">Image Source</a></p>
 <ul>
@@ -678,22 +860,22 @@ if (!doNotTrack) {
 <ul>
 <li>2가지 회피 알고리즘
 <table>
-<thead>
-<tr>
-<th>상황</th>
-<th>알고리즘</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>자원의 인스턴스가 1개일 때</td>
-<td><strong>자원 할당 그래프 알고리즘<br />(Resource Allocation Grapeh algorithm)</strong></td>
-</tr>
-<tr>
-<td>자원의 인스턴스가 여러개 일 때</td>
-<td><strong>은행원 알고리즘<br />(Banker&rsquo;s algorithm)</strong></td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>상황</th>
+          <th>알고리즘</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>자원의 인스턴스가 1개일 때</td>
+          <td><strong>자원 할당 그래프 알고리즘<br />(Resource Allocation Grapeh algorithm)</strong></td>
+      </tr>
+      <tr>
+          <td>자원의 인스턴스가 여러개 일 때</td>
+          <td><strong>은행원 알고리즘<br />(Banker&rsquo;s algorithm)</strong></td>
+      </tr>
+  </tbody>
 </table>
 </li>
 </ul>
@@ -709,7 +891,6 @@ if (!doNotTrack) {
   
 <figure><img src="/post/os/images/08-02-resourceAllocGraph.png" alt="자원 할당 그래프" class="mx-auto my-0 rounded-md" />
 </figure>
-
 
 <a href="https://www.cs.csustan.edu/~john/Classes/CS3750/Notes/Chap08/08_Deadlocks.html" target="_blank" rel="noreferrer">Image Source</a></p>
 <ul>
@@ -730,34 +911,34 @@ if (!doNotTrack) {
 </li>
 </ul>
 <table>
-<thead>
-<tr>
-<th>프로세스명</th>
-<th>Max</th>
-<th>Allocation</th>
-<th>Need</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>P0</td>
-<td>10</td>
-<td>5</td>
-<td>5</td>
-</tr>
-<tr>
-<td>P1</td>
-<td>4</td>
-<td>2</td>
-<td>2</td>
-</tr>
-<tr>
-<td>P2</td>
-<td>9</td>
-<td>2</td>
-<td>7</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>프로세스명</th>
+          <th>Max</th>
+          <th>Allocation</th>
+          <th>Need</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>P0</td>
+          <td>10</td>
+          <td>5</td>
+          <td>5</td>
+      </tr>
+      <tr>
+          <td>P1</td>
+          <td>4</td>
+          <td>2</td>
+          <td>2</td>
+      </tr>
+      <tr>
+          <td>P2</td>
+          <td>9</td>
+          <td>2</td>
+          <td>7</td>
+      </tr>
+  </tbody>
 </table>
 <ul>
 <li>여기서 총 자원의 양이 12라고 한다면, 현재 Allocation은 9이므로, Available은 3이다.
@@ -777,22 +958,22 @@ if (!doNotTrack) {
 <ul>
 <li>2가지 탐지 및 회복 알고리즘
 <table>
-<thead>
-<tr>
-<th>상황</th>
-<th>알고리즘</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>자원의 인스턴스가 1개일 때</td>
-<td>자원 할당 그래프의 변형인 <strong>대기 그래프(Wait-for graph)</strong></td>
-</tr>
-<tr>
-<td>자원의 인스턴스가 여러개 일 때</td>
-<td>은행원 알고리즘과 유사한 방법</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>상황</th>
+          <th>알고리즘</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>자원의 인스턴스가 1개일 때</td>
+          <td>자원 할당 그래프의 변형인 <strong>대기 그래프(Wait-for graph)</strong></td>
+      </tr>
+      <tr>
+          <td>자원의 인스턴스가 여러개 일 때</td>
+          <td>은행원 알고리즘과 유사한 방법</td>
+      </tr>
+  </tbody>
 </table>
 </li>
 </ul>
@@ -808,7 +989,6 @@ if (!doNotTrack) {
   
 <figure><img src="/post/os/images/08-03-waitForGraph.png" alt="대기 그래프" class="mx-auto my-0 rounded-md" />
 </figure>
-
 
 <a href="https://www.cs.csustan.edu/~john/Classes/CS3750/Notes/Chap08/08_Deadlocks.html" target="_blank" rel="noreferrer">Image Source</a></p>
 <ul>
@@ -978,7 +1158,7 @@ if (!doNotTrack) {
                 </span>
               </span>
               <span
-                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[-2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
                 ><span class="ltr:inline rtl:hidden">&rarr;</span
                 ><span class="ltr:hidden rtl:inline">&larr;</span></span
               >
@@ -1023,19 +1203,23 @@ if (!doNotTrack) {
     </footer>
   </article>
 
-        
-          <div class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12">
-            <a
-              href="#the-top"
-              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
-              aria-label="Scroll to top"
-              title="Scroll to top"
-            >
-              &uarr;
-            </a>
-          </div>
-        
-      </main><footer class="py-10 print:hidden">
+      </main>
+      
+        <div
+          class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12"
+          id="to-top"
+          hidden="true"
+        >
+          <a
+            href="#the-top"
+            class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+            aria-label="Scroll to top"
+            title="Scroll to top"
+          >
+            &uarr;
+          </a>
+        </div>
+      <footer class="py-10 print:hidden">
   
   
   <div class="flex items-center justify-between">
@@ -1068,7 +1252,7 @@ if (!doNotTrack) {
 </footer>
 <div
   id="search-wrapper"
-  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm sm:p-6 md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
   data-url="https://frompero.github.io/"
 >
   <div
