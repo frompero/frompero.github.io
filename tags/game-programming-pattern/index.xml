@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Game Programming Pattern on from Pero</title>
+    <link>http://localhost:1313/tags/game-programming-pattern/</link>
+    <description>Recent content in Game Programming Pattern on from Pero</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>ⓒ 2022. Pero.</copyright>
+    <lastBuildDate>Mon, 06 Feb 2023 01:00:00 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/game-programming-pattern/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[디자인 패턴] 게임 순서 : 이중 버퍼, 게임 루프, 업데이트 메서드</title>
+      <link>http://localhost:1313/post/design_pattern/design-pattern-24/</link>
+      <pubDate>Mon, 06 Feb 2023 01:00:00 +0900</pubDate>
+      <guid>http://localhost:1313/post/design_pattern/design-pattern-24/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

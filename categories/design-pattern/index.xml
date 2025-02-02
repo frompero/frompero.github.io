@@ -10,189 +10,189 @@
     <lastBuildDate>Thu, 09 Feb 2023 01:00:00 +0900</lastBuildDate>
     <atom:link href="https://frompero.github.io/categories/design-pattern/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>[Design Pattern] 게임 최적화 : 데이터 지역성, 더티 플래그, 오브젝트 풀, 공간 분할</title>
+      <title>[게임 프로그래밍 패턴] 게임 최적화 : 데이터 지역성, 더티 플래그, 오브젝트 풀, 공간 분할</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-27/</link>
       <pubDate>Thu, 09 Feb 2023 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-27/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 게임 디커플링 : 컴포넌트, 이벤트 큐, 서비스 중개자</title>
+      <title>[게임 프로그래밍 패턴] 게임 디커플링 : 컴포넌트, 이벤트 큐, 서비스 중개자</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-26/</link>
       <pubDate>Wed, 08 Feb 2023 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-26/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 게임 행동 : 바이트 코드, 하위 클래스 샌드박스, 타입 객체</title>
+      <title>[게임 프로그래밍 패턴] 게임 행동 : 바이트 코드, 하위 클래스 샌드박스, 타입 객체</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-25/</link>
       <pubDate>Tue, 07 Feb 2023 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-25/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 게임 순서 : 이중 버퍼, 게임 루프, 업데이트 메서드</title>
+      <title>[게임 프로그래밍 패턴] 게임 순서 : 이중 버퍼, 게임 루프, 업데이트 메서드</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-24/</link>
       <pubDate>Mon, 06 Feb 2023 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-24/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 행동 패턴 10. 인터프리터 (Interpreter)</title>
+      <title>[디자인 패턴] 행동 패턴 10. 인터프리터 (Interpreter)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-23/</link>
       <pubDate>Tue, 23 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-23/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 행동 패턴 9. 이터레이터 (Iterator)</title>
+      <title>[디자인 패턴] 행동 패턴 9. 이터레이터 (Iterator)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-22/</link>
       <pubDate>Mon, 22 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-22/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 행동 패턴 8. 커맨드 (Command)</title>
+      <title>[디자인 패턴] 행동 패턴 8. 커맨드 (Command)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-21/</link>
       <pubDate>Sun, 21 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-21/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 행동 패턴 8. 메멘토 (Memento)</title>
+      <title>[디자인 패턴] 행동 패턴 8. 메멘토 (Memento)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-20/</link>
       <pubDate>Sat, 20 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-20/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 행동 패턴 7. 비지터 (Visitor)</title>
+      <title>[디자인 패턴] 행동 패턴 7. 비지터 (Visitor)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-19/</link>
       <pubDate>Fri, 19 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-19/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 행동 패턴 6. 책임 연쇄 (Chain of responsibility)</title>
+      <title>[디자인 패턴] 행동 패턴 6. 책임 연쇄 (Chain of responsibility)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-18/</link>
       <pubDate>Thu, 18 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-18/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 행동 패턴 5. 템플릿 메서드 (Template Method)</title>
+      <title>[디자인 패턴] 행동 패턴 5. 템플릿 메서드 (Template Method)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-17/</link>
       <pubDate>Wed, 17 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-17/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 행동 패턴 4. 상태 (State)</title>
+      <title>[디자인 패턴] 행동 패턴 4. 상태 (State)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-16/</link>
       <pubDate>Tue, 16 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-16/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 행동 패턴 3. 전략 (Strategy)</title>
+      <title>[디자인 패턴] 행동 패턴 3. 전략 (Strategy)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-15/</link>
       <pubDate>Mon, 15 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-15/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 행동 패턴 2. 옵저버 (Observer)</title>
+      <title>[디자인 패턴] 행동 패턴 2. 옵저버 (Observer)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-14/</link>
       <pubDate>Sun, 14 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-14/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 행동 패턴 1. 중재자 (Mediator)</title>
+      <title>[디자인 패턴] 행동 패턴 1. 중재자 (Mediator)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-13/</link>
       <pubDate>Sat, 13 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-13/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 구조 패턴 7. 플라이웨이트 (Flyweight)</title>
+      <title>[디자인 패턴] 구조 패턴 7. 플라이웨이트 (Flyweight)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-12/</link>
       <pubDate>Fri, 12 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-12/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 구조 패턴 6. 컴포지트 (Composite) </title>
+      <title>[디자인 패턴] 구조 패턴 6. 컴포지트 (Composite) </title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-11/</link>
       <pubDate>Thu, 11 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-11/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 구조 패턴 5. 브리지 (Bridge) </title>
+      <title>[디자인 패턴] 구조 패턴 5. 브리지 (Bridge) </title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-10/</link>
       <pubDate>Wed, 10 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-10/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 구조 패턴 4. 프록시 (Proxy) </title>
+      <title>[디자인 패턴] 구조 패턴 4. 프록시 (Proxy) </title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-09/</link>
       <pubDate>Tue, 09 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-09/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 구조 패턴 3. 퍼사드 (Facade)</title>
+      <title>[디자인 패턴] 구조 패턴 3. 퍼사드 (Facade)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-08/</link>
       <pubDate>Mon, 08 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-08/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 구조 패턴 2. 어댑터 (Adapter)</title>
+      <title>[디자인 패턴] 구조 패턴 2. 어댑터 (Adapter)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-07/</link>
       <pubDate>Sun, 07 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-07/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 구조 패턴 1. 데코레이터 (Decorator)</title>
+      <title>[디자인 패턴] 구조 패턴 1. 데코레이터 (Decorator)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-06/</link>
       <pubDate>Sat, 06 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-06/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 행동 패턴 5. 프로토타입 (Prototype)</title>
+      <title>[디자인 패턴] 행동 패턴 5. 프로토타입 (Prototype)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-05/</link>
       <pubDate>Fri, 05 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-05/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 행동 패턴 4. 빌더 (Builder)</title>
+      <title>[디자인 패턴] 행동 패턴 4. 빌더 (Builder)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-04/</link>
       <pubDate>Thu, 04 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-04/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 행동 패턴 3. 추상 팩토리 (Abstract Factory)</title>
+      <title>[디자인 패턴] 행동 패턴 3. 추상 팩토리 (Abstract Factory)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-03/</link>
       <pubDate>Wed, 03 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-03/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 행동 패턴 2. 팩토리 메서드 (Factory Method)</title>
+      <title>[디자인 패턴] 행동 패턴 2. 팩토리 메서드 (Factory Method)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-02/</link>
       <pubDate>Tue, 02 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-02/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Design Pattern] 행동 패턴 1. 싱글톤 (Singleton)</title>
+      <title>[디자인 패턴] 행동 패턴 1. 싱글톤 (Singleton)</title>
       <link>https://frompero.github.io/post/design_pattern/design-pattern-01/</link>
       <pubDate>Mon, 01 Aug 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/design_pattern/design-pattern-01/</guid>

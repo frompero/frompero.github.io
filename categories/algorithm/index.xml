@@ -10,42 +10,42 @@
     <lastBuildDate>Sat, 19 Nov 2022 01:00:00 +0900</lastBuildDate>
     <atom:link href="https://frompero.github.io/categories/algorithm/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>[Algorithm] 유용한 수학</title>
+      <title>[알고리즘] 유용한 수학</title>
       <link>https://frompero.github.io/post/algorithm/algorithm-06/</link>
       <pubDate>Sat, 19 Nov 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/algorithm/algorithm-06/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Algorithm] 정렬, 탐색 알고리즘</title>
+      <title>[알고리즘] 정렬, 탐색 알고리즘</title>
       <link>https://frompero.github.io/post/algorithm/algorithm-05/</link>
       <pubDate>Sat, 12 Nov 2022 02:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/algorithm/algorithm-05/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Algorithm] 수학적 개념과 알고리즘</title>
+      <title>[알고리즘] 수학적 개념과 알고리즘</title>
       <link>https://frompero.github.io/post/algorithm/algorithm-04/</link>
       <pubDate>Sat, 12 Nov 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/algorithm/algorithm-04/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Algorithm] 자료구조 - 그래프</title>
+      <title>[알고리즘] 자료구조 - 그래프</title>
       <link>https://frompero.github.io/post/algorithm/algorithm-03/</link>
       <pubDate>Sat, 05 Nov 2022 03:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/algorithm/algorithm-03/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Algorithm] 자료구조 - 트리</title>
+      <title>[알고리즘] 자료구조 - 트리</title>
       <link>https://frompero.github.io/post/algorithm/algorithm-02/</link>
       <pubDate>Sat, 05 Nov 2022 02:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/algorithm/algorithm-02/</guid>
       <description></description>
     </item>
     <item>
-      <title>[Algorithm] 자료구조 - 배열, 문자열, 연결리스트, 스택, 큐</title>
+      <title>[알고리즘] 자료구조 - 배열, 문자열, 연결리스트, 스택, 큐</title>
       <link>https://frompero.github.io/post/algorithm/algorithm-01/</link>
       <pubDate>Sat, 05 Nov 2022 01:00:00 +0900</pubDate>
       <guid>https://frompero.github.io/post/algorithm/algorithm-01/</guid>
